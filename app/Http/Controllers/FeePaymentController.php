@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\FeePayment;
 use App\Models\DuesAmount;
+use App\Models\FeeStructure;
+
 
 
 class FeePaymentController extends Controller
@@ -42,9 +44,9 @@ class FeePaymentController extends Controller
         $start_month = $request->start_month;
         $end_month = $request->end_month;
 
-        $month = "month_".$end_month;
+        $month = "month_".$end_month-1;
  
-   //  Update Class FeePayment
+      // Update FeePayment
         if(FeePayment::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->exists())
         {
 
@@ -53,32 +55,130 @@ class FeePaymentController extends Controller
             {
             $FeePayment->class = $class;
             $FeePayment->class_year = $select_year;
-            $FeePayment->$month = $payment+$discount;
+            // $FeePayment->$month = $payment+$discount;
+
+            $MonthFeeAmount =  0;
+            for ($i = $start_month; $i <= $end_month; $i++) 
+            {
+                $month = 'month_'.$i;
+                $FeePayment->$month =  FeeStructure::where('class', $class)->sum($month);
+                $MonthFeeAmount = $MonthFeeAmount + FeeStructure::where('class', $class)->sum($month);
+                
+                // check if it is the last iteration of the loop
+                if ($i == $end_month) {
+                    $MonthFeeAmount = $MonthFeeAmount + FeeStructure::where('class', $class)->sum($month);
+                    $LastMonth = $totalFee - $payment;
+                    $FeePayment->$month = FeeStructure::where('class', $class)->sum($month) - $LastMonth; 
+                }
+            }
+
             $FeePayment->save();
             echo "FeePayment Update Success";
             }
 
-            if($payment+$discount == $totalFee)
+            $FeeDue = DuesAmount::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->first();
+            $FeeDue->class = $class;
+            $FeeDue->class_year = $select_year;
+            $FeeDue->roll_no = $roll;
+            $FeeDue->$month = $totalFee - $payment;
+            for ($i = 0; $i <= $end_month; $i++) 
             {
-                if(DuesAmount::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->exists())
-                {
+              $month = 'month_'.$i;
+              $FeeDue->$month =  "0"; 
 
-                }
+
+              if ($i == $end_month) 
+              {
+                $FeeDue->$month = $totalFee - $payment; 
+              }
             }
-            else{
-                echo "yes_dues :". $totalFee-$payment+$discount;
-            }
+
+            $FeeDue->save();
 
         }
+        // Insert FeePayment
         else{
             $FeePayment = new FeePayment();
             $FeePayment->class = $class;
             $FeePayment->class_year = $select_year;
             $FeePayment->roll_no = $roll;
-            $FeePayment->$month = $payment+$discount;
+            // $FeePayment->$month = $payment+$discount;
 
+
+            $MonthFeeAmount =  0;
+            for ($i = $start_month; $i <= $end_month; $i++) 
+            {
+                $month = 'month_'.$i;
+                $FeePayment->$month =  FeeStructure::where('class', $class)->sum($month);
+                $MonthFeeAmount = $MonthFeeAmount + FeeStructure::where('class', $class)->sum($month);
+                
+                // check if it is the last iteration of the loop
+                if ($i == $end_month) {
+                    $MonthFeeAmount = $MonthFeeAmount + FeeStructure::where('class', $class)->sum($month);
+                    $LastMonth = $totalFee - $payment;
+                    $FeePayment->$month = FeeStructure::where('class', $class)->sum($month) - $LastMonth; 
+                }
+            }
+
+            
             $FeePayment->save();
             echo "Insert Sucess";
+
+
+        }
+
+        // Dues Amount Insert 
+        if($payment+$discount != $totalFee)
+        {
+            if(DuesAmount::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->exists())
+            {
+                echo "old_yes_dues :". $totalFee-$payment+$discount;
+
+                $FeeDue = DuesAmount::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->first();
+                $FeeDue->class = $class;
+                $FeeDue->class_year = $select_year;
+                $FeeDue->roll_no = $roll;
+                $FeeDue->$month = $totalFee - $payment;
+                for ($i = 0; $i <= $end_month; $i++) 
+                {
+                  $month = 'month_'.$i;
+                  $FeeDue->$month =  "0"; 
+
+
+                  if ($i == $end_month) 
+                  {
+                    $FeeDue->$month = $totalFee - $payment; 
+                  }
+                }
+
+                $FeeDue->save();
+
+
+            }
+            else{
+                echo "new_yes_dues :". $totalFee-$payment+$discount;
+
+                $FeeDue = new DuesAmount();
+                $FeeDue->class = $class;
+                $FeeDue->class_year = $select_year;
+                $FeeDue->roll_no = $roll;
+                $FeeDue->$month = $totalFee - $payment;
+                for ($i = 0; $i <= $end_month; $i++) 
+                {
+                  $month = 'month_'.$i;
+                  $FeeDue->$month =  "0"; 
+
+                  if ($i == $end_month) 
+                  {
+                    $FeeDue->$month = $totalFee - $payment; 
+                  }
+                }
+
+                $FeeDue->save();
+            }
+        }
+        else{
+            echo "no_dues :". $totalFee-$payment+$discount;
         }
     }
 

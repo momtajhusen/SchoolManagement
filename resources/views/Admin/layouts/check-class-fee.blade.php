@@ -237,7 +237,7 @@
                                                 <div class="p-2 d-flex">
                                                     <div class="w-50 form-group m-1">
                                                         <label class="text-light">Discount</label>
-                                                        <input type="number" value="0000" id="discount" name="discount" placeholder="Discount" class="form-control discount">
+                                                        <input type="number" value="0000" id="discount" name="discount" placeholder="Discount" class="form-control discount d-none">
                                                     </div>
                                                     <div class="w-50 form-group m-1">
                                                         <label class="text-light">Payment</label>
@@ -262,11 +262,6 @@
 
                                             </div>
 
-                                    
-
-                                        
-                            
-                                    
                                             <!-- <div class="col-12 form-group mg-t-8">
                                                 <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
                                                 <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>

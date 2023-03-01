@@ -86,7 +86,7 @@ class CheckClassFeeController extends Controller
                 /////////// End Fee Type With Amount  ///////////
 
 
-                /////////// Start Payment and Dues Check ///////////
+                /////////// Start Payment Check ///////////
                     $FeePayment = []; 
                     $StudentRolls = FeePayment::select('roll_no')->where('class', $class)->distinct()->get()->pluck('roll_no');
 
@@ -100,23 +100,24 @@ class CheckClassFeeController extends Controller
 
                         $FeePayment[$StudentRoll] = $total;
                     }
-                /////////// End Payment and Dues Check ///////////
+                /////////// End Payment Check ///////////
 
-                /////////// Start Payment and Dues Check ///////////
+                /////////// Start  Dues Check ///////////
                 $DuesAmount = []; 
                 $DuesRolls = DuesAmount::select('roll_no')->where('class', $class)->distinct()->get()->pluck('roll_no');
 
-                foreach ($DuesRolls as $DuesRoll) {
+                foreach ($DuesRolls as $DuesRoll) 
+                {
                     $total = 0;
                     $fee = DuesAmount::where('class', $class)->where('roll_no', $DuesRoll)->first();
 
-                    for ($i = $start_month; $i <= $end_month; $i++) {
+                    for ($i =  0; $i <= $end_month-1; $i++) {
                         $total += $fee->{'month_'.$i};
                     }
 
                     $DuesAmount[$DuesRoll] = $total;
                 }
-            /////////// End Payment and Dues Check ///////////
+            /////////// End  Dues Check ///////////
 
  
                return response(array("data"=>$this->allData, 'feeData' => $feeData, "totalFees" => $totalFees,"FeeTypeWithAmount"=>$FeeTypeWithAmount,"FeePayment"=>$FeePayment, "DuesAmount"=>$DuesAmount),200);

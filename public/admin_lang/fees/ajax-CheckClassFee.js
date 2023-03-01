@@ -2,7 +2,8 @@ $(document).ready(function() {
 
       var year = NepaliFunctions.GetCurrentBsDate().year;
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) 
+      {
         var yearOption = year - i;
         $(".select-year").append(`
           <option value="${yearOption}">${yearOption}</option>
@@ -126,27 +127,31 @@ $(document).ready(function() {
                         $("#dues_"+roll_no).html(DuesAmount[student_roll]);
                         $("#btn_"+roll_no).attr("dues", DuesAmount[student_roll]); 
 
-                        // if(DuesAmount[student_roll] == "0")
-                        // {
-                        //   $("#dues_"+roll_no).addClass("d-none");
-                        // }
-                        // else{
-                        //   $("#dues_"+roll_no).removeClass("d-none");
-                        // }
+                        // alert(response.totalFees+" "+FeePayment[student_roll]+" "+DuesAmount[student_roll]);
+
+                        if(DuesAmount[student_roll] == "0" && response.totalFees == FeePayment[student_roll])
+                        {
+                          $("#btn_"+roll_no).addClass("d-none");
+                        }
+                        else{
+                          $("#btn_"+roll_no).removeClass("d-none");
+                        }
                     }
                     else{
                         if($("#roll_"+roll_no).html() == roll)
                       {
+                        // alert(response.totalFees+" "+response.FeePayment[roll]+" "+DuesAmount[roll]);
+
                         $("#dues_"+roll_no).html(currentDues);
                         $("#btn_"+roll_no).attr("dues", currentDues); 
 
-                        // if(currentDues == "0")
-                        // {
-                        //   $("#dues_"+roll_no).addClass("d-none");
-                        // }
-                        // else{
-                        //   $("#dues_"+roll_no).removeClass("d-none");
-                        // }
+                        if(currentDues == "0" && response.totalFees == response.FeePayment[roll])
+                        {
+                          $("#btn_"+roll_no).addClass("d-none");
+                        }
+                        else{
+                          $("#btn_"+roll_no).removeClass("d-none");
+                        }
                       }
                     }
                   }
