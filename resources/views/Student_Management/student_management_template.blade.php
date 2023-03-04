@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>POLAR STAR BOARDING SCHOOL</title>
+    <title>STUDENT MANAGEMENT</title>
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,6 +43,10 @@
 
 <!-- Modernize js -->
 <script src="{{ asset('../admin_template_assets/js/modernizr-3.6.0.min.js')}}"></script>
+
+
+<!-- Logout ajax -->
+<script src="{{ asset('../admin_lang/accountLogin/ajax-logout-js')}}"></script>
 
 <!-- Nepali Clander css -->
 <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css" rel="stylesheet" type="text/css"/>
@@ -127,12 +131,12 @@
                                     <li><a href="#"><i class="flaticon-list"></i>Task</a></li>
                                     <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a></li>
                                     <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                                    <li><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                    <li class="student-management-logout-btn"><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
                                 </ul>
                             </div>
                         </div>
                     </li>
-                    <li class="navbar-item dropdown header-message">
+                    {{-- <li class="navbar-item dropdown header-message">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <i class="far fa-envelope"></i>
@@ -207,8 +211,8 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
-                    <li class="navbar-item dropdown header-notification">
+                    </li> --}}
+                    {{-- <li class="navbar-item dropdown header-notification">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <i class="far fa-bell"></i>
@@ -250,8 +254,8 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
-                     <li class="navbar-item dropdown header-language">
+                    </li> --}}
+                     {{-- <li class="navbar-item dropdown header-language">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" 
                         data-toggle="dropdown" aria-expanded="false"><i class="fas fa-globe-americas"></i>EN</a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -260,7 +264,7 @@
                             <a class="dropdown-item" href="#">Franchis</a>
                             <a class="dropdown-item" href="#">Chiness</a>
                         </div>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>

@@ -105,17 +105,16 @@ class CheckClassFeeController extends Controller
                 /////////// Start  Dues Check ///////////
                 $DuesAmount = []; 
                 $DuesRolls = DuesAmount::select('roll_no')->where('class', $class)->distinct()->get()->pluck('roll_no');
-
                 foreach ($DuesRolls as $DuesRoll) 
                 {
-                    $total = 0;
-                    $fee = DuesAmount::where('class', $class)->where('roll_no', $DuesRoll)->first();
+                    $totalDues = 0;
+                    $dues = DuesAmount::where('class', $class)->where('roll_no', $DuesRoll)->first();
 
                     for ($i =  0; $i <= $end_month-1; $i++) {
-                        $total += $fee->{'month_'.$i};
+                        $totalDues += $dues->{'month_'.$i};
                     }
 
-                    $DuesAmount[$DuesRoll] = $total;
+                    $DuesAmount[$DuesRoll] = $totalDues;
                 }
             /////////// End  Dues Check ///////////
 

@@ -70,7 +70,7 @@ $(document).ready(function(){
               <td>`+gender+`</td>
               <td>`+classes+`</td>
               <td>`+section+`</td>
-              <td>Jakir Husen</td>
+              <td>Father Name</td>
               <td>`+village+` `+ward_no+`, `+municipality+`, `+district+` </td>
               <td>`+dob+`</td>
               <td>`+phone+`</td>

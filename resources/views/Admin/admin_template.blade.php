@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>POLAR STAR BOARDING SCHOOL</title>
+    <title>SUPER ADMIN</title>
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -272,7 +272,7 @@
                             </a>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Students</span></a>
+                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Students Management</span></a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('all-student')}}" class="nav-link"><i class="fas fa-angle-right"></i>All
@@ -281,68 +281,32 @@
  
                                 <li class="nav-item">
                                     <a href="{{route('add-students')}}" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Admission Form</a>
+                                            class="fas fa-angle-right"></i>Student Registration</a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link"><i
+                                            class="fas fa-angle-right"></i>Update Student Details</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href=" #" class="nav-link"><i
+                                            class="fas fa-angle-right"></i>Student Parents</a>
+                                </li>
+
                                 <li class="nav-item">
                                     <a href="student-promotion.html" class="nav-link"><i
                                             class="fas fa-angle-right"></i>Student Promotion</a>
                                 </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i
-                                    class="flaticon-multiple-users-silhouette"></i><span>Teachers</span></a>
-                            <ul class="nav sub-group-menu">
+
                                 <li class="nav-item">
-                                    <a href="{{route('all-teachers')}}" class="nav-link"><i class="fas fa-angle-right"></i>All
-                                        Teachers</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="teacher-details.html" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Teacher Details</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('add-teacher')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add
-                                        Teacher</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="teacher-payment.html" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Payment</a>
+                                    <a href="#" class="nav-link"><i
+                                            class="fas fa-angle-right"></i>Generate Id Card</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Parents</span></a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="all-parents.html" class="nav-link"><i class="fas fa-angle-right"></i>All
-                                        Parents</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="parents-details.html" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Parents Details</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="add-parents.html" class="nav-link"><i class="fas fa-angle-right"></i>Add
-                                        Parent</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-books"></i><span>Library</span></a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="all-book.html" class="nav-link"><i class="fas fa-angle-right"></i>All
-                                        Book</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="add-book.html" class="nav-link"><i class="fas fa-angle-right"></i>Add New
-                                        Book</a>
-                                </li>
-                            </ul>
-                        </li> -->
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Acconunt</span></a>
+                            <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Acconunt Management</span></a>
                             <ul class="nav sub-group-menu">
                             <li class="nav-item">
                                     <a href="{{route('account-dashboard')}}" class="nav-link"><i class="fas fa-angle-right"></i>
@@ -372,6 +336,59 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i
+                                    class="flaticon-multiple-users-silhouette"></i><span>Teachers</span></a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item">
+                                    <a href="{{route('all-teachers')}}" class="nav-link"><i class="fas fa-angle-right"></i>All
+                                        Teachers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="teacher-details.html" class="nav-link"><i
+                                            class="fas fa-angle-right"></i>Teacher Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('add-teacher')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add
+                                        Teacher</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="teacher-payment.html" class="nav-link"><i
+                                            class="fas fa-angle-right"></i>Payment</a>
+                                </li>
+                            </ul>
+                        </li>
+                        {{-- <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Parents</span></a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item">
+                                    <a href="all-parents.html" class="nav-link"><i class="fas fa-angle-right"></i>All
+                                        Parents</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="parents-details.html" class="nav-link"><i
+                                            class="fas fa-angle-right"></i>Parents Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="add-parents.html" class="nav-link"><i class="fas fa-angle-right"></i>Add
+                                        Parent</a>
+                                </li>
+                            </ul>
+                        </li> --}}
+                        <!-- <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-books"></i><span>Library</span></a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item">
+                                    <a href="all-book.html" class="nav-link"><i class="fas fa-angle-right"></i>All
+                                        Book</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="add-book.html" class="nav-link"><i class="fas fa-angle-right"></i>Add New
+                                        Book</a>
+                                </li>
+                            </ul>
+                        </li> -->
+                
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i
                                     class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Class</span></a>

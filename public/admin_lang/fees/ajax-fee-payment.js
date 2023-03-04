@@ -43,6 +43,7 @@ $(document).ready(function(){
                 success:function(response)
                 {
                   alert(response);
+                  $(".search-btn").click();
                 }
               });
 

@@ -111,45 +111,28 @@ Route::post('/fee-payment', 'App\Http\Controllers\FeePaymentController@store');
 
 
 ///////////////////////////// Start Student Management /////////////////////////////
-// View Route
-Route::get('student-management', function(){
-    return view('Student_Management/layouts/dashboard');
-})->name('student_management');
+//Student Management Login 
+Route::post('/student-management-login', 'App\Http\Controllers\AccountLoginController@studentManagement');
+Route::group(['middleware'=>'studentManagementLogin'],function()
+{
+    // View Route 
+    Route::view('student-management', 'Student_Management/layouts/dashboard')->name('student_management');
+    Route::view('student-management/dashboard', 'Student_Management/layouts/dashboard')->name('school_management_dashboard');
+    Route::view('student-management/student-registration', 'Student_Management/layouts/student_registration')->name('school_management_student_registration');
+    Route::view('student-management/registration-list', 'Student_Management/layouts/registration_list')->name('school_management_registration_list');
+    Route::view('student-management/check-fee-stracture', 'Student_Management/layouts/check-fee-stracture')->name('school_management_check_fee_stracture');
+    Route::view('student-management/student-parents', 'Student_Management/layouts/student_parents')->name('school_management_student_parents');
+    Route::view('student-management/update-student-details', 'Student_Management/layouts/update_student_details')->name('school_management_update_student_details');
+    Route::view('student-management/generate-id-card', 'Student_Management/layouts/generate_id_card')->name('school_management_generate_id_card');
 
-Route::get('student-management/student-parents', function(){
-    return view('Student_Management/layouts/student_parents');
-})->name('school_management_student_parents');
+    // Get & Post route 
+    Route::get('/get-all-parents', 'App\Http\Controllers\ParentsController@index');
+    Route::get('/registration-list', 'App\Http\Controllers\StudentController@registration_list');
+    Route::get('/student-update', 'App\Http\Controllers\StudentController@update');
 
-Route::get('student-management/student-registration', function(){
-    return view('Student_Management/layouts/student_registration');
-})->name('school_management_student_registration');
-
-Route::get('student-management/dashboard', function(){
-    return view('Student_Management/layouts/dashboard');
-})->name('school_management_dashboard');
-
-Route::get('student-management/registration-list', function(){
-    return view('Student_Management/layouts/registration_list');
-})->name('school_management_registration_list');
-
-Route::get('student-management/check-fee-stracture', function(){
-    return view('Student_Management/layouts/check-fee-stracture');
-})->name('school_management_check_fee_stracture');
-
-Route::get('student-management/generate-id-card', function(){
-    return view('Student_Management/layouts/generate_id_card');
-})->name('school_management_generate_id_card');
-
-Route::get('student-management/update-student-details', function(){
-    return view('Student_Management/layouts/update_student_details');
-})->name('school_management_update_student_details');
-
-
-// Post Get route 
-Route::get('/get-all-parents', 'App\Http\Controllers\ParentsController@index');
-Route::get('/registration-list', 'App\Http\Controllers\StudentController@registration_list');
-Route::get('/student-update', 'App\Http\Controllers\StudentController@update');
-
+    //Student Management Logout 
+    Route::post('/student-management-logout', 'App\Http\Controllers\AccountLoginController@StudentManagementLogout');
+});
 ///////////////////////////// Start Student Management /////////////////////////////
 
 ///////////////////////////// Start Account Management /////////////////////////////
@@ -160,6 +143,16 @@ Route::get('account-management', function(){
 ///////////////////////////// End Account Management /////////////////////////////
 
 
+
+///////////////////////////// Start Login /////////////////////////////
+Route::get('account-login', function()
+{
+    return view('account_login');
+})->name('school_login');
+
+
+
+///////////////////////////// End  Login /////////////////////////////
 
 
 

@@ -1,18 +1,5 @@
 $(document).ready(function() {
 
-      var year = NepaliFunctions.GetCurrentBsDate().year;
-
-      for (let i = 0; i < 10; i++) 
-      {
-        var yearOption = year - i;
-        $(".select-year").append(`
-          <option value="${yearOption}">${yearOption}</option>
-        `);
-      }
-
-     $(".start-month").val(NepaliFunctions.GetCurrentBsDate().month - 1);
-     $(".end-month").val(NepaliFunctions.GetCurrentBsDate().month - 1);
-
     $(".search-btn").click(function() {
 
       var classvalue = $(".class-select").val();
@@ -25,8 +12,6 @@ $(document).ready(function() {
     var start_month_text = $('.start-month').find('option:selected').text();
     var end_month_text = $('.end-month').find('option:selected').text();
 
-
- 
   if(classvalue != "")
   {
 
@@ -54,7 +39,7 @@ $(document).ready(function() {
             {
               console.log(response);
               $(".class-table").html(``);
-              // $(".class-select").append(`<option value="">Select Class</option>`);
+              
               var count = 0;
               var number = 1;
               var roll_number = 0;
@@ -92,7 +77,7 @@ $(document).ready(function() {
                           <td id="payment_`+roll_no+`">0</td>
                           <td id="dues_`+roll_no+`" dues_roll="`+roll_no+`">0</td>
                           <td> 
-                              <button type="button" id="btn_`+roll_no+`" roll="`+roll_no+`" s_class="`+classes+`" s_name="`+first_name+' '+middle_name+' '+last_name+`" total="`+response.totalFees+`" dues="0" payment="0" class="btn btn-primary invoice-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              <button type="button" id="btn_`+roll_no+`" roll="`+roll_no+`" s_class="`+classes+`" s_name="`+first_name+' '+middle_name+' '+last_name+`" total="`+response.totalFees+`" dues="0" payment="0" class="btn p-2 px-3 border-danger btn-dark invoice-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Invoice
                               </button>
                           </td>
@@ -122,34 +107,35 @@ $(document).ready(function() {
                   ////////// Start Check Dues//////////
                   var DuesAmount = response.DuesAmount;
                   for (const [roll, currentDues] of Object.entries(DuesAmount)) 
-                  {
-                    if(student_roll != ""){
+                  { 
+                    // with roll 
+                    if(student_roll != "")
+                    {
                         $("#dues_"+roll_no).html(DuesAmount[student_roll]);
                         $("#btn_"+roll_no).attr("dues", DuesAmount[student_roll]); 
 
-                        // alert(response.totalFees+" "+FeePayment[student_roll]+" "+DuesAmount[student_roll]);
-
-                        if(DuesAmount[student_roll] == "0" && response.totalFees == FeePayment[student_roll])
+                        if(DuesAmount[student_roll] == "0" && FeePayment[student_roll] == response.totalFees)
                         {
-                          $("#btn_"+roll_no).addClass("d-none");
+                          $("#btn_"+student_roll).addClass("d-none");
                         }
-                        else{
-                          $("#btn_"+roll_no).removeClass("d-none");
+                        else
+                        {
+                          $("#btn_"+student_roll).removeClass("d-none");
                         }
                     }
+                    // without roll 
                     else{
                         if($("#roll_"+roll_no).html() == roll)
                       {
-                        // alert(response.totalFees+" "+response.FeePayment[roll]+" "+DuesAmount[roll]);
-
                         $("#dues_"+roll_no).html(currentDues);
                         $("#btn_"+roll_no).attr("dues", currentDues); 
 
-                        if(currentDues == "0" && response.totalFees == response.FeePayment[roll])
+                        if(currentDues == "0" && response.FeePayment[roll] == response.totalFees)
                         {
                           $("#btn_"+roll_no).addClass("d-none");
                         }
-                        else{
+                        else
+                        {
                           $("#btn_"+roll_no).removeClass("d-none");
                         }
                       }
@@ -191,11 +177,10 @@ $(document).ready(function() {
     
 })
 
-
 // Invoice Btn Click Data Set in Model 
 $(document).ready(function(){
   $("body").on("click", ".invoice-btn", function() {
-    $(".modal").delay(1000).animate({ scrollTop: $(document).height() }, 1000);
+    $(".modal").delay(500).animate({ scrollTop: $(document).height() }, 1000);
      
       var roll = $(this).attr("roll");
       var s_class = $(this).attr("s_class");
@@ -245,13 +230,56 @@ $("input[type='number']").on("keypress", function(e) {
 });
 });
 
-
+// Selector Month than and Year
 $(document).ready(function(){
-  $("#payment").on("input", function(e) 
+
+  // Select year 10 year below
+  var year = NepaliFunctions.GetCurrentBsDate().year;
+  for (let i = 0; i < 10; i++) 
   {
-       alert();
+    var yearOption = year - i;
+    $(".select-year").append(`
+      <option value="${yearOption}">${yearOption}</option>
+    `);
+  }
+
+  $(".start-month").change(function() {
+    var select_month = parseInt($(this).val());
+    var end_month_select = $(".end-month");
+    var options = end_month_select.children();
+    
+    options.each(function(index) {
+      if (index < select_month) {
+        $(this).addClass("d-none");
+      } else {
+        $(this).removeClass("d-none");
+      }
+    });
+    
+    // Set the first visible option as selected
+    var first_visible_option = options.not('.d-none').first();
+    end_month_select.val(first_visible_option.val());
   });
+
+  // Set select_month to 11 and trigger change event
+  var select_month = NepaliFunctions.GetCurrentBsDate().month - 1;
+  $(".start-month").val(select_month).change();
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

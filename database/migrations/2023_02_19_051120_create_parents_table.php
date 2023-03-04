@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('Kids_id',10)->nullable();
             $table->text('father_image')->nullable();
-            $table->string('father_name',20);
-            $table->bigInteger('father_mobile');
+            $table->string('father_name',20)->nullable();
+            $table->bigInteger('father_mobile')->nullable();
             $table->string('father_education',30)->nullable();
             $table->text('mother_image')->nullable();
-            $table->string('mother_name',20);
+            $table->string('mother_name',20)->nullable();
             $table->bigInteger('mother_mobile')->nullable();
             $table->string('mother_education',30)->nullable();
             $table->string('login_email',30)->nullable();

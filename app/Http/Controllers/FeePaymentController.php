@@ -178,7 +178,23 @@ class FeePaymentController extends Controller
             }
         }
         else{
-            echo "no_dues :". $totalFee-$payment+$discount;
+            $FeeDue = new DuesAmount();
+            $FeeDue->class = $class;
+            $FeeDue->class_year = $select_year;
+            $FeeDue->roll_no = $roll;
+            $FeeDue->$month = $totalFee - $payment;
+            for ($i = 0; $i <= $end_month; $i++) 
+            {
+              $month = 'month_'.$i;
+              $FeeDue->$month =  "0"; 
+
+              if ($i == $end_month) 
+              {
+                $FeeDue->$month = $totalFee - $payment; 
+              }
+            }
+
+            $FeeDue->save();
         }
     }
 

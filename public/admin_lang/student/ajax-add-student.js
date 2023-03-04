@@ -46,7 +46,18 @@ $(document).ready(function(){
              // Success 
             success:function(response)
             {
-               alert(response);
+            //    alert(response);
+               $('.student-added-form')[0].reset();
+               $(".imagepreview").each(function(){
+                 $(this).attr("src", "http://bit.ly/3IUenmf");
+               });
+               $(".submit-btn").removeClass('d-none');
+               $(".progress").addClass('d-none');
+               $(".alert-info").removeClass("d-none");
+               setTimeout(function(){
+                 $(".alert-info").addClass("d-none");
+               },3000);
+
             }
         });
 
@@ -75,8 +86,8 @@ $(document).ready(function(){
             beforeSend: function() 
             {
              // setting a timeout
-               $(".submit-btn").addClass('d-none');
-               $(".progress").removeClass('d-none');
+            //    $(".submit-btn").addClass('d-none');
+            //    $(".progress").removeClass('d-none');
             },
             // Progress 
                  xhr: function(){
@@ -124,8 +135,8 @@ $(document).ready(function() {
                 beforeSend: function() 
                 {
                  // setting a timeout
-                   $(".submit-btn").addClass('d-none');
-                   $(".progress").removeClass('d-none');
+                //    $(".submit-btn").addClass('d-none');
+                //    $(".progress").removeClass('d-none');
                 },
                 // Progress 
                      xhr: function(){

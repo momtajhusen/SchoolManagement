@@ -38,18 +38,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-    <script>
-  function printDiv() {
-    var divContents = document.querySelector('.a4-page').innerHTML;
-    var printWindow = window.open('', '', 'height=500,width=800');
-    printWindow.document.write('<html><head><title>A4 size div page</title></head><body>');
-    printWindow.document.write(divContents);
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-    printWindow.print();
-  }
-
-</script>
+ 
 @endsection
 
 
@@ -235,11 +224,11 @@
                                                 </div>
                                                 </div>
                                                 <div class="p-2 d-flex">
-                                                    <div class="w-50 form-group m-1">
+                                                    {{-- <div class="w-50 form-group m-1">
                                                         <label class="text-light">Discount</label>
                                                         <input type="number" value="0000" id="discount" name="discount" placeholder="Discount" class="form-control discount d-none">
-                                                    </div>
-                                                    <div class="w-50 form-group m-1">
+                                                    </div> --}}
+                                                    <div class="w-100 form-group m-1">
                                                         <label class="text-light">Payment</label>
                                                         <input type="number" name="payment" id="payment" placeholder="Payment" class="form-control payment">
                                                     </div>
@@ -251,16 +240,7 @@
                                                 </div>
                                             </div>
                                             </div>
-
-                                            <div class="w-100 m-4 d-flex flex-column align-items-center justify-content-center border">
-
-                                            <div class="a4-page d-none bg-danger">
-                                            <!-- Your content here -->
-                                            </div>
-
-                                            <!-- <button onclick="printDiv()">Print</button> -->
-
-                                            </div>
+ 
 
                                             <!-- <div class="col-12 form-group mg-t-8">
                                                 <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
