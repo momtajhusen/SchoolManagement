@@ -44,6 +44,10 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
+        'SuperAdminLogin' => [
+            \App\Http\Middleware\SuperAdminLogin::class,
+        ],
+
         'studentManagementLogin' => [
             \App\Http\Middleware\studentManagementLogin::class,
         ],

@@ -78,7 +78,7 @@
                                 <div class="card p-0">
                                     <div class="card-header p-0" id="headingTwo">
                                         <div class="collapsed w-100 login-accourding-btn p-3 d-flex justify-content-center" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            <span class="login-accourding-btn-text">STUDENT MANAGEMENT</span>
+                                            <span class="login-accourding-btn-text">SUPER ADMIN</span>
                                             <span class="material-symbols-outlined">arrow_right</span>
                                         </div>
                                     </div>
@@ -86,8 +86,11 @@
                                     <div id="collapseTwo" class="collapse position-absolute" aria-labelledby="headingTwo" data-parent="#accordionExample" style="top:47px;z-index:1000;">
                                       <div class="card-body shadow-none p-0" style="background-color: #042954;">
                                         <ul class="nav nav-tabs border-0 px-0" role="tablist">
+                                            <li class="nav-item border w-100 active shadow-none">
+                                                <a class="nav-link text-light" data-toggle="tab" href="#tab10" role="tab" aria-selected="false">SUPER ADMIN</a>
+                                            </li>
                                             <li class="nav-item border w-100">
-                                                <a class="nav-link text-light active shadow-none" data-toggle="tab" href="#tab7" role="tab" aria-selected="true">
+                                                <a class="nav-link text-light shadow-none" data-toggle="tab" href="#tab7" role="tab" aria-selected="true">
                                                     STUDENT MANAGEMENT
                                                 </a>
                                             </li>
@@ -97,9 +100,6 @@
                                             <li class="nav-item border w-100 shadow-none">
                                                 <a class="nav-link text-light" data-toggle="tab" href="#tab9" role="tab" aria-selected="false">SCHOOL MANAGEMENT</a>
                                             </li>
-                                            <li class="nav-item border w-100 shadow-none">
-                                                <a class="nav-link text-light" data-toggle="tab" href="#tab10" role="tab" aria-selected="false">SUPER ADMIN</a>
-                                            </li>
                                         </ul>
                                       </div>
                                     </div>
@@ -108,7 +108,7 @@
 
                             <div class="tab-content pt-2 d-flex flex-column align-items-center justify-content-start" style="height:500px;">
                                 {{-- student management panel  --}}
-                                <div class="tab-pane fade show active p-3  w-100" id="tab7" role="tabpanel">
+                                <div class="tab-pane fade p-3  w-100" id="tab7" role="tabpanel">
 
                                     <div class="p-3 my-5 d-flex flex-column justify-content-between align-items-center">
                                         <span class="material-symbols-outlined text-light" style="font-size:30px;">group</span>
@@ -215,13 +215,13 @@
                                    </form>
                                 </div>
                                 {{-- super admin panel  --}}
-                                <div class="tab-pane fade show p-3  w-100" id="tab10" role="tabpanel">
+                                <div class="tab-pane fade show active p-3  w-100" id="tab10" role="tabpanel">
                                     <div class="p-3 my-5 d-flex flex-column justify-content-between align-items-center">
                                         <span class="material-symbols-outlined text-light" style="font-size:30px;">admin_panel_settings</span>
                                         <b class="text-center text-light">SUPER ADMIN</b>
                                     </div>
                       
-                                    <form class="supper-admin-form" style="height:300px;">
+                                    <form class="super-admin-form" style="height:300px;">
                                     <div class="form-group">
                                         <label class="text-light">Username</label>
                                         <input type="email" required name="email" placeholder="Username" class="form-control w-100">

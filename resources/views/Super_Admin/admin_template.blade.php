@@ -47,6 +47,11 @@
 <!-- Nepali Clander css -->
 <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css" rel="stylesheet" type="text/css"/>
 
+        <!-- Logout ajax -->
+        <script src="{{ asset('../admin_lang/accountLogin/ajax-logout-js')}}"></script>
+
+
+
     @yield('style')
 
 </head>
@@ -117,12 +122,12 @@
                                     <li><a href="#"><i class="flaticon-list"></i>Task</a></li>
                                     <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a></li>
                                     <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                                    <li><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                    <li class="super-admin-logout-btn"><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
                                 </ul>
                             </div>
                         </div>
                     </li>
-                    <li class="navbar-item dropdown header-message">
+                    {{-- <li class="navbar-item dropdown header-message">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <i class="far fa-envelope"></i>
@@ -250,7 +255,7 @@
                             <a class="dropdown-item" href="#">Franchis</a>
                             <a class="dropdown-item" href="#">Chiness</a>
                         </div>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>
@@ -313,19 +318,12 @@
                                     Acconunt Dashboard</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="all-fees.html" class="nav-link"><i class="fas fa-angle-right"></i>All Fees
-                                        Collection</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('check-class-fee')}}" class="nav-link"><i class="fas fa-angle-right"></i>Check Class Fees
-                                        </a>
+                                    <a href="{{route('check-class-fee')}}" class="nav-link"><i class="fas fa-angle-right"></i>Fees Collection</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('set-fees')}}" class="nav-link"><i class="fas fa-angle-right"></i>Set Fee Structure</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{route('fee-payment')}}" class="nav-link"><i class="fas fa-angle-right"></i>Fee Payment</a>
-                                </li>
+ 
                                 <li class="nav-item">
                                     <a href="all-expense.html" class="nav-link"><i
                                             class="fas fa-angle-right"></i>Expenses</a>

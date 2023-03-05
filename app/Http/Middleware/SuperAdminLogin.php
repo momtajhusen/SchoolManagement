@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AccountLogin
+class SuperAdminLogin
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,10 @@ class AccountLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!session('super_admin'))
+        {   
+            return redirect('/account-login');
+        }
         return $next($request);
     }
 }

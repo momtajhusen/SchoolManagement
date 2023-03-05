@@ -1,4 +1,4 @@
-@extends('Admin/admin_template')
+@extends('Super_Admin/admin_template')
  
 
 @section('style')
