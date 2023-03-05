@@ -257,11 +257,11 @@
                                         </div>
                                         <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
                                     </div>
-                                    <input type="hidden" name="parent_id">
 
                                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                                         <label>Father Name *</label>
                                         <input type="text" required name="father_name" placeholder="" class="form-control">
+                                        <input type="hidden" name="parent_id">
                                     </div>
                                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                                         <label>Father Mobile No: *</label>
@@ -295,10 +295,24 @@
                                  
                     </div>
                                     
-                        <div class="col-12 form-group mg-t-8">
-                            <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Update</button>
-                            <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
+                        <div class="col-12 form-group mg-t-8 d-flex justify-content-end">
+                            <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark submit-btn">Update</button>
                         </div>
+
+                         {{-- progress bar with alert --}}
+                         <div class="progress w-100 d-none" style="height:30px;">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                          </div>
+
+                        <div class="alert alert-success  align-items-center alert-info d-none" role="alert">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi mr-3 bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="success:">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                </svg>
+                            <b>Upload Success</b>
+                            </div>
+                        </div>
+
                         </div>
                         </form>
                     </div>

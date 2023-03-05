@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>POLAR STAR BOARDING SCHOOL</title>
+    <title>Account Management</title>
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,6 +46,9 @@
 
 <!-- Nepali Clander css -->
 <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css" rel="stylesheet" type="text/css"/>
+
+<!-- Logout ajax -->
+<script src="{{ asset('../admin_lang/accountLogin/ajax-logout-js')}}"></script>
 
     @yield('style')
 
@@ -127,12 +130,12 @@
                                     <li><a href="#"><i class="flaticon-list"></i>Task</a></li>
                                     <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a></li>
                                     <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                                    <li><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                    <li class="account-management-logout-btn"><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
                                 </ul>
                             </div>
                         </div>
                     </li>
-                    <li class="navbar-item dropdown header-message">
+                    {{-- <li class="navbar-item dropdown header-message">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <i class="far fa-envelope"></i>
@@ -260,7 +263,7 @@
                             <a class="dropdown-item" href="#">Franchis</a>
                             <a class="dropdown-item" href="#">Chiness</a>
                         </div>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>
@@ -277,65 +280,13 @@
                 <div class="sidebar-menu-content" style="height:100vh;">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                  
-
-                        <li class="nav-item {{ request()->routeIs(['school_management_dashboard', 'student_management']) ? 'active-select-menu' : ''}}">
-                            <a href="{{route('school_management_dashboard')}}" class="nav-link d-flex align-items-center">
+                        <li class="nav-item {{ request()->routeIs(['account_management_dashboard', 'account_management']) ? 'active-select-menu' : ''}}">
+                            <a href="{{route('account_management')}}" class="nav-link d-flex align-items-center">
                                 <span class="material-symbols-outlined pr-3" style="font-size:25px;">dashboard</span>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
-                        <li class="nav-item {{ request()->routeIs('school_management_student_registration') ? 'active-select-menu' : ''}}">
-                            <a href="{{route('school_management_student_registration')}}" class="nav-link d-flex align-items-center">
-                                <span class="material-symbols-outlined pr-3" style="font-size:25px;">person_add</span>
-                                <span>Student Registration</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item {{ request()->routeIs('school_management_registration_list') ? 'active-select-menu' : ''}}">
-                            <a href="{{route('school_management_registration_list')}}" class="nav-link d-flex align-items-center">
-                                <span class="material-symbols-outlined pr-3" style="font-size:25px;">view_list</span>
-                                <span>Registration List</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item {{ request()->routeIs('school_management_check_fee_stracture') ? 'active-select-menu' : ''}}">
-                            <a href="{{route('school_management_check_fee_stracture')}}" class="nav-link d-flex align-items-center">
-                                <span class="material-symbols-outlined pr-3" style="font-size:25px;">format_list_bulleted</span>
-                                <span>Check Fee Stracture</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item {{ request()->routeIs('school_management_student_parents') ? 'active-select-menu' : ''}}">
-                            <a href="{{route('school_management_student_parents')}}" class="nav-link d-flex align-items-center">
-                                <span class="material-symbols-outlined pr-3" style="font-size:25px;">group</span>
-                                <span>Student Parent</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center">
-                                <span class="material-symbols-outlined pr-3" style="font-size:25px;">height</span>
-                                <span>Promotion / Demotion</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item  {{ request()->routeIs('school_management_update_student_details') ? 'active-select-menu' : ''}}">
-                            <a href="{{route('school_management_update_student_details')}}" class="nav-link d-flex align-items-center">
-                                <span class="material-symbols-outlined pr-3" style="font-size:25px;">info</span>
-                                <span>Update Student Details</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item  {{ request()->routeIs('school_management_generate_id_card') ? 'active-select-menu' : ''}}">
-                            <a href="{{route('school_management_generate_id_card')}}" class="nav-link d-flex align-items-center">
-                                <span class="material-symbols-outlined pr-3" style="font-size:25px;">badge</span>
-                                <span>ID Card Generate</span>
-                            </a>
-                        </li>
-
-
-                         
                     </ul>
                 </div>
             </div>

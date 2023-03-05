@@ -103,7 +103,16 @@ Route::group(['middleware'=>'studentManagementLogin'],function()
 ///////////////////////////// Start Student Management /////////////////////////////
 
 ///////////////////////////// Start Account Management /////////////////////////////
-Route::view('account-management', 'Account_Management/layouts/dashboard')->name('account_management');
+//Student Management Login 
+Route::post('/account-management-login', 'App\Http\Controllers\AccountLoginController@AccountManagementLogin');
+//Student Management Logout 
+Route::post('/account-management-logout', 'App\Http\Controllers\AccountLoginController@AccountManagementLogout');
+Route::group(['middleware'=>'AccountManagementLogin'],function()
+{
+  Route::view('account-management', 'Account_Management/layouts/dashboard')->name('account_management');
+    
+});
+
 
 
 ///////////////////////////// End Account Management /////////////////////////////
@@ -116,18 +125,3 @@ Route::get('account-login', function()
 })->name('school_login');
 
 ///////////////////////////// End Login Page /////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

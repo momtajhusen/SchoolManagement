@@ -306,25 +306,39 @@ class StudentController extends Controller
                 }
 
                 ///////// Update Parents /////////
-                $parents_id = $request->parents_id;
-                // $parents_image = Parents::find($parents_id);
-                // $father_image_path = $parents_image->father_image;
-                // $mother_image_path = $parents_image->mother_image;
+                $parent_id = $request->parent_id;
+                $parents_image = Parents::find($parent_id);
+                $father_image_path = $parents_image->father_image;
+                $mother_image_path = $parents_image->mother_image;
 
-                // $father_image_name = basename($father_image_path);
-                // $mother_image_name = basename($mother_image_path);
-
-                $parents = Parents::findOrFail($student_id);
+                $father_image_name = basename($father_image_path);
+                $mother_image_name = basename($mother_image_path);
+                
+                $parents = Parents::findOrFail($parent_id);
                 $studentUpdated = $parents->update([ 
-                    // 'father_image' => $father_image_path,
+                    'father_image' => $father_image_path,
                     'father_name' => $request->input("father_name"),
                     'father_phone' => $request->input("father_phone"),
                     'father_education' => $request->input("father_education"),
-                    // 'mother_image' => $mother_image_path,
+                    'mother_image' => $mother_image_path,
                     'mother_name' => $request->input("mother_name"),
                     'mother_phone' => $request->input("mother_phone"),
                     'mother_education' => $request->input("mother_education"),
                 ]);
+
+                // Update Father image
+                $father_image = $request->file("father_image");
+                if (!empty($father_image)) 
+                {
+                    $father_image->storeAs('public/upload_assets/parent',  $father_image_name);
+                }
+
+                // Update Mother image
+                $mother_image = $request->file("mother_image");
+                if (!empty($mother_image)) 
+                {
+                    $mother_image->storeAs('public/upload_assets/parent',  $mother_image_name);
+                }
 
                         
             if ($studentUpdated) 

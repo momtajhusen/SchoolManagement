@@ -12,6 +12,7 @@ class AccountLoginController extends Controller
     /**
      * Display a listing of the resource.
      */
+    //////////////////////// Login Function //////////////////////////////////
     public function studentManagement(Request $request) 
     {
        $input_username = $request->input("email");
@@ -74,6 +75,39 @@ class AccountLoginController extends Controller
 
     }
 
+    public function AccountManagementLogin(Request $request) 
+    {
+       $input_username = $request->input("email");
+       $input_password = $request->input("password");
+
+       $username = AccountLogin::first()->account_management_username;
+       $password = AccountLogin::first()->account_management_password;
+     
+       if($input_username == $username)
+       {
+ 
+         if($input_password == $password)
+         {
+  
+             $request->session()->put('account_management', $username);
+             return response()->json(['status' => "Login success"]);
+
+         }
+ 
+         else{
+            return response()->json(['status' => "Incorrect Password"]);
+         }
+ 
+       }
+ 
+       else{
+         return response()->json(['status' => "Incorrect Username"]);
+       }
+
+    }
+
+
+    //////////////////////// Logout Function //////////////////////////////////
     public function StudentManagementLogout(Request $request)
     {
  
@@ -90,6 +124,18 @@ class AccountLoginController extends Controller
     {
  
         if(session()->forget('super_admin'))
+        {
+            return response()->json(['status' => "logout success"]);
+        }
+        else{
+            return response()->json(['status' => "something error"]);
+        }
+    }
+
+    public function AccountManagementLogout(Request $request)
+    {
+ 
+        if(session()->forget('account_management'))
         {
             return response()->json(['status' => "logout success"]);
         }

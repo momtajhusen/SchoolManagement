@@ -377,15 +377,17 @@
                             <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark submit-btn">Save</button>
                             {{-- <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button> --}}
                         </div>
+
                         <div class="progress w-100 d-none" style="height:30px;">
                             <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                           </div>
 
-          
-                    </div>
-                </form>
-
-                <div class="alert alert-success  align-items-center alert-info  d-none" role="alert">
+                  {{-- progress bar with alert --}}
+                  <div class="progress w-100 d-none" style="height:30px;">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                  </div>
+                  
+                  <div class="alert alert-success  align-items-center alert-info d-none" role="alert">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi mr-3 bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="success:">
                             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -393,6 +395,10 @@
                       <b>Upload Success</b>
                     </div>
                   </div>
+
+          
+                    </div>
+                </form>
             </div>
         </div>
         <!-- Add New Teacher Area End Here -->
