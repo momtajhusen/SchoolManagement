@@ -23,6 +23,9 @@
     <!-- ajax Update Student Details -->
     <script src="{{ asset('../admin_lang/student_management/ajax-update-student-details.js')}}"></script>
 
+        <!-- script input file image set preview img  -->
+        <script src="{{ asset('../admin_lang/common/image-select.js')}}"></script> 
+
     
     <!-- Select 2 Js -->
     <script src="../admin_template_assets/js/select2.min.js"></script>
@@ -93,19 +96,20 @@
                                     <h4>Student Details</h4>
                                 </div>
                             </div>
-                            <form class="student-added-form" enctype="multipart/form-data">
+                            <form class="student-update-form" enctype="multipart/form-data">
                                 <div class="row">
                                 <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                                     <label>Student Image *</label>
                                     <div class="h-100 position-relative" style="height:60px; width:100px;">
                                         <img src="http://bit.ly/3IUenmf" id="student_img" class="h-100 w-100 imagepreview" style="position:absolute;">
-                                        <input type="file" id="student_id_input" name="student_id_input" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
+                                        <input type="file" id="student_id_input" name="student_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
                                     </div>
                                     <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">CHANGE</span>
                                     </div>
 
                                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                                         <label>First Name *</label>
+                                        <input type="hidden" name="student_id">
                                         <input type="text" required name="student_first_name"  class="form-control">
                                     </div>
                                     <div class="col-xl-3 col-lg-6 col-12 form-group">
@@ -172,7 +176,7 @@
                                         <label>Upload ID Proof *</label>
                                         <div class="h-100 position-relative" style="height:80px; width:100px;">
                                             <img  src="#" class="h-100 w-100 imagepreview proofimage" style="position:absolute;">
-                                            <input type="file" name="student_id_input" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
+                                            <input type="file" name="student_id_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
                                         </div>
                                         <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
                                     </div>
@@ -248,11 +252,12 @@
                                     <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                                         <label>Father Photo</label>
                                         <div class="h-100 position-relative" style="height:50px; width:100px;">
-                                        <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
+                                        <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" id="father_img" style="position:absolute;">
                                         <input type="file" name="father_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
                                         </div>
                                         <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
                                     </div>
+                                    <input type="hidden" name="parent_id">
 
                                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                                         <label>Father Name *</label>
@@ -270,7 +275,7 @@
                                     <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                                         <label>Mother Photo</label>
                                         <div class="h-100 position-relative" style="height:50px; width:100px;">
-                                        <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
+                                        <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" id="mother_img"  style="position:absolute;">
                                         <input type="file" name="mother_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
                                         </div>
                                         <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>

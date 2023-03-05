@@ -96,7 +96,9 @@ Route::group(['middleware'=>'studentManagementLogin'],function()
     // Get & Post route 
     Route::get('/get-all-parents', 'App\Http\Controllers\ParentsController@index');
     Route::get('/registration-list', 'App\Http\Controllers\StudentController@registration_list');
-    Route::get('/student-update', 'App\Http\Controllers\StudentController@update');
+    Route::get('/single-student-details', 'App\Http\Controllers\StudentController@GetSingleStudent');
+    Route::post('/update-student', 'App\Http\Controllers\StudentController@UpdateStudent');
+
 });
 ///////////////////////////// Start Student Management /////////////////////////////
 

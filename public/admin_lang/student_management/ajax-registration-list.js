@@ -1,5 +1,11 @@
 // Retrive All Student
 $(document).ready(function(){
+
+    $(".search-btn").click(function(){
+        var select_year = $(".select-year").val();
+        var select_month = $(".select-month").val();
+        alert(select_year+" "+select_month);
+    });
  
     $.ajaxSetup({
         headers: {
@@ -111,4 +117,22 @@ $(document).ready(function(){
     });
 
 
+});
+
+
+
+$(document).ready(function(){
+      // Select year 10 year below
+  var year = NepaliFunctions.GetCurrentBsDate().year;
+  for (let i = 0; i < 10; i++) 
+  {
+    var yearOption = year - i;
+    $(".select-year").append(`
+      <option value="${yearOption}">${yearOption}</option>
+    `);
+  }
+
+    // Set select_month to 11 and trigger change event
+    var select_month = NepaliFunctions.GetCurrentBsDate().month - 1;
+    $(".select-month").val(select_month).change();
 });

@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Models\Student;
 use App\Models\Parents;
 use App\Models\FeeStructure;
+use Exception;
 
 
 class StudentController extends Controller
@@ -213,7 +214,7 @@ class StudentController extends Controller
     public $parent_response;
     public $parentdata;
     public $ParentData = [];
-    public function update(Request $request) 
+    public function GetSingleStudent(Request $request) 
     {
          $class = $request->class;
          $roll = $request->roll;
@@ -224,9 +225,12 @@ class StudentController extends Controller
             foreach($this->response as $this->data)
             {
                 array_push($this->allData,$this->data);
-            }   
+                $student_id = $this->data->id;
+            }  
             
-            $this->parent_response = Parents::get();
+       
+            
+            $this->parent_response = Parents::where('Kids_id', $student_id)->get();
             if(count($this->parent_response) != "0")
             {
                 foreach($this->parent_response as $this->parentdata)
@@ -247,6 +251,100 @@ class StudentController extends Controller
 
         
 
+    }
+
+    public function UpdateStudent(Request $request)
+    {
+        $student_id = $request->student_id;
+
+        $student_image = Student::find($student_id);
+        $student_image_path = $student_image->student_image;
+        $student_proof_image_path = $student_image->id_image;
+
+        $student_image_name = basename($student_image_path);
+        $id_image_name = basename($student_proof_image_path);
+
+
+        try {
+            $student = Student::findOrFail($student_id);
+            $studentUpdated = $student->update([
+                'student_image' => $student_image_path,
+                'first_name' => $request->input("student_first_name"),
+                'middle_name' => $request->input("student_middle_name"),
+                'last_name' => $request->input("student_last_name"),
+                'gender' => $request->input("student_gender"),
+                'dob' => $request->input("student_dob"),
+                'religion' => $request->input("student_religion"),
+                'blood_group' => $request->input("student_blood_group"),
+                'phone' => $request->input("student_phone"),
+                'email' => $request->input("student_email"),
+                'id_number' => $request->input("student_id_number"),
+                'id_image' => $student_proof_image_path,
+                'admission_date' => $request->input("admission_date"),
+                'class' => $request->input("class"),
+                'section' => $request->input("section"),
+                'roll_no' => $request->input("roll_no"),
+                'district' => $request->input("district"),
+                'municipality' => $request->input("municipality"),
+                'village' => $request->input("village"),
+                'ward_no' => $request->input("ward_no")
+
+            ]);
+
+               // Update student image
+                $student_image = $request->file("student_image");
+                if (!empty($student_image)) 
+                {
+                    $student_image->storeAs('public/upload_assets/students',  $student_image_name);
+                }
+
+                //Update Student Proof Image
+                $proof_id = $request->file("student_id_image");
+                if (!empty($proof_id)) 
+                {
+                    $proof_id->storeAs('public/upload_assets/students',  $id_image_name);
+                }
+
+                ///////// Update Parents /////////
+                $parents_id = $request->parents_id;
+                // $parents_image = Parents::find($parents_id);
+                // $father_image_path = $parents_image->father_image;
+                // $mother_image_path = $parents_image->mother_image;
+
+                // $father_image_name = basename($father_image_path);
+                // $mother_image_name = basename($mother_image_path);
+
+                $parents = Parents::findOrFail($student_id);
+                $studentUpdated = $parents->update([ 
+                    // 'father_image' => $father_image_path,
+                    'father_name' => $request->input("father_name"),
+                    'father_phone' => $request->input("father_phone"),
+                    'father_education' => $request->input("father_education"),
+                    // 'mother_image' => $mother_image_path,
+                    'mother_name' => $request->input("mother_name"),
+                    'mother_phone' => $request->input("mother_phone"),
+                    'mother_education' => $request->input("mother_education"),
+                ]);
+
+                        
+            if ($studentUpdated) 
+            {
+                return response()->json(['status' => "Update Success"], 200);
+ 
+            } else {
+                return response()->json(['status' => "Update Failed Try Again"], 500);
+            }
+        } 
+        catch (Exception $e) 
+        {
+            // Code to handle the exception
+            $message = "An exception occurred: " . $e->getMessage();
+            return response()->json(['ststus' => $message], 500);
+        }
+        
+        
+          
+ 
     }
 
     /**

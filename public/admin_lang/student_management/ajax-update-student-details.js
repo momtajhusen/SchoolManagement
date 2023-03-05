@@ -14,7 +14,7 @@ $(document).ready(function(){
             });
         
             $.ajax({
-                url: "/student-update",
+                url: "/single-student-details",
                 method: 'GET',
                 data:{
                     class : classvalue,
@@ -50,6 +50,8 @@ $(document).ready(function(){
                             console.log(response);
                             $(".student_details_cars").removeClass("d-none");
 
+                            // Student Data 
+                            var student_id = response.Studentdata[0].id;
                             var first_name = response.Studentdata[0].first_name;
                             var middle_name = response.Studentdata[0].middle_name;
                             var last_name = response.Studentdata[0].last_name;
@@ -73,18 +75,25 @@ $(document).ready(function(){
                             var district = response.Studentdata[0].district;
                             var ward_no = response.Studentdata[0].ward_no;
                             var roll_no = response.Studentdata[0].roll_no;
-
                             var student_image = response.Studentdata[0].student_image;
                             var id_image = response.Studentdata[0].id_image;
-                            // var student_image = response.Studentdata[0].student_image;
-                            // var student_image = response.Studentdata[0].student_image;
 
+                            // Parents Data 
+                            var parents_id = response.Parentsdata[0].id;
+                            var father_image = response.Parentsdata[0].father_image;
+                            var father_name = response.Parentsdata[0].father_name;
+                            var father_mobile = response.Parentsdata[0].father_mobile;
+                            var father_education = response.Parentsdata[0].father_education;
 
-
-                            // alert(gender);
+                            var mother_image = response.Parentsdata[0].mother_image;
+                            var mother_name = response.Parentsdata[0].mother_name;
+                            var mother_mobile = response.Parentsdata[0].mother_mobile;
+                            var mother_education = response.Parentsdata[0].mother_education;
+                        
 
                              $('#student_img').attr("src", "http://127.0.0.1:8000/storage/"+student_image);
                              $('.proofimage').attr("src", "http://127.0.0.1:8000/storage/"+id_image);
+                             $('input[name="student_id"]').val(student_id);
                              $('input[name="student_first_name"]').val(first_name);
                              $('input[name="student_middle_name"]').val(middle_name);
                              $('input[name="student_last_name"]').val(last_name);
@@ -104,11 +113,19 @@ $(document).ready(function(){
                              $('input[name="village"]').val(village);
                              $('input[name="ward_no"]').val(ward_no);
 
-                            //  $('input[name="student_first_name"]').val(student_name);
-                            //  $('input[name="student_first_name"]').val(student_name);
-                            //  $('input[name="student_first_name"]').val(student_name);
-                            //  $('input[name="student_first_name"]').val(student_name);
-                            //  $('input[name="student_first_name"]').val(student_name);
+
+                             $('#father_img').attr("src", "http://127.0.0.1:8000/storage/"+father_image);
+                             $('input[name="parent_id"]').val(parents_id);
+                             $('input[name="father_name"]').val(father_name);
+                             $('input[name="father_phone"]').val(father_mobile);
+                             $('input[name="father_education"]').val(father_education);
+
+                             $('#mother_img').attr("src", "http://127.0.0.1:8000/storage/"+mother_image);
+                             $('input[name="mother_name"]').val(mother_name);
+                             $('input[name="mother_phone"]').val(mother_mobile);
+                             $('input[name="mother_education"]').val(mother_education);
+
+
 
                         }
                         else{
@@ -126,4 +143,57 @@ $(document).ready(function(){
  
     
 
+});
+
+// Update Details 
+$(document).ready(function(){
+    $(".student-update-form").submit(function(e){
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+           
+        var formData = new FormData(this);
+        // formData.append('admission_year', admission_year);
+
+        $.ajax({
+            url: "/update-student",
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function() 
+            {
+             // setting a timeout
+               $(".submit-btn").addClass('d-none');
+               $(".progress").removeClass('d-none');
+            },
+            // Progress 
+                 xhr: function(){
+                     var xhr = new window.XMLHttpRequest();
+                     xhr.upload.addEventListener("progress", function(evt) {
+                         if (evt.lengthComputable) {
+                             var percentComplete = (evt.loaded / evt.total) * 100;
+                             var percentComplete =  percentComplete.toFixed(2);
+                             $(".progress-bar").width(percentComplete+"%");
+                             $(".progress-bar").html(percentComplete+" %");
+     
+                         }
+                     }, false);
+                     return xhr;
+                 },
+             // Success 
+             success: function(response) {
+                console.log(response);
+              },
+              error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+              }
+        });
+
+    });
 });
