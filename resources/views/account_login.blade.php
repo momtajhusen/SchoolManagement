@@ -86,19 +86,19 @@
                                     <div id="collapseTwo" class="collapse position-absolute" aria-labelledby="headingTwo" data-parent="#accordionExample" style="top:47px;z-index:1000;">
                                       <div class="card-body shadow-none p-0" style="background-color: #042954;">
                                         <ul class="nav nav-tabs border-0 px-0" role="tablist">
-                                            <li class="nav-item border w-100 active shadow-none">
-                                                <a class="nav-link text-light" data-toggle="tab" href="#tab10" role="tab" aria-selected="false">SUPER ADMIN</a>
+                                            <li class="nav-item border w-100 active shadow-none" id="super_admin">
+                                                <a class="nav-link text-light" data-toggle="tab" href="#tab7" role="tab" aria-selected="false">SUPER ADMIN</a>
                                             </li>
                                             <li class="nav-item border w-100">
-                                                <a class="nav-link text-light shadow-none" data-toggle="tab" href="#tab7" role="tab" aria-selected="true">
+                                                <a class="nav-link text-light shadow-none" data-toggle="tab" href="#tab8" role="tab" aria-selected="true">
                                                     STUDENT MANAGEMENT
                                                 </a>
                                             </li>
-                                            <li class="nav-item border w-100 shadow-none">
-                                                <a class="nav-link text-light" data-toggle="tab" href="#tab8" role="tab" aria-selected="false">ACCOUNT MANAGEMENT</a>
+                                            <li class="nav-item border w-100 shadow-none" id="account_management">
+                                                <a class="nav-link text-light" data-toggle="tab" href="#tab9" role="tab" aria-selected="false">ACCOUNT MANAGEMENT</a>
                                             </li>
                                             <li class="nav-item border w-100 shadow-none">
-                                                <a class="nav-link text-light" data-toggle="tab" href="#tab9" role="tab" aria-selected="false">SCHOOL MANAGEMENT</a>
+                                                <a class="nav-link text-light" data-toggle="tab" href="#tab10" role="tab" aria-selected="false">SCHOOL MANAGEMENT</a>
                                             </li>
                                         </ul>
                                       </div>
@@ -108,7 +108,7 @@
 
                             <div class="tab-content pt-2 d-flex flex-column align-items-center justify-content-start" style="height:500px;">
                                 {{-- super admin panel  --}}
-                                <div class="tab-pane fade show active p-3  w-100" id="tab10" role="tabpanel">
+                                <div class="tab-pane fade show p-3  w-100" id="tab7" role="tabpanel">
                                     <div class="p-3 my-5 d-flex flex-column justify-content-between align-items-center">
                                         <span class="material-symbols-outlined text-light" style="font-size:30px;">admin_panel_settings</span>
                                         <b class="text-center text-light">SUPER ADMIN</b>
@@ -143,7 +143,7 @@
                                     </form>
                                 </div>
                                 {{-- student management panel  --}}
-                                <div class="tab-pane fade p-3  w-100" id="tab7" role="tabpanel">
+                                <div class="tab-pane fade p-3 show w-100" id="tab8" role="tabpanel">
 
                                     <div class="p-3 my-5 d-flex flex-column justify-content-between align-items-center">
                                         <span class="material-symbols-outlined text-light" style="font-size:30px;">group</span>
@@ -179,7 +179,7 @@
                                    </form>
                                 </div>
                                 {{-- account management panel  --}}
-                                <div class="tab-pane fade show p-3  w-100" id="tab8" role="tabpanel">
+                                <div class="tab-pane fade show p-3  w-100" id="tab9" role="tabpanel">
 
                                     <div class="p-3 my-5 d-flex flex-column justify-content-between align-items-center">
                                         <span class="material-symbols-outlined text-light" style="font-size:30px;">account_balance</span>
@@ -215,7 +215,7 @@
                                    </form>
                                 </div>
                                 {{-- school management panel  --}}
-                                <div class="tab-pane fade show p-3  w-100" id="tab9" role="tabpanel">
+                                <div class="tab-pane fade p-3 show w-100" id="tab10" role="tabpanel">
                                     <div class="p-3 my-5 d-flex flex-column justify-content-between align-items-center">
                                         <span class="material-symbols-outlined text-light" style="font-size:30px;">apartment</span>
                                         <b class="text-center text-light">SCHOOL MANAGEMENT</b>
@@ -265,16 +265,48 @@
        <script src="admin_template_assets/js/bootstrap.min.js"></script>
 
       <script>
+        // Select Account Toggle 
         $(document).ready(function(){
+            var lastActiveToggle = localStorage.getItem('lastActiveToggle');
+
+            if(lastActiveToggle)
+            {
+                $(".login-accourding-btn-text").html(lastActiveToggle);
+
+            }
+            $("#account_management").click();
             $(".nav-item").each(function(){
                 $(this).click(function(){
                 $(".login-accourding-btn").click();
                 $(".login-accourding-btn-text").html($(this).find("a").html());
+                localStorage.setItem('lastActiveToggle', $(this).find("a").html());
+
                 });
             });
         });
 
-   
+        // Last Select Tab Auto Atuto Select
+        $(document).ready(function(){
+            // Get the last active tab content from local storage
+            var lastActiveTabContent = localStorage.getItem('lastActiveTabContent');
+
+            // If there was a last active tab content, select it
+            if (lastActiveTabContent) 
+            {
+            $('#' + lastActiveTabContent).addClass('active show');
+            }
+            else{
+            $('#tab7').addClass('active show');
+            }
+ 
+            $(".nav-item").each(function(){ 
+                 $(this).click(function(){
+                    var select_tab = $(this).find("a").attr("href").substr(1);
+                    localStorage.setItem('lastActiveTabContent', select_tab);
+                 });    
+            });
+    });
+
       </script>
  
 </body>

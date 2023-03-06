@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('student_management_password',100)->nullable();
             $table->string('super_admin_username',100)->nullable();
             $table->string('super_admin_password',100)->nullable();
+            $table->string('school_management_username',100)->nullable();
+            $table->string('school_management_password',100)->nullable();
             $table->timestamps();
         });
     }

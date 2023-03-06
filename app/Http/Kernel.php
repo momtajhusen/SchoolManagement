@@ -55,6 +55,10 @@ class Kernel extends HttpKernel
         'AccountManagementLogin' => [
             \App\Http\Middleware\AccountManagementLogin::class,
         ],
+
+        'SchoolManagementLogin' => [
+            \App\Http\Middleware\SchoolManagementLogin::class,
+        ],
     ];
 
     /**

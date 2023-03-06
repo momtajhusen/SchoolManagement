@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>ACCOUNT MANAGEMENT</title>
+    <title>SCHOOL MANAGEMENT</title>
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -130,7 +130,7 @@
                                     <li><a href="#"><i class="flaticon-list"></i>Task</a></li>
                                     <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a></li>
                                     <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                                    <li class="account-management-logout-btn"><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                    <li class="school-management-logout-btn"><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -280,8 +280,8 @@
                 <div class="sidebar-menu-content" style="height:100vh;">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                  
-                        <li class="nav-item {{ request()->routeIs(['account_management_dashboard', 'account_management']) ? 'active-select-menu' : ''}}">
-                            <a href="{{route('account_management')}}" class="nav-link d-flex align-items-center">
+                        <li class="nav-item {{ request()->routeIs(['school_management_dashboard', 'school_management']) ? 'active-select-menu' : ''}}">
+                            <a href="{{route('school_management')}}" class="nav-link d-flex align-items-center">
                                 <span class="material-symbols-outlined pr-3" style="font-size:25px;">dashboard</span>
                                 <span>Dashboard</span>
                             </a>
