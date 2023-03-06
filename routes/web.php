@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/','welcome')->name('home');
+Route::view('/account-login','account_login')->name('school_login');
+
 
 ///////////////////////////// Start Super Admin /////////////////////////////
 //Super Admin Login 
@@ -23,54 +25,53 @@ Route::post('/super-admin-logout', 'App\Http\Controllers\AccountLoginController@
 //Middleware Super Admin
 Route::group(['middleware'=>'SuperAdminLogin'],function()
 { 
-    // View Route 
     Route::view('admin/dashboard','Super_Admin/admin_template')->name('dashboard');
-    // Admin 
     Route::view('admin','Super_Admin/admin_template')->name('admin');
-    // Add Teacher 
-    Route::view('admin/add-teacher','Super_Admin/layouts/add-teacher')->name('add-teacher');
-    // All Teacher 
-    Route::view('admin/all-teacher','Super_Admin/layouts/all-teachers')->name('all-teachers');
-    // Add Class 
-    Route::view('admin/add-classes','Super_Admin/layouts/add-classes')->name('add-classes');
-    // Add Subject 
-    Route::view('admin/add-subjects','Super_Admin/layouts/add-subjects')->name('add-subjects');
-    //Add Students
-    Route::view('admin/students-admission','Super_Admin/layouts/add-students')->name('add-students');
-    // Set Fee
-    Route::view('admin/set-fee','Super_Admin/layouts/set-fees')->name('set-fees');
-    // All Student
-    Route::view('admin/all-student','Super_Admin/layouts/all-student')->name('all-student');
-    // Student Details
-    Route::get('admin/student-details/{id}', function($id){
-        return view('Super_Admin/layouts/student-details',['id'=>$id]);
-    })->name('student-details');
-    // fee payment 
-    Route::view('admin/fee-payment','Super_Admin/layouts/fee-payment')->name('fee-payment');
-    // account dashboard 
-    Route::view('admin/account-dashboard','Super_Admin/layouts/account-dashboard')->name('account-dashboard');
-    //  check class fee 
-    Route::view('admin/check-class-fee','Super_Admin/layouts/check-class-fee')->name('check-class-fee');
-    // Teacher Route 
-    Route::post('/add-teacher', 'App\Http\Controllers\TeacherController@store');
-    // Subject Route 
-    Route::post('/add-subject', 'App\Http\Controllers\SubjectController@store');
-    // Student Route 
-    Route::post('/add-student', 'App\Http\Controllers\StudentController@store');
-    Route::get('/get-all-student', 'App\Http\Controllers\StudentController@index');
-    Route::get('/get-single-student/{id}', 'App\Http\Controllers\StudentController@show');
-    // Class Route 
-    Route::post('/add-class', 'App\Http\Controllers\ClassController@store');
-    Route::get('/get-all-class', 'App\Http\Controllers\ClassController@index');
-    // Roll get 
-    Route::get('/roll-generate-admission', 'App\Http\Controllers\StudentController@admission_roll');
-    Route::get('/get-class-roll', 'App\Http\Controllers\StudentController@getclassroll');
-    // Fee Stracture
-    Route::post('/set-fees', 'App\Http\Controllers\FeeStructureController@store');
-    Route::get('/retrive-fees-stracture', 'App\Http\Controllers\FeeStructureController@index');
-    Route::get('/check-class-fee', 'App\Http\Controllers\CheckClassFeeController@index');
-    // FeePayment
-    Route::post('/fee-payment', 'App\Http\Controllers\FeePaymentController@store');
+
+    // Super Admin Account management
+       Route::view('admin/set-fee','Super_Admin/layouts/Account_management/set-fees')->name('set-fees');
+       Route::view('admin/fee-payment','Super_Admin/layouts/Account_management/fee-payment')->name('fee-payment');
+       Route::view('admin/account-dashboard','Super_Admin/layouts/Account_management/account-dashboard')->name('account-dashboard');
+       Route::view('admin/check-class-fee','Super_Admin/layouts/Account_management/check-class-fee')->name('check-class-fee');
+
+       Route::post('/set-fees', 'App\Http\Controllers\FeeStructureController@store');
+       Route::get('/retrive-fees-stracture', 'App\Http\Controllers\FeeStructureController@index');
+       Route::get('/check-class-fee', 'App\Http\Controllers\CheckClassFeeController@index');
+       Route::post('/fee-payment', 'App\Http\Controllers\FeePaymentController@store');
+
+    // Super Admin School Management
+       Route::view('admin/add-classes','Super_Admin/layouts/School_Management/add-classes')->name('add-classes');
+       Route::view('admin/add-subjects','Super_Admin/layouts/School_Management/add-subjects')->name('add-subjects');
+       Route::view('admin/students-admission','Super_Admin/layouts/Student_Management/add-students')->name('add-students');
+       Route::get('admin/student-details/{id}', function($id){
+        return view('Super_Admin/layouts/Student_Management/student-details',['id'=>$id]);
+       })->name('student-details');
+
+       Route::post('/add-subject', 'App\Http\Controllers\SubjectController@store');
+       Route::get('/get-all-subject', 'App\Http\Controllers\SubjectController@index');
+       Route::post('/delete-subject', 'App\Http\Controllers\SubjectController@destroy');
+       Route::post('/update-subject', 'App\Http\Controllers\SubjectController@update');
+       Route::post('/add-class', 'App\Http\Controllers\ClassController@store');
+       Route::get('/get-all-class', 'App\Http\Controllers\ClassController@index');
+
+
+    // Super Admin Student Management
+       Route::view('admin/all-student','Super_Admin/layouts/Student_Management/all-student')->name('all-student');
+       Route::post('/add-student', 'App\Http\Controllers\StudentController@store');
+
+       Route::get('/get-all-student', 'App\Http\Controllers\StudentController@index');
+       Route::get('/get-single-student/{id}', 'App\Http\Controllers\StudentController@show');
+       Route::get('/get-class-roll', 'App\Http\Controllers\StudentController@getclassroll');
+       Route::get('/roll-generate-admission', 'App\Http\Controllers\StudentController@admission_roll');
+
+    // Super Admin Teacher Management
+       Route::view('admin/add-teacher','Super_Admin/layouts/add-teacher')->name('add-teacher');
+       Route::view('admin/all-teacher','Super_Admin/layouts/all-teachers')->name('all-teachers');
+
+       Route::post('/add-teacher', 'App\Http\Controllers\TeacherController@store');
+       Route::get('/get-all-teacher', 'App\Http\Controllers\TeacherController@index');
+ 
+ 
 });
 ///////////////////////////// End Super Admin /////////////////////////////
 
@@ -100,7 +101,7 @@ Route::group(['middleware'=>'studentManagementLogin'],function()
     Route::post('/update-student', 'App\Http\Controllers\StudentController@UpdateStudent');
 
 });
-///////////////////////////// Start Student Management /////////////////////////////
+///////////////////////////// End Student Management /////////////////////////////
 
 ///////////////////////////// Start Account Management /////////////////////////////
 //Student Management Login 
@@ -115,7 +116,7 @@ Route::group(['middleware'=>'AccountManagementLogin'],function()
 
 ///////////////////////////// End Account Management /////////////////////////////
 
-///////////////////////////// Start Schooll Management /////////////////////////////
+///////////////////////////// Start School Management /////////////////////////////
 //Student Management Login 
 Route::post('/school-management-login', 'App\Http\Controllers\AccountLoginController@SchoolManagementLogin');
 //Student Management Logout 
@@ -126,13 +127,6 @@ Route::group(['middleware'=>'SchoolManagementLogin'],function()
     
 });
 
-///////////////////////////// End Schooll Management /////////////////////////////
+///////////////////////////// End School Management /////////////////////////////
 
-
-///////////////////////////// Start Login Page/////////////////////////////
-Route::get('account-login', function()
-{
-    return view('account_login');
-})->name('school_login');
-
-///////////////////////////// End Login Page /////////////////////////////
+ 

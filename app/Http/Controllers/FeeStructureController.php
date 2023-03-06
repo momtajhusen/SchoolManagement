@@ -94,8 +94,7 @@ class FeeStructureController extends Controller
                     }
                     $feePayment->save();
                 }
-                    // return redirect()->back()->with('success', 'Fee payments saved successfully.');
-
+                return response()->json(['message' => 'Update Success']); 
             }
        }
 
@@ -119,7 +118,9 @@ class FeeStructureController extends Controller
             }
             $feePayment->save();
         }
-            // return redirect()->back()->with('success', 'Fee payments saved successfully.');
+
+        return response()->json(['message' => 'Ceeate Success']); 
+
        }
 
 

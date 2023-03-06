@@ -170,7 +170,7 @@
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Roll No: *</label>
-                                    <input type="text" required name="roll_no" placeholder="" class="form-control student_roll">
+                                    <input type="text" readonly required name="roll_no" placeholder="" class="form-control student_roll">
                                 </div>
                                 
 

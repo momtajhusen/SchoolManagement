@@ -35,6 +35,12 @@
 
     <!-- <link rel="stylesheet" href="css/select2.min.css"> -->
 
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.css" />
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.js"></script>
+
+
     <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -47,12 +53,25 @@
 <!-- Nepali Clander css -->
 <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css" rel="stylesheet" type="text/css"/>
 
-        <!-- Logout ajax -->
-        <script src="{{ asset('../admin_lang/accountLogin/ajax-logout-js')}}"></script>
+<!-- Logout ajax -->
+<script src="{{ asset('../admin_lang/accountLogin/ajax-logout-js')}}"></script>
 
+
+{{-- Google Ico Cdn  --}}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 
     @yield('style')
+
+<style>
+    .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+    }
+</style>
 
 </head>
 
@@ -272,12 +291,16 @@
                 <div class="sidebar-menu-content" style="height:100vh;">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                         <li class="nav-item">
-                            <a href="notice-board.html" class="nav-link">
-                               <i class="flaticon-dashboard"></i><span>Dashboard</span>
+                            <a href="#" class="nav-link d-flex">
+                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">dashboard</span>
+                               <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Students Management</span></a>
+                            <a href="#" class="nav-link d-flex">
+                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">group</span>
+                                <span>Students Management</span>
+                            </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('all-student')}}" class="nav-link"><i class="fas fa-angle-right"></i>All
@@ -290,7 +313,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link"><i
+                                    <a href="{{route('school_management_update_student_details')}}" class="nav-link"><i
                                             class="fas fa-angle-right"></i>Update Student Details</a>
                                 </li>
 
@@ -311,7 +334,10 @@
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Acconunt Management</span></a>
+                            <a href="#" class="nav-link d-flex">
+                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">account_balance</span>
+                                <span>Acconunt Management</span>
+                            </a>
                             <ul class="nav sub-group-menu">
                             <li class="nav-item">
                                     <a href="{{route('account-dashboard')}}" class="nav-link"><i class="fas fa-angle-right"></i>
@@ -335,16 +361,29 @@
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link d-flex">
+                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">apartment</span>
+                                <span>School Management</span>
+                            </a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item">
+                                    <a href="{{route('add-subjects')}}" class="nav-link">
+                                        <i class="fas fa-angle-right"></i>
+                                        Subject</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('add-classes')}}" class="nav-link"><i class="fas fa-angle-right"></i>
+                                        Class</a>
+                                </li>                   
+                            </ul>
+                        </li>
+                        <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i
                                     class="flaticon-multiple-users-silhouette"></i><span>Teachers</span></a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('all-teachers')}}" class="nav-link"><i class="fas fa-angle-right"></i>All
                                         Teachers</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="teacher-details.html" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Teacher Details</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('add-teacher')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add
@@ -387,24 +426,8 @@
                             </ul>
                         </li> -->
                 
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i
-                                    class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Class</span></a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="all-class.html" class="nav-link"><i class="fas fa-angle-right"></i>All
-                                        Classes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('add-classes')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add New
-                                        Class</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('add-subjects')}}" class="nav-link"><i
-                                    class="flaticon-open-book"></i><span>Subject</span></a>
-                        </li>
+ 
+                 
                         <!-- <li class="nav-item">
                             <a href="class-routine.html" class="nav-link"><i class="flaticon-calendar"></i><span>Class
                                     Routine</span></a>
@@ -476,6 +499,8 @@
 
                @yield('contents')
 
+               {{-- <button onclick="swal('Hello world!')">Click me</button> --}}
+
             </div>
         </div>
         <!-- Page Area End Here -->
@@ -531,7 +556,6 @@ elm.nepaliDatePicker({
     dateFormat: "DD/MM/YYYY",
 
 }); 
-
 };
 </script>
 

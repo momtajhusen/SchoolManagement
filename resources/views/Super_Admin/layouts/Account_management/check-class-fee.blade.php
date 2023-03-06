@@ -234,7 +234,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary p-3 px-4 text-lg" data-bs-dismiss="modal">Cancle</button>
+                                                    <button type="button" class="btn btn-secondary p-3 px-4 text-lg" id="payment-cancle" data-bs-dismiss="modal">Cancle</button>
                                                     <button type="button" class="btn btn-success p-3 px-4 text-lg payment-now">Pay Now</button>
                                                 </div>
                                                 </div>

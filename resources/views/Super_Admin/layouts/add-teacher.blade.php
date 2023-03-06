@@ -60,25 +60,26 @@
                         <form class="teacher-added-form" enctype="multipart/form-data">
                             <div class="row">
 
-                                <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center" style="height:110px;">
+                                 <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                                     <label>Teacher Photo *</label>
-                                    <div class="position-relative" style="height:80%; width:100px;">
-                                       <img src="#" class="h-100 w-100 imagepreview" style="position:absolute;">
-                                       <input type="file" name="image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
+                                    <div class="h-100 position-relative" style="height:80px; width:100px;">
+                                        <img  src="http://bit.ly/3IUenmf"  class="h-100 w-100 imagepreview" style="position:absolute;">
+                                        <input type="file" required name="image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
                                     </div>
-                                 </div>
+                                    <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
+                                </div>
 
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>First Name *</label>
-                                    <input type="text" name="first_name" placeholder="" class="form-control">
+                                    <input type="text" required name="first_name" placeholder="" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Last Name</label>
-                                    <input type="text" name="last_name"  placeholder="" class="form-control">
+                                    <input type="text" required name="last_name"  placeholder="" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Gender </label>
-                                    <select name="gender" class="select2">
+                                    <select name="gender" required class="select2">
                                         <option value="">Please Select Gender *</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -87,12 +88,12 @@
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Date Of Birth *</label>
-                                    <input type="text" name="dob" placeholder="dd/mm/yyyy" class="form-control nepali-datepicker">
+                                    <input type="text" required name="dob" placeholder="dd/mm/yyyy" class="form-control nepali-datepicker">
                                     <i class="far fa-calendar-alt" style="position:absolute;top:45px;right:30px;"></i>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Religion</label>
-                                    <select class="select2" name="religion">
+                                    <select class="select2" required name="religion">
                                         <option value="">Please Select Religion *</option>
                                         <option value="Islam">Islam</option>
                                         <option value="Hindu">Hindu</option>

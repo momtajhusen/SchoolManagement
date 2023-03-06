@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                                         <label>Roll No: *</label>
-                                        <input type="text" required name="roll_no" placeholder="" class="form-control student_roll">
+                                        <input type="text" readonly required name="roll_no" placeholder="" class="form-control student_roll">
                                     </div>
                                     
 
@@ -309,7 +309,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi mr-3 bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="success:">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                                 </svg>
-                            <b>Upload Success</b>
+                            <b>Update Success</b>
                             </div>
                         </div>
 

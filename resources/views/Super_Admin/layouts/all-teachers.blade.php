@@ -12,6 +12,9 @@
 @endsection
 
 @section('script')
+    <!-- ajax  -->
+    <script src="{{ asset('../admin_lang/teacher/ajax-get-all-teacher.js')}}"></script> 
+
         <!-- Select 2 Js -->
         <script src="{{ asset('../admin_lang/teacher/ajax-add-teacher.js')}}"></script> 
 
@@ -83,38 +86,16 @@
                                         </th>
                                         <th>Photo</th>
                                         <th>Name</th>
+                                        <th>salary</th>
+                                        <th>address</th>
                                         <th>Gender</th>
                                         <th>Subject</th>
                                         <th>Phone</th>
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">#0027</label>
-                                            </div>
-                                        </td>
-                                        <td class="text-center"><img src="img/figure/student8.png" alt="student"></td>
-                                        <td>Mark Willy</td>
-                                        <td>Male</td>
-                                        <td>Physics</td>
-                                        <td>9815759505</td>
-                                         <td>
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                    <span class="flaticon-more-button-of-three-dots"></span>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                                    <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                                    <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody class="table-body">
+           
                                 </tbody>
                             </table>
                         </div>

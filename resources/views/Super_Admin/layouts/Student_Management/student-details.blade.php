@@ -155,72 +155,11 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="tab4" role="tabpanel">
-                                     <div class="weekDays-selector">
-                                        <div class="row px-4">
-                                                <input type="checkbox" value="month_0" id="0" class="month-btn" />
-                                                <label for="0">Baisakh</label>
-                                 
-                                                <input type="checkbox" value="month_1" id="1" class="month-btn" />
-                                                <label for="1">Jestha</label>
-                          
-                                                <input type="checkbox" value="month_2" id="2" class="month-btn" />
-                                                <label for="2">Ashar</label>
-                               
-                                                <input type="checkbox" value="month_3" id="3" class="month-btn" />
-                                                <label for="3">Shrawan</label>
-                              
-                                               <input type="checkbox" value="month_4" id="4" class="month-btn" />
-                                                <label for="4">Bhadra</label>
-                                    
-                                                <input type="checkbox" value="month_5" id="5" class="month-btn" />
-                                                <label for="5">Ashoj</label>
-                                
-                                                <input type="checkbox" value="month_6" id="6" class="month-btn" />
-                                                <label for="6">Kartik</label>
-                         
-                                                <input type="checkbox" value="month_7" id="7" class="month-btn" />
-                                                <label for="7">Mangsir</label>
-                          
-                                                <input type="checkbox" value="month_8" id="8" class="month-btn" />
-                                                <label for="8">Poush</label>
-                     
-                                                <input type="checkbox" value="month_9" id="9" class="month-btn" />
-                                                <label for="9">Magh</label>
-                                  
-                                                <input type="checkbox" value="month_10" id="10" class="month-btn" />
-                                                <label for="10">Falgun</label>
-                                  
-                                                <input type="checkbox" value="month_11" id="11" class="month-btn" />
-                                                <label for="11">Chaitra</label> 
-                                            
-                                        </div>
-                                    </div>
-                                 
-                                <div class="p-5" style="background:#f3b38f;">
-                                    <table class="table" style=";width:90%;">
-                                        <div class="mb-2" style="border-top:1px solid black;border-bottom:1px solid black;height:100px;">
-                                            <h3 class="my-3"><b>INVOICE</b><h3>
-                                            <span class="name"><snan>
-                                        <div>
-                                        <thead class="border-dark text-dark font-weight-bold">
-                                            <tr>
-                                                <td class="border-dark" scope="col">Fee Type</td>
-                                                <td class="border-dark" scope="col">Amount</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="fee_stracture">
-            
-
-                                        </tbody>
-                                        <tbody>
-                                        <tr>
-                                                <td class="text-center" colspan="1">Total Fee :</td>
-                                                <td class="total_amount">@twitter</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                          
+                                    <p>When an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                                        It has survived not only five centuries,but alsowhen an unknown printer took a galley of type 
+                                        and scrambled it to make a type specimen book. It has survived not only five centuries, but 
+                                        alsowhen an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                                        It has survived not only five centuries, but also</p>
           
                                 </div>
                                 <div class="tab-pane fade" id="tab5" role="tabpanel">

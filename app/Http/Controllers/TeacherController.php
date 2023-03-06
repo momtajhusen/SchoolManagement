@@ -13,9 +13,24 @@ class TeacherController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public $response_teacher;
+    public $data;
+    public $TeacherData = [];
     public function index() 
     {
-        echo "index";
+        $this->response_teacher = Teacher::get();
+        if(count($this->response_teacher) != "0")
+        {
+            foreach($this->response_teacher as $this->data)
+            {
+                array_push($this->TeacherData,$this->data);
+            }   
+            
+            return response(array("data"=>$this->TeacherData),200);
+        }
+        else{
+            return response()->json(['message' => 'data not found']); 
+        }
     }
 
     /**
