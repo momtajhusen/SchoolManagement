@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/style.css')}}">
     <!-- Date Picker CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/datepicker.min.css')}}">
+        <!-- Data Table CSS -->
+        <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/jquery.dataTables.min.css')}}">
 @endsection
 
 @section('script')
@@ -141,7 +143,7 @@
                             <div class="card-body">
                                 <div class="heading-layout1">
                                     <div class="item-title">
-                                        <h3>All Classes</h3>
+                                        <h3>All Class</h3>
                                     </div>
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -157,23 +159,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form class="mg-b-20">
-                                    <div class="row gutters-8">
-                                        <div class="col-lg-4 col-12 form-group">
-                                            <input type="text" placeholder="Search by Exam ..." class="form-control">
-                                        </div>
-                                        <div class="col-lg-3 col-12 form-group">
-                                            <input type="text" placeholder="Search by Subject ..." class="form-control">
-                                        </div>
-                                        <div class="col-lg-3 col-12 form-group">
-                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control">
-                                        </div>
-                                        <div class="col-lg-2 col-12 form-group">
-                                            <button type="submit"
-                                                class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
-                                        </div>
-                                    </div>
-                                </form>
+                        
                                 <div class="table-responsive">
                                     <table class="table display data-table text-nowrap">
                                         <thead>
@@ -184,11 +170,14 @@
                                                         <label class="form-check-label">ID</label>
                                                     </div>
                                                 </th>
-                                                <th>Subject Name</th>
-                                                <th>Subject Type</th>
                                                 <th>Class</th>
-                                                <th>Date</th>
-                                                <th></th>
+                                                <th>Section</th>
+                                                <th>Class Teacher</th>
+                                                <th>Class Starting on</th>
+                                                <th>Class Ending on</th>
+                                                <th>Class Capacity</th>
+                                                <th>Class Location</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>

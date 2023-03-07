@@ -22,10 +22,6 @@
     <script src="{{ asset('../admin_lang/subject/ajax-update-subject.js')}}"></script> 
     <!-- script update subject  -->
     <script src="{{ asset('../admin_lang/subject/script-edit-subject.js')}}"></script> 
-
-
-
-
     <!-- ajax get all for class-select -->
     <script src="{{ asset('../admin_lang/classes/get-all-class.js')}}"></script> 
 

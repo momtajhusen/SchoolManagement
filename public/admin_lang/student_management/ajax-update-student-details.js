@@ -224,6 +224,11 @@ $(document).ready(function () {
                 setTimeout(function () {
                     $(".alert-info").addClass("d-none");
                 }, 3000);
+                Swal.fire(
+                    "Update Success !",
+                    "You clicked the button!",
+                    "success"
+                );
             },
             error: function (xhr, status, error) {
                 console.log(xhr.responseText);
