@@ -154,6 +154,7 @@
                                                 <th scope="col">Roll No</th>
                                                 <th scope="col">Total Fees</th>
                                                 <th scope="col">Payment</th>
+                                                <th scope="col">Discount</th>
                                                 <th scope="col">Back Dues</th>
                                                 <th scope="col">Invoice</th>
                                             </tr>
@@ -224,11 +225,11 @@
                                                 </div>
                                                 </div>
                                                 <div class="p-2 d-flex">
-                                                    {{-- <div class="w-50 form-group m-1">
+                                                    <div class="w-50 form-group m-1">
                                                         <label class="text-light">Discount</label>
-                                                        <input type="number" value="0000" id="discount" name="discount" placeholder="Discount" class="form-control discount d-none">
-                                                    </div> --}}
-                                                    <div class="w-100 form-group m-1">
+                                                        <input type="number" value="0000" id="discount" name="discount" placeholder="Discount" class="form-control discount">
+                                                    </div>
+                                                    <div class="w-50 form-group m-1">
                                                         <label class="text-light">Payment</label>
                                                         <input type="number" name="payment" id="payment" placeholder="Payment" class="form-control payment">
                                                     </div>

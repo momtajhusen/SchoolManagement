@@ -9,6 +9,8 @@ use App\Models\Student;
 use App\Models\FeeStructure;
 use App\Models\FeePayment;
 use App\Models\DuesAmount;
+use App\Models\FeeDiscount;
+
 
 
 class CheckClassFeeController extends Controller
@@ -116,10 +118,28 @@ class CheckClassFeeController extends Controller
 
                     $DuesAmount[$DuesRoll] = $totalDues;
                 }
-            /////////// End  Dues Check ///////////
+                /////////// End  Dues Check ///////////
+
+
+                /////////// Start  FeeDiscount Check ///////////
+                $FeeDiscount = []; 
+                $DiscountRolls = FeeDiscount::select('roll_no')->where('class', $class)->distinct()->get()->pluck('roll_no');
+                foreach ($DiscountRolls as $DiscountRoll) 
+                {
+                    $totalDiscount = 0;
+                    $Discount = FeeDiscount::where('class', $class)->where('roll_no', $DiscountRoll)->first();
+
+                    for ($i =  $start_month; $i <= $end_month; $i++) 
+                    {
+                        $totalDiscount += $Discount->{'month_'.$i};
+                    }
+
+                    $FeeDiscount[$DiscountRoll] = $totalDiscount;
+                }
+                /////////// End  FeeDiscount Check ///////////
 
  
-               return response(array("data"=>$this->allData, 'feeData' => $feeData, "totalFees" => $totalFees,"FeeTypeWithAmount"=>$FeeTypeWithAmount,"FeePayment"=>$FeePayment, "DuesAmount"=>$DuesAmount),200);
+               return response(array("data"=>$this->allData, 'feeData' => $feeData, "totalFees" => $totalFees,"FeeTypeWithAmount"=>$FeeTypeWithAmount,"FeePayment"=>$FeePayment, "DuesAmount"=>$DuesAmount, "FeeDiscount"=>$FeeDiscount),200);
                 
         }
         else{

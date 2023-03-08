@@ -56,142 +56,92 @@ $(document).ready(function () {
                             var section = response.data[index].section;
                             var roll_no = response.data[index].roll_no;
 
-                            $(".class-table").append(
-                                `
-                      <tr>
-                          <th scope="row" style="width:10px;">` +
-                                    sn_no +
-                                    `</th>
+                            $(".class-table").append(`<tr>
+                          <th scope="row" style="width:10px;">` +sn_no +`</th>
                           <td class="p-1" style="width:100px;height:50px;">
-                            <a href="student-details/` +
-                                    id +
-                                    `"><img src="http://127.0.0.1:8000/storage/` +
-                                    student_image +
-                                    `" style="height:100%;" alt="student"></a>
+                            <a href="student-details/` +id +`"><img src="http://127.0.0.1:8000/storage/` +student_image +`" style="height:100%;" alt="student"></a>
                           </td>
-                          <td>` +
-                                    first_name +
-                                    " " +
-                                    middle_name +
-                                    " " +
-                                    last_name +
-                                    `</td>
-                          <td id="roll_` +
-                                    roll_no +
-                                    `">` +
-                                    roll_no +
-                                    `</td>
-                          <td>` +
-                                    response.totalFees +
-                                    `</td>
-                          <td id="payment_` +
-                                    roll_no +
-                                    `">0</td>
-                          <td id="dues_` +
-                                    roll_no +
-                                    `" dues_roll="` +
-                                    roll_no +
-                                    `">0</td>
+                          <td>` +first_name +" " +middle_name +" " +last_name +`</td>
+                          <td id="roll_` +roll_no +`">` +roll_no +`</td>
+                          <td>` +response.totalFees +`</td>
+                          <td id="payment_` +roll_no +`">0</td>
+                          <td id="discount_` +roll_no +`">0</td>
+                          <td id="dues_` +roll_no +`">0</td>
                           <td> 
-                              <button type="button" id="btn_` +
-                                    roll_no +
-                                    `" roll="` +
-                                    roll_no +
-                                    `" s_class="` +
-                                    classes +
-                                    `" s_name="` +
-                                    first_name +
-                                    " " +
-                                    middle_name +
-                                    " " +
-                                    last_name +
-                                    `" total="` +
-                                    response.totalFees +
-                                    `" dues="0" payment="0" class="btn p-2 px-3 border-danger btn-dark invoice-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              <button type="button" id="btn_` +roll_no +`" roll="` +roll_no +`" s_class="` +classes +`" s_name="` +first_name +" " +middle_name +" " +last_name +`" total="` +response.totalFees +`" dues="0" payment="0" discount="0" class="btn p-2 px-3 border-danger btn-dark invoice-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Invoice
                               </button>
                           </td>
-                      </tr> 
-                  `
-                            );
+                      </tr>`);
 
                             ////////// Start Check Payment//////////
                             var FeePayment = response.FeePayment;
-                            for (const [roll, feeAmounts] of Object.entries(
-                                FeePayment
-                            )) {
-                                if (student_roll != "") {
-                                    $("#payment_" + roll_no).html(
-                                        FeePayment[student_roll]
-                                    );
-                                    $("#btn_" + roll_no).attr(
-                                        "payment",
-                                        FeePayment[student_roll]
-                                    );
+                            for (const [roll, feeAmounts] of Object.entries(FeePayment)) 
+                            {
+                                if (student_roll != "") 
+                                {
+                                    $("#payment_" + roll_no).html(FeePayment[student_roll]);
+                                    $("#btn_" + roll_no).attr("payment", FeePayment[student_roll]);
                                 } else {
-                                    if ($("#roll_" + roll_no).html() == roll) {
-                                        $("#payment_" + roll_no).html(
-                                            feeAmounts
-                                        );
-                                        $("#btn_" + roll_no).attr(
-                                            "payment",
-                                            feeAmounts
-                                        );
-                                    }
+                                    if ($("#roll_" + roll_no).html() == roll) 
+                                    {
+                                        $("#payment_" + roll_no).html(feeAmounts);
+                                        $("#btn_" + roll_no).attr("payment",feeAmounts);
+                                    } 
                                 }
                             }
                             ////////// End Check Payment //////////
 
+                            ////////// Start Check Discount//////////
+                            var FeeDiscount = response.FeeDiscount;
+                            for (const [roll, feeDiscounts] of Object.entries(FeeDiscount)) 
+                            {
+                                if (student_roll != "") 
+                                {
+                                    $("#discount_" + roll_no).html(FeeDiscount[student_roll]);
+                                    $("#btn_" + roll_no).attr("payment", FeeDiscount[student_roll]);
+                                } else {
+                                    if ($("#roll_" + roll_no).html() == roll) 
+                                    {
+                                        $("#discount_" + roll_no).html(feeDiscounts);
+                                        $("#btn_" + roll_no).attr("discount",feeDiscounts);
+                                    } 
+                                }
+                            }
+                            ////////// End Check Discount //////////
+
                             ////////// Start Check Dues//////////
                             var DuesAmount = response.DuesAmount;
-                            for (const [roll, currentDues] of Object.entries(
-                                DuesAmount
-                            )) {
+                            for (const [roll, backDues] of Object.entries(DuesAmount)) 
+                            {
                                 // with roll
                                 if (student_roll != "") {
-                                    $("#dues_" + roll_no).html(
-                                        DuesAmount[student_roll]
-                                    );
-                                    $("#btn_" + roll_no).attr(
-                                        "dues",
-                                        DuesAmount[student_roll]
-                                    );
+                                    $("#dues_" + roll_no).html(DuesAmount[student_roll]);
+                                    $("#btn_" + roll_no).attr("dues",DuesAmount[student_roll]);
 
-                                    if (
-                                        DuesAmount[student_roll] == "0" &&
-                                        FeePayment[student_roll] ==
-                                            response.totalFees
-                                    ) {
-                                        $("#btn_" + student_roll).addClass(
-                                            "d-none"
-                                        );
+                                    if (DuesAmount[student_roll] == "0" && FeePayment[student_roll] == response.totalFees-FeeDiscount[student_roll]) 
+                                    {
+                                        $("#btn_" + student_roll).addClass("d-none");
                                     } else {
-                                        $("#btn_" + student_roll).removeClass(
-                                            "d-none"
-                                        );
+                                        $("#btn_" + student_roll).removeClass("d-none");
                                     }
                                 }
                                 // without roll
                                 else {
-                                    if ($("#roll_" + roll_no).html() == roll) {
-                                        $("#dues_" + roll_no).html(currentDues);
-                                        $("#btn_" + roll_no).attr(
-                                            "dues",
-                                            currentDues
-                                        );
+                                    if ($("#roll_" + roll_no).html() == roll) 
+                                    {
+                                        $("#dues_" + roll_no).html(backDues);
+                                        $("#btn_" + roll_no).attr("dues",backDues);
 
-                                        if (
-                                            currentDues == "0" &&
-                                            response.FeePayment[roll] ==
-                                                response.totalFees
-                                        ) {
-                                            $("#btn_" + roll_no).addClass(
-                                                "d-none"
-                                            );
+
+                                        if (backDues == "0" && response.FeePayment[roll] == response.totalFees-FeeDiscount[roll]) 
+                                        {
+                                            // alert(response.totalFees-FeeDiscount[roll]);
+                                            $("#btn_" + roll_no).addClass("d-none");
                                         } else {
-                                            $("#btn_" + roll_no).removeClass(
-                                                "d-none"
-                                            );
+                                            $("#btn_" + roll_no).removeClass("d-none");
+                                            // alert(response.totalFees-FeeDiscount[roll]);
+                                            
                                         }
                                     }
                                 }
@@ -205,18 +155,11 @@ $(document).ready(function () {
                         for (const [feeType, feeAmount] of Object.entries(
                             feeTypeWithAmount
                         )) {
-                            $(".fee_stracture").append(
-                                `
-                    <tr>
-                    <td>` +
-                                    feeType +
-                                    `</td>
-                    <td>` +
-                                    feeAmount +
-                                    `</td>
-                    </tr>
-                `
-                            );
+                            $(".fee_stracture").append(`
+                                <tr>
+                                <td>`+feeType +`</td>
+                                <td>` +feeAmount +`</td></tr>
+                            `);
                         }
                     } else {
                         $(".class-table").html(``);
@@ -244,19 +187,18 @@ $(document).ready(function () {
         var backdues = $(this).attr("dues");
         var payment = $(this).attr("payment");
         var total = $(this).attr("total");
+        var discount = $(this).attr("discount");
         $(".discount").val("0");
 
         $(".previous_dues").html(backdues);
-        $(".total_amount").html(
-            Number(total) + Number(backdues) - Number(payment)
-        );
+        $(".total_amount").html(Number(total) + Number(backdues) - Number(payment) - Number(discount));
         $(".already_pay").html(payment);
 
         $(".s_name").html(s_name);
         $(".s_class").html(s_class);
         $(".s_roll").html(roll);
 
-        $(".payment").val(Number(total) + Number(backdues) - Number(payment));
+        $(".payment").val(Number(total) + Number(backdues) - Number(payment) - Number(discount));
     });
 });
 
@@ -277,6 +219,12 @@ $(document).ready(function () {
         if (e.key === "+" || e.key === "-" || e.key === "e") {
             e.preventDefault();
         }
+    });
+});
+
+$(document).ready(function () {
+    $(".payment").on("input", function (e) {
+        $(".discount").val("0");
     });
 });
 

@@ -2,7 +2,7 @@ $(document).ready(function () {
     $(".payment-now").click(function () {
         var totalFee = $(".total_amount").html();
         var payment = $("#payment").val();
-        var discount = $("#discount").val();
+        var discount = $("#discount").val() || 0;
         var class_select = $(".s_class").html();
         var roll = $(".s_roll").html();
 
