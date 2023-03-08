@@ -291,7 +291,7 @@
                 <div class="sidebar-menu-content" style="height:100vh;">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                         <li class="nav-item">
-                            <a href="#" class="nav-link d-flex">
+                            <a href="{{route('dashboard')}}" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">dashboard</span>
                                <span>Dashboard</span>
                             </a>

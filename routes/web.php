@@ -25,8 +25,10 @@ Route::post('/super-admin-logout', 'App\Http\Controllers\AccountLoginController@
 //Middleware Super Admin
 Route::group(['middleware'=>'SuperAdminLogin'],function()
 { 
-    Route::view('admin/dashboard','Super_Admin/admin_template')->name('dashboard');
-    Route::view('admin','Super_Admin/admin_template')->name('admin');
+   
+    Route::view('admin/dashboard','Super_Admin/layouts/SuperAdminDashboard')->name('dashboard');
+    Route::view('admin','Super_Admin/layouts/SuperAdminDashboard')->name('admin');
+    Route::get('/super-admin-dashboard-data', 'App\Http\Controllers\SuperAdminDashboardController@index');
 
     // Super Admin Account management
        Route::view('admin/set-fee','Super_Admin/layouts/Account_management/set-fees')->name('set-fees');
