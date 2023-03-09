@@ -67,6 +67,7 @@ $(document).ready(function () {
                           <td id="payment_` +roll_no +`">0</td>
                           <td id="discount_` +roll_no +`">0</td>
                           <td id="dues_` +roll_no +`">0</td>
+                          <td id="total_dues_`+roll_no+`" class="d-none">0</td>
                           <td> 
                               <button type="button" id="btn_` +roll_no +`" roll="` +roll_no +`" s_class="` +classes +`" s_name="` +first_name +" " +middle_name +" " +last_name +`" total="` +response.totalFees +`" dues="0" payment="0" discount="0" class="btn p-2 px-3 border-danger btn-dark invoice-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Invoice
@@ -119,7 +120,7 @@ $(document).ready(function () {
                                     $("#dues_" + roll_no).html(DuesAmount[student_roll]);
                                     $("#btn_" + roll_no).attr("dues",DuesAmount[student_roll]);
 
-                                    if (DuesAmount[student_roll] == "0" && FeePayment[student_roll] == response.totalFees-FeeDiscount[roll]) 
+                                    if (DuesAmount[student_roll] == "0" && FeePayment[student_roll] == response.totalFees-FeeDiscount[roll] || DuesAmount[student_roll] == "0" && FeePayment[student_roll] == response.totalFees-FeeDiscount[roll] || response.totalFees > response.totalFees+FeePayment[student_roll]) 
                                     {
                                         $("#btn_" + student_roll).addClass("d-none");
                                     } else {
@@ -144,6 +145,8 @@ $(document).ready(function () {
                                 }
                             }
                             ////////// End Check Dues //////////
+
+                     
                         });
 
                         // Invoice Set Fee Type With Amount
@@ -185,10 +188,16 @@ $(document).ready(function () {
         var payment = $(this).attr("payment");
         var total = $(this).attr("total");
         var discount = $(this).attr("discount");
+
+        var payingAmount = Number(payment) + Number(discount);
+        var totalPaying =  Number(total)  - Number(payingAmount) + Number(backdues);
+
+        // alert(totalPaying);
+
         
 
         $(".previous_dues").html(backdues);
-        $(".total_amount").html(Number(total) - Number(payment) - Number(discount));
+        $(".total_amount").html(totalPaying);
         $(".already_pay").html(payment);
         $("#discount").val("0");
 
@@ -196,7 +205,7 @@ $(document).ready(function () {
         $(".s_class").html(s_class);
         $(".s_roll").html(roll);
 
-        $(".payment").val(Number(total) - Number(payment) - Number(discount));
+        $(".payment").val(totalPaying);
     });
 });
 

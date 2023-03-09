@@ -155,7 +155,8 @@
                                                 <th scope="col">Total Fees</th>
                                                 <th scope="col">Payment</th>
                                                 <th scope="col">Discount</th>
-                                                <th scope="col">Dues</th>
+                                                <th scope="col">Previous Dues</th>
+                                                {{-- <th scope="col">Total Dues</th> --}}
                                                 <th scope="col">Invoice</th>
                                             </tr>
                                         </thead>

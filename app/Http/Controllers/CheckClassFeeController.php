@@ -112,7 +112,7 @@ class CheckClassFeeController extends Controller
                     $totalDues = 0;
                     $dues = DuesAmount::where('class', $class)->where('roll_no', $DuesRoll)->first();
 
-                    for ($i =  $start_month; $i <= $end_month; $i++) {
+                    for ($i =  $start_month; $i <= $end_month-1; $i++) {
                         $totalDues += $dues->{'month_'.$i};
                     }
 
