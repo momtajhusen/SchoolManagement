@@ -2,7 +2,10 @@ $(document).ready(function () {
     $(".payment-now").click(function () {
         var totalFee = $(".total_amount").html();
         var payment = $("#payment").val();
-        var discount = $("#discount").val() || 0;
+        var already_pay = $(".already_pay").val() || 0;
+        var get_discount = $("#discount").val() || 0;
+        var back_discount = $(".discount").val() || 0;
+
         var class_select = $(".s_class").html();
         var roll = $(".s_roll").html();
 
@@ -29,7 +32,9 @@ $(document).ready(function () {
                 data: {
                     totalFee: totalFee,
                     payment: payment,
-                    discount: discount,
+                    already_pay: already_pay,
+                    get_discount: get_discount,
+                    back_discount: back_discount,
                     class: class_select,
                     roll: roll,
                     select_year: select_year,
@@ -38,6 +43,7 @@ $(document).ready(function () {
                 },
                 // Success
                 success: function (response) {
+                    alert(response);
                     $("#payment-cancle").click();
                     $(".search-btn").click();
 

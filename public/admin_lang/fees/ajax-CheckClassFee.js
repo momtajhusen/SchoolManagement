@@ -119,7 +119,7 @@ $(document).ready(function () {
                                     $("#dues_" + roll_no).html(DuesAmount[student_roll]);
                                     $("#btn_" + roll_no).attr("dues",DuesAmount[student_roll]);
 
-                                    if (DuesAmount[student_roll] == "0" && FeePayment[student_roll] == response.totalFees-FeeDiscount[student_roll]) 
+                                    if (DuesAmount[student_roll] == "0" && FeePayment[student_roll] == response.totalFees-FeeDiscount[roll]) 
                                     {
                                         $("#btn_" + student_roll).addClass("d-none");
                                     } else {
@@ -134,14 +134,11 @@ $(document).ready(function () {
                                         $("#btn_" + roll_no).attr("dues",backDues);
 
 
-                                        if (backDues == "0" && response.FeePayment[roll] == response.totalFees-FeeDiscount[roll]) 
+                                        if (backDues == "0" && response.FeePayment[roll] == response.totalFees || backDues == "0" && response.FeePayment[roll] == response.totalFees-FeeDiscount[roll] || response.totalFees > response.totalFees+response.FeePayment[roll]) 
                                         {
-                                            // alert(response.totalFees-FeeDiscount[roll]);
                                             $("#btn_" + roll_no).addClass("d-none");
                                         } else {
-                                            $("#btn_" + roll_no).removeClass("d-none");
-                                            // alert(response.totalFees-FeeDiscount[roll]);
-                                            
+                                            $("#btn_" + roll_no).removeClass("d-none"); 
                                         }
                                     }
                                 }
@@ -188,23 +185,24 @@ $(document).ready(function () {
         var payment = $(this).attr("payment");
         var total = $(this).attr("total");
         var discount = $(this).attr("discount");
-        $(".discount").val("0");
+        
 
         $(".previous_dues").html(backdues);
-        $(".total_amount").html(Number(total) + Number(backdues) - Number(payment) - Number(discount));
+        $(".total_amount").html(Number(total) - Number(payment) - Number(discount));
         $(".already_pay").html(payment);
+        $("#discount").val("0");
 
         $(".s_name").html(s_name);
         $(".s_class").html(s_class);
         $(".s_roll").html(roll);
 
-        $(".payment").val(Number(total) + Number(backdues) - Number(payment) - Number(discount));
+        $(".payment").val(Number(total) - Number(payment) - Number(discount));
     });
 });
 
 // Discount
 $(document).ready(function () {
-    $(".discount").on("input", function (e) {
+    $("#discount").on("input", function (e) {
         var totalPayment = $(".total_amount").html();
         var discount = $(this).val();
 
@@ -224,7 +222,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(".payment").on("input", function (e) {
-        $(".discount").val("0");
+        $("#discount").val("0");
     });
 });
 
@@ -258,6 +256,9 @@ $(document).ready(function () {
     });
 
     // Set select_month to 11 and trigger change event
-    var select_month = NepaliFunctions.GetCurrentBsDate().month - 1;
+    var select_month =  0;
     $(".start-month").val(select_month).change();
+
+    var select_month = NepaliFunctions.GetCurrentBsDate().month - 1;
+    $(".end-month").val(select_month).change();
 });

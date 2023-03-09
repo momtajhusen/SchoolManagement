@@ -38,7 +38,10 @@ class FeePaymentController extends Controller
     {
         $totalFee = $request->totalFee;
         $payment = $request->payment;
-        $discount = $request->discount;
+        $already_pay = $request->already_pay;
+        $get_discount = $request->get_discount;
+        $back_discount = $request->back_discount;
+
 
         $class = $request->class;
         $roll = $request->roll;
@@ -53,30 +56,25 @@ class FeePaymentController extends Controller
         {
 
             $FeePayment = FeePayment::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->first();
-            if ($FeePayment) 
-            {
             $FeePayment->class = $class;
             $FeePayment->class_year = $select_year;
+            $FeePayment->roll_no = $roll;
  
-            $MonthFeeAmount =  0;
-            for ($i = $start_month; $i <= $end_month; $i++) 
-            {
+ 
+            for ($i = $start_month; $i <= $end_month; $i++) {
                 $month = 'month_'.$i;
-                $FeePayment->$month =  FeeStructure::where('class', $class)->sum($month);
-                $MonthFeeAmount = $MonthFeeAmount + FeeStructure::where('class', $class)->sum($month);
-                
-                // check if it is the last iteration of the loop
-                if ($i == $end_month) {
-                    $MonthFeeAmount = $MonthFeeAmount + FeeStructure::where('class', $class)->sum($month);
-                    $LastMonth = $totalFee - $payment;
+                $FeePayment->$month = FeePayment::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->sum($month);
 
-                    $FeePayment->$month = FeeStructure::where('class', $class)->sum($month) - $LastMonth; 
+                if ($i == $end_month) {
+           
+                    $FeePayment->$month =  $payment+FeePayment::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->sum($month);
                 }
             }
-
+    
             $FeePayment->save();
-            echo "FeePayment Update Success";
-            }
+
+            // echo "FeePayment Update Success";
+            
             
         }
         // Insert FeePayment
@@ -103,16 +101,11 @@ class FeePaymentController extends Controller
 
 
             $FeePayment->save();
-            echo "Insert Sucess";
-
-
         }
 
         // Dues Amount Insert 
           if(DuesAmount::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->exists())
           {
-              echo "old_yes_dues :". $totalFee-$payment+$discount;
-
               $FeeDue = DuesAmount::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->first();
               $FeeDue->class = $class;
               $FeeDue->class_year = $select_year;
@@ -123,12 +116,13 @@ class FeePaymentController extends Controller
                 $month = 'month_'.$i;
                 $FeeDue->$month =  "0"; 
 
-
                 if ($i == $end_month) 
                 {
-                  if($discount == "0")
+                  if($get_discount == "0")
                   {
-                    $FeeDue->$month = $totalFee - $payment; 
+                   $current_payment = $already_pay+$back_discount+$payment;
+                   $FeeDue->$month =  $totalFee - $current_payment;
+                   echo $totalFee - $current_payment;
                   }
                   else{
                     $FeeDue->$month =  "0"; 
@@ -137,8 +131,6 @@ class FeePaymentController extends Controller
               }
 
               $FeeDue->save();
-
-
           }
           else{
               $FeeDue = new DuesAmount();
@@ -153,9 +145,11 @@ class FeePaymentController extends Controller
 
                 if ($i == $end_month) 
                 {
-                  if($discount == "0")
+                  if($get_discount == "0")
                   {
-                    $FeeDue->$month = $totalFee - $payment; 
+                   $current_payment = $already_pay+$back_discount+$payment;
+                   $FeeDue->$month =  $totalFee - $current_payment;
+
                   }
                   else{
                     $FeeDue->$month =  "0"; 
@@ -170,30 +164,6 @@ class FeePaymentController extends Controller
         // Discount Insert 
           if(FeeDiscount::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->exists())
           {
-  
-              // $FeeDiscount = FeeDiscount::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->first();
-              // $FeeDiscount->class = $class;
-              // $FeeDiscount->class_year = $select_year;
-              // $FeeDiscount->roll_no = $roll;
-               
-              // for ($i = 0; $i <= $end_month; $i++) 
-              // {
-              //   $month = 'month_'.$i;
-              //   $FeeDiscount->$month =  "0"; 
-  
-              //   if ($i == $end_month) 
-              //   {
-              //     if($discount != "0")
-              //     {
-              //       $FeeDiscount->$month = $totalFee - $payment; 
-              //     }
-              //     else{
-              //       $FeeDiscount->$month =  "0"; 
-              //     }
-              //   }
-              // }
-  
-              // $FeeDiscount->save();
 
               $FeeDiscount = FeeDiscount::where('class', $class)->where('roll_no', $roll)->where('class_year', $select_year)->first();
               $FeeDiscount->class = $class;
@@ -209,7 +179,7 @@ class FeePaymentController extends Controller
                   
                   // check if it is the last iteration of the loop
                   if ($i == $end_month) {
-                    if($discount != "0")
+                    if($get_discount != "0")
                     {
                       $FeeDiscount->$month = $totalFee - $payment; 
                     }
@@ -223,8 +193,6 @@ class FeePaymentController extends Controller
               // echo "Update Sucess";
           }
           else{
-              echo "new_yes_dues :". $totalFee-$payment+$discount;
-  
               $FeeDiscount = new FeeDiscount();
               $FeeDiscount->class = $class;
               $FeeDiscount->class_year = $select_year;
@@ -237,7 +205,7 @@ class FeePaymentController extends Controller
   
                 if ($i == $end_month) 
                 {
-                  if($discount != "0")
+                  if($get_discount != "0")
                   {
                     $FeeDiscount->$month = $totalFee - $payment; 
                   }

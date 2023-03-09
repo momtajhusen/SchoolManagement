@@ -67,9 +67,9 @@
                                                 <select name="period" class="select-year px-3 mr-2"  style="height:30px; ">
                         
                                                 </select>
-                                                <select name="period" class="start-month px-3"  style="height:30px; ">
+                                                <select name="period" class="start-month px-3 hide"  style="height:30px; ">
                                                     <option value="0" class="bg-dark text-light p-4">Baishakh</option>
-                                                    <option value="1" class="bg-dark text-light">Jestha</option>
+                                                    {{-- <option value="1" class="bg-dark text-light">Jestha</option>
                                                     <option value="2" class="bg-dark text-light">Ashadh</option>
                                                     <option value="3" class="bg-dark text-light">Shrawan</option>
                                                     <option value="4" class="bg-dark text-light">Bhadau</option>
@@ -79,7 +79,7 @@
                                                     <option value="8" class="bg-dark text-light">Poush</option>
                                                     <option value="9" class="bg-dark text-light">Magh</option>
                                                     <option value="10" class="bg-dark text-light">Falgun</option>
-                                                    <option value="11" class="bg-dark text-light">Chaitra</option>
+                                                    <option value="11" class="bg-dark text-light">Chaitra</option> --}}
                                                 </select>
                                                 <span class="px-3">To</span>
                                                 <select name="period" class="end-month px-3"  style="height:30px;">
@@ -155,7 +155,7 @@
                                                 <th scope="col">Total Fees</th>
                                                 <th scope="col">Payment</th>
                                                 <th scope="col">Discount</th>
-                                                <th scope="col">Back Dues</th>
+                                                <th scope="col">Dues</th>
                                                 <th scope="col">Invoice</th>
                                             </tr>
                                         </thead>
@@ -227,7 +227,7 @@
                                                 <div class="p-2 d-flex">
                                                     <div class="w-50 form-group m-1">
                                                         <label class="text-light">Discount</label>
-                                                        <input type="number" value="0000" id="discount" name="discount" placeholder="Discount" class="form-control discount">
+                                                        <input type="number" value="0" id="discount" name="discount" placeholder="Discount" class="form-control">
                                                     </div>
                                                     <div class="w-50 form-group m-1">
                                                         <label class="text-light">Payment</label>
