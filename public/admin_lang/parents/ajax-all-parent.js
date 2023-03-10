@@ -1,6 +1,11 @@
-// Retrive All Student
+// Retrive All parents
 $(document).ready(function(){
- 
+    
+    loadParentData();
+
+});
+
+function loadParentData() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -10,26 +15,6 @@ $(document).ready(function(){
     $.ajax({
         url: "/get-all-parents",
         method: 'GET',
-        beforeSend: function() 
-        {
-         // setting a timeout
-           $(".submit-btn").addClass('d-none');
-           $(".progress").removeClass('d-none');
-        },
-        // Progress 
-             xhr: function(){
-                 var xhr = new window.XMLHttpRequest();
-                 xhr.upload.addEventListener("progress", function(evt) {
-                     if (evt.lengthComputable) {
-                         var percentComplete = (evt.loaded / evt.total) * 100;
-                         var percentComplete =  percentComplete.toFixed(2);
-                         $(".progress-bar").width(percentComplete+"%");
-                         $(".progress-bar").html(percentComplete+" %");
- 
-                     }
-                 }, false);
-                 return xhr;
-             },
          // Success 
          success:function(response)
          {
@@ -96,6 +81,7 @@ $(document).ready(function(){
 
          }
     });
+}
 
 
-});
+

@@ -15,9 +15,26 @@ class ParentsController extends Controller
     public $parent_response;
     public $data;
     public $ParentData = [];
-    public function index()
+    public function index(Request $request)
     {
-        $this->parent_response = Parents::get();
+
+        $parents_search_select = $request->parents_search_select;
+        $parents_input_search = $request->parents_input_search;
+
+        if($parents_input_search != "")
+        {
+            if($parents_search_select == "father_mobile" || $parents_search_select == "login_email")
+            {
+                $this->parent_response = Parents::where($parents_search_select, $parents_input_search)->get();
+            }
+            else{
+              $this->parent_response = Parents::where($parents_search_select, 'LIKE', '%'.$parents_input_search.'%')->get();   
+            }
+        }
+        else{
+            $this->parent_response = Parents::get(); 
+        }
+
         if(count($this->parent_response) != "0")
         {
             foreach($this->parent_response as $this->data)

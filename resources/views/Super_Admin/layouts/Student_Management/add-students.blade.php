@@ -14,7 +14,7 @@
 @section('script')
     <!-- ajax add student  -->
     <script src="{{ asset('../admin_lang/student/ajax-add-student.js')}}"></script> 
-    
+
     <!-- ajax get all for class-select -->
     <script src="{{ asset('../admin_lang/classes/get-all-class.js')}}"></script> 
 
@@ -23,25 +23,7 @@
     
     <!-- Select 2 Js -->
     <script src="{{ asset('../admin_template_assets/js/select2.min.js')}}"></script>
-
-    <script>
-        // const imageInput = document.getElementById("studentImageInput");
-        // const imagePreview = document.getElementById("studentImage");
-      
-        // imageInput.addEventListener("change", function() {
-        //   const file = imageInput.files[0];
-        //   const reader = new FileReader();
-          
-        //   reader.addEventListener("load", function() {
-        //     imagePreview.src = reader.result;
-        //   }, false);
-      
-        //   if (file) {
-        //     reader.readAsDataURL(file);
-        //   }
-        // }, false);
-      </script>
-      
+  
 @endsection
 
 
@@ -72,11 +54,11 @@
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                             <label>Student Image *</label>
-                            <div class="h-100 position-relative" style="height:60px; width:100px;">
+                            <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black">
                                 <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
                                 <input type="file" id="student_id_input" name="student_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
+                                <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="student_id_input" style="position:absolute;bottom:0px;width:100px;z-index:100;opacity: 0.5;">UPLOAD</label>
                             </div>
-                            <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
                             </div>
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
@@ -92,9 +74,8 @@
                             <input type="text" required name="student_last_name"  placeholder="" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>Gender </label>
+                            <label>Gender *</label>
                             <select name="student_gender" required class="select2">
-                                <option value="">Please Select Gender *</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Others">Others</option>
@@ -148,7 +129,7 @@
                             <label>Upload ID Proof *</label>
                             <div class="h-100 position-relative" style="height:80px; width:100px;">
                                 <img  src="https://simptionsmartschool.com/school_software_v1//images/blank/blank_document.png" class="h-100 w-100 imagepreview" style="position:absolute;">
-                                <input type="file" name="student_id_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
+                                <input type="file" required name="student_id_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
                             </div>
                             <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
                         </div>
@@ -197,15 +178,15 @@
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>District</label>
+                            <label>District *</label>
                             <input type="text" required name="district" placeholder="" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>Municipality</label>
+                            <label>Municipality *</label>
                             <input type="text" required name="municipality" placeholder="" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>Village</label>
+                            <label>Village *</label>
                             <input type="text" required name="village" placeholder="" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
@@ -220,167 +201,130 @@
                         </div>
 
 
-                        <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
-                            <label>Father Photo</label>
-                            <div class="h-100 position-relative" style="height:50px; width:100px;">
-                            <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
-                            <input type="file" name="father_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
-                            </div>
-                            <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
-                        </div>
-
-                        <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>Father Name *</label>
-                            <input type="text" required name="father_name" placeholder="" class="form-control">
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>Father Mobile No: *</label>
-                            <input type="number" required name="father_phone" placeholder="" class="form-control">
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>Education</label>
-                            <input type="text" name="father_education"  placeholder="" class="form-control">
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
-                            <label>Mother Photo</label>
-                            <div class="h-100 position-relative" style="height:50px; width:100px;">
-                            <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
-                            <input type="file" name="mother_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
-                            </div>
-                            <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>Mother Name *</label>
-                            <input type="text" required name="mother_name"  placeholder="" class="form-control">
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>Mother Mobile No:</label>
-                            <input type="number"  name="mother_phone" placeholder="" class="form-control">
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>Education</label>
-                            <input type="text" name="mother_education"  placeholder="" class="form-control">
-                        </div>
-                        {{-- <div class="heading-layout1 px-4 pt-5 py-0" style="width:100%;">
-                            <div class="item-title py-0">
-                                <h4 class="py-0 m-0">Parent / Guardian Login Detail</h4>
-                            </div>
-                        </div> --}}
-
- 
-{{-- 
                         <div class="card ui-tab-card w-100 py-0 my-0">
-            <div class="card-body shadow-none w-100 py-0 px-4">
-                <div class="heading-layout1 mg-b-25">
-
-                   <div class="dropdown">
-
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                                </div>
-                            </div>
+                    <div class="card-body shadow-none w-100 py-0 px-4">
+                        <div class="heading-layout1 mg-b-25">
                 </div>
                 <div class="border-nav-tab">
                     <ul class="nav nav-tabs border-0" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active shadow-none border" data-toggle="tab" href="#tab7" role="tab" aria-selected="true">Disallow Login ?</a>
+                        <li class="nav-item new-parent">
+                            <a class="nav-link shadow-none border active" data-toggle="tab" href="#tab9" role="tab" aria-selected="false">New Parent ?</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item existing-parent">
                             <a class="nav-link shadow-none border" data-toggle="tab" href="#tab8" role="tab" aria-selected="false">Existing Parent ?</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link shadow-none border" data-toggle="tab" href="#tab9" role="tab" aria-selected="false">New User ?</a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade show active w-100" id="tab7" role="tabpanel"></div>
                         <div class="tab-pane fade" id="tab8" role="tabpanel">
-                        <form class="mg-b-20">
                                 <div class="row gutters-8">
-                                    <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                    {{-- <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
                                         <input type="text" placeholder="Search by ID ..." class="form-control">
+                                    </div> --}}
+                                    <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                        <select class="select2 parents-search-select" name="student_blood_group">
+                                            <option value="father_name">Father Name ...</option>
+                                            <option value="father_mobile">Father Mobile .. </option>
+                                            <option value="login_email">Father Email ...</option>
+                                            <option value="mother_name">Mother Name ...</option>
+                                        </select>
                                     </div>
-                                    <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                        <input type="text" placeholder="Search by Name ..." class="form-control">
+                                    <div class="col-4-xxxl col-xl-7 col-lg-3 col-12 form-group">
+                                        <input type="text" placeholder="Enter Parent Name ..." class="form-control parents-input-search">
                                     </div>
-                                    <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                        <input type="text" placeholder="Search by Phone ..." class="form-control">
-                                    </div>
+ 
                                     <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                                        <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
+                                        <div class="fw-btn-fill btn-gradient-yellow text-center w-100 search-parent">SEARCH</div>
                                     </div>
                                 </div>
-                            </form>
                             <div class="table-responsive">
                                 <table class="table display data-table text-nowrap">
                                     <thead>
                                         <tr>
                                             <th> 
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input checkAll">
-                                                    <label class="form-check-label">ID</label>
+                                                    {{-- <input type="checkbox" class="form-check-input checkAll"> --}}
+                                                    <span class="form-check-label">Select Parent</span>
                                                 </div>
                                             </th>
-                                            <th>Photo</th>
-                                            <th>Name</th>
-                                            <th>Gender</th>
-                                            <th>Subject</th>
-                                            <th>Phone</th>
-                                            <th></th>
+                                            <th>father_image</th>
+                                            <th>father_name</th>
+                                            <th>father_mobile</th>
+                                            <th>father_education</th>
+                                            <th>mother_image</th>
+                                            <th>mother_name</th>
+                                            <th>mother_mobil</th>
+                                            <th>mother_education</th>
+                                            <th>Kids_id</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-input">
-                                                    <label class="form-label">#0027</label>
-                                                </div>
-                                            </td>
-                                            <td class="text-center"><img src="#" alt="student"></td>
-                                            <td>Mark Willy</td>
-                                            <td>Male</td>
-                                            <td>Physics</td>
-                                            <td>9815759505</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                        <span class="flaticon-more-button-of-three-dots"></span>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                                        <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                                        <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    <tbody class="table-body">
+               
                                     </tbody>
                                 </table>
                              </div>  
                         </div>
-                        <div class="tab-pane fade" id="tab9" role="tabpanel">
-                            <p>When an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                            It has survived not only five centuries,but alsowhen an unknown printer took a galley of type 
-                            and scrambled it to make a type specimen book. It has survived not only five centuries, but 
-                            alsowhen an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                            It has survived not only five centuries, but also</p>
+                        <div class="tab-pane fade show active" id="tab9" role="tabpanel">
+                          <div id="parent-container">
+                            <input type="hidden" class="parent-check" name="parent_check'" value="new_parent">
+                            <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
+                                <label>Father Photo *</label>
+                                <div class="h-100 position-relative" style="height:50px; width:100px;">
+                                <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
+                                <input type="file" required name="father_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
+                                </div>
+                                <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Father Name *</label>
+                                <input type="text" required name="father_name" placeholder="" class="form-control">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Father Mobile No: *</label>
+                                <input type="number" required name="father_phone" placeholder="" class="form-control">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Education</label>
+                                <input type="text" name="father_education"  placeholder="" class="form-control">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
+                                <label>Mother Photo *</label>
+                                <div class="h-100 position-relative" style="height:50px; width:100px;">
+                                <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
+                                <input type="file" required name="mother_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
+                                </div>
+                                <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Mother Name *</label>
+                                <input type="text" required name="mother_name"  placeholder="" class="form-control">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Mother Mobile No:</label>
+                                <input type="number"  name="mother_phone" placeholder="" class="form-control">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Education</label>
+                                <input type="text" name="mother_education"  placeholder="" class="form-control">
+                            </div>
+                            </div>
+                          </div>
+
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
                         
-                        <div class="col-12 form-group mg-t-8 d-flex justify-content-end">
-                            <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark submit-btn">Save</button>
-                            {{-- <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button> --}}
-                        </div>
+                <div class="col-12 form-group mg-t-8 d-flex justify-content-end">
+                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark submit-btn">Save</button>
+                    {{-- <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button> --}}
+                </div>
 
-                        <div class="progress w-100 d-none" style="height:30px;">
-                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                          </div>
+                <div class="progress w-100 d-none" style="height:30px;">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    </div>
 
                   {{-- progress bar with alert --}}
                   <div class="progress w-100 d-none" style="height:30px;">
@@ -402,4 +346,32 @@
             </div>
         </div>
         <!-- Add New Teacher Area End Here -->
+
+
+        <script>
+            $(document).ready(function() {
+ 
+                // remove the form when the "Remove Form" button is clicked
+                $('.existing-parent').click(function() {
+                    $(".parent-check").val("existing_parent");
+                    $('input[name="father_image"]').attr('required', false);
+                    $('input[name="father_name"]').attr('required', false);
+                    $('input[name="father_phone"]').attr('required', false);
+                    $('input[name="mother_image"]').attr('required', false);
+                    $('input[name="mother_name"]').attr('required', false);
+
+                });
+                
+                // add the form again when the "Return Form" button is clicked
+                $('.new-parent').click(function() {
+                  $(".parent-check").val("new_parent");
+                  $('input[name="father_image"]').attr('required', true);
+                    $('input[name="father_name"]').attr('required', true);
+                    $('input[name="father_phone"]').attr('required', true);
+                    $('input[name="mother_image"]').attr('required', true);
+                    $('input[name="mother_name"]').attr('required', true);
+                });
+
+                });
+        </script>
 @endsection

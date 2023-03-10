@@ -65,6 +65,7 @@ Route::group(['middleware'=>'SuperAdminLogin'],function()
        Route::get('/get-single-student/{id}', 'App\Http\Controllers\StudentController@show');
        Route::get('/get-class-roll', 'App\Http\Controllers\StudentController@getclassroll');
        Route::get('/roll-generate-admission', 'App\Http\Controllers\StudentController@admission_roll');
+       
 
     // Super Admin Teacher Management
        Route::view('admin/add-teacher','Super_Admin/layouts/add-teacher')->name('add-teacher');

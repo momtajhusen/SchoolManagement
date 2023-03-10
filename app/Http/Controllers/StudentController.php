@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\Parents;
 use App\Models\FeeStructure;
 use Exception;
+use Illuminate\Support\Str;
 
 
 class StudentController extends Controller
@@ -49,7 +50,11 @@ class StudentController extends Controller
      */
     public function store(Request $request) 
     {
-        
+
+      $parent_check =  $request->input("parent_check");
+      $parent_existing_id = $request->input("parent_existing_id");
+
+      try {
         $student = new Student;
         $student->first_name  = $request->input("student_first_name");
         $student->middle_name  = $request->input("student_middle_name");
@@ -85,50 +90,70 @@ class StudentController extends Controller
         $proof_id = $request->file("student_id_image");
         $proof_id->storeAs('public/upload_assets/students',  "proof_".$image_id.".jpg");
 
-        if($student->save())
+         
+        if($parent_check == "new_parent")
         {
-            $studentId = $student->id;
-            echo "Add Successfully";
+            // Parent Data Store 
+            $parent = new Parents;
+            $parent->father_image  = $request->file("father_image");
+            $parent->father_name  = $request->input("father_name");
+            $parent->father_mobile  = $request->input("father_phone");
+            $parent->father_education  = $request->input("father_education");
+            $parent->mother_image  = $request->file("mother_image");
+            $parent->mother_name  = $request->input("mother_name");
+            $parent->mother_mobile  = $request->input("mother_phone");
+            $parent->mother_education  = $request->input("mother_education");
+            $parent->login_email  = $request->input("login_email");
+            $parent->login_password  = Str::random(10) . mt_rand(100, 999);
+
+            // Father Image Store
+            $parent->father_image =   "upload_assets/father/father_".$image_id.".jpg";
+            $father_image = $request->file("father_image");
+            $father_image->storeAs('public/upload_assets/father',  "father_".$image_id.".jpg");
+
+            // Mother Image Store
+            $parent->mother_image =   "upload_assets/mother/mother_".$image_id.".jpg";
+            $mother_image = $request->file("mother_image");
+            $mother_image->storeAs('public/upload_assets/mother',  "mother_".$image_id.".jpg");
+
+               if ($parent->save()) {
+                $parentId = $parent->id;
+                // Associate the parent with the student
+                $student->parents_id = $parentId;
+                if ($student->save()) {
+                    echo "Add Successfully";
+                } else {
+                    echo "Failed Something Error";
+                }
+            } else {
+                echo "Failed Something Error";
+            }
+
+
         }
+
         else{
-           echo "Failed Something Error";
-        } 
+                $student->parents_id = $parent_existing_id;
+                if ($student->save()) {
+                    echo "Add Successfully";
+                } else {
+                    echo "Failed Something Error";
+                }
+        }
 
-        // Parent Data Store 
-        $parent = new Parents;
-        $parent->Kids_id  = $studentId;
-        $parent->father_image  = $request->file("father_image");
-        $parent->father_name  = $request->input("father_name");
-        $parent->father_mobile  = $request->input("father_phone");
-        $parent->father_education  = $request->input("father_education");
-        $parent->mother_image  = $request->file("mother_image");
-        $parent->mother_name  = $request->input("mother_name");
-        $parent->mother_mobile  = $request->input("mother_phone");
-        $parent->mother_education  = $request->input("mother_education");
-        $parent->login_email  = $request->input("login_email");
-        $parent->login_password  = $request->input("login_password");
-
-        // Father Image Store
-        $parent->father_image =   "upload_assets/parent/father_".$image_id.".jpg";
-        $father_image = $request->file("father_image");
-        $father_image->storeAs('public/upload_assets/parent',  "father_".$image_id.".jpg");
-
-        // Mother Image Store
-        $parent->mother_image =   "upload_assets/parent/mother_".$image_id.".jpg";
-        $mother_image = $request->file("mother_image");
-        $mother_image->storeAs('public/upload_assets/mother',  "mother_".$image_id.".jpg");
-
-
-        if($parent->save())
+             } 
+        catch (Exception $e) 
         {
-            echo "Add Successfully";
+            // Code to handle the exception
+            $message = "An exception occurred: " . $e->getMessage();
+            return response()->json(['ststus' => $message], 500);
         }
-        else{
-           echo "Failed Something Error";
-        } 
 
 
 
+
+     
+        
     }
 
     /**

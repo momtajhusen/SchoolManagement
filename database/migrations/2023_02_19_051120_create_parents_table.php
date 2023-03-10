@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('parents', function (Blueprint $table) {
             $table->id();
-            $table->string('Kids_id',10)->nullable();
             $table->text('father_image')->nullable();
             $table->string('father_name',20)->nullable();
             $table->bigInteger('father_mobile')->nullable();
