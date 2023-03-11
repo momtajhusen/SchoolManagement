@@ -13,7 +13,13 @@
 
 @section('script')
     <!-- ajax add student  -->
-    <script src="{{ asset('../admin_lang/student/ajax-add-student.js')}}"></script> 
+    <script src="{{ asset('../admin_lang/student/ajax-add-student.js')}}"></script>
+    
+    <!-- ajax Email Check -->
+    <script src="{{ asset('../admin_lang/common/ajax-email-check.js')}}"></script> 
+
+    <!-- ajax Numer Check -->
+    <script src="{{ asset('../admin_lang/common/ajax-number-check.js')}}"></script>
 
     <!-- ajax get all for class-select -->
     <script src="{{ asset('../admin_lang/classes/get-all-class.js')}}"></script> 
@@ -56,22 +62,22 @@
                             <label>Student Image *</label>
                             <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black">
                                 <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
-                                <input type="file" id="student_id_input" name="student_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
+                                <input type="file" required id="student_id_input" name="student_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
                                 <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="student_id_input" style="position:absolute;bottom:0px;width:100px;z-index:100;opacity: 0.5;">UPLOAD</label>
                             </div>
                             </div>
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>First Name *</label>
-                            <input type="text" required name="student_first_name" placeholder="First Name" class="form-control">
+                            <input type="text" maxlength="20" required name="student_first_name" placeholder="First Name" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Middle Name</label>
-                            <input type="text" name="student_middle_name"  placeholder="Middle Name" class="form-control">
+                            <input type="text" maxlength="20" name="student_middle_name"  placeholder="Middle Name" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Last Name *</label>
-                            <input type="text" required name="student_last_name"  placeholder="Last Name" class="form-control">
+                            <input type="text" maxlength="20" required name="student_last_name"  placeholder="Last Name" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Gender *</label>
@@ -83,7 +89,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Date Of Birth *</label>
-                            <input type="text" required name="student_dob" placeholder="dd/mm/yyyy" class="form-control nepali-datepicker">
+                            <input type="text" maxlength="10" required name="student_dob" placeholder="dd/mm/yyyy" class="form-control nepali-datepicker">
                             <i class="far fa-calendar-alt" style="position:absolute;top:45px;right:30px;"></i>
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
@@ -112,16 +118,16 @@
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Phone</label>
-                            <input type="number" name="student_phone" placeholder="Student Number" class="form-control">
+                            <input type="number" max="10" name="student_phone" id="student_number" placeholder="Student Number" class="form-control mobile-number">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>E-Mail *</label>
-                            <input type="email" required name="student_email" placeholder="Student Email" class="form-control">
+                            <input type="email" maxlength="40" id="student-email" required name="student_email" placeholder="Student Email" class="form-control">
                         </div>
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>ID Number</label>
-                            <input type="text" name="student_id_number"  placeholder="Id Proof Number" class="form-control">
+                            <input type="text" maxlength="30" name="student_id_number"  placeholder="Id Proof Number" class="form-control">
                         </div>
 
 
@@ -141,7 +147,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Admission Date *</label>
-                            <input type="text" required name="admission_date" placeholder="dd/mm/yyyy" class="form-control admission_date nepali-datepicker">
+                            <input type="text" maxlength="10" required name="admission_date" placeholder="dd/mm/yyyy" class="form-control admission_date nepali-datepicker">
                             <i class="far fa-calendar-alt" style="position:absolute;top:45px;right:30px;"></i>
                         </div>
                         <div class="col-lg-3 col-12 form-group">
@@ -179,19 +185,19 @@
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>District *</label>
-                            <input type="text" required name="district" placeholder="District" class="form-control">
+                            <input type="text" maxlength="20" required name="district" placeholder="District" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Municipality *</label>
-                            <input type="text" required name="municipality" placeholder="Municipality" class="form-control">
+                            <input type="text" maxlength="20" required name="municipality" placeholder="Municipality" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Village *</label>
-                            <input type="text" required name="village" placeholder="Village" class="form-control">
+                            <input type="text" maxlength="20" required name="village" placeholder="Village" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Ward No:</label>
-                            <input type="number" name="ward_no" placeholder="Ward No" class="form-control">
+                            <input type="number" maxlength="5" name="ward_no" placeholder="Ward No" class="form-control">
                         </div>
 
                         <div class="heading-layout1 px-4 pt-5" style="width:100%;">
@@ -229,9 +235,9 @@
                                         </select>
                                     </div>
                                     <div class="col-4-xxxl col-xl-7 col-lg-3 col-12 form-group">
-                                        <input type="text" placeholder="Enter Parent Name ..." class="form-control parents-input-search">
+                                        <input type="text" maxlength="30" placeholder="Enter Parent Name ..." class="form-control parents-input-search">
                                     </div>
- 
+
                                     <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
                                         <div class="fw-btn-fill btn-gradient-yellow text-center w-100 search-parent">SEARCH</div>
                                     </div>
@@ -276,18 +282,23 @@
                                 <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
                             </div>
 
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                            <div class="col-xl-2 col-lg-6 col-12 form-group">
                                 <label>Father Name *</label>
-                                <input type="text" required name="father_name" placeholder="Father Name" class="form-control">
+                                <input type="text" maxlength="30" required name="father_name" placeholder="Father Name" class="form-control">
                             </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                            <div class="col-xl-2 col-lg-6 col-12 form-group">
                                 <label>Father Mobile No: *</label>
-                                <input type="number" required name="father_phone" placeholder="Father Mobile" class="form-control">
+                                <input type="number" max="10" required name="father_phone" placeholder="Father Mobile" class="form-control">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Education</label>
-                                <input type="text" name="father_education"  placeholder="Education" class="form-control">
+                                <label>Email *</label>
+                                <input type="email" maxlength="50" required name="father_email" id="father_email"  placeholder="Email" class="form-control">
                             </div>
+                            <div class="col-xl-2 col-lg-6 col-12 form-group">
+                                <label>Education</label>
+                                <input type="text" maxlength="30" name="father_education"  placeholder="Education" class="form-control">
+                            </div>
+
                             <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                                 <label>Mother Photo *</label>
                                 <div class="h-100 position-relative" style="height:50px; width:100px;">
@@ -298,15 +309,15 @@
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Mother Name *</label>
-                                <input type="text" required name="mother_name"  placeholder="Mother Name" class="form-control">
+                                <input type="text"  maxlength="30"required name="mother_name"  placeholder="Mother Name" class="form-control">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Mother Mobile No:</label>
-                                <input type="number"  name="mother_phone" placeholder="Mother Mobile" class="form-control">
+                                <input type="number" max="10" name="mother_phone" placeholder="Mother Mobile" class="form-control">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Education</label>
-                                <input type="text" name="mother_education"  placeholder="Education" class="form-control">
+                                <input type="text" maxlength="30" name="mother_education"  placeholder="Education" class="form-control">
                             </div>
                             </div>
                           </div>

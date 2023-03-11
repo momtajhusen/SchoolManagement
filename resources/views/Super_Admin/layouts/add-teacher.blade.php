@@ -13,6 +13,9 @@
     <!-- ajax  -->
     <script src="{{ asset('../admin_lang/teacher/ajax-add-teacher.js')}}"></script> 
 
+    <!-- ajax Email Check -->
+    <script src="{{ asset('../admin_lang/common/ajax-email-check.js')}}"></script> 
+
     <!-- ajax get all for class-select -->
     <script src="{{ asset('../admin_lang/classes/get-all-class.js')}}"></script> 
 
@@ -71,11 +74,11 @@
 
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>First Name *</label>
-                                    <input type="text" required name="first_name" placeholder="" class="form-control">
+                                    <input type="text" required maxlength="20" name="first_name" placeholder="" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Last Name</label>
-                                    <input type="text" required name="last_name"  placeholder="" class="form-control">
+                                    <input type="text" required maxlength="20" name="last_name"  placeholder="" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Gender </label>
@@ -88,11 +91,11 @@
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Date Of Birth *</label>
-                                    <input type="text" required name="dob" placeholder="dd/mm/yyyy" class="form-control nepali-datepicker">
+                                    <input type="text" required maxlength="10" name="dob" placeholder="dd/mm/yyyy" value="" class="form-control nepali-datepicker">
                                     <i class="far fa-calendar-alt" style="position:absolute;top:45px;right:30px;"></i>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Religion</label>
+                                    <label>Religion *</label>
                                     <select class="select2" required name="religion">
                                         <option value="">Please Select Religion *</option>
                                         <option value="Islam">Islam</option>
@@ -115,29 +118,29 @@
                                     </select>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Address</label>
-                                    <input type="text" name="address" placeholder="" class="form-control">
+                                    <label>Address *</label>
+                                    <input type="text" required maxlength="50" name="address" placeholder="" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Phone</label>
-                                    <input type="number" name="phone" placeholder="" class="form-control">
+                                    <label>Phone *</label>
+                                    <input type="number" required max="10" name="phone" placeholder="" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>E-Mail</label>
-                                    <input type="email" name="email" placeholder="" class="form-control">
+                                    <label>E-Mail *</label>
+                                    <input type="email" required maxlength="70" name="email" placeholder="email" id="teacher-email" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Qualification</label>
-                                    <input type="text" name="qualification"   class="form-control">
+                                    <label>Qualification *</label>
+                                    <input type="text" required maxlength="50" name="qualification"   class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Joining Date *</label>
-                                    <input type="text" name="joining_date" placeholder="dd/mm/yyyy" class="form-control nepali-datepicker">
+                                    <input type="text" required maxlength="10" name="joining_date" placeholder="dd/mm/yyyy" class="form-control nepali-datepicker">
                                     <i class="far fa-calendar-alt" style="position:absolute;top:45px;right:30px;"></i>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Salary</label>
-                                    <input type="number" name="salary" placeholder="" class="form-control">
+                                    <label>Salary *</label>
+                                    <input type="number" required max="7" name="salary" placeholder="" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Class Teacher</label>

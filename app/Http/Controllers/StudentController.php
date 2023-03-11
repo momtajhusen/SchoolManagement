@@ -103,7 +103,7 @@ class StudentController extends Controller
             $parent->mother_name  = $request->input("mother_name");
             $parent->mother_mobile  = $request->input("mother_phone");
             $parent->mother_education  = $request->input("mother_education");
-            $parent->login_email  = $request->input("login_email");
+            $parent->login_email  = $request->input("father_email");
             $parent->login_password  = Str::random(10) . mt_rand(100, 999);
 
             // Father Image Store

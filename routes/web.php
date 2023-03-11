@@ -78,14 +78,21 @@ Route::group(['middleware'=>'SuperAdminLogin'],function()
        Route::get('/get-single-student/{id}', 'App\Http\Controllers\StudentController@show');
        Route::get('/get-class-roll', 'App\Http\Controllers\StudentController@getclassroll');
        Route::get('/roll-generate-admission', 'App\Http\Controllers\StudentController@admission_roll');
-       
+       Route::post('/check-student-email', 'App\Http\Controllers\EmailCheckController@StudentEmailCheck');
+       Route::post('/check-father-email', 'App\Http\Controllers\EmailCheckController@FatherEmailCheck');
+       Route::post('/check-student-number', 'App\Http\Controllers\NumberCheckController@StudentNumberCheck');
 
+
+
+       
     // Super Admin Teacher Management
        Route::view('admin/add-teacher','Super_Admin/layouts/add-teacher')->name('add-teacher');
        Route::view('admin/all-teacher','Super_Admin/layouts/all-teachers')->name('all-teachers');
 
        Route::post('/add-teacher', 'App\Http\Controllers\TeacherController@store');
        Route::get('/get-all-teacher', 'App\Http\Controllers\TeacherController@index');
+       Route::post('/check-teacher-email', 'App\Http\Controllers\EmailCheckController@TeacherEmailCheck');
+
  
  
 });
@@ -142,8 +149,6 @@ Route::group(['middleware'=>'SchoolManagementLogin'],function()
     
 });
 ///////////////////////////// End School Management /////////////////////////////
-
-
 
 ///////////////////////////// START PARENT ACCOUNT /////////////////////////////
    Route::post('/parent-login', 'App\Http\Controllers\UserLoginController@ParentLogin');
