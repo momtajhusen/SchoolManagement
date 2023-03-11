@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>SUPER ADMIN</title>
+    <title>PARENT</title>
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,16 +30,16 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/style.css')}}">
 
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.css" />
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.js"></script>
+
+
     <!-- Google fa fa icon  -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <!-- <link rel="stylesheet" href="css/select2.min.css"> -->
-
-<!-- SweetAlert2 CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.css" />
-<!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.js"></script>
-
 
     <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -50,28 +50,24 @@
 <!-- Modernize js -->
 <script src="{{ asset('../admin_template_assets/js/modernizr-3.6.0.min.js')}}"></script>
 
+
+<!-- Logout ajax -->
+<script src="{{ asset('../admin_lang/UserLogin/ajax-logout.js')}}"></script>
+
 <!-- Nepali Clander css -->
 <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css" rel="stylesheet" type="text/css"/>
 
-<!-- Logout ajax -->
-<script src="{{ asset('../admin_lang/accountLogin/ajax-logout.js')}}"></script>
-
-
-{{-- Google Ico Cdn  --}}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-
     @yield('style')
 
-<style>
-    .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48
-    }
-</style>
+    <style>
+
+        .active-select-menu
+        {
+            background: #051f3e;
+            color:white;
+        }
+
+    </style>
 
 </head>
 
@@ -124,7 +120,7 @@
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <div class="admin-title">
-                                <h5 class="item-title">Super Admin</h5>
+                                <h5 class="item-title">Stevne Zone</h5>
                                 <span>Admin</span>
                             </div>
                             <div class="admin-img">
@@ -133,7 +129,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="item-header">
-                                <h6 class="item-title">Super Admin</h6>
+                                <h6 class="item-title"><b>Steven Zone</b></h6>
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">
@@ -141,7 +137,7 @@
                                     <li><a href="#"><i class="flaticon-list"></i>Task</a></li>
                                     <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a></li>
                                     <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                                    <li class="super-admin-logout-btn"><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                    <li class="parents-logout-btn"><a href="#"><i class="flaticon-turn-off"></i>Log Out</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -221,8 +217,8 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
-                    <li class="navbar-item dropdown header-notification">
+                    </li> --}}
+                    {{-- <li class="navbar-item dropdown header-notification">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <i class="far fa-bell"></i>
@@ -264,8 +260,8 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
-                     <li class="navbar-item dropdown header-language">
+                    </li> --}}
+                     {{-- <li class="navbar-item dropdown header-language">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" 
                         data-toggle="dropdown" aria-expanded="false"><i class="fas fa-globe-americas"></i>EN</a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -290,206 +286,18 @@
                </div>
                 <div class="sidebar-menu-content" style="height:100vh;">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
-                        <li class="nav-item">
-                            <a href="{{route('dashboard')}}" class="nav-link d-flex">
-                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">dashboard</span>
-                               <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link d-flex">
-                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">group</span>
-                                <span>Students Management</span>
-                            </a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="{{route('all-student')}}" class="nav-link"><i class="fas fa-angle-right"></i>All
-                                        Students</a>
-                                </li>
- 
-                                <li class="nav-item">
-                                    <a href="{{route('add-students')}}" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Student Registration</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{route('school_management_update_student_details')}}" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Update Student Details</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href=" #" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Student Parents</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="student-promotion.html" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Student Promotion</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Generate Id Card</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link d-flex">
-                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">account_balance</span>
-                                <span>Acconunt Management</span>
-                            </a>
-                            <ul class="nav sub-group-menu">
-                            <li class="nav-item">
-                                    <a href="{{route('account-dashboard')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                    Acconunt Dashboard</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('check-class-fee')}}" class="nav-link"><i class="fas fa-angle-right"></i>Fees Collection</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('set-fees')}}" class="nav-link"><i class="fas fa-angle-right"></i>Set Fee Structure</a>
-                                </li>
- 
-                                <li class="nav-item">
-                                    <a href="all-expense.html" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Expenses</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="add-expense.html" class="nav-link"><i class="fas fa-angle-right"></i>Add
-                                        Expenses</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link d-flex">
-                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">apartment</span>
-                                <span>School Management</span>
-                            </a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="{{route('add-subjects')}}" class="nav-link">
-                                        <i class="fas fa-angle-right"></i>
-                                        Subject</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('add-classes')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        Class</a>
-                                </li>                   
-                            </ul>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i
-                                    class="flaticon-multiple-users-silhouette"></i><span>Teachers</span></a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="{{route('all-teachers')}}" class="nav-link"><i class="fas fa-angle-right"></i>All
-                                        Teachers</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('add-teacher')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add
-                                        Teacher</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="teacher-payment.html" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Payment</a>
-                                </li>
-                            </ul>
-                        </li>
-                        {{-- <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Parents</span></a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="all-parents.html" class="nav-link"><i class="fas fa-angle-right"></i>All
-                                        Parents</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="parents-details.html" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Parents Details</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="add-parents.html" class="nav-link"><i class="fas fa-angle-right"></i>Add
-                                        Parent</a>
-                                </li>
-                            </ul>
-                        </li> --}}
-                        <!-- <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-books"></i><span>Library</span></a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="all-book.html" class="nav-link"><i class="fas fa-angle-right"></i>All
-                                        Book</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="add-book.html" class="nav-link"><i class="fas fa-angle-right"></i>Add New
-                                        Book</a>
-                                </li>
-                            </ul>
-                        </li> -->
-                
- 
                  
-                        <!-- <li class="nav-item">
-                            <a href="class-routine.html" class="nav-link"><i class="flaticon-calendar"></i><span>Class
-                                    Routine</span></a>
+
+                        <li class="nav-item {{ request()->routeIs(['parent-dashboard']) ? 'active-select-menu' : ''}}">
+                            <a href="{{route('parent-dashboard')}}" class="nav-link d-flex align-items-center">
+                                <span class="material-symbols-outlined pr-3" style="font-size:25px;">dashboard</span>
+                                <span>Dashboard</span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="student-attendence.html" class="nav-link"><i
-                                    class="flaticon-checklist"></i><span>Attendence</span></a>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-shopping-list"></i><span>Exam</span></a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="exam-schedule.html" class="nav-link"><i class="fas fa-angle-right"></i>Exam
-                                        Schedule</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="exam-grade.html" class="nav-link"><i class="fas fa-angle-right"></i>Exam
-                                        Grades</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="transport.html" class="nav-link"><i
-                                    class="flaticon-bus-side-view"></i><span>Transport</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="hostel.html" class="nav-link"><i class="flaticon-bed"></i><span>Hostel</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="notice-board.html" class="nav-link"><i
-                                    class="flaticon-script"></i><span>Notice</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="messaging.html" class="nav-link"><i
-                                    class="flaticon-chat"></i><span>Messeage</span></a>
-                        </li> -->
-                        <!-- <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-menu-1"></i><span>UI Elements</span></a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="button.html" class="nav-link"><i class="fas fa-angle-right"></i>Button</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="grid.html" class="nav-link"><i class="fas fa-angle-right"></i>Grid</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="ui-tab.html" class="nav-link"><i class="fas fa-angle-right"></i>Tab</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="progress-bar.html" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Progress Bar</a>
-                                </li>
-                            </ul>
-                        </li> -->
-                        <!-- <li class="nav-item">
-                            <a href="map.html" class="nav-link"><i
-                                    class="flaticon-planet-earth"></i><span>Map</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="account-settings.html" class="nav-link"><i
-                                    class="flaticon-settings"></i><span>Account</span></a>
-                        </li> -->
+
+ 
+
+                         
                     </ul>
                 </div>
             </div>
@@ -498,8 +306,6 @@
   
 
                @yield('contents')
-
-               {{-- <button onclick="swal('Hello world!')">Click me</button> --}}
 
             </div>
         </div>
@@ -556,6 +362,7 @@ elm.nepaliDatePicker({
     dateFormat: "DD/MM/YYYY",
 
 }); 
+
 };
 </script>
 

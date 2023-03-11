@@ -208,8 +208,7 @@ $(document).ready(function(){
             // Success 
             success:function(response)
             {
-
-           
+ 
                 $(".table-body").html(``);
                 if(response.message != "data not found"){
                 var count = 0;
@@ -257,6 +256,7 @@ $(document).ready(function(){
                     </div>
                 </td>
             </tr>`);
+
                 });
                 }
                 else{

@@ -14,7 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/','welcome')->name('home');
+
 Route::view('/account-login','account_login')->name('school_login');
+Route::view('/user-login','user_login')->name('user_login');
+
+
+///////////////////////////// START COMMON GET POST ROUTE /////////////////////////////
+// if session exists -> account_management || student_management || super_admin || school_management 
+Route::group(['middleware'=>'AdminCommonGetPost'],function()
+{
+   Route::get('/get-all-parents', 'App\Http\Controllers\ParentsController@index');
+    
+});
+
+///////////////////////////// END COMMON GET POST ROUTE /////////////////////////////
 
 
 ///////////////////////////// Start Super Admin /////////////////////////////
@@ -98,7 +111,6 @@ Route::group(['middleware'=>'studentManagementLogin'],function()
     Route::view('student-management/generate-id-card', 'Student_Management/layouts/generate_id_card')->name('school_management_generate_id_card');
 
     // Get & Post route 
-    Route::get('/get-all-parents', 'App\Http\Controllers\ParentsController@index');
     Route::get('/registration-list', 'App\Http\Controllers\StudentController@registration_list');
     Route::get('/single-student-details', 'App\Http\Controllers\StudentController@GetSingleStudent');
     Route::post('/update-student', 'App\Http\Controllers\StudentController@UpdateStudent');
@@ -129,7 +141,34 @@ Route::group(['middleware'=>'SchoolManagementLogin'],function()
      Route::view('school-management', 'School_Management/layouts/dashboard')->name('school_management');
     
 });
-
 ///////////////////////////// End School Management /////////////////////////////
+
+
+
+///////////////////////////// START PARENT ACCOUNT /////////////////////////////
+   Route::post('/parent-login', 'App\Http\Controllers\UserLoginController@ParentLogin');
+   Route::post('/parent-logout', 'App\Http\Controllers\UserLoginController@ParentLogout');
+
+   Route::group(['middleware'=>'ParentAccountLogin'],function()
+{
+   Route::view('parent/dashboard','Parent_Account/layouts/ParentDashboard')->name('parent-dashboard');
+   Route::get('/get-student', 'App\Http\Controllers\ParentAccount\StudentController@index');
+
+});
+
+///////////////////////////// END PARENT ACCOUNT /////////////////////////////
+
+///////////////////////////// START STUDENT ACCOUNT /////////////////////////////
+Route::post('/student-login', 'App\Http\Controllers\UserLoginController@StudentLogin');
+Route::post('/student-logout', 'App\Http\Controllers\UserLoginController@StudentLogout');
+
+Route::group(['middleware'=>'StudentAccountLogin'],function()
+{
+  Route::view('student/dashboard','Student_Account/layouts/StudentDashboard')->name('student-dashboard');
+
+});
+
+///////////////////////////// END STUDENT ACCOUNT /////////////////////////////
+
 
  

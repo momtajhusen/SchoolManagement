@@ -28,11 +28,11 @@ class ParentsController extends Controller
                 $this->parent_response = Parents::where($parents_search_select, $parents_input_search)->get();
             }
             else{
-              $this->parent_response = Parents::where($parents_search_select, 'LIKE', '%'.$parents_input_search.'%')->get();   
+              $this->parent_response = Parents::where($parents_search_select, 'LIKE', '%'.$parents_input_search.'%')->orderBy('id', 'DESC')->get();   
             }
         }
         else{
-            $this->parent_response = Parents::get(); 
+            $this->parent_response = Parents::orderBy('id', 'DESC')->get(); 
         }
 
         if(count($this->parent_response) != "0")

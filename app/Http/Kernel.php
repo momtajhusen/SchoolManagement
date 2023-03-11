@@ -59,8 +59,20 @@ class Kernel extends HttpKernel
         'SchoolManagementLogin' => [
             \App\Http\Middleware\SchoolManagementLogin::class,
         ],
-    ];
 
+        'ParentAccountLogin' => [
+            \App\Http\Middleware\ParentAccountLogin::class,
+        ],
+
+        'AdminCommonGetPost' => [
+            \App\Http\Middleware\AdminCommonGetPost::class,
+        ],
+
+        'StudentAccountLogin' => [
+            \App\Http\Middleware\StudentAccountLogin::class,
+        ],
+    ];
+    
     /**
      * The application's middleware aliases.
      *

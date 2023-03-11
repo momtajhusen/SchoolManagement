@@ -52,7 +52,7 @@
 
 
 <!-- Logout ajax -->
-<script src="{{ asset('../admin_lang/accountLogin/ajax-logout-js')}}"></script>
+<script src="{{ asset('../admin_lang/accountLogin/ajax-logout.js')}}"></script>
 
 <!-- Nepali Clander css -->
 <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css" rel="stylesheet" type="text/css"/>

@@ -63,15 +63,15 @@
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>First Name *</label>
-                            <input type="text" required name="student_first_name" placeholder="" class="form-control">
+                            <input type="text" required name="student_first_name" placeholder="First Name" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Middle Name</label>
-                            <input type="text" name="student_middle_name"  placeholder="" class="form-control">
+                            <input type="text" name="student_middle_name"  placeholder="Middle Name" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Last Name *</label>
-                            <input type="text" required name="student_last_name"  placeholder="" class="form-control">
+                            <input type="text" required name="student_last_name"  placeholder="Last Name" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Gender *</label>
@@ -112,16 +112,16 @@
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Phone</label>
-                            <input type="number" name="student_phone" placeholder="" class="form-control">
+                            <input type="number" name="student_phone" placeholder="Student Number" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>E-Mail</label>
-                            <input type="email" name="student_email" placeholder="" class="form-control">
+                            <label>E-Mail *</label>
+                            <input type="email" required name="student_email" placeholder="Student Email" class="form-control">
                         </div>
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>ID Number</label>
-                            <input type="text" name="student_id_number"  placeholder="" class="form-control">
+                            <input type="text" name="student_id_number"  placeholder="Id Proof Number" class="form-control">
                         </div>
 
 
@@ -168,7 +168,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Roll No: *</label>
-                            <input type="text" readonly required name="roll_no" placeholder="" class="form-control student_roll">
+                            <input type="text" readonly required name="roll_no" placeholder="Roll No" class="form-control student_roll">
                         </div>
                         
 
@@ -179,19 +179,19 @@
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>District *</label>
-                            <input type="text" required name="district" placeholder="" class="form-control">
+                            <input type="text" required name="district" placeholder="District" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Municipality *</label>
-                            <input type="text" required name="municipality" placeholder="" class="form-control">
+                            <input type="text" required name="municipality" placeholder="Municipality" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Village *</label>
-                            <input type="text" required name="village" placeholder="" class="form-control">
+                            <input type="text" required name="village" placeholder="Village" class="form-control">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Ward No:</label>
-                            <input type="number" name="ward_no" placeholder="" class="form-control">
+                            <input type="number" name="ward_no" placeholder="Ward No" class="form-control">
                         </div>
 
                         <div class="heading-layout1 px-4 pt-5" style="width:100%;">
@@ -278,15 +278,15 @@
 
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Father Name *</label>
-                                <input type="text" required name="father_name" placeholder="" class="form-control">
+                                <input type="text" required name="father_name" placeholder="Father Name" class="form-control">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Father Mobile No: *</label>
-                                <input type="number" required name="father_phone" placeholder="" class="form-control">
+                                <input type="number" required name="father_phone" placeholder="Father Mobile" class="form-control">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Education</label>
-                                <input type="text" name="father_education"  placeholder="" class="form-control">
+                                <input type="text" name="father_education"  placeholder="Education" class="form-control">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                                 <label>Mother Photo *</label>
@@ -298,15 +298,15 @@
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Mother Name *</label>
-                                <input type="text" required name="mother_name"  placeholder="" class="form-control">
+                                <input type="text" required name="mother_name"  placeholder="Mother Name" class="form-control">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Mother Mobile No:</label>
-                                <input type="number"  name="mother_phone" placeholder="" class="form-control">
+                                <input type="number"  name="mother_phone" placeholder="Mother Mobile" class="form-control">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Education</label>
-                                <input type="text" name="mother_education"  placeholder="" class="form-control">
+                                <input type="text" name="mother_education"  placeholder="Education" class="form-control">
                             </div>
                             </div>
                           </div>
