@@ -1,9 +1,7 @@
 $(document).ready(function () {
-    $(".added-subject-form").submit(function (e) {
+    $(".expenses-form").submit(function (e) {
         e.preventDefault();
-
-        if ($(".class-select").val() != "") {
-            if ($(".subject_name").val() != "") {
+ 
                 $.ajaxSetup({
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
@@ -15,7 +13,7 @@ $(document).ready(function () {
                 var formData = new FormData(this);
 
                 $.ajax({
-                    url: "/add-subject",
+                    url: "/add-expenses",
                     method: "POST",
                     data: formData,
                     processData: false,
@@ -50,29 +48,32 @@ $(document).ready(function () {
                     },
                     // Success
                     success: function (response) {
-                        if (response.status != "exists subject") {
+                        if (response.status == "Expenses Add Sucess") 
+                        {
                             Swal.fire({
-                                title: "Subject Add Success !",
+                                title: "Expenses Add Success !",
                                 text: "You clicked the button!",
                                 icon: "success",
                                 confirmButtonText: "OK",
                               }).then(function() {
                                 location.reload();
                               });
+
                         } else {
-                            Swal.fire(
-                                "Already Subject exists !",
-                                "Change Subject Nam !",
-                                "info"
-                            );
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                              })
                         }
                     },
+                    error: function (xhr, status, error) 
+                    {
+                        console.log(xhr.responseText);
+                    },
                 });
-            } else {
-                alert("Enter Subject Name");
-            }
-        } else {
-            alert("Select Class");
-        }
+  
+ 
+ 
     });
 });

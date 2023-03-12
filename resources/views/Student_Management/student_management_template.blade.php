@@ -337,12 +337,12 @@
                             </a>
                         </li>
 
-                        <li class="nav-item  {{ request()->routeIs('school_management_generate_id_card') ? 'active-select-menu' : ''}}">
+                        {{-- <li class="nav-item  {{ request()->routeIs('school_management_generate_id_card') ? 'active-select-menu' : ''}}">
                             <a href="{{route('school_management_generate_id_card')}}" class="nav-link d-flex align-items-center">
                                 <span class="material-symbols-outlined pr-3" style="font-size:25px;">badge</span>
                                 <span>ID Card Generate</span>
                             </a>
-                        </li>
+                        </li> --}}
 
 
                          

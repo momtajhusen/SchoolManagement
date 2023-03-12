@@ -326,11 +326,11 @@
                                     <a href="student-promotion.html" class="nav-link"><i
                                             class="fas fa-angle-right"></i>Student Promotion</a>
                                 </li>
-
+{{-- 
                                 <li class="nav-item">
                                     <a href="#" class="nav-link"><i
                                             class="fas fa-angle-right"></i>Generate Id Card</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
@@ -349,13 +349,8 @@
                                 <li class="nav-item">
                                     <a href="{{route('set-fees')}}" class="nav-link"><i class="fas fa-angle-right"></i>Set Fee Structure</a>
                                 </li>
- 
                                 <li class="nav-item">
-                                    <a href="all-expense.html" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Expenses</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="add-expense.html" class="nav-link"><i class="fas fa-angle-right"></i>Add
+                                    <a href="{{route('add-expenses')}}" class="nav-link"><i class="fas fa-angle-right"></i>
                                         Expenses</a>
                                 </li>
                             </ul>

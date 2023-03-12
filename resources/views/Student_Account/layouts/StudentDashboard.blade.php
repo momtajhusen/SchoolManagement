@@ -14,6 +14,9 @@
 @endsection
 
 @section('script')
+    <!-- ajax Get Student -->
+    <script src="../admin_lang/Student_Account/ajax-get-student-data.js"></script> 
+
     <!-- Select 2 Js -->
     <script src="../admin_template_assets/js/select2.min.js"></script>
     <!-- Date Picker Js -->

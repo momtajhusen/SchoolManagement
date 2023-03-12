@@ -81,7 +81,7 @@
                                         </div>
                                         <div class="col-12-xxxl col-lg-3 col-12 form-group">
                                             <label>Subject Name *</label>
-                                            <input type="text" required name="subject_name" placeholder="" class="form-contro subject_name" style="height:45px;width:100%; padding:10px;">
+                                            <input type="text" required  maxlength="30" name="subject_name" placeholder="" class="form-contro subject_name" style="height:45px;width:100%; padding:10px;">
                                         </div>
                                         <div class="col-12-xxxl col-lg-3 col-12 form-group">
                                             <label>Subject Teacher *</label>

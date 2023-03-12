@@ -48,11 +48,14 @@ Route::group(['middleware'=>'SuperAdminLogin'],function()
        Route::view('admin/fee-payment','Super_Admin/layouts/Account_management/fee-payment')->name('fee-payment');
        Route::view('admin/account-dashboard','Super_Admin/layouts/Account_management/account-dashboard')->name('account-dashboard');
        Route::view('admin/check-class-fee','Super_Admin/layouts/Account_management/check-class-fee')->name('check-class-fee');
+       Route::view('admin/add-expenses','Super_Admin/layouts/Account_management/add-expenses')->name('add-expenses');
 
        Route::post('/set-fees', 'App\Http\Controllers\FeeStructureController@store');
        Route::get('/retrive-fees-stracture', 'App\Http\Controllers\FeeStructureController@index');
        Route::get('/check-class-fee', 'App\Http\Controllers\CheckClassFeeController@index');
        Route::post('/fee-payment', 'App\Http\Controllers\FeePaymentController@store');
+       Route::post('/add-expenses', 'App\Http\Controllers\ExpensesController@store');
+
 
     // Super Admin School Management
        Route::view('admin/add-classes','Super_Admin/layouts/School_Management/add-classes')->name('add-classes');
@@ -83,7 +86,6 @@ Route::group(['middleware'=>'SuperAdminLogin'],function()
        Route::post('/check-student-number', 'App\Http\Controllers\NumberCheckController@StudentNumberCheck');
        Route::post('/check-father-number', 'App\Http\Controllers\NumberCheckController@FatherNumberCheck');
        Route::post('/check-mother-number', 'App\Http\Controllers\NumberCheckController@MotherNumberCheck');
-
 
 
     // Super Admin Teacher Management
@@ -173,6 +175,8 @@ Route::post('/student-logout', 'App\Http\Controllers\UserLoginController@Student
 Route::group(['middleware'=>'StudentAccountLogin'],function()
 {
   Route::view('student/dashboard','Student_Account/layouts/StudentDashboard')->name('student-dashboard');
+  Route::get('/get-student-data', 'App\Http\Controllers\StudentAccount\StudentAccountController@index');
+
 
 });
 

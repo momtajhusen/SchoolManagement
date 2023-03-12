@@ -1,7 +1,6 @@
 // class option retrive in in select after page open
 $(document).ready(function(){
  
-
     $.ajax({
         url: "/get-all-class",
         method: 'GET',
