@@ -81,10 +81,11 @@ Route::group(['middleware'=>'SuperAdminLogin'],function()
        Route::post('/check-student-email', 'App\Http\Controllers\EmailCheckController@StudentEmailCheck');
        Route::post('/check-father-email', 'App\Http\Controllers\EmailCheckController@FatherEmailCheck');
        Route::post('/check-student-number', 'App\Http\Controllers\NumberCheckController@StudentNumberCheck');
+       Route::post('/check-father-number', 'App\Http\Controllers\NumberCheckController@FatherNumberCheck');
+       Route::post('/check-mother-number', 'App\Http\Controllers\NumberCheckController@MotherNumberCheck');
 
 
 
-       
     // Super Admin Teacher Management
        Route::view('admin/add-teacher','Super_Admin/layouts/add-teacher')->name('add-teacher');
        Route::view('admin/all-teacher','Super_Admin/layouts/all-teachers')->name('all-teachers');
@@ -92,6 +93,8 @@ Route::group(['middleware'=>'SuperAdminLogin'],function()
        Route::post('/add-teacher', 'App\Http\Controllers\TeacherController@store');
        Route::get('/get-all-teacher', 'App\Http\Controllers\TeacherController@index');
        Route::post('/check-teacher-email', 'App\Http\Controllers\EmailCheckController@TeacherEmailCheck');
+       Route::post('/check-teacher-number', 'App\Http\Controllers\NumberCheckController@TeacherNumberCheck');
+
 
  
  

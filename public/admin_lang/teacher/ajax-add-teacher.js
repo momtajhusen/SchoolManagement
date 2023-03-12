@@ -41,7 +41,27 @@ $(document).ready(function(){
              // Success 
             success:function(response)
             {
-               alert(response);
+               if(response.status == "Add Successfully")
+               {
+                Swal.fire({
+                    title: "Teacher Add Success !",
+                    text: "You clicked the button!",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                  }).then(function() {
+                    location.reload();
+                  });
+                  
+               }
+               else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                  })
+               }
+
+
             }
         });
 

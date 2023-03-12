@@ -36,8 +36,8 @@ $(document).ready(function () {
             contentType: false,
             beforeSend: function () {
                 // setting a timeout
-                // $(".submit-btn").addClass("d-none");
-                // $(".progress").removeClass("d-none");
+                $(".submit-btn").addClass("d-none");
+                $(".progress").removeClass("d-none");
             },
             // Progress
             xhr: function () {
@@ -58,29 +58,21 @@ $(document).ready(function () {
                 return xhr;
             },
             // Success
-            success: function (response) {
-
+            success: function (response) 
+            {
                 console.log(response);
  
-                $(".student-added-form")[0].reset();
-                $(".imagepreview").each(function () 
-                {
-                    $(this).attr("src", "http://bit.ly/3IUenmf");
-                });
-                $(".submit-btn").removeClass("d-none");
-                $(".progress").addClass("d-none");
-                $(".alert-info").removeClass("d-none");
-                setTimeout(function () {
-                    $(".alert-info").addClass("d-none");
-                }, 2500);
-
-                Swal.fire(
-                    "Registration Success !",
-                    "You clicked the button!",
-                    "success"
-                );
+                Swal.fire({
+                    title: "Registration Success !",
+                    text: "You clicked the button!",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                  }).then(function() {
+                    location.reload();
+                  });
             },
-            error: function (xhr, status, error) {
+            error: function (xhr, status, error) 
+            {
                 console.log(xhr.responseText);
             },
         });

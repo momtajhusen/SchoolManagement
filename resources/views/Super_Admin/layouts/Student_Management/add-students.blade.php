@@ -9,9 +9,17 @@
     <!-- Date Picker CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/datepicker.min.css')}}">
 
+    <!-- Include required library files -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
 @endsection
 
 @section('script')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.js"></script>
+
+
     <!-- ajax add student  -->
     <script src="{{ asset('../admin_lang/student/ajax-add-student.js')}}"></script>
     
@@ -26,14 +34,56 @@
 
     <!-- script input file image set preview img  -->
     <script src="{{ asset('../admin_lang/common/image-select.js')}}"></script> 
+
+    <!-- script image Crope preview img  -->
+    <script src="{{ asset('../admin_lang/common/script-image-crope.js')}}"></script> 
+
     
     <!-- Select 2 Js -->
     <script src="{{ asset('../admin_template_assets/js/select2.min.js')}}"></script>
+
+    <style>
+            .preview {
+        overflow: hidden;
+        width: 160px;
+        height: 160px;
+        margin: 10px;
+        border: 1px solid red;
+    }
+    </style>
   
 @endsection
 
 
 @section('contents')
+
+{{-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cropModalLabel">Crop Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img id="sample_image" src="" alt="Crop Image">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="preview"></div>
+                    </div>
+           
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="crop">Crop Image</button>
+            </div>
+        </div>
+    </div>
+</div> --}}
  
         <!-- Breadcubs Area Start Here -->
         <div class="breadcrumbs-area">
@@ -60,12 +110,25 @@
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                             <label>Student Image *</label>
-                            <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black">
-                                <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
+                            <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
+                                <img src="http://bit.ly/3IUenmf" id="sample_image" class="h-100 w-100 imagepreview" style="position:absolute;">
                                 <input type="file" required id="student_id_input" name="student_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
                                 <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="student_id_input" style="position:absolute;bottom:0px;width:100px;z-index:100;opacity: 0.5;">UPLOAD</label>
                             </div>
                             </div>
+
+
+                            
+                        {{-- <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
+                            <label>Student Image *</label>
+                            <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
+                                <img src="http://bit.ly/3IUenmf" id="uploaded_image" class="h-100 w-100" style="position:absolute;">
+                                <input type="file" required id="upload_image" name="student_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
+                                <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="student_id_input" style="position:absolute;bottom:0px;width:100px;z-index:100;opacity: 0.5;">UPLOAD</label>
+                            </div>
+                            </div> --}}
+
+                
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>First Name *</label>
@@ -118,7 +181,7 @@
 
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Phone</label>
-                            <input type="number" max="10" name="student_phone" id="student_number" placeholder="Student Number" class="form-control mobile-number">
+                            <input type="number"  name="student_phone" id="student_number" placeholder="Student Number" class="form-control mobile-number">
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>E-Mail *</label>
@@ -273,7 +336,7 @@
                           <div id="parent-container">
                             <input type="hidden" class="parent-check" name="parent_check'" value="new_parent">
                             <div class="row">
-                            <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
+                            <div class="col-xl-2 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                                 <label>Father Photo *</label>
                                 <div class="h-100 position-relative" style="height:50px; width:100px;">
                                 <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
@@ -286,20 +349,20 @@
                                 <label>Father Name *</label>
                                 <input type="text" maxlength="30" required name="father_name" placeholder="Father Name" class="form-control">
                             </div>
-                            <div class="col-xl-2 col-lg-6 col-12 form-group">
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Father Mobile No: *</label>
-                                <input type="number" max="10" required name="father_phone" placeholder="Father Mobile" class="form-control">
+                                <input type="number" required name="father_phone" id="father_number" placeholder="Father Mobile" class="form-control mobile-number">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Email *</label>
-                                <input type="email" maxlength="50" required name="father_email" id="father_email"  placeholder="Email" class="form-control">
+                                <input type="email" required name="father_email" id="father_email"  placeholder="Email" class="form-control">
                             </div>
                             <div class="col-xl-2 col-lg-6 col-12 form-group">
                                 <label>Education</label>
                                 <input type="text" maxlength="30" name="father_education"  placeholder="Education" class="form-control">
                             </div>
 
-                            <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
+                            <div class="col-xl-2 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                                 <label>Mother Photo *</label>
                                 <div class="h-100 position-relative" style="height:50px; width:100px;">
                                 <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
@@ -313,7 +376,7 @@
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Mother Mobile No:</label>
-                                <input type="number" max="10" name="mother_phone" placeholder="Mother Mobile" class="form-control">
+                                <input type="number" name="mother_phone" id="mother_number" placeholder="Mother Mobile" class="form-control mobile-number">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Education</label>
@@ -332,10 +395,6 @@
                     <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark submit-btn">Save</button>
                     {{-- <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button> --}}
                 </div>
-
-                <div class="progress w-100 d-none" style="height:30px;">
-                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                    </div>
 
                   {{-- progress bar with alert --}}
                   <div class="progress w-100 d-none" style="height:30px;">
@@ -356,33 +415,36 @@
                 </form>
             </div>
         </div>
-        <!-- Add New Teacher Area End Here -->
 
 
         <script>
             $(document).ready(function() {
  
-                // remove the form when the "Remove Form" button is clicked
-                $('.existing-parent').click(function() {
-                    $(".parent-check").val("existing_parent");
-                    $('input[name="father_image"]').attr('required', false);
-                    $('input[name="father_name"]').attr('required', false);
-                    $('input[name="father_phone"]').attr('required', false);
-                    $('input[name="mother_image"]').attr('required', false);
-                    $('input[name="mother_name"]').attr('required', false);
+ // remove the form when the "Remove Form" button is clicked
+ $('.existing-parent').click(function() {
+     $(".parent-check").val("existing_parent");
+     $('input[name="father_image"]').attr('required', false);
+     $('input[name="father_name"]').attr('required', false);
+     $('input[name="father_phone"]').attr('required', false);
+     $('input[name="mother_image"]').attr('required', false);
+     $('input[name="mother_name"]').attr('required', false);
+     $('input[name="father_email"]').attr('required', false);
 
-                });
-                
-                // add the form again when the "Return Form" button is clicked
-                $('.new-parent').click(function() {
-                  $(".parent-check").val("new_parent");
-                  $('input[name="father_image"]').attr('required', true);
-                    $('input[name="father_name"]').attr('required', true);
-                    $('input[name="father_phone"]').attr('required', true);
-                    $('input[name="mother_image"]').attr('required', true);
-                    $('input[name="mother_name"]').attr('required', true);
-                });
+ });
+ 
+ // add the form again when the "Return Form" button is clicked
+ $('.new-parent').click(function() {
+   $(".parent-check").val("new_parent");
+   $('input[name="father_image"]').attr('required', true);
+     $('input[name="father_name"]').attr('required', true);
+     $('input[name="father_phone"]').attr('required', true);
+     $('input[name="mother_image"]').attr('required', true);
+     $('input[name="mother_name"]').attr('required', true);
+     $('input[name="father_email"]').attr('required', true);
 
-                });
+ });
+
+ });
         </script>
+ 
 @endsection

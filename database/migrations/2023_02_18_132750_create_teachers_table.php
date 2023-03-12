@@ -21,13 +21,15 @@ return new class extends Migration
             $table->string('blood_group')->nullable();
             $table->longtext('address')->nullable();
             $table->bigInteger('phone')->nullable();
-            $table->string('email')->nullable();
             $table->string('qualification')->nullable();
             $table->string('joining_date')->nullable();
             $table->integer('salary')->nullable();
             $table->string('class_teacher')->nullable();
             $table->string('section')->nullable();
             $table->text('image')->nullable();
+            $table->string('email')->nullable();
+            $table->string('password',100)->nullable();
+            $table->string('otp',10)->nullable();
             $table->timestamps();
         });
     }

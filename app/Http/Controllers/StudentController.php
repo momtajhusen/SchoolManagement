@@ -77,7 +77,7 @@ class StudentController extends Controller
         $student->village  = $request->input("village");
         $student->ward_no  = $request->input("ward_no");
         $student->login_email  = $request->input("student_email");
-        $student->login_password  = time();
+        $student->login_password  = Str::random(10);
 
         // Student Image Store
         $image_id = time();
@@ -104,7 +104,7 @@ class StudentController extends Controller
             $parent->mother_mobile  = $request->input("mother_phone");
             $parent->mother_education  = $request->input("mother_education");
             $parent->login_email  = $request->input("father_email");
-            $parent->login_password  = Str::random(10) . mt_rand(100, 999);
+            $parent->login_password  = Str::random(10);
 
             // Father Image Store
             $parent->father_image =   "upload_assets/father/father_".$image_id.".jpg";

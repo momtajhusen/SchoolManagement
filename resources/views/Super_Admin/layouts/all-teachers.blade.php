@@ -58,22 +58,25 @@
                                 </div>
                             </div>
                         </div>
-                        <form class="mg-b-20">
-                            <div class="row gutters-8">
-                                <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by ID ..." class="form-control">
-                                </div>
-                                <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Name ..." class="form-control">
-                                </div>
-                                <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                    <input type="text" placeholder="Search by Phone ..." class="form-control">
-                                </div>
-                                <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
-                                </div>
+                        <div class="row gutters-8">
+                            {{-- <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                <input type="text" placeholder="Search by ID ..." class="form-control">
+                            </div> --}}
+                            <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                <select class="select2 parents-search-select" name="student_blood_group">
+                                    <option value="father_name">Teacher Name ...</option>
+                                    <option value="father_mobile">Teacher Mobile .. </option>
+                                    <option value="login_email">Teacher Email ...</option>
+                                </select>
                             </div>
-                        </form>
+                            <div class="col-4-xxxl col-xl-7 col-lg-3 col-12 form-group">
+                                <input type="text" maxlength="30" placeholder="Enter Parent Name ..." class="form-control parents-input-search">
+                            </div>
+
+                            <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
+                                <div class="fw-btn-fill btn-gradient-yellow text-center w-100 search-parent">SEARCH</div>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table display data-table text-nowrap">
                                 <thead>

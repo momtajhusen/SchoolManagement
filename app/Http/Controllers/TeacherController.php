@@ -6,6 +6,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Teacher;
+use Illuminate\Support\Str;
+
 
 
 class TeacherController extends Controller
@@ -48,9 +50,7 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         
-           $teacher = new Teacher;
- 
-
+        $teacher = new Teacher;
         $teacher->first_name  = $request->input("first_name");
         $teacher->last_name  = $request->input("last_name");
         $teacher->gender  = $request->input("gender");
@@ -60,6 +60,7 @@ class TeacherController extends Controller
         $teacher->address  = $request->input("address");
         $teacher->phone  = $request->input("phone");
         $teacher->email  = $request->input("email");
+        $teacher->password  = Str::random(10);
         $teacher->qualification  = $request->input("qualification");
         $teacher->joining_date  = $request->input("joining_date");
         $teacher->salary  = $request->input("salary");
@@ -74,10 +75,11 @@ class TeacherController extends Controller
 
         if($teacher->save())
         {
-            echo "Add Successfully";
+            return response()->json(['status' => "Add Successfully"]);
+
         }
         else{
-           echo "Failed Something Error";
+           return response()->json(['status' => "Failed Something Error"]);
         } 
 
 

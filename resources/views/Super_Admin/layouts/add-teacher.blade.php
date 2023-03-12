@@ -22,6 +22,10 @@
     <!-- script input file image set preview img  -->
     <script src="{{ asset('../admin_lang/common/image-select.js')}}"></script> 
 
+    <!-- ajax Numer Check -->
+    <script src="{{ asset('../admin_lang/common/ajax-number-check.js')}}"></script>
+
+
     <!-- Select 2 Js -->
     <script src="{{ asset('../admin_template_assets/js/select2.min.js')}}"></script>
     <!-- Date Picker Js -->
@@ -119,15 +123,15 @@
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Address *</label>
-                                    <input type="text" required maxlength="50" name="address" placeholder="" class="form-control">
+                                    <input type="text" required maxlength="50" name="address" placeholder="Address" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Phone *</label>
-                                    <input type="number" required max="10" name="phone" placeholder="" class="form-control">
+                                    <input type="number" required id="teacher_number" name="phone" placeholder="phone" class="form-control mobile-number">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>E-Mail *</label>
-                                    <input type="email" required maxlength="70" name="email" placeholder="email" id="teacher-email" class="form-control">
+                                    <input type="email" required maxlength="50" name="email" placeholder="email" id="teacher-email" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Qualification *</label>
@@ -140,7 +144,7 @@
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Salary *</label>
-                                    <input type="number" required max="7" name="salary" placeholder="" class="form-control">
+                                    <input type="number" max="100000" required name="salary" placeholder="0000" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Class Teacher</label>
@@ -164,10 +168,12 @@
                                     </select>
                                 </div>
 
- 
                                 <div class="col-12 form-group mg-t-8">
-                                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                    <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
+                                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark submit-btn">Save</button>
+                                </div>
+                                {{-- Upload Progress Bar --}}
+                                <div class="progress w-100 d-none" style="height:30px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
                                 </div>
                             </div>
                         </form>
