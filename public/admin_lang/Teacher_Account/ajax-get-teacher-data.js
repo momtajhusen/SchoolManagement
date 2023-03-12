@@ -1,6 +1,7 @@
 // Retrive All Student
 $(document).ready(function(){
  
+ 
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -8,7 +9,7 @@ $(document).ready(function(){
     });
 
     $.ajax({
-        url: "/get-student-data",
+        url: "/get-teacher-data",
         method: 'GET',
         beforeSend: function() 
         {
@@ -33,17 +34,17 @@ $(document).ready(function(){
          // Success 
          success:function(response)
          {
-            console.log(response);
-          if(response.StudentData != "student not available")
+            
+          if(response.TecherData != "teacher not available")
           {
-            var first_name = response.StudentData.first_name;
-            var middle_name = response.StudentData.middle_name;
-            var last_name = response.StudentData.last_name;
+            var first_name = response.TecherData.first_name;
+            var last_name = response.TecherData.last_name;
+
+            // alert(first_name);
 
 
-
-             $("#profile_image").attr("src", "http://127.0.0.1:8000/storage/"+response.StudentData.student_image);
-             $(".student_name").html(first_name+" "+middle_name+" "+last_name);
+             $("#profile_image").attr("src", "http://127.0.0.1:8000/storage/"+response.TecherData.image);
+             $(".teacher_name").html(first_name+" "+last_name);
           }
           else{
             Swal.fire({

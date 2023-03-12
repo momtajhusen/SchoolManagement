@@ -189,6 +189,8 @@ Route::post('/teacher-logout', 'App\Http\Controllers\UserLoginController@Teacher
 Route::group(['middleware'=>'TeacherAccountLogin'],function()
 {
   Route::view('teacher/dashboard','Teacher_Account/layouts/TeacherDashboard')->name('teacher-dashboard');
+  Route::get('/get-teacher-data', 'App\Http\Controllers\TeacherAccount\TeacherAccountController@index');
+
 
 });
 

@@ -1,38 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\StudentAccount;
+namespace App\Http\Controllers\TeacherAccount;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Student;
+use App\Models\Teacher;
 
-class StudentAccountController extends Controller
+class TeacherAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() 
     {
-        $student_email = session('student_account');
+         $teacher_email = session('teacher_account');
 
-        if (Student::where('email', $student_email)->exists()) 
+        if (Teacher::where('email', $teacher_email)->exists()) 
         {
-           $student = Student::where("email", $student_email)->first();         
-           return response()->json(array("StudentData"=>$student));
+           $teacher = Teacher::where("email", $teacher_email)->first();         
+           return response()->json(array("TecherData"=>$teacher));
         } 
         else 
         {
-           return response()->json(['StudentData' => 'student not available']); 
+           return response()->json(['TecherData' => 'teacher not available']); 
         }
-        
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() 
     {
         //
     }
@@ -40,7 +39,7 @@ class StudentAccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) 
     {
         //
     }
@@ -48,7 +47,7 @@ class StudentAccountController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id) 
     {
         //
     }
@@ -56,7 +55,7 @@ class StudentAccountController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id) 
     {
         //
     }
@@ -64,7 +63,7 @@ class StudentAccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id) 
     {
         //
     }
@@ -72,7 +71,7 @@ class StudentAccountController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id) 
     {
         //
     }

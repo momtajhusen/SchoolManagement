@@ -120,16 +120,16 @@
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <div class="admin-title">
-                                <h5 class="item-title">Stevne Zone</h5>
-                                <span>Admin</span>
+                                <h5 class="item-title teacher_name">****</h5>
+                                <span>Teacher</span>
                             </div>
                             <div class="admin-img">
-                                <img src="{{ asset('../admin_template_assets/img/figure/admin.jpg')}}" alt="Admin">
+                                <img id="profile_image" src="{{ asset('../admin_template_assets/img/figure/admin.jpg')}}" style="width:40px;" alt="Admin">
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="item-header">
-                                <h6 class="item-title"><b>Steven Zone</b></h6>
+                                <h6 class="item-title teacher_name"><b>****</b></h6>
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">

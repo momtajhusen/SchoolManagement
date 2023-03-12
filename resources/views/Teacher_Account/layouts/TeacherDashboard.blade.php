@@ -10,10 +10,12 @@
     <!-- Data Table CSS -->
     <link rel="stylesheet" href="../admin_template_assets/css/jquery.dataTables.min.css">
 
- 
 @endsection
 
 @section('script')
+    <!-- ajax Get Student -->
+    <script src="../admin_lang/Teacher_Account/ajax-get-teacher-data.js"></script> 
+
     <!-- Select 2 Js -->
     <script src="../admin_template_assets/js/select2.min.js"></script>
     <!-- Date Picker Js -->
