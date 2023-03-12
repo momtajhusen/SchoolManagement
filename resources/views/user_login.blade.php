@@ -113,7 +113,7 @@
                                         <b class="text-center text-light">TEACHER LOGIN</b>
                                     </div>
                       
-                                    <form class="student-management-form" style="height:300px;">
+                                    <form class="teacher-form" style="height:300px;">
                                     <div class="form-group">
                                         <label class="text-light">Username</label>
                                         <input type="email" required name="email" placeholder="Username" class="form-control w-100">

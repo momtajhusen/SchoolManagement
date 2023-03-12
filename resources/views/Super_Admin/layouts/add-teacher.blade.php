@@ -78,11 +78,11 @@
 
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>First Name *</label>
-                                    <input type="text" required maxlength="20" name="first_name" placeholder="" class="form-control">
+                                    <input type="text" required maxlength="20" name="first_name" placeholder="First Name" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Last Name</label>
-                                    <input type="text" required maxlength="20" name="last_name"  placeholder="" class="form-control">
+                                    <input type="text" required maxlength="20" name="last_name"  placeholder="Last Name" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Gender </label>

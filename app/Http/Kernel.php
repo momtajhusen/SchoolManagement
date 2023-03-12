@@ -71,9 +71,13 @@ class Kernel extends HttpKernel
         'StudentAccountLogin' => [
             \App\Http\Middleware\StudentAccountLogin::class,
         ],
+
+        'TeacherAccountLogin' => [
+            \App\Http\Middleware\TeacherAccountLogin::class,
+        ],
     ];
     
-    /**
+    /** 
      * The application's middleware aliases.
      *
      * Aliases may be used to conveniently assign middleware to routes and groups.

@@ -178,5 +178,17 @@ Route::group(['middleware'=>'StudentAccountLogin'],function()
 
 ///////////////////////////// END STUDENT ACCOUNT /////////////////////////////
 
+///////////////////////////// START TEACHER ACCOUNT /////////////////////////////
+Route::post('/teacher-login', 'App\Http\Controllers\UserLoginController@TeacherLogin');
+Route::post('/teacher-logout', 'App\Http\Controllers\UserLoginController@TeacherLogout');
+
+Route::group(['middleware'=>'TeacherAccountLogin'],function()
+{
+  Route::view('teacher/dashboard','Teacher_Account/layouts/TeacherDashboard')->name('teacher-dashboard');
+
+});
+
+///////////////////////////// END STUDENT ACCOUNT /////////////////////////////
+
 
  

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Parents;
 use App\Models\Student;
+use App\Models\Teacher;
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -60,6 +62,28 @@ class UserLoginController extends Controller
 
     }
 
+    public function TeacherLogin(Request $request) 
+    {
+            $email = $request->input("email");
+            $password = $request->input("password");
+
+            $user = Teacher::where('email', $email)->first();
+ 
+       
+           if ($user && $password === $user->password)
+           {
+       
+               $request->session()->put('teacher_account', $email);
+   
+               return response()->json(['status' => "Login success"]);
+           }
+       
+           else{
+               return response()->json(['status' => "Email or password is incorrect"]);
+           }
+
+    }
+
      //////////////////////// Logout Function //////////////////////////////////
      public function ParentLogout(Request $request)
      {
@@ -77,6 +101,18 @@ class UserLoginController extends Controller
      {
   
          if(session()->forget('student_account'))
+         {
+             return response()->json(['status' => "logout success"]);
+         }
+         else{
+             return response()->json(['status' => "something error"]);
+         }
+     }
+
+     public function TeacherLogout(Request $request)
+     {
+  
+         if(session()->forget('teacher_account'))
          {
              return response()->json(['status' => "logout success"]);
          }
