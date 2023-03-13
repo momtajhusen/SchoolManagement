@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Student;
 use App\Models\Parents;
 use App\Models\FeeStructure;
 use Exception;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+
 
 
 class StudentController extends Controller
@@ -53,6 +56,7 @@ class StudentController extends Controller
 
       $parent_check =  $request->input("parent_check");
       $parent_existing_id = $request->input("parent_existing_id");
+      $image_id = time();
 
       try {
         $student = new Student;
@@ -79,12 +83,13 @@ class StudentController extends Controller
         $student->login_email  = $request->input("student_email");
         $student->login_password  = Str::random(10);
 
-        // Student Image Store
-        $image_id = time();
+        // Student Crop Image Store
+        $StudentCropImgPath = 'storage/CropingImage/SudentsAdmission/student.jpg';
+        $destinationPath = 'storage/upload_assets/students/'."profile_".$image_id.".jpg";  
         $student->student_image =   "upload_assets/students/profile_".$image_id.".jpg";
-        $student_image = $request->file("student_image");
-        $student_image->storeAs('public/upload_assets/students',  "profile_".$image_id.".jpg");
- 
+        File::move($StudentCropImgPath, $destinationPath);
+        
+        
         // Student Proof Image Store
         $student->id_image =   "upload_assets/students/proof_".$image_id.".jpg";
         $proof_id = $request->file("student_id_image");
@@ -106,27 +111,30 @@ class StudentController extends Controller
             $parent->login_email  = $request->input("father_email");
             $parent->login_password  = Str::random(10);
 
-            // Father Image Store
+ 
+            // Father Crop Image Store
+            $FatherCropImgPath = 'storage/CropingImage/SudentsAdmission/father.jpg';
+            $destinationPath = 'storage/upload_assets/father/'."father_".$image_id.".jpg";  
             $parent->father_image =   "upload_assets/father/father_".$image_id.".jpg";
-            $father_image = $request->file("father_image");
-            $father_image->storeAs('public/upload_assets/father',  "father_".$image_id.".jpg");
+            File::move($FatherCropImgPath, $destinationPath);
 
-            // Mother Image Store
+            // Mother Crop Image Store
+            $MotherCropImgPath = 'storage/CropingImage/SudentsAdmission/mother.jpg';
+            $destinationPath = 'storage/upload_assets/mother/'."mother_".$image_id.".jpg";  
             $parent->mother_image =   "upload_assets/mother/mother_".$image_id.".jpg";
-            $mother_image = $request->file("mother_image");
-            $mother_image->storeAs('public/upload_assets/mother',  "mother_".$image_id.".jpg");
+            File::move($MotherCropImgPath, $destinationPath);
 
                if ($parent->save()) {
                 $parentId = $parent->id;
                 // Associate the parent with the student
                 $student->parents_id = $parentId;
                 if ($student->save()) {
-                    echo "Add Successfully";
+                    return response()->json(['status' => "Add Successfully"]);
                 } else {
-                    echo "Failed Something Error";
+                    return response()->json(['status' => "Failed Something Error"]);
                 }
             } else {
-                echo "Failed Something Error";
+                return response()->json(['status' => "Failed Something Error"]);
             }
 
 
@@ -135,9 +143,10 @@ class StudentController extends Controller
         else{
                 $student->parents_id = $parent_existing_id;
                 if ($student->save()) {
-                    echo "Add Successfully";
+                    return response()->json(['status' => "Add Successfully"]);
+                    
                 } else {
-                    echo "Failed Something Error";
+                    return response()->json(['status' => "Failed Something Error"]);
                 }
         }
 

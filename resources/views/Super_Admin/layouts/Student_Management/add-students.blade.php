@@ -36,19 +36,19 @@
     <script src="{{ asset('../admin_lang/common/image-select.js')}}"></script> 
 
     <!-- script image Crope preview img  -->
-    <script src="{{ asset('../admin_lang/common/script-image-crope.js')}}"></script> 
+    <script src="{{ asset('../admin_lang/common/ImageCrope/Student-Registration-Crope.js')}}"></script> 
 
     
     <!-- Select 2 Js -->
     <script src="{{ asset('../admin_template_assets/js/select2.min.js')}}"></script>
 
     <style>
-            .preview {
+    .preview {
         overflow: hidden;
         width: 160px;
         height: 160px;
         margin: 10px;
-        border: 1px solid red;
+        border: 1px solid white;
     }
     </style>
   
@@ -57,19 +57,17 @@
 
 @section('contents')
 
-{{-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
+{{-- Student Image Crope Model  --}}
+<div class="modal fade" id="student-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="background-color:#042954;z-index:1000;">
             <div class="modal-header">
-                <h5 class="modal-title" id="cropModalLabel">Crop Image</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <img id="sample_image" src="" alt="Crop Image">
+                        <img id="student-sample_image" src="" alt="Crop Image">
                     </div>
                     <div class="col-md-4">
                         <div class="preview"></div>
@@ -78,24 +76,86 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="crop">Crop Image</button>
+                <button type="button" class="btn btn-dark p-4 px-5" id="student-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
+                <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="student-crop" style="z-index:100">
+                    <span style="font-size: 20px;">CROP </span> 
+                    <span class="material-symbols-outlined mt-2 mx-2">crop_free</span>
+                </button>
             </div>
         </div>
     </div>
-</div> --}}
- 
-        <!-- Breadcubs Area Start Here -->
-        <div class="breadcrumbs-area">
-        <h3>Student</h3>
-        <ul>
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-            <li>Add New Student</li>
-        </ul>
+</div>
+
+{{-- Father Image Crope Model  --}}
+<div class="modal fade" id="fathert-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="background-color:#042954;">
+            <div class="modal-header">
+                <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img id="father-sample_image" src="" alt="Crop Image">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="preview"></div>
+                    </div>
+           
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark p-4 px-5" id="father-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
+                <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="father-crop" style="z-index:100">
+                    <span style="font-size: 20px;">CROP </span> 
+                    <span class="material-symbols-outlined mt-2 mx-2">crop_free</span>
+                </button>
+            </div>
+        </div>
     </div>
-    <!-- Breadcubs Area End Here -->
+</div>
+
+{{-- Mother Image Crope Model  --}}
+<div class="modal fade" id="mother-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="background-color:#042954;">
+            <div class="modal-header">
+                <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img id="mother-sample_image" src="" alt="Crop Image">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="preview"></div>
+                    </div>
+           
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark p-4 px-5" id="mother-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
+                <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="mother-crop">
+                    <span style="font-size: 20px;">CROP </span> 
+                    <span class="material-symbols-outlined mt-2 mx-2">crop_free</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+ 
+<!-- Breadcubs Area Start Here -->
+    <div class="breadcrumbs-area">
+    <h3>Student</h3>
+    <ul>
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+        <li>Add New Student</li>
+    </ul>
+</div>
+<!-- Breadcubs Area End Here -->
 
          <!-- Add New Teacher Area Start Here -->
          <div class="card height-auto">
@@ -108,28 +168,17 @@
                 <form class="student-added-form" enctype="multipart/form-data">
                     <div class="row">
 
+
                         <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                             <label>Student Image *</label>
                             <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
-                                <img src="http://bit.ly/3IUenmf" id="sample_image" class="h-100 w-100 imagepreview" style="position:absolute;">
-                                <input type="file" required id="student_id_input" name="student_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
-                                <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="student_id_input" style="position:absolute;bottom:0px;width:100px;z-index:100;opacity: 0.5;">UPLOAD</label>
+                                <img src="http://bit.ly/3IUenmf" id="student_img_preview" class="h-100 w-100" style="position:absolute;">
+                                <input type="file" required id="student_img_input" name="student_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
+                                <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="student_upload_img_input" style="position:absolute;bottom:0px;width:100px;z-index:100;opacity: 0.5;">UPLOAD</label>
                             </div>
-                            </div>
-
-
-                            
-                        {{-- <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
-                            <label>Student Image *</label>
-                            <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
-                                <img src="http://bit.ly/3IUenmf" id="uploaded_image" class="h-100 w-100" style="position:absolute;">
-                                <input type="file" required id="upload_image" name="student_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
-                                <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="student_id_input" style="position:absolute;bottom:0px;width:100px;z-index:100;opacity: 0.5;">UPLOAD</label>
-                            </div>
-                            </div> --}}
+                        </div>
 
                 
-
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>First Name *</label>
                             <input type="text" maxlength="20" required name="student_first_name" placeholder="First Name" class="form-control">
@@ -336,13 +385,14 @@
                           <div id="parent-container">
                             <input type="hidden" class="parent-check" name="parent_check'" value="new_parent">
                             <div class="row">
+
                             <div class="col-xl-2 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
-                                <label>Father Photo *</label>
-                                <div class="h-100 position-relative" style="height:50px; width:100px;">
-                                <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
-                                <input type="file" required name="father_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
+                                <label>Father Image *</label>
+                                <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
+                                    <img src="http://bit.ly/3IUenmf" id="father_img_preview" class="h-100 w-100" style="position:absolute;">
+                                    <input type="file" required id="father_img_input" name="father_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
+                                    <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="father_img_input" style="position:absolute;bottom:0px;width:100px;z-index:100;opacity: 0.5;">UPLOAD</label>
                                 </div>
-                                <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
                             </div>
 
                             <div class="col-xl-2 col-lg-6 col-12 form-group">
@@ -361,15 +411,16 @@
                                 <label>Education</label>
                                 <input type="text" maxlength="30" name="father_education"  placeholder="Education" class="form-control">
                             </div>
-
+                            
                             <div class="col-xl-2 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
                                 <label>Mother Photo *</label>
-                                <div class="h-100 position-relative" style="height:50px; width:100px;">
-                                <img src="http://bit.ly/3IUenmf" class="h-100 w-100 imagepreview" style="position:absolute;">
-                                <input type="file" required name="mother_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
+                                <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
+                                    <img src="http://bit.ly/3IUenmf" id="mother_img_preview" class="h-100 w-100" style="position:absolute;">
+                                    <input type="file" required id="mother_img_input" name="mother_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
+                                    <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="father_img_input" style="position:absolute;bottom:0px;width:100px;z-index:100;opacity: 0.5;">UPLOAD</label>
                                 </div>
-                                <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
                             </div>
+
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Mother Name *</label>
                                 <input type="text"  maxlength="30"required name="mother_name"  placeholder="Mother Name" class="form-control">

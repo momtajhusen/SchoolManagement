@@ -37,6 +37,10 @@ $(document).ready(function(){
           console.log(response);
 
           if(response.message != "data not found"){
+
+            $(".parent_name").html(response.ParentData.father_name);
+            $("#parent_img").attr("src", "http://127.0.0.1:8000/storage/"+response.ParentData.father_image);
+
             var count = 0;
             response.data.forEach(function(data){
                 var increase = count++
@@ -49,9 +53,6 @@ $(document).ready(function(){
                 var classes = response.data[increase].class;
                 var roll_no = response.data[increase].roll_no;
                 var section = response.data[increase].section;
-
-
-
 
                 $(".student-box").append(`
                     <div class="card mx-2" style="background-color:#042954;">

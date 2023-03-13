@@ -86,6 +86,12 @@ Route::group(['middleware'=>'SuperAdminLogin'],function()
        Route::post('/check-student-number', 'App\Http\Controllers\NumberCheckController@StudentNumberCheck');
        Route::post('/check-father-number', 'App\Http\Controllers\NumberCheckController@FatherNumberCheck');
        Route::post('/check-mother-number', 'App\Http\Controllers\NumberCheckController@MotherNumberCheck');
+       Route::post('/student-img-crop', 'App\Http\Controllers\ImageCropController@StudentProfileImg');
+       Route::post('/father-img-crop', 'App\Http\Controllers\ImageCropController@FatherProfileImg');
+       Route::post('/mother-img-crop', 'App\Http\Controllers\ImageCropController@MotherProfileImg');
+
+
+
 
 
     // Super Admin Teacher Management

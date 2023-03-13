@@ -24,6 +24,8 @@ class StudentController extends Controller
 
        $Parents_id = Parents::where('login_email', $parent_email)->pluck('id');
 
+       $ParentData = Parents::where("login_email", $parent_email)->first();         
+
        $this->student_response = Student::where("parents_id", $Parents_id)->get();
 
        if(count($this->student_response) != "0")
@@ -31,9 +33,8 @@ class StudentController extends Controller
            foreach($this->student_response as $this->data)
            {
                array_push($this->StudentData,$this->data);
-           }   
-           
-           return response(array("data"=>$this->StudentData),200);
+           }              
+           return response(array("data"=>$this->StudentData,"ParentData"=>$ParentData),200);
        }
        else{
            return response()->json(['message' => 'data not found']); 

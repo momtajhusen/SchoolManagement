@@ -60,16 +60,26 @@ $(document).ready(function () {
             // Success
             success: function (response) 
             {
-                console.log(response);
+                if(response.status == "Add Successfully")
+                {
+                    Swal.fire({
+                        title: "Registration Success !",
+                        text: "You clicked the button!",
+                        icon: "success",
+                        confirmButtonText: "OK",
+                      }).then(function() {
+                        location.reload();
+                      });
+                }
+                else if(response.status == "Failed Something Error"){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went Error ! Contact Developer',
+                      })
+                }
  
-                Swal.fire({
-                    title: "Registration Success !",
-                    text: "You clicked the button!",
-                    icon: "success",
-                    confirmButtonText: "OK",
-                  }).then(function() {
-                    location.reload();
-                  });
+
             },
             error: function (xhr, status, error) 
             {
