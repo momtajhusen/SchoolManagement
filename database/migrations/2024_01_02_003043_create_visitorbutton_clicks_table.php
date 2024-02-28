@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('visitorbutton_clicks', function (Blueprint $table) {
+            $table->id();
+            $table->integer("visitorid")->nullable();
+            $table->string("name", 50)->nullable();
+            $table->date("date")->nullable();
+            $table->string("page", 50)->nullable();
+            $table->string("button", 50)->nullable();
+            $table->integer("clicking")->nullable();
+            $table->string("device", 50)->nullable();
+            $table->string("browser", 50)->nullable();
+            $table->time("last_time")->nullable();
+            $table->string("address", 100)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('visitorbutton_clicks');
+    }
+};
