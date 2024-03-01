@@ -200,38 +200,38 @@
          
          <div class="col-sm-4 p-3">
             <div class="card">
-              <img src="https://scontent.fbho1-2.fna.fbcdn.net/v/t39.30808-6/260605450_855294121948885_1561867013353434340_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=rneyjahSM7QAX_8luYH&_nc_ht=scontent.fbho1-2.fna&oh=00_AfBsMHZSAt1QS-nWxZWRfZXi5EoMvSP7tJ65kWH8WBF12g&oe=63E33EBA" class="card-img-top" alt="Teacher Name 1">
+              <img src="https://images.hindustantimes.com/rf/image_size_630x354/HT/p2/2019/12/16/Pictures/_8b53cb3a-2014-11ea-95dc-bf2b3eebb1f0.jpg" class="card-img-top" alt="Teacher Name 1">
             </div>
           </div>
 
           <div class="col-sm-4 p-3">
             <div class="card">
-              <img src="https://scontent.fbho1-4.fna.fbcdn.net/v/t39.30808-6/262917066_858218644989766_5232113880204899917_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=yMVDvZvuYL4AX-qr2DK&_nc_ht=scontent.fbho1-4.fna&oh=00_AfCJvpSj3o9diRuTYaTtsc5Ar79UfiydrAx5R-frM0fQyg&oe=63E39086" class="card-img-top" alt="Teacher Name 1">
+              <img src="https://www.shutterstock.com/shutterstock/photos/2048632277/display_1500/stock-photo--dewas-madhya-pradesh-india-group-of-cute-indian-school-children-dancing-during-2048632277.jpg" class="card-img-top" alt="Teacher Name 1">
             </div>
           </div>
 
           <div class="col-sm-4 p-3">
             <div class="card">
-              <img src="https://scontent.fbho1-2.fna.fbcdn.net/v/t39.30808-6/262241553_858218028323161_7613877451797051274_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=sysarFZPNawAX-n9t9v&_nc_ht=scontent.fbho1-2.fna&oh=00_AfC4ErbJRIWD8MDbxF-4fyzhTxwzOjlzlnsLMjxhq8AeyA&oe=63E26292" class="card-img-top" alt="Teacher Name 1">
+              <img src="https://lh3.googleusercontent.com/proxy/BGFgjJ4IRFIxVVh6HicPd4rdAl-UEBIoRq2ozNsfNig6CpnTVwbcXLXKcpaiG9n4H6lbRwEDS0If3IavJnKy4Q" class="card-img-top" alt="Teacher Name 1">
             </div>
           </div>
 
           <div class="col-sm-4 p-3">
             <div class="card">
-              <img src="https://scontent.fbho1-2.fna.fbcdn.net/v/t39.30808-6/260551686_855294441948853_3659524352746661833_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=PfVEBhJJqqIAX8ks49Q&_nc_ht=scontent.fbho1-2.fna&oh=00_AfAIs8c6u27eC2KaNiAZN3vih7732GXbZu82g7iqO9Jmrw&oe=63E378D1" class="card-img-top" alt="Teacher Name 1">
+              <img src="https://www.crew4events.com/events/images/school-contact-programs-main.jpg" class="card-img-top" alt="Teacher Name 1">
             </div>
           </div>
 
           <div class="col-sm-4 p-3">
             <div class="card">
-              <img src="https://scontent.fbho1-2.fna.fbcdn.net/v/t39.30808-6/260428511_855294385282192_1686252828522798289_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=8Uub3wRdIk8AX-xujfB&_nc_ht=scontent.fbho1-2.fna&oh=00_AfCTKhcaZePQW11QmxO3D7XUxCGMHrRiqBQaCbQLW7RJlA&oe=63E354B4" class="card-img-top" alt="Teacher Name 1">
+              <img src="https://5.imimg.com/data5/SELLER/Default/2023/6/320285623/OA/KQ/DC/127574329/school-contact-program.JPG" class="card-img-top" alt="Teacher Name 1">
             </div>
           </div>
 
           
           <div class="col-sm-4 p-3">
             <div class="card">
-              <img src="https://scontent.fbho1-1.fna.fbcdn.net/v/t39.30808-6/260477423_855294875282143_3364391107918903614_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=h1QlHsa5Oy8AX_sYYUK&_nc_ht=scontent.fbho1-1.fna&oh=00_AfBG9MPcuh4tQsUgshMe7eVh2BOQh4ojzACADmgVsZKT7A&oe=63E2F336" class="card-img-top" alt="Teacher Name 1">
+              <img src="https://www.crew4events.com/events/images/school-contact-programs-1.jpg" class="card-img-top" alt="Teacher Name 1">
             </div>
           </div>
 
