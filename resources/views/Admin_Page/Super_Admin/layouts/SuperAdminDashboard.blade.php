@@ -333,8 +333,6 @@
                                 {{-- <div class="calender-wrap">
                                     <div id="fc-calender" class="fc-calender"></div>
                                 </div> --}}
-
-                                hello
                                
  
                             </div>
