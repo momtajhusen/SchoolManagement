@@ -69,6 +69,10 @@ class EmployeesSalariesController extends Controller
 
             //// Start Update Attendance with Setting 
 
+            TeacherMonthsAttendance::where('percent', '0')->delete();
+            StaffAttendance::where('percent', '0')->delete();
+
+
               // Applly BonusSsfApplyEmp
                 $BonusSsfApplyEmp = BonusSsfApplyEmp::where('emp_id', $teacherSelect)->first();
                 if ($BonusSsfApplyEmp) 
