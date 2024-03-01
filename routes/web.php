@@ -111,7 +111,6 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
 
    // Start Super Admin Reports Area
       Route::view('admin/fee-collection-reports', 'Admin_Page/Super_Admin/layouts/Reports_Area/fee-collection-reports')->name('fee-collection-reports');
-      // Route::view('admin/fee-collection-month', 'Admin_Page/Super_Admin/layouts/Reports_Area/fee-collection-month')->name('fee-collection-month');
       Route::view('admin/financial-overview', 'Admin_Page/Super_Admin/layouts/Reports_Area/financialOverview')->name('financial-overview');
 
       Route::get('/get-collection-history', 'App\Http\Controllers\ReporstArea@CollectionReport');

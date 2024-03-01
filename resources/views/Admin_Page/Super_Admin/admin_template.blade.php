@@ -303,12 +303,6 @@
                                 <span>Finance Analysis</span>
                             </a>
                             <ul class="nav sub-group-menu">
-                                {{-- <li class="nav-item deve-use">
-                                    <a href="{{route('fee-collection-month')}}" class="nav-link">
-                                        <i class="fas fa-angle-right"></i>
-                                        <span>Fee Collection Months</span>
-                                    </a>
-                                </li> --}}
                                 <li class="nav-item">
                                     <a href="{{route('financial-overview')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
