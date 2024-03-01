@@ -262,8 +262,6 @@
                                         <div class="expense-date">Feb 2019</div>
                                         <div class="expense-amount"><span>₹ </span> 10,000</div>
                                     </div> --}}
-                                    <h1>Hello</h1>
-
                                     <div>
                                         <span class="m-0" style="color: #ab9fa8;">Total Expenses</span>
                                         <div class="d-flex">
@@ -335,7 +333,7 @@
                                     <div id="fc-calender" class="fc-calender"></div>
                                 </div> --}}
 
-                                <div>Last Check</div>
+                                <h1>Last Check</h1>
 
  
                             </div>
