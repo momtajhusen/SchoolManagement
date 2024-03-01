@@ -34,14 +34,12 @@
   <header class="main-header clearfix" role="header">
     <div class="logo">
       <img src="{{ asset('front_template_assets/assets/images/school-image/logo.png') }}" width="50px" alt="logo">
-
-      <!-- <a href="/"><em>Shubhatara</em></a> -->
-      <img src="front_template_assets/assets/images/school-image/logo.png" width="50px" alt="logo">
+ 
     </div>
     <a href="/" class="menu-link"><i class="fa fa-bars"></i></a>
     <nav id="menu" class="main-nav" role="navigation">
       <ul class="main-menu">
-        <li class="@yield('active')"><a href="/">Home Momtaj</a></li>
+        <li class="@yield('active')"><a href="/">Home</a></li>
         <li class="@yield('active')"><a href="/classes">Classes</a></li>
         <li class="@yield('active')"><a href="/teachers">Teachers</a></li>
         <li class="has-submenu"><a href="about">About Us</a>
