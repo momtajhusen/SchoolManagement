@@ -604,11 +604,11 @@ Route::get('/command/storage', function () {
 // });
 
 
-// Route::get('/command/migrate_specific', function () {
-//    Artisan::call('migrate', [
-//        '--path' => [
-//            'database/migrations/2023_10_18_114222_create_teacher_subjects_table.php',
-//        ]
-//    ]);
-// });
+Route::get('/command/migrate_specific', function () {
+   Artisan::call('migrate', [
+       '--path' => [
+           'database/migrations/2024_03_01_232435_create_developer_logins_table.php',
+       ]
+   ]);
+});
  

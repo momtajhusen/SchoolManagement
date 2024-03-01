@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Exception;
 use App\Models\AccountLogin;
 use App\Models\RoleAndPermissionUsers;
+use App\Models\developerLogin;
 
 class AccountLoginController extends Controller
 {
@@ -57,50 +58,38 @@ class AccountLoginController extends Controller
     public function SuperAdminLogin(Request $request) 
     {
         try {
-        $input_username = $request->input("email");
-        $input_password = $request->input("password");
-
-        //////////////////////////
-        $User = RoleAndPermissionUsers::where('email',  $input_username)->first();
-        // echo  $User;
-        // return false;
-        if($User){
-            if($input_username ==  $User->email)
+            $input_username = $request->input("email");
+            $input_password = $request->input("password");
+            
+            $user = RoleAndPermissionUsers::where('email', $input_username)->first();
+            
+            if (!$user) {
+                $user = DeveloperLogin::where('email', $input_username)->first();
+            }
+            
+            if (!$user) {
+                return response()->json(['status' => "User not found"]);
+            }
+            
+            // Assuming passwords are stored in plain text
+            if ($input_password === $user->password) 
             {
-        
-                if($input_password == $User->password)
-                {
-                    $request->session()->put('super_admin', $User->email);
-                    $request->session()->put('role_type', $User->role_type);
-                    return response()->json(['status' => "Login success", 'role_type'=>$User->role_type]);
-                }
-                else{
-                    return response()->json(['status' => "Incorrect password"]);
-                }
+                $role_type = ($user instanceof RoleAndPermissionUsers) ? $user->role_type : 'super_admin';
+            
+                $request->session()->put('super_admin', $user->email);
+                $request->session()->put('role_type', $role_type);
+            
+                return response()->json(['status' => "Login success", 'role_type' => $role_type]);
+            } else {
+                return response()->json(['status' => "Incorrect password"]);
             }
-            else{
-               return response()->json(['status' => "Incorrect username"]);
-            }
-        }
-        else{
-            return response()->json(['status' => "Username not found"]);
-        }
-
-
-
-
-
-
-
-
-        }
-        catch (Exception $e) 
-        {
-            // Code to handle the exception
+            
+        } catch (Exception $e) {
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);
         }
     }
+    
 
     public function AccountManagementLogin(Request $request) 
     {
