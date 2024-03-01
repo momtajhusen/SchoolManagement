@@ -109,10 +109,8 @@
           } else {
             $('body, html').scrollTop(reqSectionPos);
           }
-
         };
 
-       
         $(window).scroll(function () {
           checkSection();
         });
