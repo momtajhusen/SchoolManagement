@@ -333,11 +333,7 @@
                                 {{-- <div class="calender-wrap">
                                     <div id="fc-calender" class="fc-calender"></div>
                                 </div> --}}
-
-                                <p>
-                                    <input type="text" id="nepali-datepicker" placeholder="Select Nepali
-                                    Date"/>
-                                    </p>
+ 
                             </div>
                         </div>
                     </div>
