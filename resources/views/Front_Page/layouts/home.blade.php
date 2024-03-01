@@ -9,6 +9,14 @@
        Home
 @endsection
 
+@section('style')
+       <style>
+          .header-image{
+            width: 100%;
+          }
+       </style>
+@endsection
+
 @section('contents')
 
   <!-- ***** Main Banner Area Start ***** -->
@@ -17,7 +25,7 @@
           <source src="assets/images/course-video.mp4" type="video/mp4" />
       </video> -->
 
-      <img class="header-image" src="http://127.0.0.1:8000/storage/school_assets/school_header.jpg" alt="school" style="width:100%; height:100%;">
+      <img class="header-image" src="https://i.ytimg.com/vi/uHfIOowclI4/maxresdefault.jpg" alt="school">
 
       <div class="video-overlay header-text">
           <div class="caption">
@@ -94,7 +102,7 @@
         <div class="row">
           <div class="col-sm-3 p-3">
             <div class="card">
-              <img src="front_template_assets/assets/images/teacher/91.jpg" class="card-img-top" alt="Teacher Name 1">
+              <img src="https://pngimg.com/uploads/teacher/teacher_PNG84.png" class="card-img-top" alt="Teacher Name 1">
               <div class="card-body text-light" style="background:#162238;">
                 <h5 class="card-title m-1">MAOKAI</h5>
                 <p class="card-text m-1">Subject: Maths</p>
@@ -104,7 +112,7 @@
           </div>
           <div class="col-sm-3 p-3">
             <div class="card">
-              <img src="front_template_assets/assets/images/teacher/90.jpg" class="card-img-top" alt="Teacher Name 2">
+              <img src="https://img.lovepik.com/free-png/20211214/lovepik-young-teacher-image-png-image_401599087_wh1200.png" class="card-img-top" alt="Teacher Name 2">
               <div class="card-body text-light" style="background:#162238;">
                 <h5 class="card-title m-1">KAILO</h5>
                 <p class="card-text m-1">Subject: Maths</p>
@@ -114,7 +122,7 @@
           </div>
           <div class="col-sm-3 p-3">
             <div class="card">
-              <img src="front_template_assets/assets/images/teacher/89.jpg" class="card-img-top" alt="Teacher Name 3">
+              <img src="https://img.favpng.com/16/4/23/teacher-kane-mortgage-inc-education-png-favpng-9XFEQqdTTFMYiW5PM2EMGjGQp_t.jpg" class="card-img-top" alt="Teacher Name 3">
               <div class="card-body text-light" style="background:#162238;">
                 <h5 class="card-title m-1">GRAVES</h5>
                 <p class="card-text m-1">Subject: Maths</p>
@@ -124,7 +132,7 @@
           </div>
           <div class="col-sm-3 p-3">
             <div class="card">
-              <img src="front_template_assets/assets/images/teacher/88.jpg" class="card-img-top" alt="Teacher Name 3">
+              <img src="https://img.lovepik.com/free-png/20210919/lovepik-male-teacher-png-image_400764312_wh1200.png" class="card-img-top" alt="Teacher Name 3">
               <div class="card-body text-light" style="background:#162238;">
                 <h5 class="card-title m-1">POPPY</h5>
                 <p class="card-text m-1">Subject: Maths</p>
@@ -378,7 +386,7 @@ $(document).ready(function(){
     } 
     
     else {
-      $(".header-image").attr("src", "http://127.0.0.1:8000/storage/school_assets/school_header.jpg");
+      $(".header-image").attr("src", "https://i.ytimg.com/vi/uHfIOowclI4/maxresdefault.jpg");
     }
   });
 });
@@ -390,7 +398,7 @@ $(document).ready(function(){
     } 
     
     else {
-      $(".header-image").attr("src", "http://127.0.0.1:8000/storage/school_assets/school_header.jpg");
+      $(".header-image").attr("src", "https://i.ytimg.com/vi/uHfIOowclI4/maxresdefault.jpg");
     }
  
 });

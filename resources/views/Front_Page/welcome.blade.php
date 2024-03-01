@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="front_template_assets/assets/css/templatemo-grad-school.css">
     <link rel="stylesheet" href="{{ asset('front_template_assets/assets/css/owl.css')}}">
     <link rel="stylesheet" href="{{ asset('front_template_assets/assets/css/lightbox.css')}}">
+
+
+     @yield('style')
   </head>
 
 <body>
