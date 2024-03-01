@@ -41,7 +41,7 @@
     <a href="/" class="menu-link"><i class="fa fa-bars"></i></a>
     <nav id="menu" class="main-nav" role="navigation">
       <ul class="main-menu">
-        <li class="@yield('active')"><a href="/">Home</a></li>
+        <li class="@yield('active')"><a href="/">Home Momtaj</a></li>
         <li class="@yield('active')"><a href="/classes">Classes</a></li>
         <li class="@yield('active')"><a href="/teachers">Teachers</a></li>
         <li class="has-submenu"><a href="about">About Us</a>
