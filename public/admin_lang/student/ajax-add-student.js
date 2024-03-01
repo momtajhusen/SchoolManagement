@@ -90,8 +90,6 @@ $(document).ready(function () {
             success: function (response) 
             {
                 console.log(response);
-
-                // return false;
             
                 if(response.status == "Add Successfully")
                 {
@@ -101,7 +99,7 @@ $(document).ready(function () {
                         icon: "success",
                         confirmButtonText: "OK",
                       }).then(function() {
-                         print_admision(response.student_id);
+                          window.location.href = "/admin/registration-list";
                       });
                 }
                 else if(response.status == "Failed Something Error"){
