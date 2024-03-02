@@ -75,7 +75,7 @@
                     <div class="card-body py-5 h-100 card-container">
 
                         <div class="border-nav-tab">
-                            <div class="accordion" id="accordionExample">
+                            {{-- <div class="accordion" id="accordionExample">
                                 <div class="card p-0">
                                     <div class="card-header p-0" id="headingTwo">
                                         <div class="collapsed w-100 login-accourding-btn p-3 d-flex justify-content-center" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -105,7 +105,7 @@
                                       </div>
                                     </div>
                                   </div>
-                            </div>
+                            </div> --}}
 
                             <div class="tab-content pt-2 d-flex flex-column align-items-center justify-content-start" style="height:500px;">
                                 {{-- super admin panel  --}}
@@ -120,9 +120,10 @@
                                         <label class="text-light">Username</label>
                                         <input type="email" required name="email" id="super-admin-user" placeholder="Username" class="form-control w-100">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group position-relative">
                                         <label class="text-light">Password</label>
                                         <input type="password" required name="password" id="super-admin-psd" placeholder="Password" class="form-control w-100">
+                                        <span class="material-symbols-outlined position-absolute" id="eye-icon" style="cursor:pointer;top:45px;right:10px;font-size:20px;">visibility_off</span>
                                     </div>
                                     <br>
                                     <div class="form-group submit-btn">
@@ -308,6 +309,20 @@
             });
     });
 
+        // Eye icon password 
+        $(document).ready(function(){
+            $('#eye-icon').click(function(){
+            var eyehtml = $(this).html();
+            if(eyehtml == 'visibility_off'){
+                $(this).html('visibility');
+                $('#super-admin-psd').attr('type', 'text');
+            }
+            if(eyehtml == 'visibility'){
+                $(this).html('visibility_off');
+                $('#super-admin-psd').attr('type', 'password');
+            }
+            });
+        });
       </script>
  
 </body>
