@@ -6,7 +6,6 @@ $(document).ready(function(){
        var classvalue = $(this).val();
        var year = NepaliFunctions.GetCurrentBsDate().year;
        
-       
         $.ajax({
             url: "/get-class-roll",
             method: 'GET',
