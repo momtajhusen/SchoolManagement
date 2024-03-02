@@ -353,7 +353,7 @@
                                 <li class="nav-item">
                                     <a href="{{route('dues-list')}}" class="nav-link">
                                        <i class="fas fa-angle-right"></i>
-                                        <span>Dues List</span>
+                                        <span>Dues Fee</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
