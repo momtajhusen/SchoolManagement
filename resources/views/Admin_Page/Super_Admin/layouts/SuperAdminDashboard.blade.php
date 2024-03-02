@@ -164,7 +164,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="item-content">
-                                        <div class="item-title">Earnings</div>
+                                        <div class="item-title">Earning</div>
                                         <div class="item-number"><span>₹ </span><span class="total-earning number-icon" >0</span></div>
                                     </div>
                                 </div>
@@ -219,13 +219,13 @@
                             <div class="card-body">
                                 <div class="heading-layout1">
                                     <div class="item-title">
-                                        <h3>Earnings History</h3>
+                                        <h3>Earning History</h3>
                                     </div>
                                 </div>
                                 <div class="earning-report">
                                     <div class="item-content w-100 d-flex justify-content-between">
                                         <div>
-                                            <span class="m-0" style="color: #ab9fa8;">Total Collections</span>
+                                            <span class="m-0" style="color: #ab9fa8;">Total Collection</span>
                                             <div class="d-flex">
                                                 <span class="mr-2">₹ </span><h3 class="p-0 m-0 number-icon" id="collection-amount" style="font-size:bold;">0</h3>
                                             </div>
