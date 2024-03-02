@@ -312,17 +312,17 @@
                                 <li class="nav-item">
                                     <a href="{{route('fee-collection-reports')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Fee Collection Reports</span>
+                                        <span>Fee Collections</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('class-finance')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                    <span>Financial Class Wiz</span>
+                                    <span>Financial Class</span>
                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('expense-reports')}}"  class="nav-link"><i class="fas fa-angle-right"></i>
-                                    <span>Expenses Reports</span>
+                                    <span>Expenses</span>
                                    </a>
                                 </li>  
                             </ul>
@@ -356,6 +356,7 @@
                                         <span>Dues Fee</span>
                                     </a>
                                 </li>
+                                
                                 <li class="nav-item">
                                     <a href="{{route('add-expenses')}}" class="nav-link"><i class="fas fa-angle-right"></i>
                                         <span>Add Expenses</span>
@@ -419,7 +420,7 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">demography</span>
-                                <span>Attendan. Management</span>
+                                <span>Attendan Management</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
