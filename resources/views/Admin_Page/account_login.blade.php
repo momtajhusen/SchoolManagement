@@ -36,8 +36,8 @@
         }
 
         .sigin_box{
-        width:330px;
-        height:600px;
+        width:300px;
+        height:550px;
         box-sizing: border-box;
         border-radius:10px;
         /* box-shadow:0px 0px 10px 10px rgb(20, 17, 17); */
@@ -72,7 +72,7 @@
         <div class="d-flex justify-content-center align-items-center" style="width:100vw; height:100vh;">
              <div class="sigin_box">
                 <div class="card ui-tab-card h-100 p-0" >
-                    <div class="card-body py-5 h-100 card-container">
+                    <div class="card-body py-5 card-container">
 
                         <div class="border-nav-tab">
                             {{-- <div class="accordion" id="accordionExample">
@@ -252,9 +252,6 @@
                                    </form>
                                 </div>
                             </div>
-                   
-
-
                         </div>
                     </div>
                 </div>
