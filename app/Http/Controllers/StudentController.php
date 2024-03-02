@@ -1071,7 +1071,11 @@ class StudentController extends Controller
             $year = ($dateSetting && $dateSetting->using_date != "internet-date") ? $dateSetting->year : ($request->year ?? null);
 
 
-            $rolls = Student::where('class', $class)->where('class_year', $year)->where("admission_status", "admit")->get();
+            if($class == 'all_class'){
+                $rolls = Student::where('class_year', $year)->where("admission_status", "admit")->get();
+            }else{
+                $rolls = Student::where('class', $class)->where('class_year', $year)->where("admission_status", "admit")->get();
+            }
             return response()->json(['classrolls' => $rolls]);
         } catch (Exception $e) {
             // Code to handle the exception

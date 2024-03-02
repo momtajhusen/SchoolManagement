@@ -50,16 +50,19 @@ class DuesListController extends Controller
             $lastIndex = count($months);
             $length = count($months);
 
-
             // date year 
             $dateSetting = DateSetting::first();
             $current_year = ($dateSetting && $dateSetting->using_date != "internet-date") ? $dateSetting->year : ($request->current_year ?? null);
  
 
-
- 
-
-            $response = Student::where("class", $class)->where('section', $section)->where("class_year", $current_year)->where("admission_status", "admit")->get();
+            if ($class == 'all_class' && $section == 'all_section') {
+                $response = Student::where("class_year", $current_year)->where("admission_status", "admit")->get();
+            } elseif ($class != 'all_class' && $section == 'all_section') {
+                $response = Student::where("class", $class)->where("class_year", $current_year)->where("admission_status", "admit")->get();
+            } else {
+                $response = Student::where("class", $class)->where('section', $section)->where("class_year", $current_year)->where("admission_status", "admit")->get();
+            }
+            
 
             if (count($response) != "0") {
                 foreach ($response as $data) 
@@ -80,8 +83,6 @@ class DuesListController extends Controller
                     $start_month = $admission_month - 1;
                 }   
 
-
-                    
                     // Payment Fee 
                         $Paymentfee = FeePayment::where('class', $data->class)->where('st_id', $data->id)->where('class_year', $current_year)->first();
                         $TotalPaymentFee = 0;
