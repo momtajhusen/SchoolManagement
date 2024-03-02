@@ -24,8 +24,6 @@ use App\Models\DiscountExceptions;
 use App\Models\SchoolDetails;
 
 
-
-
 use App\Models\VehicleRoot;
 use App\Models\PaymentHistory;
 use App\Models\JoinleaveDates;
@@ -602,7 +600,10 @@ class FeePaymenthMondthyController extends Controller
                         $resetStatus = FeePayment::where('class', $class)->where('st_id', $student_id)->where('class_year', $year)->first();
                         $paymentresetStatus = $resetStatus->reset_status;
 
-                        $this->response = PaymentHistory::where("student_id",  $student_id)->whereYear('pay_date', $year)->orderBy('id', 'desc')->get();
+                        $this->response = PaymentHistory::where("student_id", $student_id)
+                        ->whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
+                        ->orderBy('id', 'desc')
+                        ->get();
                         if (count($this->response) != "0") {
                             foreach ($this->response as $this->Datahistory) {
                                 array_push($this->historyData, $this->Datahistory);

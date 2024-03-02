@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer("total_present")->nullable();
             $table->integer("total_absent")->nullable();
             $table->year("year")->nullable();
-            $table->date("date", 20)->nullable();
+            $table->string("date", 15)->nullable();
             $table->timestamps();
         });
     }

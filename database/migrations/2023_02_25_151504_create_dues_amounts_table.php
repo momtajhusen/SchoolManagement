@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('month_10',50)->nullable();
             $table->string('month_11',50)->nullable();
             $table->string('payment',50)->nullable();
-            $table->date('pay_date',10)->nullable();
+            $table->string('pay_date',10)->nullable();
             $table->timestamps();
         });
     }

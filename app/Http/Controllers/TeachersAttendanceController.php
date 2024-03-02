@@ -243,7 +243,10 @@ class TeachersAttendanceController extends Controller
 
 
                 $AllDayTotalPeriod = $totalDayThisMonth * $totalPeriod;
-                $AllDayTotalPresent = TeachersAttendance::where("tr_id", $tr_id)->whereYear('date', $AttendencYear)->whereMonth('date', $AttendencMonth)->sum('total_present');
+                $AllDayTotalPresent = TeachersAttendance::where("tr_id", $tr_id)
+                ->where('date', 'LIKE', $AttendencYear.'-'.$AttendencMonth.'%')
+                ->sum('total_present');
+
                 $percentage = ($AllDayTotalPresent / $AllDayTotalPeriod) * 100;
                 $percentageDifference = 100 - $percentage;
 
@@ -364,9 +367,9 @@ class TeachersAttendanceController extends Controller
             $attendanceMonth = $request->attendanceMonth;
 
             $TeachersAttendance = TeachersAttendance::where("tr_id", $emp_id)
-                ->whereYear("date", $attendanceYear)
-                ->whereMonth("date", $attendanceMonth)
-                ->orderBy('date', 'desc')->get();
+            ->where('date', 'LIKE', $attendanceYear.'-'.$attendanceMonth.'%')
+            ->orderBy('date', 'desc')
+            ->get();        
 
  
             $TeacherMonthsAttendance = TeacherMonthsAttendance::where("emp_id", $emp_id)->where('year', $attendanceYear)

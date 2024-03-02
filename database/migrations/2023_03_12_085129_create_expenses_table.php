@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('describe',100)->nullable();
             $table->string('amount',10)->nullable();
             $table->string('method',20)->nullable();
-            $table->date('expenses_date',15)->nullable();
+            $table->string('expenses_date',15)->nullable();
             $table->timestamps();
         });
     }

@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('total_discount',50)->nullable();
             $table->string('total_dues',50)->nullable();
             $table->string('pay_with',50)->nullable();
-            $table->date('pay_date',50)->nullable();
+            $table->string('pay_date',15)->nullable();
             $table->string('reset_status', 50)->nullable();
             $table->timestamps();
         });

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('comment_free_fee',70)->nullable();
             $table->string('dues',70)->nullable();
             $table->string('pay_with',50)->nullable();
-            $table->date('pay_date',50)->nullable();
+            $table->string('pay_date',15)->nullable();
             $table->timestamps();
         });
     }

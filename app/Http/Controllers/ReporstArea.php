@@ -32,32 +32,40 @@ class ReporstArea extends Controller
         $today = $year.'-'.$month.'-'.$day;
  
         if ($option === 'month') {
-
-            $paymentHistoryData = PaymentHistory::whereYear('pay_date', $year)->whereMonth('pay_date', $month)->orderBy('id', 'desc')->get();
+            $paymentHistoryData = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
+                                                ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$month])
+                                                ->orderBy('id', 'desc')
+                                                ->get();
         }
-        elseif ($option === 'today') {
-
-            $paymentHistoryData = PaymentHistory::whereDate('pay_date', $today)->orderBy('id', 'desc')->get();
-
-        }elseif ($option === 'year') {
- 
-            $paymentHistoryData = PaymentHistory::whereYear('pay_date', $year)->orderBy('id', 'desc')->get();
-
+        if ($option === 'today') {
+            $paymentHistoryData = PaymentHistory::whereDate('pay_date', $today)
+                                                ->orderBy('id', 'desc')
+                                                ->get();
         }
-        else{
-            $paymentHistoryData = PaymentHistory::whereYear('pay_date', $year)->whereMonth('pay_date', $option)->orderBy('id', 'desc')->get();
+        elseif ($option === 'year') {
+            $paymentHistoryData = PaymentHistory::where('pay_date', 'LIKE', $year.'%')
+                                                ->orderBy('id', 'desc')
+                                                ->get();
         }
-
+        else {
+            $paymentHistoryData = PaymentHistory::where('pay_date', 'LIKE', $year.'-'.$option.'%')
+                                                ->orderBy('id', 'desc')
+                                                ->get();
+        }        
+        
         $payment_History_sums = [];
         for ($month = 1; $month <= 12; $month++) {
-
-            $payment_History_sums["month_".$month] = PaymentHistory::whereYear('pay_date', $year)->whereMonth('pay_date', $month)->sum('payment');
+            $payment_History_sums["month_".$month] = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
+                                                                    ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$month])
+                                                                    ->sum('payment');
         }
-
+        
         $HostelDeposite_sums = [];
         for ($month = 1; $month <= 12; $month++) {
-
-            $HostelDeposite_sums["month_".$month] = PrWalletLoadHis::where("load_for", "hostel_deposite")->whereYear('date', $year)->whereMonth('date', $month)->sum('load_amount');
+            $HostelDeposite_sums["month_".$month] = PrWalletLoadHis::where("load_for", "hostel_deposite")
+                                                                    ->whereRaw("YEAR(date) = ?", [$year])
+                                                                    ->whereRaw("MONTH(date) = ?", [$month])
+                                                                    ->sum('load_amount');
         }
         
         // Start GenerateFee All Months
@@ -129,7 +137,6 @@ class ReporstArea extends Controller
             "PaymentHistoryAmount" => $payment_History_sums,
             "GenerateMonthsAmount" => $generateMonthsAmount,
             "PaymentMounthsAmount" => $PaymentMounthsAmount,
-
             "HostelDeposite" => $HostelDeposite_sums,
         ], 200);
         
@@ -149,9 +156,10 @@ class ReporstArea extends Controller
             $to_date = $request->to_date;
 
             // Query the PaymentHistory model
-            $paymentHistoryData = PaymentHistory::whereBetween('pay_date', [$from_date, $to_date])
-                ->orderBy('id', 'desc')
-                ->get();
+            $paymentHistoryData = PaymentHistory::whereRaw("STR_TO_DATE(pay_date, '%Y-%m-%d') BETWEEN ? AND ?", [$from_date, $to_date])
+            ->orderBy('id', 'desc')
+            ->get();
+
 
             $paymentHistoryDataArray = $paymentHistoryData->map(function ($payment) {
                 $studentData = Student::find($payment->student_id);
@@ -162,7 +170,6 @@ class ReporstArea extends Controller
                     $payment->class = $studentData->class ?? '';
                     $payment->section = $studentData->section ?? '';
 
-            
                     $parentData = Parents::find($studentData->parents_id);
             
                     if ($parentData) {
@@ -208,7 +215,7 @@ class ReporstArea extends Controller
             if ($studentData) {
 
                 $PaymentHistory = PaymentHistory::where('student_id', $student_id)
-                ->whereBetween('pay_date', [$from_date, $to_date])
+                ->whereRaw("STR_TO_DATE(pay_date, '%Y-%m-%d') BETWEEN ? AND ?", [$from_date, $to_date])
                 ->orderBy('id', 'desc')
                 ->get();
             
@@ -447,10 +454,8 @@ class ReporstArea extends Controller
             $startDate = $request->startDate;
             $endDate = $request->endDate;
 
+            $Expenses = Expenses:: whereRaw("STR_TO_DATE(expenses_date, '%Y-%m-%d') BETWEEN ? AND ?", [$startDate, $endDate])->orderBy('id', 'desc')->get();
             
-            $Expenses = Expenses::whereBetween("expenses_date", [$startDate, $endDate])->orderBy('id', 'desc')->get();
-            
-
             return response(array("data" => $Expenses), 200);
         } catch (Exception $e) {
             // Code to handle the exception
@@ -508,16 +513,17 @@ class ReporstArea extends Controller
             /////////////////// End Expenses Retrive ///////////////////
 
             /////////////////// Start Revenue Retrive ///////////////////
-                $paymentHistories = PaymentHistory::whereBetween("pay_date", [$startDate, $endDate])
+                $paymentHistories = PaymentHistory::whereRaw("STR_TO_DATE(pay_date, '%Y-%m-%d') BETWEEN ? AND ?", [$startDate, $endDate])
                 ->orderBy('id', 'desc')
                 ->get();
+
             
-                $previousYearPaymentsSum = PaymentHistory::where('pay_month', 'Previus Year')->whereBetween('pay_date', [$startDate, $endDate])->sum('payment');
+                $previousYearPaymentsSum = PaymentHistory::where('pay_month', 'Previus Year')->whereRaw("STR_TO_DATE(pay_date, '%Y-%m-%d') BETWEEN ? AND ?", [$startDate, $endDate])->sum('payment');
 
                 // Discount, Dues & Free 
-                $collectionDiscount = PaymentHistory::whereBetween('pay_date', [$startDate, $endDate])->sum('discount');
-                $collectionDues = PaymentHistory::whereBetween('pay_date', [$startDate, $endDate])->sum('dues');
-                $collectionFree = PaymentHistory::whereBetween('pay_date', [$startDate, $endDate])->sum('free_fee');
+                $collectionDiscount = PaymentHistory::whereRaw("STR_TO_DATE(pay_date, '%Y-%m-%d') BETWEEN ? AND ?", [$startDate, $endDate])->sum('discount');
+                $collectionDues = PaymentHistory::whereRaw("STR_TO_DATE(pay_date, '%Y-%m-%d') BETWEEN ? AND ?", [$startDate, $endDate])->sum('dues');
+                $collectionFree = PaymentHistory::whereRaw("STR_TO_DATE(pay_date, '%Y-%m-%d') BETWEEN ? AND ?", [$startDate, $endDate])->sum('free_fee');
                 $totalException = $collectionDiscount + $collectionDues + $collectionFree;
 
                 $feeTypeTotals = [];
@@ -551,7 +557,7 @@ class ReporstArea extends Controller
                 $CollectionRevenue = array_sum($feeTypeTotals) + $previousYearPaymentsSum - $totalException;
  
                 // Calculate the total revenue
-                $totalRevenue = PaymentHistory::whereBetween("pay_date", [$startDate, $endDate])->sum('payment');
+                $totalRevenue = PaymentHistory::whereRaw("STR_TO_DATE(pay_date, '%Y-%m-%d') BETWEEN ? AND ?", [$startDate, $endDate])->sum('payment');
 
                 // Transform the result into the desired structure
                 $RevenueResult = [];
@@ -591,16 +597,26 @@ class ReporstArea extends Controller
                 ];
                 
                 for ($month = 1; $month <= 12; $month++) {
-                    $revenue = PaymentHistory::whereYear('pay_date', $currentYear)->whereMonth('pay_date', $month)->sum('payment');
-
-                    $utilityExpensesChart = Expenses::whereYear('expenses_date', $currentYear)->whereMonth('expenses_date', $month)->sum('amount');
-                    $mployeesSalaries = EmployeesSalariesPaymentHistories::whereBetween("payment_date", [$startDate, $endDate])->sum('recive_salary');
-                    $totalExpensiveChart = $utilityExpensesChart + $mployeesSalaries;
-                    
+                    $revenue = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$currentYear])
+                        ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$month])
+                        ->sum('payment');
+                
+                    $utilityExpensesChart = Expenses::whereRaw("YEAR(STR_TO_DATE(expenses_date, '%Y-%m-%d')) = ?", [$currentYear])
+                        ->whereRaw("MONTH(STR_TO_DATE(expenses_date, '%Y-%m-%d')) = ?", [$month])
+                        ->sum('amount');
+                
+                    $employeesSalaries = EmployeesSalariesPaymentHistories::whereRaw("STR_TO_DATE(payment_date, '%Y-%m-%d') BETWEEN ? AND ?", [$startDate, $endDate])
+                        ->sum('recive_salary');
+                
+                    // Ensure that $employeesSalaries is initialized with a default value if it's null
+                    $employeesSalaries = $employeesSalaries ?? 0;
+                
+                    $totalExpensiveChart = $utilityExpensesChart + $employeesSalaries;
+                
                     $FinancialChart['revenue'][] = $revenue;
                     $FinancialChart['expenses'][] = $totalExpensiveChart;
                     $FinancialChart['netprofit'][] = $revenue - $totalExpensiveChart;
-                }
+                }            
             /////////////////// End Chart Retrive ///////////////////
 
             /////////////////// Start Staff | Wallet | Bank ///////////////////

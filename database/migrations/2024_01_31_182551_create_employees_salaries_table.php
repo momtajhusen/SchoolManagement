@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('emp_id')->nullable();
             $table->decimal('salary', 8, 2)->nullable();
-            $table->date('salary_date')->nullable();
+            $table->string('salary_date', 10)->nullable();
             $table->timestamps();
         });
     }

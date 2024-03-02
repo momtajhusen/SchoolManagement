@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("items", 50)->nullable();
             $table->string("categories", 50)->nullable();
             $table->integer("quantity")->nullable();
-            $table->date("date")->nullable();
+            $table->string("date", 15)->nullable();
             $table->timestamps();
         });
     }

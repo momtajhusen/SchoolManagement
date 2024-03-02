@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer("load_amount")->nullable(); 
             $table->string("load_for", 100)->nullable();
             $table->string("load_by", 100)->nullable();
-            $table->string("date", 30)->nullable();
+            $table->string("date", 15)->nullable();
             $table->timestamps();
         });
     }

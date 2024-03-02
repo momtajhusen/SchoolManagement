@@ -17,13 +17,13 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('department_role');
             $table->string('gender')->nullable();
-            $table->date('dob');
+            $table->string('dob', 10)->nullable();
             $table->string('religion')->nullable();
             $table->string('blood_group')->nullable();
             $table->longText('address')->nullable();
             $table->bigInteger('phone')->nullable();
             $table->string('qualification')->nullable();
-            $table->date('joining_date');
+            $table->string('joining_date', 10)->nullable();
             $table->text('image')->nullable();
             $table->string('email')->nullable();
             $table->string('password', 100)->nullable();

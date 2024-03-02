@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer("visitorid")->nullable();
             $table->string("name", 50)->nullable();
-            $table->date("date")->nullable();
+            $table->string("date", 15)->nullable();
             $table->string("page", 50)->nullable();
             $table->string("button", 50)->nullable();
             $table->integer("clicking")->nullable();

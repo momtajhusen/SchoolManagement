@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('middle_name', 20)->nullable();
             $table->string('last_name', 20)->nullable();
             $table->string('gender', 10)->nullable();
-            $table->date('dob', 20)->nullable();
+            $table->string('dob', 15)->nullable();
             $table->string('religion', 20)->nullable();
             $table->string('blood_group', 30)->nullable();
             $table->string('phone', 10)->nullable();

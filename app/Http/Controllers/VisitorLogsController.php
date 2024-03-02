@@ -14,9 +14,6 @@ use App\Models\DemoVisitorDetails;
 
 use Illuminate\Database\QueryException;
  
-
-
-
 class VisitorLogsController extends Controller
 {
     /**
