@@ -31,8 +31,8 @@ $(document).ready(function () {
 
                    var monthName = NepaliFunctions.GetBsMonth(salary_month - 1);
 
-                    TotalReciveSalary =+ recive_salary;
-                    TotalRemaining =+ remaining;
+                    TotalReciveSalary += Number(recive_salary);
+                    TotalRemaining += Number(remaining);
 
                     $(".payment-history").append(
                         `
