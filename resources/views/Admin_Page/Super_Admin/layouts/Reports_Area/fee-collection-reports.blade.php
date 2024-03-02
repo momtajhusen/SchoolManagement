@@ -87,13 +87,13 @@ input{
        {{-- Tabs Buttons  --}}
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-links active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Month wize</button>
+            <button class="nav-links active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Months</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-links" id="datewize-tab" data-toggle="tab" data-target="#datewize" type="button" role="tab" aria-controls="datewize" aria-selected="false">Date wize</button>
+            <button class="nav-links" id="datewize-tab" data-toggle="tab" data-target="#datewize" type="button" role="tab" aria-controls="datewize" aria-selected="false">From Date</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-links" id="studentwize-tab" data-toggle="tab" data-target="#studentwize" type="button" role="tab" aria-controls="studentwize" aria-selected="false">Student wize</button>
+            <button class="nav-links" id="studentwize-tab" data-toggle="tab" data-target="#studentwize" type="button" role="tab" aria-controls="studentwize" aria-selected="false">From Student ID</button>
           </li>
         </ul>
 
@@ -147,11 +147,11 @@ input{
                         <thead>
                         <tr>
                             <th>SN.</th>
-                            <th>paid</th>
-                            <th>st_id</th>
-                            <th>class</th>
-                            <th>students</th>
-                            <th>parents</th>
+                            <th>Paid</th>
+                            <th>Student ID</th>
+                            <th>Class</th>
+                            <th>Students Name</th>
+                            <th>Parents</th>
                             <th>Date</th>
                             <th>Time</th>
                         </tr>
@@ -200,14 +200,14 @@ input{
                 <table class="table table-dark table-hover table-sm" id="payment-history-date">
                     <thead>
                     <tr>
-                        <th>SN.</th>
-                        <th>paid</th>
-                        <th>st_id</th>
-                        <th>class</th>
-                        <th>students</th>
-                        <th>parents</th>
-                        <th>Date</th>
-                        <th>Time</th>
+                            <th>SN.</th>
+                            <th>Paid</th>
+                            <th>Student ID</th>
+                            <th>Class</th>
+                            <th>Students Name</th>
+                            <th>Parents</th>
+                            <th>Date</th>
+                            <th>Time</th>
                     </tr>
                     </thead>
                     <tbody class="payment-history-date">
@@ -243,12 +243,12 @@ input{
                     <table class="table table-dark table-hover table-sm" id="payment-history-date">
                         <thead>
                         <tr>
-                            <th>SN.</th>
-                            <th>paid</th>
-                            <th>st_id</th>
-                            <th>class</th>
-                            <th>students</th>
-                            <th>parents</th>
+                        <th>SN.</th>
+                            <th>Paid</th>
+                            <th>Student ID</th>
+                            <th>Class</th>
+                            <th>Students Name</th>
+                            <th>Parents</th>
                             <th>Date</th>
                             <th>Time</th>
                         </tr>
