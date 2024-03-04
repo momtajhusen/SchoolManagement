@@ -11,11 +11,14 @@ $(document).ready(function () {
                 $(".save-all-student").removeClass('d-none');
                 $(".save-all-student").addClass('d-flex');
 
+                $('.animation-box').removeClass('d-none');
+                $('.animation-box').addClass('d-flex');
+
 
                 var csvContent = e.target.result;
                 var rows = csvContent.split('\n');
 
-                $('.total-upload-students').html(rows.length-1);
+                $('.total-upload-students').html(rows.length-2);
 
                 // Extract header names from the first row
                 var headers = rows[0].split(',');
@@ -25,7 +28,7 @@ $(document).ready(function () {
                 rows.slice(0).forEach(function (row) {
                     var columnsdata = row.split(',');
                     // Create a form element for each row
-                    var forms = $('<div class="d-flex"></div>');
+                    var forms = $('<div class="d-flex header-box"></div>');
                     // Process each column and append input fields to the form
                     if (!hasRun) {
                     columnsdata.forEach(function (columns, index) {
@@ -81,6 +84,8 @@ $(document).on('submit', '.student-form', function (e) {
 
     $(this).addClass('submit-form');
 
+    $('.animation-root').html(`<span class="material-symbols-outlined move-icon">send</span>`);
+
     // Set CSRF token for AJAX requests
     $.ajaxSetup({
         headers: {
@@ -95,13 +100,34 @@ $(document).on('submit', '.student-form', function (e) {
         data: formData,
         processData: false,
         contentType: false,
+            // Progress
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener(
+                    "progress",
+                    function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete =
+                                (evt.loaded / evt.total) * 100;
+                            var percentComplete = percentComplete.toFixed(2);
+
+                            var $icon = $('.move-icon');
+                            // Set the left position using percentage value
+                            $icon.css('left', percentComplete + '%');
+                            // $icon.css('transition', percentComplete + 's');
+                        }
+                    },
+                    false
+                );
+                return xhr;
+            },
         // Success handler
         success: function (response) {
             console.log(response);
 
             if (response.status === 'Add Successfully') {
-                updateSuccessCount(); // Update successful upload count
-
+                $('.move-icon').html('');
+                   updateSuccessCount(); // Update successful upload count
                 // If there are more forms to upload, trigger submission of the next form
                 if ($('.upload-event').html() === 'multiple') {
                     submitNextForm();
@@ -111,7 +137,7 @@ $(document).on('submit', '.student-form', function (e) {
         // Error handler
         error: function (xhr, status, error) {
             console.error(xhr.responseText);
-            $('.submit-form').append(`<span error=`+xhr.responseText+` class="material-symbols-outlined ml-1 text-danger" style='cursor:pointer;'>error</span>`);
+            $('.submit-form').append(`<span error=`+xhr.responseText+` class="material-symbols-outlined mx-1 text-danger" style='cursor:pointer;'>error</span>`);
             updateFailedCount(); 
             if ($('.upload-event').html() === 'multiple') {
                 submitNextForm();
@@ -122,7 +148,10 @@ $(document).on('submit', '.student-form', function (e) {
 
 // Function to update successful upload count
 function updateSuccessCount() {
+    var totalUpload = Number($('.total-upload-students').html());
     var successStudents = Number($('.total-sucess-students').html());
+
+    $('.total-upload-students').html(totalUpload - 1);
     $('.total-sucess-students').html(successStudents + 1);
     $('.submit-form').remove();
 }
@@ -147,7 +176,8 @@ $(document).ready(function () {
     $(".save-all-student").click(function () {
         submitNextForm(); // Submit the first form
         $('.upload-event').html('multiple');
-        $('.save-all-student').removeClass('d-flex');
-        $('.save-all-student').addClass('d-none');
+
+        $('.send-button-box').removeClass('d-flex');
+        $('.send-button-box').addClass('d-none');
     });
 });

@@ -133,45 +133,30 @@
             color:white;
         }
 
-        /* width */
-        ::-webkit-scrollbar {
-            width: 10px;
-	        background-color: #F5F5F5;
-        }
+        /* Start Scroll Designe  */
+            /* For vertical scrollbar */
+            ::-webkit-scrollbar-thumb:vertical {
+                background: rgb(44,0,120);
+                background: linear-gradient(90deg, rgba(44,0,120,1) 16%, rgba(4,41,84,1) 72%);
+                box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            }
 
-        /* Track */
-        ::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-            background-color: #F5F5F5;
-            border-radius: 10px;
-        }
-/* Horizontal Scrollbar Handle */
-::-webkit-scrollbar-thumb {
-    background-color: #030303;
-    background-image: linear-gradient(to right,
-        rgba(255, 255, 255, 0.5) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(255, 255, 255, 0.5) 50%,
-        rgba(255, 255, 255, 0.5) 75%,
-        transparent 75%,
-        transparent
-    );
-}
+            /* For horizontal scrollbar */
+            ::-webkit-scrollbar-thumb:horizontal {
+                background: rgb(44,0,120);
+                background: linear-gradient(90deg, rgba(44,0,120,1) 16%, rgba(4,41,84,1) 72%);
+            }
 
-/* Horizontal Scrollbar Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background-color: #0e1f50;
-    background-image: linear-gradient(to right,
-        rgba(255, 255, 255, 0.5) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(255, 255, 255, 0.5) 50%,
-        rgba(255, 255, 255, 0.5) 75%,
-        transparent 75%,
-        transparent
-    );
-}
+            /* Set the width, height, and background color for both scrollbars */
+            ::-webkit-scrollbar {
+                width: 10px;
+                height: 10px;
+                background-color: #F5F5F5;
+                box-shadow: inset 0 0 10px rgba(63, 63, 63, 0.5);
+                border-radius: 20px;
+            }
+        /* Start Scroll Designe  */
+ 
 
     .nav-links {
         background-color: transparent !important; 
