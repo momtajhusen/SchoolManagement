@@ -72,8 +72,9 @@
 <div class="card height-auto">
     <div class="card-body">
         <div class="heading-layout1 pt-3">
-            <div class="item-title">
-                <h4>Student Details</h4>
+            <div class="item-title d-flex justify-content-between w-100">
+                    <h4>Student Details</h4>
+                    <span class="upload-event">stop</span>
             </div>
         </div>
 

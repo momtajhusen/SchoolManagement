@@ -853,8 +853,8 @@ class StudentController extends Controller
             $image_id = time();
 
             // date year 
-            // $dateSetting = DateSetting::first();
-            // $class_year = ($dateSetting && $dateSetting->using_date != "internet-date") ? $dateSetting->year : ($class_year ?? null);
+            $dateSetting = DateSetting::first();
+            $class_year = ($dateSetting && $dateSetting->using_date != "internet-date") ? $dateSetting->year : ($class_year ?? null);
 
             $student = new Student;
             if($request->input("gender") == "Male"){

@@ -48,60 +48,81 @@ $(document).ready(function () {
             reader.readAsText(file);
         }
     });
-
-    // Event delegation for handling form submissions
-    $(document).on('submit', '.student-form', function (e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-
-
-          $('.student-form:first').addClass('upload-form');
-
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
-        
-        var formData = new FormData(this);
- 
-        $.ajax({
-            url: "/add-multiple-students",
-            method: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            // Success
-            success: function (response) 
-            {
-                console.log(response);
-
-                var sucess_students = Number($('.total-sucess-students').html());
-                if(response.status = 'Add Successfully')
-                {
-                    $('.upload-form').remove();
-                    $('.student-form:first').addClass('upload-form');
-                    sucess_students++;
-                    $(this).remove();
-                } 
-                $('.total-sucess-students').html(sucess_students);
-            },
-            error: function (xhr, status, error) 
-            {
-                console.log(xhr.responseText);
-                var failed_students = Number($('.total-failed-students').html());
-                failed_students++;
-                $('.total-failed-students').html(failed_students);
-            },
-        });
-      });
 });
 
-// Save all Students
-$(document).ready(function(){
-    $(".save-all-student").click(function(){
-        $('.submit-btn').each(function(){
-             $(this).click();
-        });
+// Event delegation for handling form submissions
+$(document).on('submit', '.student-form', function (e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+
+    $(this).addClass('submit-form');
+
+    // Set CSRF token for AJAX requests
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    // Send AJAX request to upload students
+    $.ajax({
+        url: "/add-multiple-students",
+        method: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        // Success handler
+        success: function (response) {
+            console.log(response);
+
+            if (response.status === 'Add Successfully') {
+                updateSuccessCount(); // Update successful upload count
+
+                // If there are more forms to upload, trigger submission of the next form
+                if ($('.upload-event').html() === 'multiple') {
+                    submitNextForm();
+                }
+            }
+        },
+        // Error handler
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+            $('.submit-form').append(`<span error=`+xhr.responseText+` class="material-symbols-outlined ml-1 bg-danger" style='cursor:pointer;'>error</span>`);
+            updateFailedCount(); 
+            if ($('.upload-event').html() === 'multiple') {
+                submitNextForm();
+            }
+        },
+    });
+});
+
+// Function to update successful upload count
+function updateSuccessCount() {
+    var successStudents = Number($('.total-sucess-students').html());
+    $('.total-sucess-students').html(successStudents + 1);
+    $('.submit-form').remove();
+}
+
+// Function to update failed upload count
+function updateFailedCount() {
+    var failedStudents = Number($('.total-failed-students').html());
+    $('.total-failed-students').html(failedStudents + 1);
+    $('.student-form').removeClass('submit-form');
+}
+
+// Function to submit the next form
+function submitNextForm() {
+    var $nextForm = $('.student-form:not(.submitted):first');
+    if ($nextForm.length) {
+        $nextForm.addClass('submitted').find('.submit-btn').click();
+    }
+}
+
+// Event listener for saving all students
+$(document).ready(function () {
+    $(".save-all-student").click(function () {
+        submitNextForm(); // Submit the first form
+        $('.upload-event').html('multiple');
     });
 });
