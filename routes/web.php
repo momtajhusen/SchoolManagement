@@ -136,6 +136,8 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    Route::view('admin/students-admission', 'Admin_Page/Super_Admin/layouts/Student_Management/add-students')->name('add-students');
 
    Route::view('admin/multiple-students-admission', 'Admin_Page/Super_Admin/layouts/Student_Management/add-multiple-students')->name('add-multiple-students');
+   Route::post('/add-multiple-students', 'App\Http\Controllers\StudentController@MultipleStudentStore');
+
 
    Route::get('admin/student-details/{id}', function ($id) {
       return view('Admin_Page/Super_Admin/layouts/Student_Management/student-details', ['id' => $id]);

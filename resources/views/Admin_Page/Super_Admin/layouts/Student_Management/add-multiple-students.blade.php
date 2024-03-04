@@ -10,26 +10,47 @@
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/datepicker.min.css')}}">
 
     <style>
-        .table-box{
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 10px;
-            overflow:auto;
-        }
+   .reg_no,
+   .blood_group,
+    .roll_no,
+   .hostel_outi,
+    .vehicle_root,
+    .coaching{
+      width: 40px;
+    }
 
-        table, th, td {
-            border: 1px solid black;
-        }
+    .first_name,
+    .middle_name,
+    .last_name,
+    .district {
+        width: 130px;
+    }
 
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
+    .gender,
+    .religion {
+        width: 70px;
+    }
 
-        input {
-            width: auto; /* Allow input to take the width of its content */
-            box-sizing: border-box; /* Include padding and border in the width calculation */
-        }
+    .admission_date,
+    .dob,
+    .class {
+        width: 90px;
+    }
+    .section {
+        width: 30px;
+    }
+
+    .submit-btn{
+        border: 1px solid black;
+        width: 80px;
+        font-size: 15px;
+        outline: none;
+    }
+
+      .student-data{
+        width: 100%;
+        overflow-x: scroll;
+      }
     </style>
 
 
@@ -56,15 +77,31 @@
             </div>
         </div>
 
-        <input type="file" id="fileInput" accept=".csv" />
-
-        <div class="w-100 table-box">
-            <table class="table-sm">
-
-
-            </table>
+        <div class="border d-flex justify-content-between">
+            <div>
+                <input type="file" id="fileInput" accept=".csv" />
+                <div class="load" style="display: none;">Loading...</div>
+            </div>
+            <div class="d-flex">
+                 <div class="d-flex flex-column text-center m-2">
+                      <b>Total</b>
+                      <span class="total-upload-students">0</span>
+                 </div>
+                 <div class="d-flex flex-column text-center m-2">
+                    <b>Sucess</b>
+                    <span class="total-sucess-students">0</span>
+                </div>
+                <div class="d-flex flex-column text-center m-2">
+                    <b>Failed</b>
+                    <span class="total-failed-students">0</span>
+                </div>
+            </div>
+            <button class="save-all-student">Upload All</button>
         </div>
 
+
+
+        <div class="student-data p-2"></div>
  
     </div>
 </div>

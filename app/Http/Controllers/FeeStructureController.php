@@ -17,11 +17,7 @@ use App\Models\FeestractureQuarterly;
 use Carbon\Carbon;
 use App\Models\JoinleaveDates;
 use Illuminate\Support\Facades\DB;
-
-
-
-
-
+use Illuminate\Support\Facades\Log;
 
 
 class FeeStructureController extends Controller
@@ -145,65 +141,56 @@ class FeeStructureController extends Controller
         }
     }
 
-    public function indexManageFee(Request $request)
-    {
-        try {
+   public function indexManageFee(Request $request)
+{
+    try {
+        $current_year = $request->current_year;
 
-           $current_year =  $request->current_year;
+        $FeestractureMonthly = FeestractureMonthly::get();
+        $FeestractureOnetime = FeestractureOnetime::get();
+        $FeestractureQuarterly = FeestractureQuarterly::get();
 
-           $FeestractureMonthly = FeestractureMonthly::get();
-           $FeestractureOnetime = FeestractureOnetime::get();
-           $FeestractureQuarterly = FeestractureQuarterly::get();
- 
-        // start TotalsClassPayment
-            // $feePayments = FeePayment::where('class_year', $current_year)->get();
-            // $TotalsClassPayment = [];
-            // foreach ($feePayments as $payment) {
-            //     $class = $payment->class;
-            //     $totalAmount = 0;
+        $feePayments = FeePayment::where('class_year', $current_year)->get();
+        $TotalsClassPayment = [];
 
-            //     for ($i = 0; $i <= 11; $i++) {
-            //         $totalAmount += $payment->{"month_$i"};
-            //     }
-            //     if (!isset($TotalsClassPayment[$class])) {
-            //         $TotalsClassPayment[$class] = 0;
-            //     }
-            //     $TotalsClassPayment[$class] += $totalAmount;
-            // }
+        // Initialize total amounts for all classes to 0
+        $classes = Classes::pluck('class')->toArray(); // Get all class names
+        foreach ($classes as $class) {
+            $TotalsClassPayment[$class] = 0;
+        }
 
+        // Calculate total amounts for classes with corresponding rows in FeePayment table
+        foreach ($feePayments as $payment) {
+            $class = $payment->class;
+            if (!array_key_exists($class, $TotalsClassPayment)) {
+                Log::warning("Class $class found in feePayments but not in classes.");
+                continue;
+            }
+            $totalAmount = 0;
 
-
-            $feePayments = FeePayment::where('class_year', $current_year)->get();
-            $TotalsClassPayment = [];
-
-            // Initialize total amounts for all classes to 0
-            $classes = Classes::all();
-            foreach ($classes as $class) {
-                $TotalsClassPayment[$class->class] = 0;
+            for ($i = 0; $i <= 11; $i++) {
+                $totalAmount += $payment->{"month_$i"};
             }
 
-            // Calculate total amounts for classes with corresponding rows in FeePayment table
-            foreach ($feePayments as $payment) {
-                $class = $payment->class;
-                $totalAmount = 0;
-
-                for ($i = 0; $i <= 11; $i++) {
-                    $totalAmount += $payment->{"month_$i"};
-                }
-
-                $TotalsClassPayment[$class] += $totalAmount;
-            }
+            $TotalsClassPayment[$class] += $totalAmount;
+        }
 
         // end TotalsClassPayment
 
-           return response(array("TotalsClassPayment" => $TotalsClassPayment, "FeestractureMonthly" => $FeestractureMonthly,"FeestractureOnetime" => $FeestractureOnetime,"FeestractureQuarterly"=>$FeestractureQuarterly), 200);
+        return response()->json([
+            "TotalsClassPayment" => $TotalsClassPayment,
+            "FeestractureMonthly" => $FeestractureMonthly,
+            "FeestractureOnetime" => $FeestractureOnetime,
+            "FeestractureQuarterly" => $FeestractureQuarterly
+        ], 200);
 
-        } catch (Exception $e) {
-            // Code to handle the exception
-            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
-            return response()->json(['status' => $message], 500);
-        }
+    } catch (Exception $e) {
+        // Code to handle the exception
+        $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+        return response()->json(['status' => $message], 500);
     }
+}
+
 
     public function updateFeeStracture(Request $request)
     {

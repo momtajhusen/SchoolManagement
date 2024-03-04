@@ -12,6 +12,7 @@ use App\Models\Parents;
 use App\Models\FeeStructure;
 use App\Models\ManageFreeStudents;
 
+
 use App\Models\FeeGenerated;
 use App\Models\FeePayment;
 use App\Models\DuesAmount;
@@ -830,6 +831,657 @@ class StudentController extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
+
+    public function MultipleStudentStore(Request $request){
+        try {
+
+            $parent_check =  $request->input("parent_check");
+            $parent_existing_id = $request->input("parent_existing_id");
+            $student_image_name = $request->input("student_image_name");
+            $document_image_name = $request->input("document_image_name");
+            $father_image_name = $request->input("father_image_name");
+            $mother_image_name = $request->input("mother_image_name");
+
+            // Start Admission date
+                $admission_date = Carbon::parse($request->input("admission_date"));
+                $admission_year = $admission_date->year;
+                $class_year = $admission_date->year;
+                $admission_month = $admission_date->month - 1;
+            // End Admission date
+
+
+            $image_id = time();
+
+            // date year 
+            $dateSetting = DateSetting::first();
+            $class_year = ($dateSetting && $dateSetting->using_date != "internet-date") ? $dateSetting->year : ($class_year ?? null);
+
+            $student = new Student;
+            if($request->input("gender") == "Male"){
+                $student->student_image = "CommonImg/boy.jpg";
+            }
+            if($request->input("gender") == "Female"){
+                $student->student_image = "CommonImg/girl.jpg";
+            }
+            $student->first_name  = $request->input("first_name");
+            $student->middle_name  = $request->input("middle_name") ?? "";
+            $student->last_name  = $request->input("last_name");
+            $student->gender  = $request->input("gender") ?? "";
+            $student->dob  = $request->input("dob");
+            $student->religion  = $request->input("religion") ?? "";
+            $student->blood_group  = $request->input("blood_group") ?? "";
+            $student->phone  = $request->input("phone") ?? "";
+            $student->email  = $request->input("email");
+            $student->id_number  = $request->input("id_number") ?? "";
+            $student->id_image  = $request->file("student_id_image");
+            $student->admission_date  = $request->input("admission_date");
+            $student->class_year = $class_year;
+            $student->class  = $request->input("class") ?? '1ST';
+            $student->section  = $request->input("section") ?? 'A';
+            $student->roll_no  = $request->input("roll_no") ?? '1';
+            $student->hostel_outi  = $request->input("hostel_outi") ?? 'outi';
+            $student->hostel_deposite  = $request->input("hostel_deposite");
+            $student->transport_use  = $request->input("transport_use")  ?? "No";
+            $student->vehicle_root  = $request->input("vehicle_root")  ?? "No";
+            $student->coaching  = $request->input("coaching")  ?? "No";
+            $student->district  = $request->input("district") ?? "";
+            $student->municipality  = $request->input("municipality") ?? "";
+            $student->village  = $request->input("village") ?? "";
+            $student->ward_no  = $request->input("ward_no") ?? "";
+            $student->login_password  = Str::random(10);
+            $student->admission_status  =  "new";
+
+            $dymamic_email_student = strtolower(str_replace(" ", "", $request->input("first_name"))) . "_" . Student::where('class', $request->input("class"))->count() + 1;
+            $student->login_email  = $request->input("email") ?? $dymamic_email_student . "@gmail.com";
+ 
+            // Parent Data Save 
+            $parent = new Parents;
+            $parent->father_image  =  'CommonImg/father.jpg';
+            $parent->father_name  = $request->input("father_name");
+            $parent->father_mobile  = $request->input("father_phone") ?? "";
+            $parent->father_education  = $request->input("father_education") ?? "";
+            $parent->mother_image  = 'CommonImg/mother.jpg';
+            $parent->mother_name  = $request->input("mother_name") ?? "";
+            $parent->mother_mobile  = $request->input("mother_phone") ?? "";
+            $parent->mother_education  = $request->input("mother_education") ?? "";
+            $parent->login_password  = Str::random(10);
+
+            $dymamic_email_father = strtolower(str_replace(" ", "", $request->input("father_name"))) . "_" .  Student::where('class', $request->input("class"))->count() + 1;
+            $parent->login_email  = $request->input("father_email") ?? $dymamic_email_father . "@gmail.com";
+
+
+            if ($parent->save()) {
+                $parentId = $parent->id;
+                // Associate the parent with the student
+                $student->parents_id = $parentId;
+                $student->save();
+            } else {
+                return response()->json(['status' => "Failed Something Error"]);
+            }
+            
+            /////// Start JoininhData Set ///////
+                $admissionStartMonthsArray = array_fill(0, 12, "0");
+
+                // Define an array with 12 elements initialized to "0"
+                $admissionStartMonthsArray = array_fill(0, 12, "0");
+    
+                // Set the admission month and subsequent months to "1"
+                for ($i = $admission_month; $i < 12; $i++) {
+                    $admissionStartMonthsArray[$i] = "1";
+                }
+    
+                $admissionMonthsArray = array_fill(0, 12, "0");
+                $admissionMonthsArray[$admission_month] = "1";
+                $serializedAdmissionArray = json_encode($admissionMonthsArray);
+                
+                $serializedStartAdmissionArray = json_encode($admissionStartMonthsArray);
+
+                $FullHostel_Join = $request->input("hostel_outi") === "full-hostel" ? $serializedStartAdmissionArray : '["0","0","0","0","0","0","0","0","0","0","0","0"]';
+                $HalfHostel_Join = $request->input("hostel_outi") === "half-hostel" ? $serializedStartAdmissionArray : '["0","0","0","0","0","0","0","0","0","0","0","0"]';
+
+                $Transport_Join = $request->input("transport_use") === "Yes" ? $serializedStartAdmissionArray : '["0","0","0","0","0","0","0","0","0","0","0","0"]';
+                $Coaching_join = $request->input("coaching_use") === "Yes" ? $serializedStartAdmissionArray : '["0","0","0","0","0","0","0","0","0","0","0","0"]';
+                
+                $JoinleaveDates = JoinleaveDates::where('st_id', $student->id)->first();
+                if ($JoinleaveDates) {
+                    $JoinleaveDates->delete();
+                }
+
+                // Exam Joining
+                    $exam_json = '["0","0","1","0","0","1","0","0","1","0","0","1"]';
+                    if($admission_month >= 2){
+                        $exam_json = '["0","0","1","0","0","1","0","0","1","0","0","1"]';
+                    }
+                    if($admission_month >= 3){
+                        $exam_json = '["0","0","0","0","0","1","0","0","1","0","0","1"]';
+                    }
+                    if($admission_month >= 6){
+                        $exam_json = '["0","0","0","0","0","0","0","0","1","0","0","1"]';
+                    }
+                    if($admission_month >= 9){
+                        $exam_json = '["0","0","0","0","0","0","0","0","0","0","0","1"]';
+                    }
+
+                $joinLeaveEntry = new JoinleaveDates;
+                $joinLeaveEntry->st_id  = $student->id;
+                $joinLeaveEntry->class_year  = $class_year;
+                $joinLeaveEntry->admission_months = $serializedAdmissionArray;
+                $joinLeaveEntry->admission_start = $serializedStartAdmissionArray;
+                $joinLeaveEntry->tuition_fee = $serializedStartAdmissionArray;
+                $joinLeaveEntry->transport_fee = $Transport_Join;
+                $joinLeaveEntry->full_hostel_fee = $FullHostel_Join;
+                $joinLeaveEntry->half_hostel_fee = $HalfHostel_Join;     
+                $joinLeaveEntry->coaching_fee  =  $Coaching_join;
+                $joinLeaveEntry->computer_fee  =  '["0","0","0","0","0","0","0","0","0","0","0","0"]';
+                $joinLeaveEntry->admission_fee  =  $serializedAdmissionArray;
+                $joinLeaveEntry->annual_charge  =  '["0","0","0","0","0","0","0","0","0","0","0","0"]';
+                $joinLeaveEntry->saraswati_puja  =  '["0","0","0","0","0","0","0","0","0","0","0","0"]';
+                $joinLeaveEntry->exam_fee  =  $exam_json;
+                $joinLeaveEntry->save(); // Save the $joinLeaveEntry object
+            /////// End JoininhData Set  /////////////
+
+            $TotalFee = 0;
+            $st_id = $student->id;
+            ///////////////////// Start Total Feee Retrive ///////////////////////////
+                $student = Student::where('class', $request->input("class"))->where('id', $st_id)->where('class_year', $class_year)->first();
+                $FeestractureMonthly = FeestractureMonthly::where('class', $student->class)->first();
+                $FeestractureOnetime = FeestractureOnetime::where('class', $student->class)->first();
+                $FeestractureQuarterly = FeestractureQuarterly::where('class', $student->class)->first();
+
+                $joining_months = JoinleaveDates::where('st_id', $st_id)->first();
+                $StudentsFreeFee = ManageFreeStudents::where('st_id', $st_id)->first();
+
+                $student = Student::where('id', $st_id)->first();
+                $admission_date = Carbon::parse($student->admission_date);
+                $admission_year = $admission_date->year;
+                $admission_month = $admission_date->month;
+
+                if($class_year != $admission_year)
+                {
+                    $start_month = 0;
+                }
+                else{
+                $start_month = $admission_month-1;
+                }  
+
+                for ($i = $start_month; $i <= 11; $i++) {
+                    $MonthFeeGenerate = 0;  
+                    /////////// Start Check Tuition Fee /////////
+
+                    // Start tuition joining month check than add amount
+                        if ($joining_months) {
+                            $tuition_months_array = json_decode($joining_months->tuition_fee, true);
+                            if($tuition_months_array[$i] == 1)
+                            {
+                                $tuition_fee =  $FeestractureMonthly->tuition_fee;
+                            }
+                            else{
+                                $tuition_fee = 0; 
+                            }
+                        }
+                        else{
+                            $tuition_fee = 0;
+                        }
+
+                            ///// Start Fee Exceptionss 
+                                if ($StudentsFreeFee) {
+                                    $freeFeeArray = json_decode($StudentsFreeFee->free_fee, true);
+                                    $index = array_search("Tuition Fee", $freeFeeArray);
+                                    if ($index !== false) {
+                                        $tuition_fee = 0;
+                                    }
+                                } 
+                            ///// End Fee Exceptionss
+
+                            // Start Check Discount Exception 
+                                $DiscountExceptions = DiscountExceptions::where('st_id', $st_id)->where("fee_type", "Tuition Fee")->first();
+                                if($DiscountExceptions){
+                                    $tuitionDisc = $DiscountExceptions->dis; 
+                                    $tutionDiscAmount = ($tuition_fee * $tuitionDisc) / 100;
+                                    $tuition_fee = $tuition_fee - $tutionDiscAmount;
+                                }
+                            // End Check Discount Exception 
+
+                        if ($tuition_fee != 0) {
+                            $TotalFee += $tuition_fee;
+                            $MonthFeeGenerate += $tuition_fee;
+                        }
+                    //////////// End Check Tuition Fee /////////
+
+                    /////////// Start Check Transport Fee ///////////
+                            if ($student->vehicle_root != "No") {
+                                // Outi Use Transport
+                                $VehicleRoot = VehicleRoot::where('id', $student->vehicle_root)->first();
+                                if ($joining_months) {
+                                    $transport_months_array = json_decode($joining_months->transport_fee, true);
+                                    if($transport_months_array[$i] == 1)
+                                    {
+                                        $transport_amount =  $VehicleRoot->amount ?? 0;
+                                    }
+                                    else{
+                                        $transport_amount = 0; 
+                                    }
+                                }
+                                else{
+                                    $transport_amount = 0;
+                                }
+                            } else {
+                                // Outi Not use Transport
+                                $transport_amount = 0;
+                            }
+
+                                ///// Start Fee Exceptionss 
+                                    if ($StudentsFreeFee) {
+                                        $freeFeeArray = json_decode($StudentsFreeFee->free_fee, true);
+                                        $index = array_search("Transport Fee", $freeFeeArray);
+                                        if ($index !== false) {
+                                            $transport_amount = 0;
+                                        }
+                                    } 
+                                ///// End Fee Exceptionss
+
+                                // Start Check Discount Exception 
+                                    $DiscountExceptions = DiscountExceptions::where('st_id', $st_id)->where("fee_type", "Transport Fee")->first();
+                                    if($DiscountExceptions){
+                                        $transportDisc = $DiscountExceptions->dis; 
+                                        $transportDiscAmount = ($transport_amount * $transportDisc) / 100;
+                                        $transport_amount = $transport_amount - $transportDiscAmount;
+                                    }
+                                // End Check Discount Exception
+
+                        if ($transport_amount != 0) {
+                            $TotalFee += $transport_amount;
+                            $MonthFeeGenerate += $transport_amount;
+                        }
+            
+                    /////////// End Check Transport Fee /////////// 
+                    
+                    /////////// Start Check Full Hostel Fee ///////////
+                        // Start coaching joining month check than add amount
+                        if ($joining_months) {
+                            $fullhostel_months_array = json_decode($joining_months->full_hostel_fee, true);
+                            if($fullhostel_months_array[$i] == 1)
+                            {
+                                $full_hostel_fee =  $FeestractureMonthly->full_hostel_fee;
+                            }
+                            else{
+                                $full_hostel_fee = 0; 
+                            }
+                            }
+                            else{
+                                $full_hostel_fee = 0;
+                            }
+
+                                ///// Start Fee Exceptionss 
+                                    if ($StudentsFreeFee) {
+                                        $freeFeeArray = json_decode($StudentsFreeFee->free_fee, true);
+                                        $index = array_search("F Hostel Fee", $freeFeeArray);
+                                        if ($index !== false) {
+                                            $full_hostel_fee = 0;
+                                        }
+                                    } 
+                                ///// End Fee Exceptionss
+
+                                // Start Check Discount Exception 
+                                    $DiscountExceptions = DiscountExceptions::where('st_id', $st_id)->where("fee_type", "F Hostel Fee")->first();
+                                    if($DiscountExceptions){
+                                        $fhostelDisc = $DiscountExceptions->dis; 
+                                        $fhostelDiscAmount = ($full_hostel_fee * $fhostelDisc) / 100;
+                                        $full_hostel_fee = $full_hostel_fee - $fhostelDiscAmount;
+                                    }
+                                // End Check Discount Exception 
+
+                            if ($full_hostel_fee != 0) {
+                                $TotalFee += $full_hostel_fee;
+                                $MonthFeeGenerate += $full_hostel_fee;
+                            }
+                    /////////// End Check Full Hostel Fee ///////////
+
+                    /////////// Start Check Half Hostel Fee ///////////
+                        // Start coaching joining month check than add amount
+                        if ($joining_months) {
+                            $halfhostel_months_array = json_decode($joining_months->half_hostel_fee, true);
+                            if($halfhostel_months_array[$i] == 1)
+                            {
+                                $half_hostel_fee =  $FeestractureMonthly->half_hostel_fee;
+                            }
+                            else{
+                                $half_hostel_fee = 0; 
+                            }
+                            }
+                            else{
+                                $half_hostel_fee = 0;
+                            }
+
+                                ///// Start Fee Exceptionss 
+                                        if ($StudentsFreeFee) {
+                                        $freeFeeArray = json_decode($StudentsFreeFee->free_fee, true);
+                                        $index = array_search("H Hostel Fee", $freeFeeArray);
+                                        if ($index !== false) {
+                                            $half_hostel_fee = 0;
+                                        }
+                                    } 
+                                ///// End Fee Exceptionss
+
+                                // Start Check Discount Exception 
+                                    $DiscountExceptions = DiscountExceptions::where('st_id', $st_id)->where("fee_type", "H Hostel Fee")->first();
+                                    if($DiscountExceptions){
+                                        $hhostelDisc = $DiscountExceptions->dis; 
+                                        $hhostelDiscAmount = ($half_hostel_fee * $hhostelDisc) / 100;
+                                        $half_hostel_fee = $half_hostel_fee - $hhostelDiscAmount;
+                                    }
+                                // End Check Discount Exception 
+
+                            if ($half_hostel_fee != 0) {
+                                $TotalFee += $half_hostel_fee;
+                                $MonthFeeGenerate += $half_hostel_fee;
+                            }
+                    /////////// End Check Half Hostel Fee ///////////
+
+                    /////////// Start Check Coaching Fee ///////////
+                        if ($student->coaching == "Yes") {
+                            // Start coaching joining month check than add amount
+                            if ($joining_months) {
+                            $coaching_months_array = json_decode($joining_months->coaching_fee, true);
+                            if($coaching_months_array[$i] == 1)
+                            {
+                                $coaching_fee =  $FeestractureMonthly->coaching_fee;
+                            }
+                            else{
+                                $coaching_fee = 0; 
+                            }
+                        }
+                        else{
+                            $coaching_fee = 0;
+                        }
+
+                        } else {
+                            $coaching_fee = 0;
+                        }
+
+                            ///// Start Fee Exceptionss 
+                                if ($StudentsFreeFee) {
+                                    $freeFeeArray = json_decode($StudentsFreeFee->free_fee, true);
+                                    $index = array_search("Coaching Fee", $freeFeeArray);
+                                    if ($index !== false) {
+                                        $coaching_fee = 0;
+                                    }
+                                } 
+                            ///// End Fee Exceptionss
+
+                            // Start Check Discount Exception 
+                                $DiscountExceptions = DiscountExceptions::where('st_id', $st_id)->where("fee_type", "Coaching Fee")->first();
+                                if($DiscountExceptions){
+                                    $coachingDisc = $DiscountExceptions->dis; 
+                                    $transportDiscAmount = ($coaching_fee * $coachingDisc) / 100;
+                                    $coaching_fee = $coaching_fee - $transportDiscAmount;
+                                }
+                            // End Check Discount Exception
+
+                        if ($coaching_fee != 0) {
+                            $TotalFee += $coaching_fee;
+                            $MonthFeeGenerate += $coaching_fee;
+                        }
+                    /////////// End Check CoachingFee Fee ///////////
+
+                    /////////// Start Check Computer Fee ///////////
+                        // Start computer joining month check than add amount
+                        if ($joining_months) {
+                            $computer_months_array = json_decode($joining_months->computer_fee, true);
+                            if($computer_months_array[$i] == 1)
+                            {
+                                $computer_fee =  $FeestractureMonthly->computer_fee;
+                            }
+                            else{
+                                $computer_fee = 0; 
+                            }
+                        }
+                        else{
+                            $computer_fee = 0;
+                        }
+
+                            ///// Start Fee Exceptionss 
+                                if ($StudentsFreeFee) {
+                                    $freeFeeArray = json_decode($StudentsFreeFee->free_fee, true);
+                                    $index = array_search("Computer Fee", $freeFeeArray);
+                                    if ($index !== false) {
+                                        $computer_fee = 0;
+                                    }
+                                } 
+                            ///// End Fee Exceptionss
+
+                            // Start Check Discount Exception 
+                                $DiscountExceptions = DiscountExceptions::where('st_id', $st_id)->where("fee_type", "Computer Fee")->first();
+                                if($DiscountExceptions){
+                                    $computergDisc = $DiscountExceptions->dis; 
+                                    $computerDiscAmount = ($computer_fee * $computergDisc) / 100;
+                                    $computer_fee = $computer_fee - $computerDiscAmount;
+                                }
+                            // End Check Discount Exception
+                
+                        if ($computer_fee != 0) {
+                            $TotalFee += $computer_fee;
+                            $MonthFeeGenerate += $computer_fee;
+                        }
+                    /////////// End Check CoachingFee Fee ///////////
+
+                    /////////// Start Check Admission Fee ///////////
+                        // Start admission joining month check than add amount
+                        if ($joining_months) {
+                            $admission_months_array = json_decode($joining_months->admission_fee, true);
+                            if($admission_months_array[$i] == 1)
+                            {
+                                $admission_fee =  $FeestractureOnetime->admission_fee;
+                            }
+                            else{
+                                $admission_fee = 0; 
+                            }
+                        }
+                        else{
+                            $admission_fee = 0;
+                        }
+
+                            ///// Start Fee Exceptionss 
+                                if ($StudentsFreeFee) {
+                                    $freeFeeArray = json_decode($StudentsFreeFee->free_fee, true);
+                                    $index = array_search("Admission Fee", $freeFeeArray);
+                                    if ($index !== false) {
+                                        $admission_fee = 0;
+                                    }
+                                } 
+                            ///// End Fee Exceptionss
+
+                            // Start Check Discount Exception 
+                                $DiscountExceptions = DiscountExceptions::where('st_id', $st_id)->where("fee_type", "Admission Fee")->first();
+                                if($DiscountExceptions){
+                                    $admissionDisc = $DiscountExceptions->dis; 
+                                    $admissionDiscAmount = ($admission_fee * $admissionDisc) / 100;
+                                    $admission_fee = $admission_fee - $admissionDiscAmount;
+                                }
+                            // End Check Discount Exception 
+                
+                        if ($admission_fee != 0) {
+                            $TotalFee += $admission_fee;
+                            $MonthFeeGenerate += $admission_fee;
+                        }
+                    /////////// End Check Admission Fee ///////////
+
+                    /////////// Start Check Annual Charge ///////////
+                        // Start annual joining month check than add amount
+                        if ($joining_months) {
+                            $annual_months_array = json_decode($joining_months->annual_charge, true);
+                            if($annual_months_array[$i] == 1)
+                            {
+                                $annual_charge =  $FeestractureOnetime->annual_charge;
+                            }
+                            else{
+                                $annual_charge = 0; 
+                            }
+                        }
+                        else{
+                            $annual_charge = 0;
+                        }
+
+                            ///// Start Fee Exceptionss 
+                                if ($StudentsFreeFee) {
+                                    $freeFeeArray = json_decode($StudentsFreeFee->free_fee, true);
+                                    $index = array_search("Annual Charge", $freeFeeArray);
+                                    if ($index !== false) {
+                                        $annual_charge = 0;
+                                    }
+                                } 
+                            ///// End Fee Exceptionss
+
+                            // Start Check Discount Exception 
+                                $DiscountExceptions = DiscountExceptions::where('st_id', $st_id)->where("fee_type", "Annual Charge")->first();
+                                if($DiscountExceptions){
+                                    $annualDisc = $DiscountExceptions->dis; 
+                                    $annualDiscAmount = ($annual_charge * $annualDisc) / 100;
+                                    $annual_charge = $annual_charge - $annualDiscAmount;
+                                }
+                            // End Check Discount Exception
+                
+                        if ($annual_charge != 0) {
+                            $TotalFee += $annual_charge;
+                            $MonthFeeGenerate += $annual_charge;
+                        }
+                    /////////// End Check Annual Charge ///////////
+
+                    /////////// Start Check Saraswati Puja Charge ///////////
+                        // Start Saraswati joining month check than add amount
+                        if ($joining_months) {
+                            $saraswati_months_array = json_decode($joining_months->saraswati_puja, true);
+                            if($saraswati_months_array[$i] == 1)
+                            {
+                                $saraswati_puja =  $FeestractureOnetime->saraswati_puja;
+                            }
+                            else{
+                                $saraswati_puja = 0; 
+                            }
+                        }
+                        else{
+                            $saraswati_puja = 0;
+                        }
+
+                            ///// Start Fee Exceptionss 
+                                if ($StudentsFreeFee) {
+                                    $freeFeeArray = json_decode($StudentsFreeFee->free_fee, true);
+                                    $index = array_search("Saraswati Puja", $freeFeeArray);
+                                    if ($index !== false) {
+                                        $saraswati_puja = 0;
+                                    }
+                                } 
+                            ///// End Fee Exceptionss
+
+                            // Start Check Discount Exception 
+                                $DiscountExceptions = DiscountExceptions::where('st_id', $st_id)->where("fee_type", "Saraswati Puja")->first();
+                                if($DiscountExceptions){
+                                    $saraswatiDisc = $DiscountExceptions->dis; 
+                                    $examDiscAmount = ($saraswati_puja * $saraswatiDisc) / 100;
+                                    $saraswati_puja = $saraswati_puja - $examDiscAmount;
+                                }
+                            // End Check Discount Exception
+                
+                        if ($saraswati_puja != 0) {
+                            $TotalFee += $saraswati_puja;
+                            $MonthFeeGenerate += $saraswati_puja;
+                        }
+                    /////////// End Check Saraswati Puja Charge ///////////
+
+                    /////////// Start Check Exam Fee ///////////
+                        // Start exam joining month check than add amount
+                        if ($joining_months) {
+                            $exam_months_array = json_decode($joining_months->exam_fee, true);
+                            if($exam_months_array[$i] == 1)
+                            {
+                                $exam_fee =  $FeestractureQuarterly->exam_fee;
+                            }
+                            else{
+                                $exam_fee = 0; 
+                            }
+                        }
+                        else{
+                            $exam_fee = 0;
+                        }
+
+                            ///// Start Fee Exceptionss 
+                                if ($StudentsFreeFee) {
+                                    $freeFeeArray = json_decode($StudentsFreeFee->free_fee, true);
+                                    $index = array_search("Exam Fee", $freeFeeArray);
+                                    if ($index !== false) {
+                                        $exam_fee = 0;
+                                    }
+                                } 
+                            ///// End Fee Exceptionss
+
+                            // Start Check Discount Exception 
+                                $DiscountExceptions = DiscountExceptions::where('st_id', $st_id)->where("fee_type", "Exam Fee")->first();
+                                if($DiscountExceptions){
+                                    $examDisc = $DiscountExceptions->dis; 
+                                    $examDiscAmount = ($exam_fee * $examDisc) / 100;
+                                    $exam_fee = $exam_fee - $examDiscAmount;
+                                }
+                            // End Check Discount Exception
+
+                            if ($exam_fee != 0) {
+                                $TotalFee += $exam_fee;
+                                $MonthFeeGenerate += $exam_fee;
+                            }
+                    /////////// End Check Exam Fee  ///////////
+
+                    $feeGenerated = FeeGenerated::where("class_year", $class_year)->where('st_id', $st_id)->first();
+                    if ($feeGenerated) {
+                        $feeGenerated->{'month_'.$i} = $MonthFeeGenerate;
+                        $feeGenerated->save();
+                    } else {
+                        $newRecord = new FeeGenerated();
+                        $newRecord->st_id = $st_id;
+                        $newRecord->class = $student->class;
+                        $newRecord->class_year = $class_year; 
+                        $newRecord->{'month_'.$i} = $MonthFeeGenerate; 
+                        $newRecord->save();
+                    }                        
+                }
+            ///////////////////// End Total Feee Retrive ///////////////////////////
+
+            // Start Create Table Row For This Student 
+                $payment = [
+                    'st_id' => $student->id,
+                    'class' => $request->input('class'),
+                    'class_year' => $class_year,
+                    'total_fee' => $TotalFee,
+                    'total_dues' => $TotalFee,
+                    'total_payment' => 0,
+                    'free_fee' => 0,
+                    'total_discount' => 0,
+                ];
+                $attributes = [
+                    'st_id' => $student->id,
+                    'class' => $request->input('class'),
+                    'class_year' => $class_year,
+                ];
+
+                FeePayment::create($payment);
+                DuesAmount::create($attributes);
+                FeeDiscount::create($attributes);
+                FeeFree::create($attributes);
+                
+                LastPaymentForReset::create($payment);
+                LastDuesForReset::create($attributes);
+                LastDiscountsForReset::create($attributes);
+                LastFreeFeeForReset::create($attributes);
+            // End Create Table Row For This Student 
+
+            return response()->json(['status' => "Add Successfully", 'student_id' => $student->id]);
+        }
+        catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+
+
 
     public function RegistrationList(Request $request){
         try{
