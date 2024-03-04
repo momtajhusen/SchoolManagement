@@ -88,7 +88,7 @@ $(document).on('submit', '.student-form', function (e) {
         // Error handler
         error: function (xhr, status, error) {
             console.error(xhr.responseText);
-            $('.submit-form').append(`<span error=`+xhr.responseText+` class="material-symbols-outlined ml-1 bg-danger" style='cursor:pointer;'>error</span>`);
+            $('.submit-form').append(`<span error=`+xhr.responseText+` class="material-symbols-outlined ml-1 text-danger" style='cursor:pointer;'>error</span>`);
             updateFailedCount(); 
             if ($('.upload-event').html() === 'multiple') {
                 submitNextForm();

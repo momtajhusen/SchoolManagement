@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('parents', function (Blueprint $table) {
             $table->id();
             $table->text('father_image')->nullable();
-            $table->string('father_name', 20)->nullable();
+            $table->string('father_name', 50)->nullable();
             $table->string('father_mobile', 10)->nullable();
             $table->string('father_education', 30)->nullable();
             $table->text('mother_image')->nullable();
-            $table->string('mother_name', 20)->nullable();
+            $table->string('mother_name', 50)->nullable();
             $table->string('mother_mobile', 10)->nullable();
             $table->string('mother_education', 30)->nullable();
             $table->string('login_email', 100)->nullable();
