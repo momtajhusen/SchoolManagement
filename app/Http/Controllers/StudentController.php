@@ -1654,10 +1654,39 @@ class StudentController extends Controller
             {
                 return response()->json(['message' => 'conform sucess']); 
             }
-
-
-
         } catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+
+    public function AllRegistrationConform(Request $request){
+        try {     
+ 
+            $students = Student::where('admission_status', 'new')->get(); // Retrieve students with 'new' admission status
+            foreach ($students as $student) {
+                $student->admission_status = 'admit';
+                $student->save();
+            }
+            return response()->json(['message' => 'conform sucess']); 
+
+           } catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+
+    public function AllRegistrationDelete(Request $request){
+        try {     
+ 
+            if(Student::where('admission_status', 'new')->delete()){
+                return response()->json(['message' => 'delete sucess']); 
+            }
+
+
+           } catch (Exception $e) {
             // Code to handle the exception
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);

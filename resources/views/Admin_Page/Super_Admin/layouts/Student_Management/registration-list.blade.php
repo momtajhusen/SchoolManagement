@@ -22,6 +22,13 @@
         </div>
 
         <div class="w-100 table-box">
+            <div class="d-flex justify-content-between mb-2">
+            <span></span>
+              <div>
+                <button class='border btn bg-none border-success border-2 all-conform-btn'>All Conform</button>
+                <button class='border btn bg-none border-danger border-2 all-delete-btn'>All Delete</button>
+              </div>
+            </div>
             <table class="table display data-table text-nowrap table-sm exportTable">
                 <thead>
                     <tr>

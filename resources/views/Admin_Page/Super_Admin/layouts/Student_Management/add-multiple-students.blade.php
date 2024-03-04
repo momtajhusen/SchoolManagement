@@ -16,7 +16,7 @@
    .hostel_outi,
     .vehicle_root,
     .coaching{
-      width: 40px;
+      width: 60px;
     }
 
     .first_name,
@@ -46,10 +46,22 @@
         font-size: 15px;
         outline: none;
     }
+    .save-all-student{
+        height: 40px;
+        padding: 10px;
+        cursor: pointer;
+        background-color: #042954;
+        color: white;
+    }
 
       .student-data{
         width: 100%;
         overflow-x: scroll;
+      }
+      .header-column{
+        background-color: #042954;
+        color: #dddddd;
+        outline: none;
       }
     </style>
 
@@ -79,25 +91,28 @@
         </div>
 
         <div class="border d-flex justify-content-between">
-            <div>
+            <div class="d-flex align-items-center">
                 <input type="file" id="fileInput" accept=".csv" />
-                <div class="load" style="display: none;">Loading...</div>
             </div>
-            <div class="d-flex">
+            <div class="d-flex align-items-center">
                  <div class="d-flex flex-column text-center m-2">
                       <b>Total</b>
-                      <span class="total-upload-students">0</span>
+                      <b class="total-upload-students">0</b>
                  </div>
                  <div class="d-flex flex-column text-center m-2">
-                    <b>Sucess</b>
-                    <span class="total-sucess-students">0</span>
+                    <b>Success</b>
+                    <b class="total-sucess-students">0</b>
                 </div>
                 <div class="d-flex flex-column text-center m-2">
                     <b>Failed</b>
-                    <span class="total-failed-students">0</span>
+                    <b class="total-failed-students">0</b>
                 </div>
             </div>
-            <button class="save-all-student">Upload All</button>
+             <div class="d-flex align-items-center">
+                <button class="save-all-student align-items-center d-none">Upload All <span class="material-symbols-outlined">
+                    upload
+                    </span></button>
+             </div>
         </div>
 
 

@@ -87,7 +87,7 @@
     });
  }
 
-// Conform Registration
+// Single Conform Registration
  $(".table-body").on("click", "#conform-btn", function()
  { 
     
@@ -140,6 +140,107 @@
         }
         });
  });
+
+ // All Conform Registration
+$(document).ready(function(){
+    $('.all-conform-btn').click(function(){
+
+        Swal.fire({
+            title: 'Are you sure  conform all student?',
+            text: "Please note that conform all student data save.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, conform it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+        
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+    
+                $.ajax({
+                    url:  "/all-registration-conform",
+                    method: 'POST',
+                    // Success 
+                    success:function(response)
+                    {
+                    if(response.message == 'conform sucess'){
+                        Swal.fire({
+                            title: 'All Student Conform Success',
+                            text: "All Student Data has been conform",
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function() {
+                            $(".table-body").html(``);
+                            RegistrationStudent();
+                        });
+                    }
+                    },
+                    error: function (xhr, status, error) 
+                    {
+                    console.log(xhr.responseText);
+                    },
+                });
+            }
+            });
+    });
+});
+
+// All Delete Registration
+$(document).ready(function(){
+    $('.all-delete-btn').click(function(){
+
+        Swal.fire({
+            title: 'Are you sure  delete all student?',
+            text: "Please note that delete all student data delete.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+        
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+    
+                $.ajax({
+                    url:  "/all-registration-delete",
+                    method: 'POST',
+                    // Success 
+                    success:function(response)
+                    {
+                    if(response.message == 'delete sucess'){
+                        Swal.fire({
+                            title: 'All Student delete Success',
+                            text: "All Student Data has been delete",
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function() {
+                            $(".table-body").html(``);
+                            RegistrationStudent();
+                        });
+                    }
+                    },
+                    error: function (xhr, status, error) 
+                    {
+                    console.log(xhr.responseText);
+                    },
+                });
+            }
+            });
+    });
+});
+
  
 
 

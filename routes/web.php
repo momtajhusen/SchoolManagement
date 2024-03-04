@@ -216,6 +216,10 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    Route::get('/get-all-student', 'App\Http\Controllers\StudentController@index');
    Route::get('/get-registration-list', 'App\Http\Controllers\StudentController@RegistrationList');
    Route::post('/registration-conform', 'App\Http\Controllers\StudentController@RegistrationConform');
+   Route::post('/all-registration-conform', 'App\Http\Controllers\StudentController@AllRegistrationConform');
+   Route::post('/all-registration-delete', 'App\Http\Controllers\StudentController@AllRegistrationDelete');
+
+
 
 
    Route::get('/admin/admission-print', 'App\Http\Controllers\StudentController@admission_print');

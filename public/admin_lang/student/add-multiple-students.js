@@ -1,3 +1,4 @@
+// Import Csv File 
 $(document).ready(function () {
     $('#fileInput').on('change', function (e) {
         var file = e.target.files[0];
@@ -6,16 +7,41 @@ $(document).ready(function () {
             var reader = new FileReader();
 
             reader.onload = function (e) {
+                $('#fileInput').addClass('d-none');
+                $(".save-all-student").removeClass('d-none');
+                $(".save-all-student").addClass('d-flex');
+
+
                 var csvContent = e.target.result;
                 var rows = csvContent.split('\n');
 
-                $('.total-upload-students').html(rows.length);
-
-                // Show loading indicator
-                $('.load').show();
+                $('.total-upload-students').html(rows.length-1);
 
                 // Extract header names from the first row
                 var headers = rows[0].split(',');
+
+                // Header row Create
+                var hasRun = false;
+                rows.slice(0).forEach(function (row) {
+                    var columnsdata = row.split(',');
+                    // Create a form element for each row
+                    var forms = $('<div class="d-flex"></div>');
+                    // Process each column and append input fields to the form
+                    if (!hasRun) {
+                    columnsdata.forEach(function (columns, index) {
+                        var headerNames = headers[index].trim(); // Get the header name
+                        var inputs = $('<input readonly type="text">')
+                                    .val(columns)
+                                    .addClass(headerNames).addClass('header-column'); // Add class with headerName as its value
+                                    forms.append(inputs);
+                    });
+ 
+                    // Append the form to the student-data div
+                    $('.student-data').append(forms);
+                    hasRun = true;
+                }
+                });
+                // Set the flag to true to indicate that the loop has run
 
                 // Process each row
                 rows.slice(1).forEach(function (row) {
@@ -40,16 +66,13 @@ $(document).ready(function () {
                     // Append the form to the student-data div
                     $('.student-data').append(form);
                 });
-
-                // Hide loading indicator after processing is complete
-                $('.load').hide();
             };
 
             reader.readAsText(file);
         }
     });
 });
-
+ 
 // Event delegation for handling form submissions
 $(document).on('submit', '.student-form', function (e) {
     e.preventDefault();
@@ -124,5 +147,7 @@ $(document).ready(function () {
     $(".save-all-student").click(function () {
         submitNextForm(); // Submit the first form
         $('.upload-event').html('multiple');
+        $('.save-all-student').removeClass('d-flex');
+        $('.save-all-student').addClass('d-none');
     });
 });
