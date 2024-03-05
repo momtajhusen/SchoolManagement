@@ -909,7 +909,6 @@ class StudentController extends Controller
             $dymamic_email_father = strtolower(str_replace(" ", "", $request->input("father_name"))) . "_" .  Student::where('class', $request->input("class"))->count() + 1;
             $parent->login_email  = $request->input("father_email") ?? $dymamic_email_father . "@gmail.com";
 
-
             if ($parent->save()) {
                 $parentId = $parent->id;
                 // Associate the parent with the student

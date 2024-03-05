@@ -121,13 +121,13 @@
                 <input type="file" id="fileInput" accept=".csv" />
             </div>
 
-            <div class="animation-box position-relative align-items-end d-flex mb-2">
+            <div class="animation-box position-relative align-items-end d-none mb-2">
                 <div class="d-flex align-items-end">
                     <div class="d-flex">
                         <div class="d-flex flex-column align-items-center" style="line-height: 1.5; position:relative;">
                             <b class="mt-2 text-center total-upload-students" style="font-size: 12px; position:absolute; bottom:42px; "></b>
-                            <span class="material-symbols-outlined m-0 d-flex justify-content-center" style="font-size:30px;color:#042954;">article</span>
-                            <span style="font-size:10px;">TOTAL</span>
+                            <span class="total-icon material-symbols-outlined m-0 d-flex justify-content-center" style="font-size:30px;color:#042954;">id_card</span>
+                            <span style="font-size:10px;">STUDENTS</span>
                         </div>
                     </div>
                 </div>
@@ -155,7 +155,7 @@
                     <div class="d-flex">
                         <div class="d-flex flex-column align-items-center" style="line-height: 1.5; position:relative;">
                             <b class="mt-2 text-center mr-2 total-sucess-students" style="font-size: 12px; position:absolute; bottom:42px;">0</b>
-                            <span class="material-symbols-outlined m-0 d-flex justify-content-center" style="font-size:30px;color:#042954;">storage</span>
+                            <span class="database-icon material-symbols-outlined m-0 d-flex justify-content-center animate__animated  animate__infinite infinite animate__slow" style="font-size:30px;color:#042954;">database</span>
                             <span style="font-size:10px;">UPLOAD</span>
                         </div>
                     </div>

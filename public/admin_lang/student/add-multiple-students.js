@@ -84,7 +84,7 @@ $(document).on('submit', '.student-form', function (e) {
 
     $(this).addClass('submit-form');
 
-    $('.animation-root').html(`<span class="material-symbols-outlined text-success move-icon">send</span>`);
+    $('.animation-root').html(`<span class="material-symbols-outlined move-icon">user_attributes</span>`);
 
     // Set CSRF token for AJAX requests
     $.ajaxSetup({
@@ -170,7 +170,7 @@ function updateFailedCount() {
     $('.student-form').removeClass('submit-form');
 
     // Set HTML content
-    $('.animation-root-failed').html('<span class="material-symbols-outlined text-danger faile-icon">send</span>');
+    $('.animation-root-failed').html('<span class="material-symbols-outlined text-danger faile-icon">user_attributes</span>');
     // Select the icon
     var $icon = $('.faile-icon');
     // Delay the animation and then move the icon
@@ -196,6 +196,7 @@ function submitNextForm() {
     if(totalUpload == 0){
         $('#fileInput').removeClass('d-none');
         $(".send-button-box").removeClass('d-none');
+        $('.database-icon').removeClass(`animate__tada`);
     }
 }
 
@@ -211,5 +212,8 @@ $(document).ready(function () {
         if(failedno != 0){
             $('.total-failed-students').html(1);
         }
+        $('.database-icon').addClass(`animate__tada`);
+
     });
 });
+ 
