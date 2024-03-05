@@ -78,6 +78,14 @@
         left: -10%;
         transition: 0.5s;
       }
+
+      .faile-icon{
+        position: absolute;
+        transition: 0.5s;
+        transform: rotate(180deg);
+        right: -10%;
+      }
+
       .total-sucess-students{
         transition: 1.5s;
       }
@@ -113,7 +121,7 @@
                 <input type="file" id="fileInput" accept=".csv" />
             </div>
 
-            <div class="animation-box position-relative align-items-end d-none mb-2">
+            <div class="animation-box position-relative align-items-end d-flex mb-2">
                 <div class="d-flex align-items-end">
                     <div class="d-flex">
                         <div class="d-flex flex-column align-items-center" style="line-height: 1.5; position:relative;">
@@ -122,16 +130,22 @@
                             <span style="font-size:10px;">TOTAL</span>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="animation-root position-relative" style="overflow:hidden;width:300px;height:40px;color:#042954;">
-                    <span class="material-symbols-outlined move-icon">send</span>
+                <div class="position-ralative">
+                    <div class="animation-root position-relative" style="overflow:hidden;width:300px;height:40px;color:#042954;">
+                        <span class="material-symbols-outlined move-icon text-success">send</span>
+                    </div>
+                    
+                    <div class="animation-root-failed position-absolute" style="top:19px;overflow:hidden;width:300px;height:40px;color:#042954;">
+                        <span class="material-symbols-outlined faile-icon text-danger">send</span>
+                    </div>
                 </div>
 
-                <div class="d-flex border send-button-box">
+
+                <div class="border send-button-box d-none">
                     <div class="d-flex align-items-center">
-                        <button class="save-all-student align-items-center d-none">Start Save <span class="material-symbols-outlined ml-3" style="font-size:15px;">
+                        <button class="save-all-student align-items-center">Start Save <span class="material-symbols-outlined ml-3" style="font-size:15px;">
                             send
                             </span></button>
                      </div>
@@ -141,7 +155,7 @@
                     <div class="d-flex">
                         <div class="d-flex flex-column align-items-center" style="line-height: 1.5; position:relative;">
                             <b class="mt-2 text-center mr-2 total-sucess-students" style="font-size: 12px; position:absolute; bottom:42px;">0</b>
-                            <span class="material-symbols-outlined m-0 d-flex justify-content-center" style="font-size:30px;color:#042954;">database</span>
+                            <span class="material-symbols-outlined m-0 d-flex justify-content-center" style="font-size:30px;color:#042954;">storage</span>
                             <span style="font-size:10px;">UPLOAD</span>
                         </div>
                     </div>

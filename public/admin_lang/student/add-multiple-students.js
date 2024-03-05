@@ -8,8 +8,7 @@ $(document).ready(function () {
 
             reader.onload = function (e) {
                 $('#fileInput').addClass('d-none');
-                $(".save-all-student").removeClass('d-none');
-                $(".save-all-student").addClass('d-flex');
+                $(".send-button-box").removeClass('d-none');
 
                 $('.animation-box').removeClass('d-none');
                 $('.animation-box').addClass('d-flex');
@@ -47,12 +46,12 @@ $(document).ready(function () {
                 // Set the flag to true to indicate that the loop has run
 
                 // Process each row
-                rows.slice(1).forEach(function (row) {
+                rows.slice(1, -1).forEach(function (row) {
                     var columns = row.split(',');
-
+                
                     // Create a form element for each row
                     var form = $('<form class="d-flex student-form"></form>');
-
+                
                     // Process each column and append input fields to the form
                     columns.forEach(function (column, index) {
                         var headerName = headers[index].trim(); // Get the header name
@@ -62,13 +61,14 @@ $(document).ready(function () {
                                     .addClass(headerName); // Add class with headerName as its value
                         form.append(input);
                     });
-
+                
                     var submitBtn = $('<input type="submit" value="save" class="btn submit-btn">');
                     form.append(submitBtn);
-
+                
                     // Append the form to the student-data div
                     $('.student-data').append(form);
                 });
+                
             };
 
             reader.readAsText(file);
@@ -84,7 +84,7 @@ $(document).on('submit', '.student-form', function (e) {
 
     $(this).addClass('submit-form');
 
-    $('.animation-root').html(`<span class="material-symbols-outlined move-icon">send</span>`);
+    $('.animation-root').html(`<span class="material-symbols-outlined text-success move-icon">send</span>`);
 
     // Set CSRF token for AJAX requests
     $.ajaxSetup({
@@ -154,6 +154,13 @@ function updateSuccessCount() {
     $('.total-upload-students').html(totalUpload - 1);
     $('.total-sucess-students').html(successStudents + 1);
     $('.submit-form').remove();
+
+    // var totalCount = Number($('.total-upload-students').html());
+
+    // if(totalUpload == '0'){
+    //     alert();
+    //    $('#fileInput').removeClass('d-none');
+    // }
 }
 
 // Function to update failed upload count
@@ -161,13 +168,34 @@ function updateFailedCount() {
     var failedStudents = Number($('.total-failed-students').html());
     $('.total-failed-students').html(failedStudents + 1);
     $('.student-form').removeClass('submit-form');
+
+    // Set HTML content
+    $('.animation-root-failed').html('<span class="material-symbols-outlined text-danger faile-icon">send</span>');
+    // Select the icon
+    var $icon = $('.faile-icon');
+    // Delay the animation and then move the icon
+    $icon.delay(5).animate({right: '100%'}, 200);
+    
 }
+
+// function failedAnimation(){
+//     // alert();
+//     var $icon = $('.faile-icon');
+//     $icon.css('right', '100%');
+// }
 
 // Function to submit the next form
 function submitNextForm() {
     var $nextForm = $('.student-form:not(.submitted):first');
     if ($nextForm.length) {
         $nextForm.addClass('submitted').find('.submit-btn').click();
+    }
+
+    var totalUpload = Number($('.total-upload-students').html());
+
+    if(totalUpload == 0){
+        $('#fileInput').removeClass('d-none');
+        $(".send-button-box").removeClass('d-none');
     }
 }
 
@@ -177,7 +205,11 @@ $(document).ready(function () {
         submitNextForm(); // Submit the first form
         $('.upload-event').html('multiple');
 
-        $('.send-button-box').removeClass('d-flex');
         $('.send-button-box').addClass('d-none');
+        
+        var failedno = Number($('.total-failed-students').html());
+        if(failedno != 0){
+            $('.total-failed-students').html(1);
+        }
     });
 });
