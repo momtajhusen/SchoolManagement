@@ -82,7 +82,6 @@
       .faile-icon{
         position: absolute;
         transition: 0.5s;
-        transform: rotate(180deg);
         right: -10%;
       }
 
