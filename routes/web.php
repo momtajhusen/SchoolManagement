@@ -199,6 +199,12 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    });
 
    Route::get('/get-parent-profile', 'App\Http\Controllers\ParrentProfile@index');
+   Route::get('/admin/student-fee-starcture-retrive', 'App\Http\Controllers\ParrentProfile@StudentsFeeStractures');
+   Route::post('/admin/student-fee-starcture-save', 'App\Http\Controllers\ParrentProfile@StudentsFeeStracturesSave');
+   Route::post('/admin/delete-month-fee', 'App\Http\Controllers\ParrentProfile@DeleteMonthFee');
+
+
+
 
    Route::post('/parent-blance-load', 'App\Http\Controllers\ParrentWallet@loadBlanceSave');
    Route::get('/get-parent-wallet-data', 'App\Http\Controllers\ParrentWallet@walletData');

@@ -63,7 +63,7 @@ $(document).ready(function(){
  
 
                 $("#student_box").append(`
-                <div class="mb-2 d-flex justify-content-between p-3" style="background-color:#D9D9D9;">
+                <div class="mb-2 d-flex justify-content-between p-3 students" st_id=`+st_id+`>
                     <div class="d-flex">
                         <img src="`+currentDomainWithProtocol+`/storage/`+st_image+`" alt="" style="width:40px;height:40px;border:1px solid black;">
                         <div class="ml-2" style="font-size: 13px;">
