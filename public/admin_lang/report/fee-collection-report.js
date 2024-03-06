@@ -22,7 +22,6 @@ $(document).ready(function(){
 
                 console.log(response);
 
-
             if(response.paymentHistoryData)
             {
                 var count = 0;

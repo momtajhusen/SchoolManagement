@@ -29,14 +29,12 @@ class ParrentProfile extends Controller
             $student_data = Student::where("parents_id", $parent_id)->get();
 
             return response()->json(['parent_data' => $parent_data, 'student_data' => $student_data], 200);
-
         } 
         catch (Exception $e) {
             // Code to handle the exception
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);
         }
-
     }
 
     
@@ -112,10 +110,17 @@ class ParrentProfile extends Controller
     public function DeleteMonthFee(Request $request){
         try {
             $st_id = $request->st_id;
-            $month = $request->month;
             $year = $request->year;
-            $fees = $request->fees; 
-            return response()->json(['status' => 'Fee structures saved successfully'], 200);
+            $month = $request->month;
+            $fee_name = $request->fee_name;
+            
+            StudentsFeeStracture::where('st_id', $st_id)
+            ->where('year', $year)
+            ->where('month', $month)
+            ->where('fee_type', $fee_name)
+            ->delete();
+
+            return response()->json(['status' => 'delete successfully'], 200);
         } catch (Exception $e) {
             // Code to handle the exception
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();

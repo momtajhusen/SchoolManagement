@@ -67,8 +67,8 @@ $(document).ready(function(){
                                 <span>23000</span> 
                             </div>
                             <div class="d-flex">
-                                <span class="material-symbols-outlined p-1 border mr-2" data-toggle="tooltip" data-placement="bottom" title="Add New Fee">add</span>
-                                <span class="material-symbols-outlined p-1 border" data-toggle="tooltip" data-placement="bottom" title="Delete This Month">delete</span>
+                                <button class="material-symbols-outlined p-1 border mr-2 add-new-fee" data-toggle="tooltip" data-placement="bottom" title="Add New Fee">add</button>
+                                <button class="material-symbols-outlined p-1 border" data-toggle="tooltip" data-placement="bottom" title="Delete This Month">delete</button>
                             </div>
                             </div>
                             <div class="collapse" id="collapse`+month+`">
@@ -83,7 +83,6 @@ $(document).ready(function(){
                 });
  
         },
-        
         error: function (xhr, status, error) {
             // Error callback function
             console.log(xhr.responseText); // Log the error response in the console
@@ -94,7 +93,7 @@ $(document).ready(function(){
     });
 });
 
-// Save Month 
+// Save  Month 
 $(document).on('submit', '.student-fee-save', function (e) {
     e.preventDefault();
 
@@ -105,9 +104,11 @@ $(document).on('submit', '.student-fee-save', function (e) {
 
     // Get the fee data from input elements
     var feeData = {};
-    $('.fee_stracture').each(function(index, element) {
+    $(this).each(function(index, element) {
         var feeName = $(element).find('.input_fee_name').val();
         var feeAmount = $(element).find('.input_fee_amount').val();
+        alert(feeName);
+
         feeData['fee_' + index] = {  // Use index to create unique input names
             fee_name: feeName,
             amount: feeAmount
@@ -137,6 +138,25 @@ $(document).on('submit', '.student-fee-save', function (e) {
     });
 });
 
+$(document).ready(function(){
+    $("#month_feestracture").on("click", ".add-new-fee", function(){
+       var fee_box = $(this).parent().parent().parent().find('.student-fee-save');
+       var length = $(this).parent().parent().parent().find('.fee_stracture').length+1;
+
+       alert(length);
+
+       fee_box.append(`<div class="border d-flex align-items-center fee_stracture">
+                    <input class="px-2 input_fee_name" name='fee[`+length+`]' value="Fee Name">
+                    <span class="pr-3">₹</span>
+                    <input type="number" min="0" name='amount[`+length+`]' class="input_fee_amount" value="0">
+                    <span class="material-symbols-outlined p-1 border delete_fee" data-toggle="tooltip" data-placement="bottom" title="Delete This Fee" style="cursor: pointer;">delete</span>
+                </div>`);
+         
+   });
+});
+
+    
+
 // Delete Fee 
  $(document).ready(function(){
     $("#month_feestracture").on("click", ".delete_fee", function(){
@@ -145,6 +165,9 @@ $(document).on('submit', '.student-fee-save', function (e) {
     var month = $(this).attr('month');
     var year = $(this).attr('year');
     var fee_name =$(this).attr('fee_name');
+
+    $(this).parent().addClass('deleted-fee-process');
+
 
       // Send the AJAX request
       $.ajax({
@@ -158,6 +181,10 @@ $(document).on('submit', '.student-fee-save', function (e) {
         },
         success: function (response) {
             console.log(response);
+
+            if(response.status == 'delete successfully'){
+              $('.deleted-fee-process').remove();
+            }
         },
         error: function (xhr, status, error) {
             // Error callback function
@@ -169,6 +196,9 @@ $(document).on('submit', '.student-fee-save', function (e) {
 
     });
  });
+
+
+
 
 
 

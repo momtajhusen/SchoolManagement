@@ -13,15 +13,15 @@
         background-color:#D9D9D9;
         cursor:pointer;
       }
-      /* .students:hover{
-        border:2px solid #042954; 
-      } */
- 
         .collapse_btn{
            background-color:#042954; 
            cursor: pointer;
            color: #ccc;
         }
+        .add-new-fee{
+          z-index: 100;
+        }
+
         .fee_stracture{
           background-color: #051f3e;
           color: #ccc;
