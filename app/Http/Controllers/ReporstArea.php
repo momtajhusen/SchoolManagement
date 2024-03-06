@@ -32,7 +32,7 @@ class ReporstArea extends Controller
         $today = $year.'-'.$month.'-'.$day;
 
 
-        // echo  $option;
+        // echo  $month;
         // return false;
  
         if ($option === 'month') {
@@ -53,7 +53,7 @@ class ReporstArea extends Controller
         }
         if ($option != 'month') {
             $paymentHistoryData = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
-            ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$month])
+            ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$option])
             ->orderBy('id', 'desc')
             ->get();
         }

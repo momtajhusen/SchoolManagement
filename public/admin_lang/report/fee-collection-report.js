@@ -21,7 +21,7 @@ $(document).ready(function(){
             success: function (response) {
 
                 console.log(response);
-                alert(response);
+                // alert(response);
 
 
             if(response.paymentHistoryData)
