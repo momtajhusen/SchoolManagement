@@ -125,7 +125,7 @@
                     <div class="d-flex">
                         <div class="d-flex flex-column align-items-center" style="line-height: 1.5; position:relative;">
                             <b class="mt-2 text-center total-upload-students" style="font-size: 12px; position:absolute; bottom:42px; "></b>
-                            <span class="total-icon material-symbols-outlined m-0 d-flex justify-content-center" style="font-size:30px;color:#042954;">id_card</span>
+                            <span class="total-icon material-symbols-outlined m-0 d-flex justify-content-center" style="font-size:30px;color:#042954;">description</span>
                             <span style="font-size:10px;">STUDENTS</span>
                         </div>
                     </div>
@@ -133,11 +133,11 @@
 
                 <div class="position-ralative">
                     <div class="animation-root position-relative" style="overflow:hidden;width:300px;height:40px;color:#042954;">
-                        <span class="material-symbols-outlined move-icon text-success">send</span>
+                        <span class="material-symbols-outlined move-icon text-success">description</span>
                     </div>
                     
                     <div class="animation-root-failed position-absolute" style="top:19px;overflow:hidden;width:300px;height:40px;color:#042954;">
-                        <span class="material-symbols-outlined faile-icon text-danger">send</span>
+                        <span class="material-symbols-outlined faile-icon text-danger">description</span>
                     </div>
                 </div>
 

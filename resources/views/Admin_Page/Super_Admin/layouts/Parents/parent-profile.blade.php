@@ -7,8 +7,52 @@
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/style.css')}}">
     <!-- Date Picker CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/datepicker.min.css')}}">
-@endsection
 
+    <style>
+      .students{
+        background-color:#D9D9D9;
+        cursor:pointer;
+      }
+        .collapse_box{
+           background-color:#042954; 
+           cursor: pointer;
+           color: #ccc;
+        }
+        /* .month-icon button{
+          height: 30px;
+        } */
+        .student-fee-save{
+          overflow: hidden;
+        }
+        .add-new-fee{
+          z-index: 100;
+        }
+
+        .fee_stracture{
+          background-color: #051f3e;
+          color: #ccc;
+          position: relative;
+        }
+        .input_fee_name{
+          background: none;
+          color: #ccc;
+          outline: none;
+          border:none;
+        }
+        .input_fee_amount{
+          width: 60px;
+          text-align: center;
+          font-weight: bold;
+          outline: none;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+    </style>
+
+@endsection
 
 @section('script')
  
@@ -16,14 +60,17 @@
     <!-- ajax profile data -->
     <script src="{{ asset('../admin_lang/parents/ajax-parents-profile.js')}}?v={{ time() }}"></script> 
 
+    <!-- ajax-student-fee.js -->
+    <script src="{{ asset('../admin_lang/parents/ajax-student-fee.js')}}?v={{ time() }}"></script> 
+
     <!-- ajax parent wallet -->
     <script src="{{ asset('../admin_lang/parents/ajax-parent-wallet.js')}}?v={{ time() }}"></script> 
 
     <!-- Date Picker Js -->
     <script src="{{ asset('../admin_template_assets/js/datepicker.min.js')}}"></script>
 
-        <!-- Select 2 Js -->
-        <script src="{{ asset('../admin_template_assets/js/select2.min.js')}}"></script>
+      <!-- Select 2 Js -->
+      <script src="{{ asset('../admin_template_assets/js/select2.min.js')}}"></script>
 
  
 @endsection
@@ -33,9 +80,9 @@
 
 
 <!-- Load Blance Modal -->
-<div class="modal fade" id="LoadBlance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="LoadBlance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title d-flex" id="exampleModalLabel">
             <span class="material-symbols-outlined mr-2">add_card</span> 
@@ -45,6 +92,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body">
             <form class="blance-load-form">
                 <div class="form-row">
@@ -76,7 +124,7 @@
             <button type="submit" id="load-save" class="btn btn-primary px-4 p-3">Save</button>
         </div>
       </form>
-    </div>
+     </div>
   </div>
 </div>
 
@@ -84,58 +132,54 @@
 
  
 
-     <div class="p-3 col-12 col-md-4 ">
-         <div class="w-100" style="background-color: #ddd;">
-            <div class="p-2 py-3 d-flex justify-content-around ">
-                <img class="mr-1 fatherImg" src="#" alt="" style="height:100px; width:100px;">
-                <img class="motherImg" src="#" alt="" style="height:100px; width:100px;">
+    <div class="p-3 col-12 col-md-4 ">
+      {{--Start partent Detals  --}}
+        <div class="w-100 p-2" style="background-color: #ddd;">
+          <div class="d-flex">
+            <span class="material-symbols-outlined">person</span> Parent
+          </div>
+          <div class="d-flex justify-content-around ">
+              <img class="mr-1 fatherImg" src="#" alt="" style="height:70px; width:70px;">
+              <img class="motherImg" src="#" alt="" style="height:70px; width:70px;">
+          </div>
+          <div class="px-4">
+            <div>
+                <span>Father :</span>
+                <span class="father-name"></span>
             </div>
+            <div>
+                <span>Mother :</span>
+                <span class="mother-name"></span>
+            </div>
+            <div>
+                <span>Father Contact :</span>
+                <span class="father-contact"></span>
+            </div>
+          </div>
+        </div>
+      {{--Start partent Detals  --}}
+       {{-- Start students list --}}
+          <div class="w-100 mt-3" style="border:1px solid #ccc;">
+              <div class="p-2 d-flex justify-content-between" style="border:1px solid #ddd;">
+                <div class="d-flex">
+                  <span class="material-symbols-outlined">person</span> Students
+                </div>
+                <div>
+                  <span class="st_no">2</span>
+                </div>
+                
+              </div>
+              <div class="p-2" id="student_box" style="border:1px solid #ddd;">
 
+            </div>
+          </div>
+       {{-- End students list --}}
+    </div>
 
-         </div>
-
-         <div class="w-100 mt-3 p-3" style="background-color: #ddd;">
-           <h4 class="mb-1">Parent Details</h4>
-
-           <div>
-               <div>
-                    <span>Father :</span>
-                    <span class="father-name"></span>
-               </div>
-               <div>
-                    <span>Mother :</span>
-                    <span class="mother-name"></span>
-               </div>
-               <div>
-                    <span>Father Contact :</span>
-                    <span class="father-contact"></span>
-               </div>
-           </div>
- 
-         </div>
-     </div>
 
      <div class="p-3 col-12 col-md-8">
-
          <div class="row">
-              <div class="col-12 col-md-7 mb-3">
-                <div class="w-100" style="border:1px solid #ccc;">
-                    <div class="p-2 d-flex justify-content-between" style="border:1px solid #ddd;">
-                      <div class="d-flex">
-                         <span class="material-symbols-outlined">person</span> Students
-                      </div>
-                      <div>
-                         <span class="st_no">2</span>
-                      </div>
-                      
-                    </div>
-                    <div class="p-2" id="student_box" style="border:1px solid #ddd;">
-
-                   </div>
-                </div>
-              </div>
-
-              <div class="col-12 col-md-5 mb-4">
+              {{-- <div class="col-12 col-md-5 mb-4 d-none">
                 <div style="border:1px solid #ccc;">
                     <div class="p-2 d-flex justify-content-between align-items-center " style="border:1px solid #ddd; height:35px; ">
                       <div class="d-flex">
@@ -166,8 +210,74 @@
                         </div>
                    </div>
                 </div>
-              </div>
+              </div> --}}
+              <!-- Button trigger modal -->
 
+            <!-- Modal -->
+            <div class="modal fade" id="yearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Month</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="d-flex">
+                        <select class="form-select form-select-sm select-year" aria-label=".form-select-sm example">
+                          <option value="2080">2080</option>
+                          <option value="2081">2081</option>
+                          <option value="2082">2082</option>
+                        </select>
+    
+                        <select class="form-select form-select-sm add-select-month" aria-label=".form-select-sm example">
+                          <option value="1">Baishakh</option>
+                          <option value="2">Jestha</option>
+                          <option value="3">Ashadh</option>
+                          <option value="4">Shrawan</option>
+                          <option value="5">Bhadau</option>
+                          <option value="6">Kartik</option>
+                        </select>
+    
+                        <div class="d-flex">
+                          <div class="border d-flex align-items-center fee_stracture">
+                            <input type="text required" class="px-2 input_fee_name">
+                            <span class="pr-3">₹</span>
+                            <input type="number" min="0" required class="input_fee_amount" value="0">
+                          </div>
+                        </div>
+                    </div>
+                    
+                    
+                     </div>
+
+
+                    
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary add-month"  st_id="#">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+              <div class="col-12">
+                    <div class="st_header border p-2 d-flex justify-content-between">
+                       <b>Student Fee Stracture</b> 
+
+                       <div>
+
+                          <button class="btn material-symbols-outlined border" data-toggle="modal" data-target="#yearModal" data-toggle="tooltip" data-placement="bottom" title="Add New Fee">add</button>
+                       </div>
+
+                    </div>
+                    <div class="p-2 d-flex flex-column"  id='month_feestracture'>
+                          {{-- Retrive Months  --}}
+                    </div>
+              </div>
          </div>
      </div>
 

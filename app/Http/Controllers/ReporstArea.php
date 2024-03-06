@@ -28,13 +28,15 @@ class ReporstArea extends Controller
         $year = $request->year;
         $month = $request->month;
         $day = $request->day;
-
         $today = $year.'-'.$month.'-'.$day;
 
+<<<<<<< HEAD
 
         // echo  $month;
         // return false;
  
+=======
+>>>>>>> new_accounting
         if ($option === 'month') {
             $paymentHistoryData = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
                                                 ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$month])
@@ -45,8 +47,13 @@ class ReporstArea extends Controller
             $paymentHistoryData = PaymentHistory::whereDate('pay_date', $today)
                                                 ->orderBy('id', 'desc')
                                                 ->get();
+<<<<<<< HEAD
         }
         if ($option === 'year') {
+=======
+        }        
+        elseif ($option === 'year') {
+>>>>>>> new_accounting
             $paymentHistoryData = PaymentHistory::where('pay_date', 'LIKE', $year.'%')
                                                 ->orderBy('id', 'desc')
                                                 ->get();

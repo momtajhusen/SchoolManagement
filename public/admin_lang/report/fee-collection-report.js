@@ -23,7 +23,6 @@ $(document).ready(function(){
                 console.log(response);
                 // alert(response);
 
-
             if(response.paymentHistoryData)
             {
                 var count = 0;

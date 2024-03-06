@@ -199,6 +199,15 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    });
 
    Route::get('/get-parent-profile', 'App\Http\Controllers\ParrentProfile@index');
+   Route::get('/admin/student-fee-starcture-retrive', 'App\Http\Controllers\ParrentProfile@StudentsFeeStractures');
+   Route::post('/admin/student-fee-starcture-save', 'App\Http\Controllers\ParrentProfile@StudentsFeeStracturesSave');
+   Route::post('/admin/delete-month-fee', 'App\Http\Controllers\ParrentProfile@DeleteMonthFee');
+
+   Route::post('/admin/add-month', 'App\Http\Controllers\ParrentProfile@AddMonth');
+
+
+
+
 
    Route::post('/parent-blance-load', 'App\Http\Controllers\ParrentWallet@loadBlanceSave');
    Route::get('/get-parent-wallet-data', 'App\Http\Controllers\ParrentWallet@walletData');
@@ -597,9 +606,9 @@ Route::group(['middleware' => 'StudentAccountLogin'], function () {
 //   Artisan::call('cache:clear');
 // });
 
-Route::get('/command/storage', function () {
-  Artisan::call('storage:link');
-});
+// Route::get('/command/storage', function () {
+//   Artisan::call('storage:link');
+// });
 
 // Route::get('/command/migrate_fresh', function () {
 //   Artisan::call('migrate:fresh');
@@ -613,7 +622,7 @@ Route::get('/command/storage', function () {
 Route::get('/command/migrate_specific', function () {
    Artisan::call('migrate', [
        '--path' => [
-           'database/migrations/2024_03_01_232435_create_developer_logins_table.php',
+           'database/migrations/2024_03_06_041716_create_students_fee_stractures_table.php',
        ]
    ]);
 });
