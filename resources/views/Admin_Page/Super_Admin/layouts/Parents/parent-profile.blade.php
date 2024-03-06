@@ -13,10 +13,16 @@
         background-color:#D9D9D9;
         cursor:pointer;
       }
-        .collapse_btn{
+        .collapse_box{
            background-color:#042954; 
            cursor: pointer;
            color: #ccc;
+        }
+        /* .month-icon button{
+          height: 30px;
+        } */
+        .student-fee-save{
+          overflow: hidden;
         }
         .add-new-fee{
           z-index: 100;
@@ -205,10 +211,68 @@
                    </div>
                 </div>
               </div> --}}
+              <!-- Button trigger modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="yearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Month</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="d-flex">
+                        <select class="form-select form-select-sm select-year" aria-label=".form-select-sm example">
+                          <option value="2080">2080</option>
+                          <option value="2081">2081</option>
+                          <option value="2082">2082</option>
+                        </select>
+    
+                        <select class="form-select form-select-sm add-select-month" aria-label=".form-select-sm example">
+                          <option value="1">Baishakh</option>
+                          <option value="2">Jestha</option>
+                          <option value="3">Ashadh</option>
+                          <option value="4">Shrawan</option>
+                          <option value="5">Bhadau</option>
+                          <option value="6">Kartik</option>
+                        </select>
+    
+                        <div class="d-flex">
+                          <div class="border d-flex align-items-center fee_stracture">
+                            <input type="text required" class="px-2 input_fee_name">
+                            <span class="pr-3">₹</span>
+                            <input type="number" min="0" required class="input_fee_amount" value="0">
+                          </div>
+                        </div>
+                    </div>
+                    
+                    
+                     </div>
+
+
+                    
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary add-month"  st_id="#">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
               <div class="col-12">
-                    <div class="st_header border p-2">
-                       <b>Momtaj Husen</b> 
+                    <div class="st_header border p-2 d-flex justify-content-between">
+                       <b>Student Fee Stracture</b> 
+
+                       <div>
+
+                          <button class="btn material-symbols-outlined border" data-toggle="modal" data-target="#yearModal" data-toggle="tooltip" data-placement="bottom" title="Add New Fee">add</button>
+                       </div>
+
                     </div>
                     <div class="p-2 d-flex flex-column"  id='month_feestracture'>
                           {{-- Retrive Months  --}}

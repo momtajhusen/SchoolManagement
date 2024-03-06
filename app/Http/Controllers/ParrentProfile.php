@@ -47,7 +47,7 @@ class ParrentProfile extends Controller
         $feeStructures = StudentsFeeStracture::where('year', $year)
                             ->where('st_id', $st_id)
                             ->get();
-    
+
         // Organize fee structures by month and fee type
         $organizedFeeStructures = [];
         foreach ($feeStructures as $structure) {
@@ -128,10 +128,41 @@ class ParrentProfile extends Controller
         }
     }
 
+    public function AddMonth(Request $request){
+        try {
+            $st_id = $request->st_id;
+            $year = $request->year;
+            $month = $request->month;
+            $input_fee_name = $request->input_fee_name;
+            $input_fee_amount = $request->input_fee_amount;
 
-    
-    
-    
+            $feeCheck = StudentsFeeStracture::where('st_id', $st_id)
+            ->where('year', $year)
+            ->where('month', $month)
+            ->where('fee_type', $input_fee_name)->first();
+
+            if(!$feeCheck){
+                $studentFeeStructure = new StudentsFeeStracture();
+                $studentFeeStructure->st_id = $st_id;
+                $studentFeeStructure->year = $year;
+                $studentFeeStructure->month = $month;
+                $studentFeeStructure->fee_type = $input_fee_name;
+                $studentFeeStructure->amount = $input_fee_amount;
+                if($studentFeeStructure->save())
+                {
+                    return response()->json(['status' => 'add successfully'], 200);
+                }
+            }else{
+                return response()->json(['status' => 'fee name already exist'], 200);
+            }
+            
+        } catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+
+    }
 
     /**
      * Show the form for creating a new resource.
