@@ -30,6 +30,10 @@ class ReporstArea extends Controller
         $day = $request->day;
 
         $today = $year.'-'.$month.'-'.$day;
+
+
+        // echo  $option;
+        // return false;
  
         if ($option === 'month') {
             $paymentHistoryData = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
@@ -42,16 +46,18 @@ class ReporstArea extends Controller
                                                 ->orderBy('id', 'desc')
                                                 ->get();
         }
-        elseif ($option === 'year') {
+        if ($option === 'year') {
             $paymentHistoryData = PaymentHistory::where('pay_date', 'LIKE', $year.'%')
                                                 ->orderBy('id', 'desc')
                                                 ->get();
         }
-        else {
-            $paymentHistoryData = PaymentHistory::where('pay_date', 'LIKE', $year.'-'.$option.'%')
-                                                ->orderBy('id', 'desc')
-                                                ->get();
-        }        
+        if ($option != 'month') {
+            $paymentHistoryData = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
+            ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$month])
+            ->orderBy('id', 'desc')
+            ->get();
+        }
+         
         
         $payment_History_sums = [];
         for ($month = 1; $month <= 12; $month++) {
@@ -131,7 +137,6 @@ class ReporstArea extends Controller
         
             return $payment;
         });
-        
         return response([
             "paymentHistoryData" => $paymentHistoryData,
             "PaymentHistoryAmount" => $payment_History_sums,

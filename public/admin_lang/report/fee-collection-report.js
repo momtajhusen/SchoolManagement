@@ -21,6 +21,7 @@ $(document).ready(function(){
             success: function (response) {
 
                 console.log(response);
+                alert(response);
 
 
             if(response.paymentHistoryData)
@@ -49,7 +50,6 @@ $(document).ready(function(){
                     var section = response.paymentHistoryData[increase].section;
 
                     var student_name = first_name+' '+last_name;
-
 
                     totalPayment += parseInt(payment);
 
