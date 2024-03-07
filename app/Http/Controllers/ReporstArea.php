@@ -16,6 +16,10 @@ use App\Models\Student;
 use App\Models\Parents;
 use App\Models\EmployeesSalariesPaymentHistories;
 
+use App\Models\TeacherMonthsAttendance;
+use App\Models\StaffAttendance;
+
+
 // use App\Models\ReportMonthCollection;
 
 
@@ -639,5 +643,44 @@ class ReporstArea extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
+
+    public function salaryReport(Request $request){
+        try {
+            $all_teacher_salary = TeacherMonthsAttendance::sum('salary');
+            $all_staff_salary = StaffAttendance::sum('salary');
+
+            $genrate_teacher_salary = TeacherMonthsAttendance::sum('net_pay');
+            $genrate_staff_salary = StaffAttendance::sum('net_pay');
+
+            $paid_teacher_salary = TeacherMonthsAttendance::sum('paid');
+            $paid_staff_salary = StaffAttendance::sum('paid');
+
+            $remaining_teacher_salary = TeacherMonthsAttendance::sum('remaining');
+            $remaining_staff_salary = StaffAttendance::sum('remaining');
+
+            // add teacher & staff 
+            $all_salary = $all_teacher_salary+$all_staff_salary;
+            $genrate_salary = $genrate_teacher_salary+$genrate_staff_salary;
+
+            $paid_salary = $paid_teacher_salary+$paid_staff_salary;
+            $remaining_salary = $remaining_teacher_salary+$remaining_staff_salary;
+
+
+            $response = [
+                'all_salary' => $all_salary,
+                'genrate_salary' => $genrate_salary,
+                'paid_salary' => $paid_salary,
+                'remaining_salary' => $remaining_salary
+            ];
+    
+            return response()->json(['status' => 'success', 'salary' => $response], 200);
+
+        } catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => 'error', 'message' => $message], 500);
+        }
+    }
+    
     
 }

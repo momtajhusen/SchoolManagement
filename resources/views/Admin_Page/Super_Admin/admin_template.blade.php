@@ -301,6 +301,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{route('salary-report')}}" class="nav-link"><i class="fas fa-angle-right"></i>
+                                    <span>Salary</span>
+                                   </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{route('class-finance')}}" class="nav-link"><i class="fas fa-angle-right"></i>
                                     <span>Financial Class</span>
                                    </a>
