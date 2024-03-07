@@ -122,7 +122,8 @@ $(document).on('submit', '.student-form', function (e) {
                 return xhr;
             },
         // Success handler
-        success: function (response) {
+        success: function (response) 
+        {
             console.log(response);
 
             if (response.status === 'Add Successfully') {

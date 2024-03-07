@@ -646,40 +646,41 @@ class ReporstArea extends Controller
 
     public function salaryReport(Request $request){
         try {
-            $all_teacher_salary = TeacherMonthsAttendance::sum('salary');
-            $all_staff_salary = StaffAttendance::sum('salary');
-
-            $genrate_teacher_salary = TeacherMonthsAttendance::sum('net_pay');
-            $genrate_staff_salary = StaffAttendance::sum('net_pay');
-
-            $paid_teacher_salary = TeacherMonthsAttendance::sum('paid');
-            $paid_staff_salary = StaffAttendance::sum('paid');
-
-            $remaining_teacher_salary = TeacherMonthsAttendance::sum('remaining');
-            $remaining_staff_salary = StaffAttendance::sum('remaining');
-
-            // add teacher & staff 
-            $all_salary = $all_teacher_salary+$all_staff_salary;
-            $genrate_salary = $genrate_teacher_salary+$genrate_staff_salary;
-
-            $paid_salary = $paid_teacher_salary+$paid_staff_salary;
-            $remaining_salary = $remaining_teacher_salary+$remaining_staff_salary;
-
-
+            $teacher_salary_query = TeacherMonthsAttendance::where('percent', '>', 0);
+            $staff_salary_query = StaffAttendance::where('percent', '>', 0);
+        
+            $all_teacher_salary = $teacher_salary_query->sum('salary');
+            $all_staff_salary = $staff_salary_query->sum('salary');
+        
+            $genrate_teacher_salary = $teacher_salary_query->sum('net_pay');
+            $genrate_staff_salary = $staff_salary_query->sum('net_pay');
+        
+            $paid_teacher_salary = $teacher_salary_query->sum('paid');
+            $paid_staff_salary = $staff_salary_query->sum('paid');
+        
+            $remaining_teacher_salary = $teacher_salary_query->sum('remaining');
+            $remaining_staff_salary = $staff_salary_query->sum('remaining');
+        
+            $all_salary = $all_teacher_salary + $all_staff_salary;
+            $genrate_salary = $genrate_teacher_salary + $genrate_staff_salary;
+            $paid_salary = $paid_teacher_salary + $paid_staff_salary;
+            $remaining_salary = $remaining_teacher_salary + $remaining_staff_salary;
+        
             $response = [
                 'all_salary' => $all_salary,
                 'genrate_salary' => $genrate_salary,
                 'paid_salary' => $paid_salary,
                 'remaining_salary' => $remaining_salary
             ];
-    
+        
             return response()->json(['status' => 'success', 'salary' => $response], 200);
-
+        
         } catch (Exception $e) {
             // Code to handle the exception
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => 'error', 'message' => $message], 500);
         }
+        
     }
     
     
