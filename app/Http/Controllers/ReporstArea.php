@@ -18,10 +18,7 @@ use App\Models\EmployeesSalariesPaymentHistories;
 
 use App\Models\TeacherMonthsAttendance;
 use App\Models\StaffAttendance;
-
-
-// use App\Models\ReportMonthCollection;
-
+ 
 
 class ReporstArea extends Controller
 {
@@ -34,13 +31,6 @@ class ReporstArea extends Controller
         $day = $request->day;
         $today = $year.'-'.$month.'-'.$day;
 
-<<<<<<< HEAD
-
-        // echo  $month;
-        // return false;
- 
-=======
->>>>>>> new_accounting
         if ($option === 'month') {
             $paymentHistoryData = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
                                                 ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$month])
@@ -51,13 +41,8 @@ class ReporstArea extends Controller
             $paymentHistoryData = PaymentHistory::whereDate('pay_date', $today)
                                                 ->orderBy('id', 'desc')
                                                 ->get();
-<<<<<<< HEAD
         }
         if ($option === 'year') {
-=======
-        }        
-        elseif ($option === 'year') {
->>>>>>> new_accounting
             $paymentHistoryData = PaymentHistory::where('pay_date', 'LIKE', $year.'%')
                                                 ->orderBy('id', 'desc')
                                                 ->get();
