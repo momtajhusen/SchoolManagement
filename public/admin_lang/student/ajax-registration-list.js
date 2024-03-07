@@ -126,7 +126,6 @@
                         showConfirmButton: false,
                         timer: 1500
                     }).then(function() {
-                        $(".table-body").html(``);
                         RegistrationStudent();
                     });
                 }
@@ -176,7 +175,6 @@ $(document).ready(function(){
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function() {
-                            $(".table-body").html(``);
                             RegistrationStudent();
                         });
                     }
@@ -226,7 +224,6 @@ $(document).ready(function(){
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function() {
-                            $(".table-body").html(``);
                             RegistrationStudent();
                         });
                     }
