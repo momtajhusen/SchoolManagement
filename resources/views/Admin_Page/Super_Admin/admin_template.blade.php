@@ -88,6 +88,9 @@
     <!-- Visitor ButtonClick -->
     <script src="{{ asset('../admin_lang/visitorLogs/ajax-buttonClick.js')}}?v={{ time() }}"></script>
 
+    <script src="{{ asset('admin_lang/SuperAdminTemplate/school-details.js')}}?v={{ time() }}"></script>
+
+
     {{-- export js file  --}}
 
 
@@ -211,7 +214,10 @@
         <div class="navbar navbar-expand-md header-menu-one w-100" style="position: fixed; z-index:100;">
             <div class="nav-bar-header-one p-0">
                 <div class="header-logo w-100 d-flex align-items-center justify-content-center" style="height: 65px; background-color: #ffa801; background-image: url('https://i.gifer.com/KLMu.gif'); background-size: cover; background-repeat: no-repeat;">
-                   <b class="text-light">SCRIPTQUBE</b>
+                   <div class="d-flex flex-column" style="line-height: 18px">
+                        <b class="text-light">SCRIPTQUBE</b>
+                        <span style="font-size: 10px;color: #bdbdbd">SCHOOL SOFTWARE</span>
+                   </div>
                 </div>
             </div>
             <div class="d-md-none mobile-nav-bar">
@@ -222,11 +228,12 @@
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
-            <div class="header-main-menu collapse navbar-collapse" id="mobile-navbar">
+            <div class="header-main-menu collapse navbar-collapse pl-2" id="mobile-navbar">
                 <ul class="navbar-nav">
-                    <li class="navbar-item header-search-bar">
+                    <li class="navbar-item header-search-bar d-flex">
+                        <img class="border p-1 mr-2" src="#" id="schoolo_logo_preview"  style="width:50px;">
                         <div class="d-flex align-items-start flex-column ">
-                            <b style="color: #bdbdbd">SUPER ADMIN</b>
+                            <b class="school_name" style="color: #bdbdbd"></b>
                             <div style="color: #bdbdbd; font-size:15px;"><b><span class="currentDate"></span><span class="currentTime ml-3"></span></span></b> <b id="current_date_header"></b> </div>
                         </div>
                     </li>
