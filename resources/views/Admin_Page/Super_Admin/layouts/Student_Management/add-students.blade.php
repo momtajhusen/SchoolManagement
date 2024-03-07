@@ -55,134 +55,132 @@
 
 @section('contents')
 
-{{-- Student Image Crope Model  --}}
-<div class="modal fade" id="student-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" style="background-color:#042954;z-index:1000;">
-            <div class="modal-header">
-                <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <img id="student-sample_image" src="" alt="Crop Image">
+        {{-- Student Image Crope Model  --}}
+        <div class="modal fade" id="student-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" style="background-color:#042954;z-index:1000;">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
                     </div>
-                    <div class="col-md-4">
-                        <div id="student_preview" class="preview"></div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <img id="student-sample_image" src="" alt="Crop Image">
+                            </div>
+                            <div class="col-md-4">
+                                <div id="student_preview" class="preview"></div>
+                            </div>
+                
+                        </div>
                     </div>
-           
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark p-4 px-5" id="student-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
+                        <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="student-crop" style="z-index:100">
+                            <span style="font-size: 20px;" class="crop-text">CROP</span> 
+                            <span class="material-symbols-outlined mt-2 mx-2 crop-icon">crop_free</span>
+                            <i class="fa fa-spinner fa-spin mt-2 mx-2 d-none crop-loading" style="font-size:20px;color:rgb(255, 255, 255)"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark p-4 px-5" id="student-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
-                <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="student-crop" style="z-index:100">
-                    <span style="font-size: 20px;" class="crop-text">CROP</span> 
-                    <span class="material-symbols-outlined mt-2 mx-2 crop-icon">crop_free</span>
-                    <i class="fa fa-spinner fa-spin mt-2 mx-2 d-none crop-loading" style="font-size:20px;color:rgb(255, 255, 255)"></i>
-                </button>
-            </div>
         </div>
-    </div>
-</div>
 
-{{-- Document Image Crope Model  --}}
-<div class="modal fade" id="document-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" style="background-color:#042954;">
-            <div class="modal-header">
-                <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <img id="document-sample_image" src="" alt="Crop Image">
+        {{-- Document Image Crope Model  --}}
+        <div class="modal fade" id="document-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" style="background-color:#042954;">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
                     </div>
-                    <div class="col-md-4">
-                        <div id="document_preview" class="preview"></div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <img id="document-sample_image" src="" alt="Crop Image">
+                            </div>
+                            <div class="col-md-4">
+                                <div id="document_preview" class="preview"></div>
+                            </div>
+                
+                        </div>
                     </div>
-           
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark p-4 px-5" id="document-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
+                        <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="document-crop">
+                            <span style="font-size: 20px;" class="crop-text">CROP</span> 
+                            <span class="material-symbols-outlined mt-2 mx-2 crop-icon">crop_free</span>
+                            <i class="fa fa-spinner fa-spin mt-2 mx-2 d-none crop-loading" style="font-size:20px;color:rgb(255, 255, 255)"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark p-4 px-5" id="document-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
-                <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="document-crop">
-                    <span style="font-size: 20px;" class="crop-text">CROP</span> 
-                    <span class="material-symbols-outlined mt-2 mx-2 crop-icon">crop_free</span>
-                    <i class="fa fa-spinner fa-spin mt-2 mx-2 d-none crop-loading" style="font-size:20px;color:rgb(255, 255, 255)"></i>
-                </button>
-            </div>
         </div>
-    </div>
-</div>
 
-{{-- Father Image Crope Model  --}}
-<div class="modal fade" id="fathert-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" style="background-color:#042954;">
-            <div class="modal-header">
-                <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <img id="father-sample_image" src="" alt="Crop Image">
+        {{-- Father Image Crope Model  --}}
+        <div class="modal fade" id="fathert-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" style="background-color:#042954;">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
                     </div>
-                    <div class="col-md-4">
-                        <div id="father_preview" class="preview"></div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <img id="father-sample_image" src="" alt="Crop Image">
+                            </div>
+                            <div class="col-md-4">
+                                <div id="father_preview" class="preview"></div>
+                            </div>
+                
+                        </div>
                     </div>
-           
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark p-4 px-5" id="father-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
+                        <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="father-crop" style="z-index:100">
+                            <span style="font-size: 20px;" class="crop-text">CROP</span> 
+                            <span class="material-symbols-outlined mt-2 mx-2 crop-icon">crop_free</span>
+                            <i class="fa fa-spinner fa-spin mt-2 mx-2 d-none crop-loading" style="font-size:20px;color:rgb(255, 255, 255)"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark p-4 px-5" id="father-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
-                <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="father-crop" style="z-index:100">
-                    <span style="font-size: 20px;" class="crop-text">CROP</span> 
-                    <span class="material-symbols-outlined mt-2 mx-2 crop-icon">crop_free</span>
-                    <i class="fa fa-spinner fa-spin mt-2 mx-2 d-none crop-loading" style="font-size:20px;color:rgb(255, 255, 255)"></i>
-                </button>
-            </div>
         </div>
-    </div>
-</div>
 
-{{-- Mother Image Crope Model  --}}
-<div class="modal fade" id="mother-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" style="background-color:#042954;">
-            <div class="modal-header">
-                <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <img id="mother-sample_image" src="" alt="Crop Image">
+        {{-- Mother Image Crope Model  --}}
+        <div class="modal fade" id="mother-modal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" style="background-color:#042954;">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-light" id="cropModalLabel">Crop Image</h5>
                     </div>
-                    <div class="col-md-4">
-                        <div id="mother_preview"  class="preview"></div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <img id="mother-sample_image" src="" alt="Crop Image">
+                            </div>
+                            <div class="col-md-4">
+                                <div id="mother_preview"  class="preview"></div>
+                            </div>
+                
+                        </div>
                     </div>
-           
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark p-4 px-5" id="mother-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
+                        <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="mother-crop">
+                            <span style="font-size: 20px;" class="crop-text">CROP</span> 
+                            <span class="material-symbols-outlined mt-2 mx-2 crop-icon">crop_free</span>
+                            <i class="fa fa-spinner fa-spin mt-2 mx-2 d-none crop-loading" style="font-size:20px;color:rgb(255, 255, 255)"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark p-4 px-5" id="mother-model-cancle" data-dismiss="modal" style="font-size: 20px;">Cancel</button>
-                <button type="button" class="btn btn-success p-4 px-5 text-lg d-flex" id="mother-crop">
-                    <span style="font-size: 20px;" class="crop-text">CROP</span> 
-                    <span class="material-symbols-outlined mt-2 mx-2 crop-icon">crop_free</span>
-                    <i class="fa fa-spinner fa-spin mt-2 mx-2 d-none crop-loading" style="font-size:20px;color:rgb(255, 255, 255)"></i>
-                </button>
-            </div>
         </div>
-    </div>
-</div>
 
-
- 
          <!-- Add New Teacher Area Start Here -->
          <div class="card height-auto">
             <div class="card-body">
-                <div class="heading-layout1 pt-3">
+                <div class="heading-layout1 pt-2  m-0">
                     <div class="item-title d-flex justify-content-between w-100">
-                        <h4>Student Details</h4>
+                        <h4 class="m-0">Student Details</h4>
                         <div class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <span class="flaticon-more-button-of-three-dots"></span>
@@ -197,17 +195,6 @@
                 </div>
                 <form class="student-added-form" enctype="multipart/form-data">
                     <div class="row">
-
-
-                        <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
-                            <label>Student Image</label>
-                            <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
-                                <img src="http://bit.ly/3IUenmf" id="student_img_preview" class="h-100 w-100" style="position:absolute;">
-                                <input type="file" id="student_img_input" name="student_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
-                                <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="student_img_input" style="position:absolute;bottom:0px;width:100px;z-index:1;opacity: 0.5;">UPLOAD</label>
-                            </div>
-                        </div>
-
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>First Name *</label>
                             <input type="text" maxlength="20" required name="student_first_name" placeholder="First Name" class="form-control">
@@ -257,35 +244,25 @@
                                 <option value="O-">O-</option>
                             </select>
                         </div>
-
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Phone</label>
                             <input type="number" name="student_phone" id="student_number" placeholder="Student Number" class="form-control mobile-number">
                         </div>
-                        <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        {{-- <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>E-Mail</label>
                             <input type="email" maxlength="40" id="student-email" name="student_email" placeholder="Student Email" class="form-control">
-                        </div>
-
+                        </div> --}}
                         {{-- <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>ID Number</label>
                             <input type="text" maxlength="30" name="student_id_number"  placeholder="Id Proof Number" class="form-control">
                         </div> --}}
 
-                        <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
-                            <label>Upload ID Proof</label>
-                            <div class="h-100 position-relative" style="height:80px; width:100px;">
-                                <img  src="https://simptionsmartschool.com/school_software_v1//images/blank/blank_document.png" id="document_img_preview" class="h-100 w-100" style="position:absolute;">
-                                <input type="file" name="student_id_image" id="document_img_input" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
+                        <div class="heading-layout1 pt-2  m-0" style="width:100%;">
+                            <div class="item-title">
+                                <h4>Academy Information</h4>
                             </div>
-                            <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
                         </div>
 
-                        <div class="heading-layout1 px-4 pt-5" style="width:100%;">
-                            <div class="item-title">
-                                <h4>Admission Details</h4>
-                            </div>
-                        </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label class="d-flex justify-content-between">Admission Date * <sapn class="p-1 px-3 border today-btn" style="cursor:pointer">Today</span></label>
                             <input type="text" maxlength="10" required name="admission_date" placeholder="yyyy-mm-dd" class="form-control admission_date nepali-datepicker today-date">
@@ -294,7 +271,6 @@
                         <div class="col-lg-3 col-12 form-group">
                             <label>Class *</label>
                             <select name="class" required class="select2 class-select" id="class-select" style="height:50px;width:100%; padding:10px;">
-
                             </select>
                         </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
@@ -307,8 +283,6 @@
                             <label>Roll No: *</label>
                             <input type="text" required name="roll_no" placeholder="Roll No" class="form-control student_roll">
                         </div>
-
-
                         <div class="col-lg-3 col-12 form-group">
                             <label>Hostel or Outi *</label>
                             <select name="hostel_outi" required class="select hostel_outi" id="hostel_outi" style="height:50px;width:100%; padding:10px;background:#f8f8f8; outline: none; border:none;">
@@ -318,12 +292,10 @@
                                 <option value="outi">outi</option>
                             </select>
                         </div>
-
                         <div class="col-xl-3 col-lg-6 col-12 form-group d-none" id="hostel_deposite">
                             <label>Hostel Deposite</label>
                             <input type="number" name="hostel_deposite" id="hostel_deposite" placeholder="deposite amount" class="form-control hostel_deposite">
                        </div>
-
                         <div class="col-xl-3 col-lg-6 col-12 form-group d-none" id="transport">
                             <label>Transport Use *</label>
                             <select name="transport_use" class="select" id="transport_use" style="height:50px;width:100%; padding:10px;background:#f8f8f8; outline: none; border:none;">
@@ -332,13 +304,11 @@
                                 <option value="No">No</option>
                             </select>
                         </div>
-
                         <div class="col-xl-3 col-lg-6 col-12 form-group d-none" id="transport_root">
                             <label>Select Root *</label>
                             <select name="vehicle_root" class="select" id="root_select" style="height:50px;width:100%; padding:10px;background:#f8f8f8; outline: none; border:none;">
                             </select>
                         </div>
-
                         <div class="col-xl-3 col-lg-6 col-12 form-group" id="tuitiont">
                             <label>	Coaching *</label>
                             <select name="coaching_use" required class="select2" id="coaching_use" style="height:50px;width:100%; padding:10px;">
@@ -348,12 +318,12 @@
                             </select>
                         </div>
                         
-
-                   <div class="heading-layout1 px-4 pt-5" style="width:100%;">
+                        <div class="heading-layout1 pt-2  m-0" style="width:100%;">
                             <div class="item-title">
                                 <h4>Student Address</h4>
                             </div>
                         </div>
+
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>District *</label>
                             <input type="text" maxlength="20" required name="district" placeholder="District" class="form-control">
@@ -371,7 +341,7 @@
                             <input type="number" maxlength="5" name="ward_no" placeholder="Ward No" class="form-control">
                         </div>
 
-                        <div class="heading-layout1 px-4 pt-5" style="width:100%;">
+                        <div class="heading-layout1 pt-2  m-0" style="width:100%;">
                             <div class="item-title">
                                 <h4>Parent Details</h4>
                             </div>
@@ -379,7 +349,7 @@
 
                         <div class="card ui-tab-card w-100 py-0 my-0">
                     <div class="card-body shadow-none w-100 py-0 px-4">
-                        <div class="heading-layout1 mg-b-25">
+                        <div class="heading-layout1 pt-2  m-0">
                 </div>
                 <div class="border-nav-tab">
                     <ul class="nav nav-tabs border-0" role="tablist">
@@ -445,8 +415,9 @@
                                 </table>
 
                              </div>  
+                             
  
-                        <nav class="mt-3" aria-label="Page navigation example">
+                        <nav class="mt-1" aria-label="Page navigation example">
                             <ul class="pagination">
                               <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
@@ -473,16 +444,7 @@
                             <input type="hidden" class="parent-check" name="parent_check'" value="new_parent">
                             <div class="row">
 
-                            <div class="col-xl-2 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
-                                <label>Father Image</label>
-                                <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
-                                    <img src="http://bit.ly/3IUenmf" id="father_img_preview" class="h-100 w-100" style="position:absolute;">
-                                    <input type="file" id="father_img_input" name="father_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
-                                    <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="father_img_input" style="position:absolute;bottom:0px;width:100px;z-index:1;opacity: 0.5;">UPLOAD</label>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-2 col-lg-6 col-12 form-group">
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Father Name *</label>
                                 <input type="text" maxlength="30" required name="father_name" placeholder="Father Name" class="form-control">
                             </div>
@@ -497,18 +459,9 @@
                                 <input type="email" name="father_email" id="father_email"  placeholder="Email" class="form-control">
                             </div>
 
-                            <div class="col-xl-2 col-lg-6 col-12 form-group">
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Education</label>
                                 <input type="text" maxlength="30" name="father_education"  placeholder="Education" class="form-control">
-                            </div>
-                                  
-                            <div class="col-xl-2 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
-                                <label>Mother Photo</label>
-                                <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
-                                    <img src="http://bit.ly/3IUenmf" id="mother_img_preview" class="h-100 w-100" style="position:absolute;">
-                                    <input type="file" id="mother_img_input" name="mother_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
-                                    <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="father_img_input" style="position:absolute;bottom:0px;width:100px;z-index:1;opacity: 0.5;">UPLOAD</label>
-                                </div>
                             </div>
 
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
@@ -530,30 +483,79 @@
                           </div>
 
                         </div>
+
+
+
+                        <div class="row">
+
+                            <div class="heading-layout1 pt-2  m-0" style="width:100%;">
+                                <div class="item-title">
+                                    <h4>Photo & Document</h4>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-3 col-6 form-group d-flex flex-column align-items-center justify-content-center">
+                                <label>Student Image</label>
+                                <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
+                                    <img src="http://bit.ly/3IUenmf" id="student_img_preview" class="h-100 w-100" style="position:absolute;">
+                                    <input type="file" id="student_img_input" name="student_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
+                                    <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="student_img_input" style="position:absolute;bottom:0px;width:100px;z-index:1;opacity: 0.5;">UPLOAD</label>
+                                </div>
+                            </div>
+    
+                            <div class="col-lg-3 col-6 form-group d-flex flex-column align-items-center justify-content-center">
+                                <label>Upload ID Proof</label>
+                                <div class="h-100 position-relative" style="height:80px; width:100px;">
+                                    <img  src="https://simptionsmartschool.com/school_software_v1//images/blank/blank_document.png" id="document_img_preview" class="h-100 w-100" style="position:absolute;">
+                                    <input type="file" name="student_id_image" id="document_img_input" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
+                                </div>
+                                <span class="border text-center bg-dark text-light" for="student_id_input border" style="width:100px;">UPLOAD</span>
+                            </div>
+
+                            <div class="col-lg-3 col-6 form-group d-flex flex-column align-items-center justify-content-center">
+                                <label>Father Image</label>
+                                <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
+                                    <img src="http://bit.ly/3IUenmf" id="father_img_preview" class="h-100 w-100" style="position:absolute;">
+                                    <input type="file" id="father_img_input" name="father_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
+                                    <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="father_img_input" style="position:absolute;bottom:0px;width:100px;z-index:1;opacity: 0.5;">UPLOAD</label>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6 form-group d-flex flex-column align-items-center justify-content-center">
+                                <label>Mother Photo</label>
+                                <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
+                                    <img src="http://bit.ly/3IUenmf" id="mother_img_preview" class="h-100 w-100" style="position:absolute;">
+                                    <input type="file" id="mother_img_input" name="mother_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">
+                                    <label class="p-0 m-0 w-100 text-center bg-dark text-light" for="father_img_input" style="position:absolute;bottom:0px;width:100px;z-index:1;opacity: 0.5;">UPLOAD</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
                 </div>
             </div>
         </div>
                         
-                <div class="col-12 form-group mg-t-8 d-flex justify-content-end">
-                    <button type="submit" class="btn-fill-lg w-md-100 btn-gradient-yellow btn-hover-bluedark" visitorbtn="btn" btnName="Save">Save</button>
-                </div>
+        <div class="col-12 form-group mg-t-8 d-flex justify-content-end">
+            <button type="submit" class="btn-fill-lg w-md-100 btn-gradient-yellow btn-hover-bluedark" visitorbtn="btn" btnName="Save">Save</button>
+        </div>
 
-                  {{-- progress bar with alert --}}
-                  <div class="progress w-100 d-none" style="height:30px;">
-                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                  </div>
+        {{-- progress bar with alert --}}
+        <div class="progress w-100 d-none" style="height:30px;">
+        <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+        </div>
                   
-                  <div class="alert alert-success  align-items-center alert-info d-none" role="alert">
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi mr-3 bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="success:">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                        </svg>
-                      <b>Upload Success</b>
-                    </div>
-                  </div>
+        <div class="alert alert-success  align-items-center alert-info d-none" role="alert">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi mr-3 bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="success:">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+            <b>Upload Success</b>
+        </div>
+        </div>
 
-          
                     </div>
                 </form>
             </div>
