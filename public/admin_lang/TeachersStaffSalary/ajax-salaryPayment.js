@@ -364,6 +364,9 @@ $(document).ready(function(){
              // Success 
             success:function(response)
             {
+
+             console.log(response);
+
               if(response.status == "Reset Sucess")
               {
                 $('#salaryHistory').modal('hide');
