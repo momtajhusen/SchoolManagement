@@ -574,14 +574,13 @@ Route::group(['middleware' => 'ParentAccountLogin'], function () {
 ///////////////////////////// END PARENT ACCOUNT /////////////////////////////
 
 ///////////////////////////// START STUDENT ACCOUNT /////////////////////////////
-Route::post('/student-login', 'App\Http\Controllers\UserLoginController@StudentLogin');
-Route::post('/student-logout', 'App\Http\Controllers\UserLoginController@StudentLogout');
+   Route::post('/student-login', 'App\Http\Controllers\UserLoginController@StudentLogin');
+   Route::post('/student-logout', 'App\Http\Controllers\UserLoginController@StudentLogout');
 
-Route::group(['middleware' => 'StudentAccountLogin'], function () {
-   Route::view('student/dashboard', 'Admin_Page/Student_Account/layouts/StudentDashboard')->name('student-dashboard');
-   Route::get('/get-student-data', 'App\Http\Controllers\StudentAccount\StudentAccountController@index');
-});
-
+   Route::group(['middleware' => 'StudentAccountLogin'], function () {
+      Route::view('student/dashboard', 'Admin_Page/Student_Account/layouts/StudentDashboard')->name('student-dashboard');
+      Route::get('/get-student-data', 'App\Http\Controllers\StudentAccount\StudentAccountController@index');
+   });
 ///////////////////////////// END STUDENT ACCOUNT /////////////////////////////
 
 ///////////////////////////// START TEACHER ACCOUNT /////////////////////////////
@@ -603,7 +602,6 @@ Route::group(['middleware' => 'StudentAccountLogin'], function () {
    });
 ///////////////////////////// END STUDENT ACCOUNT /////////////////////////////
 
-
 // Route::get('/command/seed', function () {
 //   Artisan::call('db:seed');
 // });
@@ -623,7 +621,6 @@ Route::group(['middleware' => 'StudentAccountLogin'], function () {
 // Route::get('/command/migrate', function () {
 //   Artisan::call('migrate');
 // });
-
 
 Route::get('/command/migrate_specific', function () {
    Artisan::call('migrate', [

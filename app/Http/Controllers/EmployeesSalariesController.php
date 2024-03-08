@@ -228,6 +228,7 @@ class EmployeesSalariesController extends Controller
 
        if($TeacherMonthsAttendance)
        {
+
           $TeacherMonthsAttendance->paid = (int)$payment + (int)$TeacherMonthsAttendance->paid;
           $TeacherMonthsAttendance->remaining = $net_pay - $payment;
           $TeacherMonthsAttendance->save();
@@ -244,6 +245,7 @@ class EmployeesSalariesController extends Controller
           $EmployeesSalariesPaymentHistories->bonus = $bonus;
           $EmployeesSalariesPaymentHistories->epf = $epf;
           $EmployeesSalariesPaymentHistories->recive_salary = $payment;
+          $EmployeesSalariesPaymentHistories->net_pay = (int)$net_pay;
           $EmployeesSalariesPaymentHistories->remaining = (int)$net_pay - (int)$payment;
           $EmployeesSalariesPaymentHistories->payment_date = $payment_date;
 
@@ -313,6 +315,7 @@ class EmployeesSalariesController extends Controller
             $EmployeesSalariesPaymentHistories = EmployeesSalariesPaymentHistories::where("id", $hs_id)->first();
             if($EmployeesSalariesPaymentHistories)
             {
+                $HsNetPay = $EmployeesSalariesPaymentHistories->net_pay;
                 $HsReciveSalary = $EmployeesSalariesPaymentHistories->recive_salary;
                 $HsRemining = $EmployeesSalariesPaymentHistories->remaining;
                 $salaryYear = $EmployeesSalariesPaymentHistories->salary_year;
@@ -331,8 +334,8 @@ class EmployeesSalariesController extends Controller
                     $PyReciveSalary =  $EmployeesSalariesPaymentHistories->recive_salary;
                     $PyRemining = $EmployeesSalariesPaymentHistories->remaining;
 
-                 $TeacherMonthsAttendance->paid = $PyReciveSalary - $HsReciveSalary;
-                      $TeacherMonthsAttendance->remaining = $PyRemining + $HsReciveSalary;
+                      $TeacherMonthsAttendance->paid = $TeacherMonthsAttendance->net_pay - $HsNetPay;
+                      $TeacherMonthsAttendance->remaining = $TeacherMonthsAttendance->remaining + $HsNetPay;
 
                     if($TeacherMonthsAttendance->save())
                     {

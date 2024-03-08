@@ -25,6 +25,7 @@ return new class extends Migration
             $table->decimal("epf", 10, 2)->nullable();
             $table->decimal('recive_salary', 8, 2)->nullable();
             $table->decimal('remaining', 8, 2)->nullable();
+            $table->decimal('net_pay', 8, 2)->nullable();
             $table->decimal('dues_salary', 8, 2)->nullable();
             $table->string('payment_date', 10)->nullable();
             $table->string('pay_mode', 50)->nullable();
