@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\Student;
+use App\Models\FeePayment;
+use App\Models\StudentsFeeStracture;
+
  
 
 
@@ -15,7 +19,31 @@ class DeveloperController extends Controller
      */
     public function StudentFeeSet(Request $request)
     {
-      
+        try {
+
+            $studentsdata = Student::get();
+
+            foreach ($studentsdata as $student) 
+            {
+                $st_id = $student->id;
+                $FeePayments = FeePayment::where('st_id', $st_id)->get();
+
+                foreach ($FeePayments as $FeePayment) 
+                {
+                   $class_year = $FeePayment->class_year;
+                   $StudentsFeeStracture  = StudentsFeeStracture::where('st_id', $st_id)->where('year', $class_year)->first();
+                   if(!$StudentsFeeStracture){
+                       echo 'hello';
+                   }
+                }
+            }
+
+
+        } catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
     }
 
     /**

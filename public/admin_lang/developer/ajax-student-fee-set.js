@@ -15,7 +15,6 @@ $(document).ready(function(){
             // Success
             success: function (response) {
                console.log(response);
-               alert(response);
             },
             error: function (xhr, status, error) 
             {

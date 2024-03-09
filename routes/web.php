@@ -52,7 +52,6 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       Route::view('admin/developer', 'Admin_Page/Super_Admin/layouts/developer')->name('developer');
       Route::post('/student-fee-set', 'App\Http\Controllers\DeveloperController@StudentFeeSet');
 
-
    // Developer 
 
 
