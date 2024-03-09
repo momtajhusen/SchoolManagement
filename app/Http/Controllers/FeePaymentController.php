@@ -574,7 +574,28 @@ class FeePaymentController extends Controller
                 echo "update success";
             }
         } else {
-            echo "Student not found for the given student, year, and class.";
+            // Create new payment entry for the student
+            $newPaymentYear = new FeePayment();
+            $newPaymentYear->st_id = $st_id;
+            $newPaymentYear->class_year = $year;
+            if (!empty($totalFee)) {
+                $newPaymentYear->total_fee = $totalFee;
+            }
+            if (!empty($payment)) {
+                $newPaymentYear->total_payment = $payment;
+            }
+            if (!empty($discount)) {
+                $newPaymentYear->total_discount = $discount;
+            }
+            if (!empty($dues)) {
+                $newPaymentYear->total_dues = $dues;
+            }
+            if (!empty($free_fee)) {
+                $newPaymentYear->free_fee = $free_fee;
+            }
+            if ($newPaymentYear->save()) {
+                echo "New payment entry created successfully";
+            }
         }
     } catch (Exception $e) {
             // Code to handle the exception
