@@ -594,7 +594,7 @@ class FeePaymentController extends Controller
                 $newPaymentYear->total_dues = $dues;
             }
             if (!empty($free_fee)) {
-                $newPaymentYear->free_fee = $free_fee;
+                $newPaymentYear->free_fee = '0';
             }
             if ($newPaymentYear->save()) {
                 echo "New payment entry created successfully";

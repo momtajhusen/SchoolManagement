@@ -1740,6 +1740,10 @@
                                    <option value="10TH">10TH</option>
                                  </select>
                              </div>
+                             <div class="d-flex flex-column" style="width:155px;">
+                                <span>Total Fee</span>
+                                <input type="number" value="0" name="total">
+                            </div>
                             <div class="d-flex flex-column" style="width:155px;">
                                 <span>Total Payment</span>
                                 <input type="number" value="0" name="payment">
