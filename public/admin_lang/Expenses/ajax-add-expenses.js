@@ -26,7 +26,6 @@ $(document).ready(function () {
                 else{
                     var url = "/update-expenses";
                 }
-
                 $.ajax({
                     url: url,
                     method: 'POST',
@@ -101,9 +100,6 @@ $(document).ready(function () {
                         console.log(xhr.responseText);
                     },
                 });
-  
- 
- 
     });
 });
 

@@ -48,6 +48,14 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    //Middleware Super Admin
    Route::group(['middleware' => 'SuperAdminLogin'], function () {
 
+   // Developer 
+      Route::view('admin/developer', 'Admin_Page/Super_Admin/layouts/developer')->name('developer');
+      Route::post('/student-fee-set', 'App\Http\Controllers\DeveloperController@StudentFeeSet');
+
+
+   // Developer 
+
+
    Route::view('admin/dashboard', 'Admin_Page/Super_Admin/layouts/SuperAdminDashboard')->name('dashboard');
    Route::view('admin', 'Admin_Page/Super_Admin/layouts/SuperAdminDashboard')->name('admin');
    Route::get('/super-admin-dashboard-data', 'App\Http\Controllers\SuperAdminDashboardController@index');
