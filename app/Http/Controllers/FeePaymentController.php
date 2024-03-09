@@ -546,6 +546,8 @@ class FeePaymentController extends Controller
         $free_fee = $request->input('free_fee');
         $dues = $request->input('dues');
         $year = $request->input('year'); 
+        $class = $request->input('class'); 
+
 
         $st_id = $request->input('st_id');
 
@@ -567,7 +569,7 @@ class FeePaymentController extends Controller
                 $payment_year->total_dues = $dues;
             }
             if (!empty($free_fee)) {
-                $payment_year->free_fee = $free_fee;
+                $payment_year->free_fee = '0';
             }
             
             if ($payment_year->save()) {
@@ -578,6 +580,7 @@ class FeePaymentController extends Controller
             $newPaymentYear = new FeePayment();
             $newPaymentYear->st_id = $st_id;
             $newPaymentYear->class_year = $year;
+            $newPaymentYear->class = $class;
             if (!empty($totalFee)) {
                 $newPaymentYear->total_fee = $totalFee;
             }

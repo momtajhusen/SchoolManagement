@@ -1713,7 +1713,7 @@
                     </div>
                     <form id="back_year_manage" class="p-2 w-100 text-light d-none" style="background-color: rgb(0, 0, 0); overflow:scroll;">
                         <div class="d-flex">
-                             <div class="d-flex flex-column">
+                            <div class="d-flex flex-column">
                                <span>Year</span>
                                 <select name="year" style="height:34px;">
                                   <option value="2079">2079</option>
@@ -1721,21 +1721,32 @@
                                   <option value="2081">2081</option>
                                 </select>
                             </div>
-                            <div class="d-flex flex-column" style="width:155px;">
-                                <span>Total Fee</span>
-                                <input type="number" name="total">
-                            </div>
+                            <div class="d-flex flex-column">
+                                <span>Class</span>
+                                 <select name="class" style="height:34px;">
+                                    <option value="PG">PG</option>
+                                    <option value="NURSERY">NURSERY</option>
+                                    <option value="LKG">LKG</option>
+                                    <option value="UKG">UKG</option>
+                                   <option value="1ST">1ST</option>
+                                   <option value="2ND">2ND</option>
+                                   <option value="3RD">3RD</option>
+                                   <option value="4TH">4TH</option>
+                                   <option value="5TH">5TH</option>
+                                   <option value="6TH">6TH</option>
+                                   <option value="7TH">7TH</option>
+                                   <option value="8TH">8TH</option>
+                                   <option value="9TH">9TH</option>
+                                   <option value="10TH">10TH</option>
+                                 </select>
+                             </div>
                             <div class="d-flex flex-column" style="width:155px;">
                                 <span>Total Payment</span>
-                                <input type="number"name="payment">
+                                <input type="number" value="0" name="payment">
                             </div>
                             <div class="d-flex flex-column" style="width:155px;">
                                 <span>Total Discount</span>
-                                <input type="number" name="discount">
-                            </div>
-                            <div class="d-flex flex-column" style="width:155px;">
-                                <span>Total Free Fee</span>
-                                <input type="number" name="free_fee">
+                                <input type="number" value="0" name="discount">
                             </div>
                             <div class="d-flex flex-column" style="width:155px;">
                                 <span>Total Dues</span>
