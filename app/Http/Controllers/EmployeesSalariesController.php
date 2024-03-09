@@ -38,7 +38,6 @@ class EmployeesSalariesController extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
-
     public function GetSalary(Request $request)
     {
         try {
@@ -58,7 +57,6 @@ class EmployeesSalariesController extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
-
     public function GetGenerateSalary(Request $request)
     {
         try {
@@ -196,7 +194,6 @@ class EmployeesSalariesController extends Controller
         }
 
     }
-
     public function TeacherSalaryPayment(Request $request)
     {
        $tr_id = $request->tr_id;
@@ -259,7 +256,6 @@ class EmployeesSalariesController extends Controller
       
         return response()->json(['status' => 'Payment successfully'], 200);
     }
-
     public function SalaryHistory(Request $request){
         try {
 
@@ -279,7 +275,6 @@ class EmployeesSalariesController extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
-
     public function AllSalaryHistory(Request $request){
         try {
             $EmployeesSalariesPaymentHistories = EmployeesSalariesPaymentHistories::orderBy('id', 'asc')->get();
@@ -307,7 +302,6 @@ class EmployeesSalariesController extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
-
     public function SalaryHistoryReset(Request $request){
         try {
             $hs_id = $request->hs_id;
@@ -355,7 +349,6 @@ class EmployeesSalariesController extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
-
     public function SalarySlipData(Request $request){
         try {
             $hs_id = $request->hs_id;
@@ -375,7 +368,6 @@ class EmployeesSalariesController extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
-
     public function SaveBonusSsfSetting(Request $request)
     {
         try {        
@@ -408,7 +400,6 @@ class EmployeesSalariesController extends Controller
         }
 
     }
-
     public function GetBonusSsfSetting(Request $request)
     {
         try { 
@@ -423,7 +414,6 @@ class EmployeesSalariesController extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
-
     public function GetAllEmployeeBonusSetting(Request $request){
         try {   
             $Employees = Employee::get();
@@ -460,8 +450,6 @@ class EmployeesSalariesController extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
-
-
     public function SaveEpmBonusSetting(Request $request)
     {
         try {        

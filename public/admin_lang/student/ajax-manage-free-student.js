@@ -209,7 +209,7 @@ $(document).ready(function(){
                                 <input class="p-2 px-3 dis_feetype" type="text" readonly value="${data}" style="width:150px;outline:none;border:2px solid #CAC9C9;border-left:0px;background:#CAC9C9;"> 
                                 <input class="px-2 text-center" readonly type="number" value="" style="width:80px;outline:none;border:2px solid #CAC9C9;background:#CAC9C9;">
                                 <input class="px-2 text-center" readonly type="number" value="" style="width:80px;outline:none;border:2px solid #CAC9C9;background:#CAC9C9;">
-                                <input class="px-2 text-center percentage" type="number" value="${dic}" style="width:40px;outline:none;border:2px solid #CAC9C9;border-left:0px;background:none;">
+                                <input class="px-2 text-center percentage" type="number" step="1" value="${dic}" style="width:40px;outline:none;border:2px solid #CAC9C9;border-left:0px;background:none;">
                                 <span class="p-2" style="background-color:#CAC9C9">%</span>
                             </div>
                         `);
@@ -306,38 +306,38 @@ $(document).ready(function(){
 });
 
 // percentage condation
-$(document).ready(function(){
+// $(document).ready(function(){
  
-    $("#discount_stracture").on("input", ".percentage", function()
-    {  
-        if($(this).val() == ""){
-           $(this).val(0);
-        }
-        if($(this).val() < 0 ){
-            $(this).val(0);
-        }
-        if($(this).val() > 100){
-           $(this).val(100);
-        }
+//     $("#discount_stracture").on("input", ".percentage", function()
+//     {  
+//         if($(this).val() == ""){
+//            $(this).val(0);
+//         }
+//         if($(this).val() < 0 ){
+//             $(this).val(0);
+//         }
+//         if($(this).val() > 100){
+//            $(this).val(100);
+//         }
 
-        if ($(this).val()) {
-            // Check if there are leading zeros followed by non-zero digits and remove them
-            let inputValue = $(this).val().replace(/^0+(?=[1-9])/, '');
+//         if ($(this).val()) {
+//             // Check if there are leading zeros followed by non-zero digits and remove them
+//             let inputValue = $(this).val().replace(/^0+(?=[1-9])/, '');
         
-            // Set the value to '100' if it's empty
-            $(this).val(inputValue || 100);
-        }
+//             // Set the value to '100' if it's empty
+//             $(this).val(inputValue || 100);
+//         }
 
-        if ($(this).val()) {
-            // Check if there are multiple leading zeros and replace them with a single zero
-            let inputValue = $(this).val().replace(/^0+/, '0');
+//         if ($(this).val()) {
+//             // Check if there are multiple leading zeros and replace them with a single zero
+//             let inputValue = $(this).val().replace(/^0+/, '0');
         
-            // Set the value to '100' if it's empty
-            $(this).val(inputValue || 100);
-        }
+//             // Set the value to '100' if it's empty
+//             $(this).val(inputValue || 100);
+//         }
         
-    });
-});
+//     });
+// });
 
 $(document).ready(function(){
     var parent_id = $("#parent_id").val();

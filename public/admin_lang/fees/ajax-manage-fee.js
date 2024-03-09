@@ -6,7 +6,6 @@
 
             $(".monthly-fee-table").html('');
 
-
             $.ajax({
                 url: "/retrive-stracture",
                 method: "GET",
@@ -16,11 +15,8 @@
                 // Success
                 success: function (response) {
 
-
                     console.log(response);
-
-
-
+                    
                     if(response.FeestractureMonthly){
                         var count = 0;
                         response.FeestractureMonthly.forEach(function (data) {
@@ -94,17 +90,12 @@
                         });
 
                     }
-
-
-
                 },
 
 
             });
     
     });
-
-
     $(document).ready(function () {
         $(".feestracture-form").submit(function (e) {
             e.preventDefault();
@@ -135,7 +126,6 @@
             });
         });
     });
-
     // Joining check if null than manage 
     $(document).ready(function(){
             $("#joining-set").click(function(){
