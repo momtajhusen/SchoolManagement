@@ -9,6 +9,12 @@ use App\Models\Student;
 use App\Models\FeePayment;
 use App\Models\StudentsFeeStracture;
 
+use App\Models\JoinleaveDates;
+use App\Models\FeestractureMonthly;
+use App\Models\FeestractureOnetime;
+use App\Models\FeestractureQuarterly;
+
+
  
 
 
@@ -22,23 +28,75 @@ class DeveloperController extends Controller
         try {
 
             $studentsdata = Student::get();
-
-            foreach ($studentsdata as $student) 
-            {
-                $st_id = $student->id;
-                $FeePayments = FeePayment::where('st_id', $st_id)->get();
-
-                foreach ($FeePayments as $FeePayment) 
-                {
-                   $class_year = $FeePayment->class_year;
-                   $StudentsFeeStracture  = StudentsFeeStracture::where('st_id', $st_id)->where('year', $class_year)->first();
-                   if(!$StudentsFeeStracture){
-                       echo 'hello';
-                   }
+            $batchSize = 10; // Define the batch size
+            
+            // Chunk the students into batches
+            $studentBatches = $studentsdata->chunk($batchSize);
+            
+            // Process each batch of students
+            foreach ($studentBatches as $batch) {
+                foreach ($batch as $student) {
+                    $st_id = $student->id;
+                    $st_class = $student->class;
+            
+                    $FeePayments = FeePayment::where('st_id', $st_id)->get();
+            
+                    $FeestractureOnetime = FeestractureOnetime::where('class', $st_class)->first();
+            
+                    for ($i = 0; $i < 11; $i++) { // Move the inner loop here
+                        foreach ($FeePayments as $FeePayment) {
+                            $class_year = $FeePayment->class_year;
+            
+                            // Check if StudentsFeeStracture exists for the student and year
+                            $StudentsFeeStracture = StudentsFeeStracture::where('st_id', $st_id)
+                                ->where('year', $class_year)->first();
+            
+                            if (!$StudentsFeeStracture) {
+                                // Delete existing StudentsFeeStracture for the student
+                                $joining_months = JoinleaveDates::where('st_id', $st_id)->first();
+                                if ($joining_months) {
+                                    // start admission_fee
+                                    StudentsFeeStracture::where('st_id', $st_id)->where('year', $class_year)
+                                        ->where('month', $i)->where('fee_type', 'admission_fee')->delete();
+                                    $admission_months_array = json_decode($joining_months->admission_fee, true);
+                                    if (($admission_months_array[$i] ?? null) == 1) {
+                                        $studentFeeStructure = new StudentsFeeStracture();
+                                        $studentFeeStructure->st_id = $st_id;
+                                        $studentFeeStructure->year = $class_year;
+                                        $studentFeeStructure->month = $i + 1;
+                                        $studentFeeStructure->fee_type = 'admission_fee';
+                                        $studentFeeStructure->amount = $FeestractureOnetime->admission_fee ?? 0;
+                                        $studentFeeStructure->save();
+                                    }
+                                    // end admission_fee
+            
+                                    // start tuition_fee
+                                    StudentsFeeStracture::where('st_id', $st_id)->where('year', $class_year)
+                                        ->where('month', $i)->where('fee_type', 'tuition_fee')->delete();
+                                    $tuition_fee_months_array = json_decode($joining_months->tuition_fee, true);
+                                    if (($tuition_fee_months_array[$i] ?? null) == 1) {
+                                        $studentFeeStructure = new StudentsFeeStracture();
+                                        $studentFeeStructure->st_id = $st_id;
+                                        $studentFeeStructure->year = $class_year;
+                                        $studentFeeStructure->month = $i + 1;
+                                        $studentFeeStructure->fee_type = 'tuition_fee';
+                                        $studentFeeStructure->amount = $FeestractureOnetime->admission_fee ?? 0;
+                                        $studentFeeStructure->save();
+                                    }
+                                    // end tuition_fee
+                                } else {
+                                    echo 'joining_months not found ' . $st_id . ' ';
+                                }
+                            } else {
+                                echo 'StudentsFeeStracture already exists';
+                            }
+                        }
+                    }
                 }
             }
-
-
+            
+            
+            
         } catch (Exception $e) {
             // Code to handle the exception
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
