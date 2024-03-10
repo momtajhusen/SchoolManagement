@@ -53,7 +53,7 @@ $(document).ready(function(){
                                 <input class="px-2 input_fee_name" required name='fee[`+month+`]' value="${fee.fee_name}">
                                 <span class="pr-3">₹</span>
                                 <input type="number" min="0" required name='amount[`+month+`]' class="input_fee_amount" value="${fee.amount}">
-                                <span class="material-symbols-outlined p-1 border delete_fee" st_id=`+st_id+` month=`+month+` year=`+feeYear+` fee_name="${fee.fee_name}" data-toggle="tooltip" data-placement="bottom" title="Delete This Fee" style="cursor: pointer;">delete</span>
+                                <span class="material-symbols-outlined p-1 border delete_fee" fee_id="${fee.id}"  data-toggle="tooltip" data-placement="bottom" title="Delete This Fee" style="cursor: pointer;">delete</span>
                             </div>`;
                     });
                     
@@ -64,7 +64,7 @@ $(document).ready(function(){
                     $('#month_feestracture').append(`
                         <div class="d-flex flex-column">
                         <div class='d-flex collapse_box'>
-                            <div class="collapse_btn w-100 border p-3 d-flex justify-content-between" data-toggle="collapse" data-target="#collapse`+month+`" aria-expanded="false" aria-controls="collapseExample">
+                            <div class="collapse_btn w-100 border p-1 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#collapse`+month+`" aria-expanded="false" aria-controls="collapseExample">
                                 <div>
                                     <span>`+NepaliFunctions.GetBsMonth(month-1)+` ₹</span>
                                     <span>23000</span> 
@@ -220,31 +220,20 @@ $(document).ready(function(){
 });
 
 
-
-
-    
-
 // Delete Fee 
  $(document).ready(function(){
     $("#month_feestracture").on("click", ".delete_fee", function(){
            // Get the values of st_id, month, and year
-    var st_id = $(this).attr('st_id');
-    var month = $(this).attr('month');
-    var year = $(this).attr('year');
-    var fee_name =$(this).attr('fee_name');
-
+ 
+    var fee_id = $(this).attr('fee_id');
     $(this).parent().addClass('deleted-fee-process');
-
 
       // Send the AJAX request
       $.ajax({
         url: "/admin/delete-month-fee",
         method: "POST",
         data: {
-            st_id: st_id,
-            month: month,
-            year: year,
-            fee_name: fee_name 
+            fee_id: fee_id 
         },
         success: function (response) {
             console.log(response);

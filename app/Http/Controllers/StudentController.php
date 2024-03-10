@@ -41,6 +41,9 @@ use App\Models\SchoolDetails;
 use App\Models\VehicleRoot;
 use App\Models\Classes;
 
+use App\Models\StudentsFeeStracture;
+
+
 use Exception;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
@@ -263,6 +266,8 @@ class StudentController extends Controller
                 $student->parents_id = $parent_existing_id;
                 $student->save();
             }
+
+
 
                 // Start Admission date
                     $admission_date = Carbon::parse($request->input("admission_date"));
@@ -822,6 +827,29 @@ class StudentController extends Controller
                     LastDiscountsForReset::create($attributes);
                     LastFreeFeeForReset::create($attributes);
                 // End Create Table Row For This Student 
+
+                // Start Set Student Fee 
+                    $fees = [
+                        'tuition_fee' => $FeestractureMonthly->tuition_fee ?? 0,
+                        'full_hostel_fee' => $FeestractureMonthly->full_hostel_fee ?? 0,
+                        'half_hostel_fee' => $FeestractureMonthly->half_hostel_fee ?? 0,
+                        'computer_fee' => $FeestractureMonthly->computer_fee ?? 0,
+                        'coaching_fee' => $FeestractureMonthly->coaching_fee ?? 0,
+                    ];
+                    
+                    for ($i = 0; $i < 12; $i++) {
+                        foreach ($fees as $fee_type => $amount) {
+                            $studentFeeStructure = new StudentsFeeStracture(); // Move this line inside the outer loop
+                            $studentFeeStructure->st_id = $st_id;
+                            $studentFeeStructure->year = $class_year;
+                            $studentFeeStructure->month = $i + 1;
+                            $studentFeeStructure->fee_type = $fee_type;
+                            $studentFeeStructure->amount = $amount;
+                            $studentFeeStructure->save();
+                        }
+                    }                       
+                // End Set Student Fee 
+
 
                return response()->json(['status' => "Add Successfully", 'student_id' => $student->id]);
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Parents;
 use App\Models\StudentsFeeStracture;
+use App\Models\StudentsFeeMonth;
 use App\Models\Student;
 use Exception;
 
@@ -37,7 +38,6 @@ class ParrentProfile extends Controller
         }
     }
 
-    
     public function StudentsFeeStractures(Request $request)
     {
         $st_id = $request->st_id;
@@ -53,6 +53,7 @@ class ParrentProfile extends Controller
         foreach ($feeStructures as $structure) {
             $month = $structure->month;
             $feeType = $structure->fee_type;
+            $feeId = $structure->id;
             $amount = $structure->amount;
     
             // Add month if not present
@@ -62,6 +63,7 @@ class ParrentProfile extends Controller
     
             // Add fee type with fee name and amount under respective month
             $organizedFeeStructures[$month][] = [
+                'id' => $feeId,
                 'fee_name' => $feeType,
                 'amount' => $amount
             ];
@@ -89,15 +91,33 @@ class ParrentProfile extends Controller
                 ->delete();
             
             // Save new fee structures
+            $totalfee = 0;
             foreach ($fees as $fee) {
-                $studentFeeStructure = new StudentsFeeStracture();
-                $studentFeeStructure->st_id = $st_id;
-                $studentFeeStructure->month = $month;
-                $studentFeeStructure->year = $year;
-                $studentFeeStructure->fee_type = $fee['fee_name'];
-                $studentFeeStructure->amount = $fee['amount'];
-                $studentFeeStructure->save();
-            }           
+                    // Record doesn't exist, so proceed to save
+                    $totalfee += $fee['amount'];
+                    $studentFeeStructure = new StudentsFeeStracture();
+                    $studentFeeStructure->st_id = $st_id;
+                    $studentFeeStructure->month = $month;
+                    $studentFeeStructure->year = $year;
+                    $studentFeeStructure->fee_type = $fee['fee_name'];
+                    $studentFeeStructure->amount = $fee['amount'];
+                    $studentFeeStructure->save();
+            }
+            // end new fee structures
+ 
+            // start StudentsFeeMonth add 
+            $all_add = StudentsFeeStracture::where('st_id', $st_id)->where('year', $year)->where('month', $month)->sum('amount');
+            $StudentsFeeMonthdata = StudentsFeeMonth::where('st_id', $st_id)->where('year', $year)->first();
+            if ($StudentsFeeMonthdata) {
+                $columnName = 'month_'.$month-1;
+                $StudentsFeeMonthdata->$columnName = $all_add;
+                $StudentsFeeMonthdata->total_fee = $all_add;
+                $StudentsFeeMonthdata->total_dues = $all_add;
+                $StudentsFeeMonthdata->save();
+            }
+            // end StudentsFeeMonth add 
+            
+
             // Return success response
             return response()->json(['status' => 'Fee structures saved successfully'], 200);
         } catch (Exception $e) {
@@ -109,18 +129,51 @@ class ParrentProfile extends Controller
 
     public function DeleteMonthFee(Request $request){
         try {
-            $st_id = $request->st_id;
-            $year = $request->year;
-            $month = $request->month;
-            $fee_name = $request->fee_name;
-            
-            StudentsFeeStracture::where('st_id', $st_id)
-            ->where('year', $year)
-            ->where('month', $month)
-            ->where('fee_type', $fee_name)
-            ->delete();
+            $fee_id = $request->fee_id;
 
-            return response()->json(['status' => 'delete successfully'], 200);
+            $StudentsFeeStracture = StudentsFeeStracture::where('id', $fee_id)->first();
+
+            // Delete the fee structure entry
+            $StudentsFeeStracture->delete();
+            
+            if ($StudentsFeeStracture) {
+                $st_id = $StudentsFeeStracture->st_id;
+                $delete_fee_amount = $StudentsFeeStracture->amount;
+                $fee_year = $StudentsFeeStracture->year;
+                $fee_month = $StudentsFeeStracture->month;
+            
+                // Sum up all fees for the same student, year, and month
+                $all_add = StudentsFeeStracture::where('st_id', $st_id)
+                    ->where('year', $fee_year)
+                    ->where('month', $fee_month)
+                    ->sum('amount');
+
+                
+            
+                // Find or create a record in StudentsFeeMonth table
+                $StudentsFeeMonthdata = StudentsFeeMonth::where('st_id', $st_id)
+                    ->where('year', $fee_year)
+                    ->first();
+            
+                if ($StudentsFeeMonthdata) {
+
+                    // Update the month column with the sum of all fees
+                    $columnName = 'month_' . ($fee_month - 1); // Adjusting month index
+
+                    echo $columnName;
+                    return false;
+                    $StudentsFeeMonthdata->$columnName = $all_add;
+                    $StudentsFeeMonthdata->total_fee = $all_add;
+                    $StudentsFeeMonthdata->total_dues = $all_add;
+                    $StudentsFeeMonthdata->save();
+                }
+            
+  
+            
+                return response()->json(['status' => 'delete successfully'], 200);
+            } else {
+                // Handle case where fee structure entry with given ID is not found
+            }            
         } catch (Exception $e) {
             // Code to handle the exception
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
@@ -138,8 +191,7 @@ class ParrentProfile extends Controller
 
             $feeCheck = StudentsFeeStracture::where('st_id', $st_id)
             ->where('year', $year)
-            ->where('month', $month)
-            ->where('fee_type', $input_fee_name)->first();
+            ->where('month', $month)->first();
 
             if(!$feeCheck){
                 $studentFeeStructure = new StudentsFeeStracture();
@@ -150,10 +202,21 @@ class ParrentProfile extends Controller
                 $studentFeeStructure->amount = $input_fee_amount;
                 if($studentFeeStructure->save())
                 {
+
+                    // Find or create a record in StudentsFeeMonth table
+                    $StudentsFeeMonth = StudentsFeeMonth::updateOrCreate(
+                        ['st_id' => $st_id, 'year' => $year],
+                        [
+                            'month_' . $month => $input_fee_amount,
+                            'total_fee' => $input_fee_amount,
+                            'total_dues' => $input_fee_amount,
+                        ]
+                    );
+
                     return response()->json(['status' => 'add successfully'], 200);
                 }
             }else{
-                return response()->json(['status' => 'fee name already exist'], 200);
+                return response()->json(['status' => 'this month already exist'], 200);
             }
             
         } catch (Exception $e) {
