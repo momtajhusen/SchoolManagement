@@ -50,11 +50,14 @@ class ParrentProfile extends Controller
 
         // Organize fee structures by month and fee type
         $organizedFeeStructures = [];
+        $annualfee = 0;
         foreach ($feeStructures as $structure) {
             $month = $structure->month;
             $feeType = $structure->fee_type;
             $feeId = $structure->id;
             $amount = $structure->amount;
+
+            $annualfee += $amount;
     
             // Add month if not present
             if (!isset($organizedFeeStructures[$month])) {
@@ -63,15 +66,17 @@ class ParrentProfile extends Controller
     
             // Add fee type with fee name and amount under respective month
             $organizedFeeStructures[$month][] = [
-                'id' => $feeId,
+                'amount' => $amount,
                 'fee_name' => $feeType,
-                'amount' => $amount
+                'id' => $feeId,
             ];
         }
 
         $student = [
             'fee_year'=>$year,
-            'st_id'=>$st_id
+            'st_id'=>$st_id,
+            'annualfee'=>$annualfee
+
         ];
     
         return response(array("StudentFeeStracture" => $organizedFeeStructures, 'student'=>$student), 200);
@@ -158,10 +163,10 @@ class ParrentProfile extends Controller
                 if ($StudentsFeeMonthdata) {
 
                     // Update the month column with the sum of all fees
-                    $columnName = 'month_' . ($fee_month - 1); // Adjusting month index
+                    $columnName = 'month_'.($fee_month - 1); // Adjusting month index
 
-                    echo $columnName;
-                    return false;
+                    // echo $columnName;
+                    // return false;
                     $StudentsFeeMonthdata->$columnName = $all_add;
                     $StudentsFeeMonthdata->total_fee = $all_add;
                     $StudentsFeeMonthdata->total_dues = $all_add;
@@ -207,7 +212,7 @@ class ParrentProfile extends Controller
                     $StudentsFeeMonth = StudentsFeeMonth::updateOrCreate(
                         ['st_id' => $st_id, 'year' => $year],
                         [
-                            'month_' . $month => $input_fee_amount,
+                            'month_' . $month-1 => $input_fee_amount,
                             'total_fee' => $input_fee_amount,
                             'total_dues' => $input_fee_amount,
                         ]
