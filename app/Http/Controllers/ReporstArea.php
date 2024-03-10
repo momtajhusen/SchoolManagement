@@ -30,30 +30,32 @@ class ReporstArea extends Controller
         $month = $request->month;
         $day = $request->day;
         $today = $year.'-'.$month.'-'.$day;
-
+        
         if ($option === 'month') {
             $paymentHistoryData = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
                                                 ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$month])
                                                 ->orderBy('id', 'desc')
                                                 ->get();
         }
-        if ($option === 'today') {
-            $paymentHistoryData = PaymentHistory::whereDate('pay_date', $today)
+        elseif ($option === 'today') {
+            $paymentHistoryData = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
+                                                ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$month])
+                                                ->whereRaw("DAY(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$day])
                                                 ->orderBy('id', 'desc')
                                                 ->get();
         }
-        if ($option === 'year') {
+        elseif ($option === 'year') {
             $paymentHistoryData = PaymentHistory::where('pay_date', 'LIKE', $year.'%')
                                                 ->orderBy('id', 'desc')
                                                 ->get();
         }
-        if ($option != 'month') {
+        else {
             $paymentHistoryData = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
-            ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$option])
-            ->orderBy('id', 'desc')
-            ->get();
+                                                ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$option])
+                                                ->orderBy('id', 'desc')
+                                                ->get();
         }
-         
+        
         
         $payment_History_sums = [];
         for ($month = 1; $month <= 12; $month++) {
