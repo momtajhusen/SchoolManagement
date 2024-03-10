@@ -158,7 +158,7 @@
                             
                         </div>
 
-                        <div class="table-responsive">
+                        <div class="table-responsive" style="position:relative;">
                             <table class="table display data-table text-nowrap table-sm exportTable">
                                 <thead>
                                     <tr>
@@ -181,7 +181,7 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-body">
+                                <tbody class="table-body" style="height:150px;">
            
                                 </tbody>
                             </table>
