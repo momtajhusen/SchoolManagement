@@ -1,4 +1,9 @@
 
+// $(document).ready(function(){
+//     $(".students:first").trigger("click");
+// });
+
+
 // click student border change 
 $(document).ready(function(){
     $("#student_box").on("click", ".students", function()
@@ -40,14 +45,14 @@ $(document).ready(function(){
                 var feeYear = response.student.fee_year;
                 var st_id = response.student.st_id;
 
-
-
                 $("#month_feestracture").html('');
                 $.each(studentFeeStracture, function(month, feeDetails) {
 
                     var monthHtml = '';
+                    var monthfee = 0;
                      //  Start Iterate through each fee detail for the month
                      $.each(feeDetails, function(index, fee) {
+                        monthfee += fee.amount;
                         monthHtml += `
                             <div class="border d-flex align-items-center fee_stracture">
                                 <input class="px-2 input_fee_name" required name='fee[`+month+`]' value="${fee.fee_name}">
@@ -67,7 +72,7 @@ $(document).ready(function(){
                             <div class="collapse_btn w-100 border p-1 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#collapse`+month+`" aria-expanded="false" aria-controls="collapseExample">
                                 <div>
                                     <span>`+NepaliFunctions.GetBsMonth(month-1)+` ₹</span>
-                                    <span>23000</span> 
+                                    <span>`+monthfee+`</span> 
                                 </div>
                             </div>
                             <div class="d-flex align-items-center p-2 border">

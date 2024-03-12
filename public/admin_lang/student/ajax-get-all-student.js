@@ -158,6 +158,11 @@ function AllStudent(url){
                           <span class="material-symbols-outlined pr-3">print
                           </span> Print Details
                         </a>
+
+                        <a href="parent-profile/`+parent_id+`" class="dropdown-item parent-profile d-flex">
+                          <span class="material-symbols-outlined">person_apron
+                          </span>Parent Profile
+                        </a>
                           
                         <a href="update-student-details/`+id+`" target="_blank" class="dropdown-item d-flex align-items-center" style="cursor:pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="Joining Months">
                           <span class="material-symbols-outlined pr-2">person</span>

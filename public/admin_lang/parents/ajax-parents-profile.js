@@ -52,7 +52,6 @@ $(document).ready(function(){
              var total_st = response.student_data.length;
              $(".st_no").html(total_st);
 
-
              response.student_data.forEach(function (data) {
 
                 var student_name = data.first_name+" "+data.middle_name+" "+data.last_name;
@@ -61,7 +60,6 @@ $(document).ready(function(){
                 var roll_no = data.roll_no;
                 var st_id = data.id;
  
-
                 $("#student_box").append(`
                 <div class="mb-2 d-flex justify-content-between p-3 students" st_id=`+st_id+`>
                     <div class="d-flex">
@@ -76,8 +74,22 @@ $(document).ready(function(){
                     </div>
                 </div>
             `);
-
              });
+
+             if(1 < total_st){
+              $("#student_box").append(`
+             <div class="mb-2 d-flex justify-content-between p-3 students" st_id='5'>
+                 <div class="d-flex">
+                     <div class="ml-2" style="font-size: 13px;">
+                         <span>All Select</span>
+                     </div>
+                 </div>
+                </div>
+            `);
+            }
+
+            $(".students:first").trigger("click");
+
 
 
          },
