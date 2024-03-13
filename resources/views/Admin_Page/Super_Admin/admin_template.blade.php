@@ -216,7 +216,7 @@
                 <div class="header-logo w-100 d-flex align-items-center justify-content-center" style="height: 65px; background-color: #ffa801; background-image: url('https://i.gifer.com/KLMu.gif'); background-size: cover; background-repeat: no-repeat;">
                    <div class="d-flex flex-column" style="line-height: 18px">
                         <b class="text-light">SCRIPTQUBE</b>
-                        <span style="font-size: 10px;color: #bdbdbd">SCHOOL SOFTWARE</span>
+                        <span style="font-size: 10px;color: #bdbdbd">SOFTWARE</span>
                    </div>
                 </div>
             </div>
@@ -231,9 +231,9 @@
             <div class="header-main-menu collapse navbar-collapse pl-2" id="mobile-navbar">
                 <ul class="navbar-nav">
                     <li class="navbar-item header-search-bar d-flex">
-                        <img class="border p-1 mr-2" src="#" id="schoolo_logo_preview"  style="width:50px;">
+                        <img class="border p-1 mr-2 schoolo_logo_preview" src="#"  style="width:50px;">
                         <div class="d-flex align-items-start flex-column ">
-                            <b class="school_name" style="color: #bdbdbd"></b>
+                            <b class="school_name"  style="color: #bdbdbd"></b>
                             <div style="color: #bdbdbd; font-size:15px;"><b><span class="currentDate"></span><span class="currentTime ml-3"></span></span></b> <b id="current_date_header"></b> </div>
                         </div>
                     </li>
@@ -306,6 +306,11 @@
                                         <i class="fas fa-angle-right"></i>
                                         <span>Fee Collections</span>
                                     </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('salary-report')}}" class="nav-link"><i class="fas fa-angle-right"></i>
+                                    <span>Salary</span>
+                                   </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('class-finance')}}" class="nav-link"><i class="fas fa-angle-right"></i>

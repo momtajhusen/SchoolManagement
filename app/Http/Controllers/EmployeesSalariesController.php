@@ -331,11 +331,12 @@ class EmployeesSalariesController extends Controller
                     $PyReciveSalary =  $EmployeesSalariesPaymentHistories->recive_salary;
                     $PyRemining = $EmployeesSalariesPaymentHistories->remaining;
 
-                    $TeacherMonthsAttendance->paid = $PyReciveSalary - $HsReciveSalary;
-                    $TeacherMonthsAttendance->remaining = $PyRemining + $HsReciveSalary;
+                 $TeacherMonthsAttendance->paid = $PyReciveSalary - $HsReciveSalary;
+                      $TeacherMonthsAttendance->remaining = $PyRemining + $HsReciveSalary;
+
                     if($TeacherMonthsAttendance->save())
                     {
-                        EmployeesSalariesPaymentHistories::find($hs_id)->delete();
+                        EmployeesSalariesPaymentHistories::where('id', $hs_id)->delete();
                         return response()->json(['status' => "Reset Sucess"]);
                     }
 

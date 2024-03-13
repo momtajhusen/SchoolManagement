@@ -66,7 +66,4 @@ $(document).ready(function(){
 
 });
 
-
-$(window).on('load', function() {
-    $("#search-btn").click();
-});
+ 

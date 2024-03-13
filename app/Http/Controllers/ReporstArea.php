@@ -16,8 +16,9 @@ use App\Models\Student;
 use App\Models\Parents;
 use App\Models\EmployeesSalariesPaymentHistories;
 
-// use App\Models\ReportMonthCollection;
-
+use App\Models\TeacherMonthsAttendance;
+use App\Models\StaffAttendance;
+ 
 
 class ReporstArea extends Controller
 {
@@ -30,13 +31,6 @@ class ReporstArea extends Controller
         $day = $request->day;
         $today = $year.'-'.$month.'-'.$day;
 
-<<<<<<< HEAD
-
-        // echo  $month;
-        // return false;
- 
-=======
->>>>>>> new_accounting
         if ($option === 'month') {
             $paymentHistoryData = PaymentHistory::whereRaw("YEAR(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$year])
                                                 ->whereRaw("MONTH(STR_TO_DATE(pay_date, '%Y-%m-%d')) = ?", [$month])
@@ -47,13 +41,8 @@ class ReporstArea extends Controller
             $paymentHistoryData = PaymentHistory::whereDate('pay_date', $today)
                                                 ->orderBy('id', 'desc')
                                                 ->get();
-<<<<<<< HEAD
         }
         if ($option === 'year') {
-=======
-        }        
-        elseif ($option === 'year') {
->>>>>>> new_accounting
             $paymentHistoryData = PaymentHistory::where('pay_date', 'LIKE', $year.'%')
                                                 ->orderBy('id', 'desc')
                                                 ->get();
@@ -646,5 +635,45 @@ class ReporstArea extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
+
+    public function salaryReport(Request $request){
+        try {
+            $teacher_salary_query = TeacherMonthsAttendance::where('percent', '>', 0);
+            $staff_salary_query = StaffAttendance::where('percent', '>', 0);
+        
+            $all_teacher_salary = $teacher_salary_query->sum('salary');
+            $all_staff_salary = $staff_salary_query->sum('salary');
+        
+            $genrate_teacher_salary = $teacher_salary_query->sum('net_pay');
+            $genrate_staff_salary = $staff_salary_query->sum('net_pay');
+        
+            $paid_teacher_salary = $teacher_salary_query->sum('paid');
+            $paid_staff_salary = $staff_salary_query->sum('paid');
+        
+            $remaining_teacher_salary = $teacher_salary_query->sum('remaining');
+            $remaining_staff_salary = $staff_salary_query->sum('remaining');
+        
+            $all_salary = $all_teacher_salary + $all_staff_salary;
+            $genrate_salary = $genrate_teacher_salary + $genrate_staff_salary;
+            $paid_salary = $paid_teacher_salary + $paid_staff_salary;
+            $remaining_salary = $remaining_teacher_salary + $remaining_staff_salary;
+        
+            $response = [
+                'all_salary' => $all_salary,
+                'genrate_salary' => $genrate_salary,
+                'paid_salary' => $paid_salary,
+                'remaining_salary' => $remaining_salary
+            ];
+        
+            return response()->json(['status' => 'success', 'salary' => $response], 200);
+        
+        } catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => 'error', 'message' => $message], 500);
+        }
+        
+    }
+    
     
 }

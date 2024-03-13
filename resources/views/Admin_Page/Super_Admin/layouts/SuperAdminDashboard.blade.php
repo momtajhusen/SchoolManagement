@@ -30,9 +30,8 @@
                     <!-- Sidebar Area End Here -->
                     <div class="dashboard-content-one">
                 <!-- Breadcubs Area Start Here -->
-                <div class="breadcrumbs-area d-flex justify-content-between">
-                   <div>
-                        <h3>Super Admin Dashboard</h3>
+                <div class="breadcrumbs-area d-flex justify-content-between p-0">
+                   <div class="py-3">
                         <ul>
                             <li>
                                 <a href="index.html">Home</a>

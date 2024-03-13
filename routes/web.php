@@ -73,6 +73,10 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       Route::view('admin/class-finance', 'Admin_Page/Super_Admin/layouts/Reports_Area/class-finance')->name('class-finance');
       Route::view('admin/expense-reports', 'Admin_Page/Super_Admin/layouts/Reports_Area/expense_reports')->name('expense-reports');
 
+      Route::view('admin/salary-report', 'Admin_Page/Super_Admin/layouts/Reports_Area/salary-report')->name('salary-report');
+      Route::get('/get-salary-report', 'App\Http\Controllers\ReporstArea@salaryReport');
+
+
       Route::get('/retrive-stracture', 'App\Http\Controllers\FeeStructureController@indexManageFee');
       Route::post('/feestracture-update', 'App\Http\Controllers\FeeStructureController@updateFeeStracture');
 
@@ -372,6 +376,8 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
 
    Route::get('/admin/teacher-salary-paid-history', 'App\Http\Controllers\EmployeesSalariesController@SalaryHistory');
    Route::post('/admin/teacher-salary-history-reset', 'App\Http\Controllers\EmployeesSalariesController@SalaryHistoryReset');
+
+
 
    Route::get('/admin/print-slip-data', 'App\Http\Controllers\EmployeesSalariesController@SalarySlipData');
 

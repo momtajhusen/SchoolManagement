@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
     $(".table-body").on("click", "#student-delete", function()
     {  

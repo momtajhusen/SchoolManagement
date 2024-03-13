@@ -4,10 +4,6 @@
     <!-- ajax-registration-list.js  -->
     <script src="{{ asset('../admin_lang/student/ajax-registration-list.js')}}?v={{ time() }}"></script>
 
-    <!-- ajax delete-student admission  -->
-    <script src="{{ asset('../admin_lang/student/ajax-delete-student.js')}}?v={{ time() }}"></script>
-
-
 @endsection
 
 

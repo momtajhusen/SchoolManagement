@@ -672,7 +672,7 @@ function AllParents(url){
             <td>`+id+`</td>
             <td class="d-flex justify-content-center h-100 align-items-center">
                 <div class="form-check">
-                    <input class="form-check-input" value="`+id+`" type="radio" name="parants_select" id="flexRadioDefault1">
+                    <input value="`+id+`" type="radio" name="parants_select" id="flexRadioDefault1">
                 </div>
             </td>
             <td class="text-center"><a href="student-details/`+id+`"><img src="`+currentDomainWithProtocol+`/storage/`+father_image+`" style="height:40px; padding:2px;border:1px solid  #ccc;" alt="father_img"></a></td>
