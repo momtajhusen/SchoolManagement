@@ -76,17 +76,17 @@ $(document).ready(function(){
             `);
              });
 
-             if(1 < total_st){
-              $("#student_box").append(`
-             <div class="mb-2 d-flex justify-content-between p-3 students" st_id='5'>
-                 <div class="d-flex">
-                     <div class="ml-2" style="font-size: 13px;">
-                         <span>All Select</span>
-                     </div>
-                 </div>
-                </div>
-            `);
-            }
+            //  if(1 < total_st){
+            //   $("#student_box").append(`
+            //  <div class="mb-2 d-flex justify-content-between p-3 students" st_id='5'>
+            //      <div class="d-flex">
+            //          <div class="ml-2" style="font-size: 13px;">
+            //              <span>All Select</span>
+            //          </div>
+            //      </div>
+            //     </div>
+            // `);
+            // }
 
             $(".students:first").trigger("click");
 

@@ -1,20 +1,20 @@
 
-// $(document).ready(function(){
-//     $(".students:first").trigger("click");
-// });
-
-
-// click student border change 
+ // click student border change 
 $(document).ready(function(){
     $("#student_box").on("click", ".students", function()
     {
          $('.students').each(function(){
           $(this).css('border', '0px');
+          $(this).removeClass('selected-sudent');
          });
+
          $(this).css('border', '2px solid #042954');
+         $(this).addClass('selected-sudent');
 
          var st_id = $(this).attr('st_id');
          $(".add-month").attr('st_id', st_id);
+         $(".save-deal-fee").attr('st_id', st_id);
+
     });
 });
 
@@ -77,7 +77,7 @@ $(document).ready(function(){
                             </div>
                             <div class="d-flex align-items-center p-2 border">
                               <span class="material-symbols-outlined p-1 border mr-2 add-new-fee" data-toggle="tooltip" data-placement="bottom" title="Add New Fee">add</span>
-                              <span class="material-symbols-outlined p-1 border" data-toggle="tooltip" data-placement="bottom" title="Delete This Month">delete</span>
+                              <span class="material-symbols-outlined p-1 border delete-month" st_id=`+st_id+` year=`+feeYear+` month=`+month+` data-toggle="tooltip" data-placement="bottom" title="Delete This Month">delete</span>
                             </div>
                            </div>
 
@@ -139,6 +139,16 @@ $(document).on('submit', '.student-fee-save', function (e) {
         data: requestData,
         success: function (response) {
             console.log(response);
+            if(response.status == 'Fee structures saved successfully')
+            {
+                iziToast.success({
+                    title: 'Save',
+                    message: 'Save Successfully !',
+                    position: 'topRight', 
+                    timeout: 2000,
+                });
+                $(".selected-sudent").click();
+            }
         },
         error: function (xhr, status, error) {
             // Error callback function
@@ -202,7 +212,14 @@ $(document).ready(function(){
                 console.log(response);
     
                 if(response.status == 'add successfully'){
-                    alert('add successfully');
+                    iziToast.success({
+                        title: 'Month',
+                        message: 'Add Successfully !',
+                        position: 'topRight', 
+                        timeout: 2000,
+                    });
+                    $(".close-model").click();
+                    $(".selected-sudent").click();
                 }else{
                     alert(response.status);
                 }
@@ -245,6 +262,57 @@ $(document).ready(function(){
 
             if(response.status == 'delete successfully'){
               $('.deleted-fee-process').remove();
+              iziToast.success({
+                title: 'Fee',
+                message: 'Delete Successfully !',
+                position: 'topRight', 
+                timeout: 2000,
+            });
+              $(".selected-sudent").click();
+            }
+        },
+        error: function (xhr, status, error) {
+            // Error callback function
+            console.log(xhr.responseText); // Log the error response in the console
+        },
+    });
+
+
+
+    });
+ });
+
+
+ // Delete Month 
+ $(document).ready(function(){
+    $("#month_feestracture").on("click", ".delete-month", function(){
+           // Get the values of st_id, month, and year
+ 
+    var st_id = $(this).attr('st_id');
+    var year = $(this).attr('year');
+    var month = $(this).attr('month');
+ 
+      // Send the AJAX request
+      $.ajax({
+        url: "/admin/delete-month",
+        method: "POST",
+        data: {
+            st_id:st_id,
+            year: year,
+            month: month, 
+
+        },
+        success: function (response) {
+            console.log(response);
+
+            if(response.status == 'delete successfully'){
+                iziToast.success({
+                    title: 'Month',
+                    message: 'Delete Successfully !',
+                    position: 'topRight', 
+                    timeout: 2000,
+                });
+                $(".selected-sudent").click();
             }
         },
         error: function (xhr, status, error) {
