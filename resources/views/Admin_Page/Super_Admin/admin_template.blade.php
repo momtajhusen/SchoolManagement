@@ -366,6 +366,12 @@
                                         <span>Fee & Disc Exceptions</span>
                                     </a>
                                 </li>
+                                <li class="nav-item d-none">
+                                    <a href="{{route('student-fee-payment')}}" class="nav-link">
+                                       <i class="fas fa-angle-right"></i>
+                                       <span>Student Fee Payment</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

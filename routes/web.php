@@ -48,6 +48,13 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    //Middleware Super Admin
    Route::group(['middleware' => 'SuperAdminLogin'], function () {
 
+   // Developer 
+      Route::view('admin/developer', 'Admin_Page/Super_Admin/layouts/developer')->name('developer');
+      Route::post('/student-fee-set', 'App\Http\Controllers\DeveloperController@StudentFeeSet');
+
+   // Developer 
+
+
    Route::view('admin/dashboard', 'Admin_Page/Super_Admin/layouts/SuperAdminDashboard')->name('dashboard');
    Route::view('admin', 'Admin_Page/Super_Admin/layouts/SuperAdminDashboard')->name('admin');
    Route::get('/super-admin-dashboard-data', 'App\Http\Controllers\SuperAdminDashboardController@index');
@@ -198,10 +205,22 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       return view('Admin_Page/Super_Admin/layouts/Parents/parent-profile', ['id' => $id]);
    });
 
+
    Route::get('/get-parent-profile', 'App\Http\Controllers\ParrentProfile@index');
    Route::get('/admin/student-fee-starcture-retrive', 'App\Http\Controllers\ParrentProfile@StudentsFeeStractures');
    Route::post('/admin/student-fee-starcture-save', 'App\Http\Controllers\ParrentProfile@StudentsFeeStracturesSave');
    Route::post('/admin/delete-month-fee', 'App\Http\Controllers\ParrentProfile@DeleteMonthFee');
+   Route::post('/admin/delete-month', 'App\Http\Controllers\ParrentProfile@DeleteMonth');
+
+   // Start New Account payment 
+      Route::view('admin/student-fee-payment', 'Admin_Page/Super_Admin/layouts/Account_management/student-fee-payment')->name('student-fee-payment');
+
+   // End New Account payment 
+
+
+
+   Route::post('/admin/save-deal-fee', 'App\Http\Controllers\ParrentProfile@SaveDealFee');
+
 
    Route::post('/admin/add-month', 'App\Http\Controllers\ParrentProfile@AddMonth');
 
