@@ -8,25 +8,6 @@
     <!-- Date Picker CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/datepicker.min.css')}}">
 
-  <style>
-   .search-select{
-      border: 1px solid #888;
-      cursor: pointer;
-      font-size: 13px;
-      background-color: #ccc;
-      color: #888;
-
-   }
-   .search_input{
-      outline: none;
-   }
-   .submit-btn{
-      background-color: #042954;
-      color: #ccc;
-      cursor: pointer;
-   }
- 
-  </style>
 @endsection
 
 @section('script')
@@ -46,22 +27,29 @@
 @section('contents')
    <div><h5>Student Fee Payment</h5></div>
 
-   <div class="row border py-3">
-      <div class="col-12 col-md-6 border position-relative">
-         <span>Search For Payment</span>
-         <div class="d-flex justify-content-start mb-3">
-            <sapn class="search-select px-3 py-1">Parent Name</sapn>
-            <span  class="search-select ml-2 px-3 py-1">Student Name</span>
-            <sapn class="search-select ml-2 px-3 py-1">Parent ID</sapn>
-            <span class="search-select ml-2 px-3 py-1">Student ID</span>
-            <span class="search-select ml-2 px-3 py-1">Parent Number</span>
-         </div>
-         <div class="d-flex">
-            <input type="text" class="w-75 p-2 search_input" required name="search_input" placeholder="Search">
-            <button type="submit" class="border submit-btn px-3 w-25">Search</button>
+   <div class="row border">
+      <div class="col-12 col-md-6 border bg-light">
+         <div class="row" id="class_student_row">
+            <div class="col-lg-5 col-12 form-group">
+                <label>Class *</label>
+                <select name="class" class="select2 class-select" id="class-select" style="height:50px;width:100%; padding:10px;background:#f0f1f3;border:0px;">
+
+                </select>
+            </div>
+
+            <div class="col-lg-5 col-12 form-group animate__animated">
+                <label>Select Student *</label>
+                <select name="period" class="select2 student-select">
+                    <option value="">Please Select Student :</option>
+                </select>
+            </div>
+
+            <input type="hidden" id="student_id" value="0">
+            <div class="col-2-xxxl col-xl-2 col-lg-2 col-12 form-group" >
+                <br>
+                <button class="fw-btn-fill btn-gradient-yellow btn search-btn form-group animate__animated" style="height:50px">SEARCH</button>
+            </div>
         </div>
-        
-  
       </div>
       <div class="col-12 col-md-3 border">
          sdsdsd
@@ -71,20 +59,6 @@
       </div>
    </div>
     
-   {{-- Start Search List  --}}
-   <div class="bg-danger">
  
-         <div class="list-group position-absolute" style="height:100px;z-index:100;">
-            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-            <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-         </div>
-   </div>
-   {{-- End Search List  --}}
-   <div>
-      sdsd
-   </div>
-
 
 @endsection

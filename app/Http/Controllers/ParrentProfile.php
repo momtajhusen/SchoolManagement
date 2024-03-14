@@ -287,7 +287,7 @@ class ParrentProfile extends Controller
             return response()->json(['errors' => $validator->errors()], 422); // 422 is Unprocessable Entity status code
         }
 
-           // Access the sent data
+          // Access the sent data
             $checkedMonths = $request->input('checkedMonths');
             $checkedfeeType = $request->input('checkedfeeType');
             $fee_amount = $request->input('fee_amount');
@@ -304,15 +304,15 @@ class ParrentProfile extends Controller
             $amountPerMonth = floor($fee_amount / $totalMonths);
 
             // Calculate remaining amount
-            $remainingAmount = $fee_amount - ($amountPerMonth * $totalMonths);
+            $remainingAmount = $fee_amount % $totalMonths;
 
             // Process each checked month
-            foreach ($checkedMonths as $key => $month) 
-            {
-                // Add remaining amount to the first month
+            foreach ($checkedMonths as $key => $month) {
+                // Add remaining amount to each month
                 $dividedAmount = $amountPerMonth;
-                if ($key === 0) {
-                    $dividedAmount += $remainingAmount;
+                if ($remainingAmount > 0) {
+                    $dividedAmount += 1;
+                    $remainingAmount -= 1;
                 }
 
                 // Calculate amount per fee type for this month
@@ -330,6 +330,16 @@ class ParrentProfile extends Controller
                         'fee_structure_type' => 'deal', 
                     ]);
                 }
+
+                // Find or create a record in StudentsFeeMonth table
+                $studentsFeeMonth = StudentsFeeMonth::updateOrCreate(
+                    ['st_id' => $st_id, 'year' => $year],
+                    [
+                        'month_' . ($month - 1) => $dividedAmount,
+                        'total_fee' =>  $fee_amount,
+                        'total_dues' =>  $fee_amount,
+                    ]
+                );
             }
 
             // Return a success response

@@ -325,6 +325,10 @@
                                       <input type="checkbox" id="feetype8"  value="exam_fee" class="checkbox-custom border fee-type" style="cursor: pointer">
                                       <span class="ml-1" style="cursor:pointer;">Exam Fee</span>
                                     </label>
+                                    <label for="feetype9" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                      <input type="checkbox" id="feetype9"  value="saraswati_puja_fee" class="checkbox-custom border fee-type" style="cursor: pointer">
+                                      <span class="ml-1" style="cursor:pointer;">Saraswati Puja</span>
+                                    </label>
                                  </div>
                               </div>
                              </div>
