@@ -5,6 +5,7 @@ $(document).ready(function () {
     var current_date = dateData.year+'-'+dateData.month+'-'+dateData.day;
     $("#today-date").val(current_date);
 
+
     $("#attendance-date-btn").click(function(){
         $.ajaxSetup({
             headers: {
@@ -16,136 +17,137 @@ $(document).ready(function () {
         $(".date-lable").html('Date: '+todayDate);
  
         $(".time-attendance-table").empty();
-        if(!NepaliFunctions.ValidateBsDate(todayDate)){
+        if(NepaliFunctions.ValidateBsDate(todayDate)){
+            // Fetch teacher attendance data
+            $.ajax({
+                url: "/get-teacher-attendance-period",
+                data:{
+                    year:dateData.year,
+                    date:todayDate,
+                },
+                method: "GET",
+                success: function (response) {
+                    console.log(response);
+        
+                    if (response.data) {
+                        // Clear the content of the table
+                        $(".time-attendance-table").empty();
+        
+                        // var index = 1;
+                        response.data.forEach(function (data, index) {
+                            // Extract necessary data
+                            var id = data.id;
+                            var first_name = data.first_name;
+                            var teacher_image = data.teacher_image;
+                            var gender = data.gender;
+        
+                            var SirMam = gender == "Male" ? "Sir" : "Mam";
+        
+                            var totalPeriods = data.teacherPeriods.length;
+                            var teacherPeriods = data.teacherPeriods;
+                            var PeriodAttendance = data.PeriodAttendance;
+                            var Salary = data.Salary;
+
+                            var teacherPeriodsLength = data.teacherPeriods.length;
+
+                            if (Number(Salary) != 0) {
+                                if(teacherPeriodsLength != 0){
+                                    var SaveBtn = `<button data-tr_id="${id}" class="save-btn btn px-5 py-3" style="cursor:pointer; padding:5px;">Save</button>`;
+                                }
+                                else{
+                                    var SaveBtn = '<a class="text-danger" href="/admin/teachers-periods">Set Period<a>';
+                                }
+                            } else {
+                                var SaveBtn = '<a class="text-danger" href="/admin/salary-set">Set Salary</a>';
+                            }
+                            
+
+                            var currentDomainWithProtocol = window.location.protocol + "//" + window.location.host;
+        
+                            var sn = index+1;
+
+                            // Dynamically build the HTML for individual periods
+                            var TeacherPeriod = '';
+                            for (let i = 0; i < totalPeriods; i++) {
+        
+                                var persentSelect = "";
+                                var absentSelect = "";
+                                var backgroundColor = "";
+        
+        
+                                if(PeriodAttendance[i] == 1){
+                                    persentSelect = "selected";
+                                    backgroundColor = "#93f56d";
+                                }
+
+                                if(PeriodAttendance[i] == 0){
+                                    absentSelect = "selected";
+                                    backgroundColor = "#F5816d";
+                                }
+        
+                                var periodIndex = i+1;
+                                TeacherPeriod += `
+                                    <div class="d-flex flex-column ml-1">
+                                        <label class="d-flex align-items-center m-0" for="${id}"><span class="material-symbols-outlined mr-1" style="font-size:14px;">chronic</span>${teacherPeriods[i]}</label>
+                                        <select required class="teacher_period select_${id}_single" name="${teacherPeriods[i]}" style="background-color:`+backgroundColor+`; cursor:pointer; padding:3px; outline:none;border-radius:5px;">
+                                            <option  value="">Select</option>
+                                            <option `+persentSelect+` class="alert-success" value="1">Present</option>
+                                            <option `+absentSelect+` class="alert-danger" value="0">Absent</option>
+                                        </select>
+                                    </div>`;
+                            }
+
+
+        
+                            // Build the table row HTML
+                            var tableRow = `
+                                <tr>
+                            
+                                    <td>`+sn+`</td>
+                                    <td>                                        
+                                    <img src="`+currentDomainWithProtocol+`/storage/` +teacher_image +`" style="border:1px solid white;height:50px;width:50px">
+                                    </td>
+                                    <td >
+                                        <div class="d-flex align-items-center mt-3" style="width:150px;">
+                                            <b>${first_name} ${SirMam}</b> 
+                                        </div>
+                                    </td>
+                                    <td class="p-0 pr-1">
+                                        <div class="d-flex flex-column ml-1" style="width:100%;">
+                                            <label for="${id}" class="m-0">All Period</label>
+                                            <select class="select_${id}" name="select_${id}" style="cursor:pointer; padding:3px;outline:none;border-radius:5px;">
+                                                <option value="0" style="cursor:pointer; padding:5px;">Attendance</option>
+                                                <option class="alert-success" value="1">Present</option>
+                                                <option class="alert-danger" value="0">Absent</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td class="p-0">
+                                        <div class="d-flex">
+                                            ${TeacherPeriod}
+                                        </div>
+                                    </td>
+                                    <td>
+                                    ${SaveBtn}
+                                    </td>
+                                </tr>`;
+        
+                            // Append the row to the table
+                            $(".time-attendance-table").append(tableRow);
+                        });
+                    }
+                },
+                error: function (xhr, status, error) 
+                {
+                    console.log(xhr.responseText);
+                },
+            });
+
+        }else{
             $(".time-attendance-table").empty();
              alert("Enter valid date");
-             return false; 
         }
-    
-        // Fetch teacher attendance data
-        $.ajax({
-            url: "/get-teacher-attendance-period",
-            data:{
-                year:dateData.year,
-                date:todayDate,
-            },
-            method: "GET",
-            success: function (response) {
-                console.log(response);
-    
-                if (response.data) {
-                    // Clear the content of the table
-                    $(".time-attendance-table").empty();
-    
-                    // var index = 1;
-                    response.data.forEach(function (data, index) {
-                        // Extract necessary data
-                        var id = data.id;
-                        var first_name = data.first_name;
-                        var teacher_image = data.teacher_image;
-                        var gender = data.gender;
-    
-                        var SirMam = gender == "Male" ? "Sir" : "Mam";
-    
-                        var totalPeriods = data.teacherPeriods.length;
-                        var teacherPeriods = data.teacherPeriods;
-                        var PeriodAttendance = data.PeriodAttendance;
-                        var Salary = data.Salary;
 
-                        var teacherPeriodsLength = data.teacherPeriods.length;
-
-                        if (Number(Salary) != 0) {
-                            if(teacherPeriodsLength != 0){
-                                var SaveBtn = `<button data-tr_id="${id}" class="save-btn btn px-5 py-3" style="cursor:pointer; padding:5px;">Save</button>`;
-                            }
-                            else{
-                                var SaveBtn = '<a class="text-danger" href="/admin/teachers-periods">Set Period<a>';
-                            }
-                        } else {
-                            var SaveBtn = '<a class="text-danger" href="/admin/salary-set">Set Salary</a>';
-                        }
-                        
-
-                        var currentDomainWithProtocol = window.location.protocol + "//" + window.location.host;
-    
-                        var sn = index+1;
-
-                        // Dynamically build the HTML for individual periods
-                        var TeacherPeriod = '';
-                        for (let i = 0; i < totalPeriods; i++) {
-    
-                             var persentSelect = "";
-                             var absentSelect = "";
-                             var backgroundColor = "";
-    
-    
-                             if(PeriodAttendance[i] == 1){
-                                persentSelect = "selected";
-                                backgroundColor = "#93f56d";
-                             }
-
-                             if(PeriodAttendance[i] == 0){
-                                absentSelect = "selected";
-                                backgroundColor = "#F5816d";
-                             }
-    
-                            var periodIndex = i+1;
-                            TeacherPeriod += `
-                                <div class="d-flex flex-column ml-1">
-                                    <label class="d-flex align-items-center m-0" for="${id}"><span class="material-symbols-outlined mr-1" style="font-size:14px;">chronic</span>${teacherPeriods[i]}</label>
-                                    <select required class="teacher_period select_${id}_single" name="${teacherPeriods[i]}" style="background-color:`+backgroundColor+`; cursor:pointer; padding:3px; outline:none;border-radius:5px;">
-                                        <option  value="">Select</option>
-                                        <option `+persentSelect+` class="alert-success" value="1">Present</option>
-                                        <option `+absentSelect+` class="alert-danger" value="0">Absent</option>
-                                    </select>
-                                </div>`;
-                        }
-
-
-    
-                        // Build the table row HTML
-                        var tableRow = `
-                            <tr>
-                         
-                                <td>`+sn+`</td>
-                                <td>                                        
-                                  <img src="`+currentDomainWithProtocol+`/storage/` +teacher_image +`" style="border:1px solid white;height:50px;width:50px">
-                                </td>
-                                <td >
-                                     <div class="d-flex align-items-center mt-3" style="width:150px;">
-                                        <b>${first_name} ${SirMam}</b> 
-                                     </div>
-                                </td>
-                                <td class="p-0 pr-1">
-                                    <div class="d-flex flex-column ml-1" style="width:100%;">
-                                        <label for="${id}" class="m-0">All Period</label>
-                                        <select class="select_${id}" name="select_${id}" style="cursor:pointer; padding:3px;outline:none;border-radius:5px;">
-                                            <option value="0" style="cursor:pointer; padding:5px;">Attendance</option>
-                                            <option class="alert-success" value="1">Present</option>
-                                            <option class="alert-danger" value="0">Absent</option>
-                                        </select>
-                                    </div>
-                                </td>
-                                <td class="p-0">
-                                    <div class="d-flex">
-                                        ${TeacherPeriod}
-                                    </div>
-                                </td>
-                                <td>
-                                   ${SaveBtn}
-                                </td>
-                            </tr>`;
-    
-                        // Append the row to the table
-                        $(".time-attendance-table").append(tableRow);
-                    });
-                }
-            },
-            error: function (xhr, status, error) 
-            {
-                console.log(xhr.responseText);
-            },
-        });
     });
 
     // Event delegation for the click event of .save-btn
@@ -220,16 +222,22 @@ $(document).ready(function () {
 // On inpute Date Click
 $(document).ready(function(){
     $("#today-date").on("input", function(){
-       $(".time-attendance-table").empty();
+
+    
        var attendanceDate = $(this).val();
 
        if(NepaliFunctions.ValidateBsDate(attendanceDate)){
            $("#attendance-date-btn").click();
+
+            $(".all-teacher-attendance option").filter(function () {
+                return $(this).text() ==  "Select";
+            }).prop("selected", true);
+
+        }else{
+            $(".time-attendance-table").empty();
         }
 
-        $(".all-teacher-attendance option").filter(function () {
-            return $(this).text() ==  "Select";
-        }).prop("selected", true);
+
 
     });
 });
