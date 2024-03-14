@@ -647,7 +647,7 @@ Route::group(['middleware' => 'StudentAccountLogin'], function () {
 Route::get('/command/migrate_specific', function () {
    Artisan::call('migrate', [
        '--path' => [
-           'database/migrations/2024_03_06_041716_create_students_fee_stractures_table.php',
+           'database/migrations/2024_03_10_054154_create_students_fee_months_table.php',
        ]
    ]);
 });
