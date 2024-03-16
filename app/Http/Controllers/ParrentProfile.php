@@ -287,7 +287,6 @@ class ParrentProfile extends Controller
             return response()->json(['errors' => $validator->errors()], 422); // 422 is Unprocessable Entity status code
         }
 
-<<<<<<< HEAD
           // Access the sent data
             $checkedMonths = $request->input('checkedMonths');
             $checkedfeeType = $request->input('checkedfeeType');
@@ -331,62 +330,6 @@ class ParrentProfile extends Controller
                         'fee_structure_type' => 'deal', 
                     ]);
                 }
-=======
-       // Access the sent data
-        $checkedMonths = $request->input('checkedMonths');
-        $checkedfeeType = $request->input('checkedfeeType');
-        $fee_amount = $request->input('fee_amount');
-        $st_id =  $request->st_id;
-        $year =  $request->year;
-
-        // Delete existing fee structures for the same st_id, year, and month
-        StudentsFeeStracture::where('st_id', $st_id)->where('year', $year)->whereIn('month', $checkedMonths)->delete();
-
-        // Calculate total number of checked months
-        $totalMonths = count($checkedMonths);
-
-        // Calculate amount per month
-        $amountPerMonth = floor($fee_amount / $totalMonths);
-
-        // Calculate remaining amount
-        $remainingAmount = $fee_amount - ($amountPerMonth * $totalMonths);
-
-        // Process each checked month
-        foreach ($checkedMonths as $key => $month) {
-            // Add remaining amount to the first month
-            $dividedAmount = $amountPerMonth;
-            if ($key === 0) {
-                $dividedAmount += $remainingAmount;
-            }
-
-        // Calculate amount per fee type for this month
-        $amountPerFeeType = floor($dividedAmount / count($checkedfeeType));
-
-        // Distribute amount for each fee type
-        foreach ($checkedfeeType as $feeType) {
-            // Save the data to the database
-            StudentsFeeStracture::create([
-                'st_id' => $st_id,
-                'year' =>  $year, 
-                'month' => $month,
-                'fee_type' => $feeType,
-                'amount' => $amountPerFeeType,
-                'fee_structure_type' => 'deal', 
-            ]);
-        }
-
-        // Find or create a record in StudentsFeeMonth table
-        $studentsFeeMonth = StudentsFeeMonth::updateOrCreate(
-            ['st_id' => $st_id, 'year' => $year],
-            [
-                'month_' . ($month - 1) => $dividedAmount,
-                'total_fee' =>  $fee_amount,
-                'total_dues' =>  $fee_amount,
-            ]
-        );
-
-}
->>>>>>> new_accounting
 
                 // Find or create a record in StudentsFeeMonth table
                 $studentsFeeMonth = StudentsFeeMonth::updateOrCreate(
