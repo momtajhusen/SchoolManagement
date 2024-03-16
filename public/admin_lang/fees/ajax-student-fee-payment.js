@@ -42,7 +42,10 @@ $(document).ready(function(){
                         var student_name = element.first_name+' '+element.last_name;
                         $(".students-table").append(`
                             <tr>
-                                <td>`+student_name+`</td>
+                                <td>
+                                   <img class="border p-1 parent-image" src="../storage/`+element.student_image+`" alt="parent" style="width:40px;">
+                                   <span>`+student_name+`</span>
+                                </td>
                                 <td>`+element.id+`</td>
                                 <td>`+element.total_fee+`</td>
                                 <td>`+element.total_paid+`</td>
@@ -74,11 +77,25 @@ $(document).ready(function(){
     });
  });
  
+
 $(document).ready(function(){
     $(".parent-search-icon").click(function(){
         $(".parent-details-box").addClass('d-none');
         $(".student-search-box").removeClass('d-none');
         $(".students-table").html(''); 
+    });
+});
+
+// select-option choose 
+$(document).ready(function(){
+    $('.select-option').each(function(){
+
+        $('.select-option').click(function(){
+
+           $('.select-option').removeClass('selected-option');
+
+            $(this).addClass('selected-option');
+        });
     });
 });
  

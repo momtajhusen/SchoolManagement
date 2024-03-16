@@ -29,6 +29,11 @@
    .select-option{
        cursor: pointer;
    }
+
+   .selected-option{
+      background-color: #042954;
+      color: #ccc;
+   }
  
   </style>
 @endsection
@@ -105,9 +110,9 @@
                      <span class="father-address">Arang - 8, Siraha, Nepal</span>
                   </div>
                   <div>
-                     <span>Children :</span>
-                     <span class="total-children">2</span>
-                  </div>
+                     <span>pr_id :</span>
+                     <span class="pr-id">4556</span>
+                   </div>
               </div>
             </div>
          </div>
@@ -116,7 +121,7 @@
          <table class="table table-bordered table-sm ">
             <thead>
               <tr>
-                <th scope="col">Students</th>
+                <th scope="col">Students <span class="total-children"></span></th>
                 <th scope="col">St_id</th>
                 <th scope="col">Fee</th>
                 <th scope="col">Paid</th>
