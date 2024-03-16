@@ -214,6 +214,8 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
 
    // Start New Account payment 
       Route::view('admin/student-fee-payment', 'Admin_Page/Super_Admin/layouts/Account_management/student-fee-payment')->name('student-fee-payment');
+      Route::get('/student-payment-fee-retrive', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaymentRetrive');
+
 
    // End New Account payment 
 
@@ -246,8 +248,6 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    Route::post('/registration-conform', 'App\Http\Controllers\StudentController@RegistrationConform');
    Route::post('/all-registration-conform', 'App\Http\Controllers\StudentController@AllRegistrationConform');
    Route::post('/all-registration-delete', 'App\Http\Controllers\StudentController@AllRegistrationDelete');
-
-
 
 
    Route::get('/admin/admission-print', 'App\Http\Controllers\StudentController@admission_print');
@@ -642,6 +642,7 @@ Route::get('/command/migrate_specific', function () {
    Artisan::call('migrate', [
        '--path' => [
            'database/migrations/2024_03_06_041716_create_students_fee_stractures_table.php',
+           'database/migrations/2024_03_10_054154_create_students_fee_months_table.php',
        ]
    ]);
 });
