@@ -24,7 +24,7 @@ class StudentsFeePayment extends Controller
         
             $parent_data = Parents::where("id", $pr_id)->first();
             if ($parent_data) {
-                $student_data = Student::select('id', 'first_name', 'last_name', 'student_image')->where("parents_id", $pr_id)->get();
+                $student_data = Student::select('id', 'first_name', 'last_name', 'student_image', 'village')->where("parents_id", $pr_id)->get();
         
                 // Loop through each student to get their total_fee
                 foreach ($student_data as $student) {

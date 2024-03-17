@@ -49,11 +49,12 @@
     <!-- Date Picker Js -->
     <script src="{{ asset('../admin_template_assets/js/datepicker.min.js')}}"></script>
 
-   <!-- ajax get all class -->
-   <script src="{{ asset('../admin_lang/classes/get-all-class.js')}}?v={{ time() }}"></script> 
+   <!-- ajax select option all-parents.js -->
+   <script src="{{ asset('../admin_lang/SelectOption/StudentsParents/all-parents.js')}}?v={{ time() }}"></script> 
 
-   <!-- ajax get class all student -->
-   <script src="{{ asset('../admin_lang/classes/get-class-student.js')}}?v={{ time() }}"></script> 
+   <!-- ajax select option all-students.js -->
+   <script src="{{ asset('../admin_lang/SelectOption/StudentsParents/all-students.js')}}?v={{ time() }}"></script> 
+
 
 
     
@@ -64,29 +65,30 @@
    <div><h5>Student Fee Payment</h5></div>
 
    <div class="row border py-3">
-      <div class="col-12 col-md-5 py-3 border position-relative bg-light">
+      <div class="col-12 col-md-4 py-3 border position-relative bg-light">
 
          <div class="student-search-box">
             <div class="border p-1 d-flex justify-content-between">
                <span class="px-2">Search</span> 
                <div class="d-flex ml-3" style="font-size: 14px;">
-                  <span class="border p-1 mx-1 px-2 select-option">pr_name</span>
-                  <span class="border p-1 mx-1 px-2 select-option">st_name</span>
-                  <span class="border p-1 mx-1 px-2 select-option">pr_id</span>
-                  <span class="border p-1 px-2 select-option">st_id</span>
+                  <span class="border p-1 mx-1 px-2 select-option ">Students</span>
+                  <span class="border p-1 mx-1 px-2 select-option">Parents</span>
                </div>
             </div>
-            <div class="row mt-3">
-               <div class="col-5">
-                  <select name="class" class="select2 class-select" id="class-select" style="height:50px;background:#f0f1f3;border:0px;">
-                  </select>
-               </div>
-               <div class="col-7 pl-0">
-                     <select name="period" class="select2 student-select">
-                        <option value="">Please Select Student :</option>
-                     </select>
-               </div>
+            <div class="col-12 mt-2 p-0 d-none parent-select-box">
+               <span>Select Parent</span>
+               <select class="select2 admit-parents-select search-select" id="admit-parents-select">
+                   {{-- Parents Option Data  --}}
+               </select>
             </div>
+
+            <div class="col-12 mt-2 p-0 student-select-box">
+               <span>Select Student</span>
+               <select class="select2 admit-students-select search-select">
+                  {{-- Students Option Data  --}}
+               </select>
+            </div>
+
          </div>
 
          <div class="parent-details-box d-none">
@@ -117,13 +119,13 @@
             </div>
          </div>
       </div>
-      <div class="col-12 col-md-7 py-3 border bg-light">
-         <table class="table table-bordered table-sm ">
+      <div class="col-12 col-md-8 py-3 border bg-light">
+         <table class="table table-bordered table-sm table-hover">
             <thead>
               <tr>
                 <th scope="col">Students <span class="total-children"></span></th>
                 <th scope="col">St_id</th>
-                <th scope="col">Fee</th>
+                <th scope="col">Amount</th>
                 <th scope="col">Paid</th>
                 <th scope="col">Dues</th>
                 <th scope="col">Action</th>
@@ -135,5 +137,34 @@
           </table>
       </div>
    </div>
+
+   {{-- Start Selectd Student Fee Stracture Month Wize --}}
+   <table class="table table-sm table-dark table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Mo.</th>
+          <th scope="col">Month</th>
+          <th scope="col">Paid</th>
+          <th scope="col">Disc</th>
+          <th scope="col">Status</th>
+          <th scope="col">Single Pay</th>
+          <th scope="col">Multi. Pay</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Baishakh</td>
+          <td>3640</td>
+          <td>3640</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+      </tbody>
+    </table>
+
+   {{-- Start Selectd Student Fee Stracture Month Wize --}}
+
  
 @endsection

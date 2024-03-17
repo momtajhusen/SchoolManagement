@@ -884,7 +884,7 @@
         <!-- Page Area End Here -->
 
         {{-- start tool box  --}}
-          <div class="tool-box">
+          <div class="tool-box d-none">
                <b class="px-1 text-center tool-text" style="font-size:13px;">Tools</b>
                <div class="d-flex justify-content-center">
                   <span class="material-symbols-outlined" id='calculator-icon' style="font-size:35px;cursor:pointer;"> calculate</span>

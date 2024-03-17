@@ -1,7 +1,8 @@
+// Select parent than retrive stundets 
 $(document).ready(function(){
-    $(".student-select").on("change", function(){
+    $(".search-select").on("change", function(){
 
-        var pr_id = $(this).find(':selected').attr('pr_id');
+       var pr_id = $(this).val();
 
         $.ajax({
             url: "/student-payment-fee-retrive",
@@ -20,6 +21,7 @@ $(document).ready(function(){
                 $(".parent-details-box").removeClass('d-none');
                 $(".student-search-box").addClass('d-none');
 
+                var pr_id = response.parent_details.id;
                 var father_img = response.parent_details.father_image;
                 var father_name = response.parent_details.father_name;
                 var father_contact = response.parent_details.father_mobile;
@@ -30,10 +32,11 @@ $(document).ready(function(){
 
                 $(".total-children").html(response.student_details.length);
 
+                $('.pr-id').html(pr_id);
                 $('.parent-image').attr('src','../storage/'+father_img+'');
                 $('.father-name').html(father_name);
                 $('.father-contact').html(father_contact);
-                $('.father-address').html(village+', '+municipality);
+                $('.father-address').html(village);
 
                 if(response.student_details)
                 {
@@ -41,15 +44,15 @@ $(document).ready(function(){
                     response.student_details.forEach(element => {
                         var student_name = element.first_name+' '+element.last_name;
                         $(".students-table").append(`
-                            <tr>
+                            <tr class='students' st_id='`+element.id+`' style='cursor:pointer'>
                                 <td>
                                    <img class="border p-1 parent-image" src="../storage/`+element.student_image+`" alt="parent" style="width:40px;">
                                    <span>`+student_name+`</span>
                                 </td>
-                                <td>`+element.id+`</td>
-                                <td>`+element.total_fee+`</td>
-                                <td>`+element.total_paid+`</td>
-                                <td>`+element.total_dues+`</td>
+                                <td class='text-center'>`+element.id+`</td>
+                                <td class='text-center'>`+element.total_fee+`</td>
+                                <td class='text-center'>`+element.total_paid+`</td>
+                                <td class='text-center'>`+element.total_dues+`</td>
                             </tr>
                         `); 
                     });
@@ -57,10 +60,10 @@ $(document).ready(function(){
                     $(".students-table").append(`
                         <tr class='bg-secondary text-light'>
                             <td colspan='2' class='text-center'>Total</td>
-                            <td>00</td>
-                            <td>00</td>
-                            <td>00</td>
-                            <td class='bg-light'><button class='bg-info btn w-100 h-100 text-light'>Payment</button></td>
+                            <td class='text-center'>00</td>
+                            <td class='text-center'>00</td>
+                            <td class='text-center'>00</td>
+                            <td class='bg-light p-0'><button class='bg-info btn w-100 h-100 text-light py-3'>Payment</button></td>
                         </tr>
                    `); 
                 }
@@ -76,8 +79,19 @@ $(document).ready(function(){
        
     });
  });
+
+//  Selected student get fee months 
+$(document).ready(function(){
+    $(".students-table").on("click", ".students", function(){  
+        var st_id = $(this).attr('st_id');
+        alert(st_id);
+    });
+});
+
+
  
 
+//  Search icon 
 $(document).ready(function(){
     $(".parent-search-icon").click(function(){
         $(".parent-details-box").addClass('d-none');
@@ -88,14 +102,23 @@ $(document).ready(function(){
 
 // select-option choose 
 $(document).ready(function(){
-    $('.select-option').each(function(){
+    $('.select-option').click(function(){
+        $('.select-option').removeClass('selected-option');
+        $(this).addClass('selected-option');
 
-        $('.select-option').click(function(){
+        if($(this).html() == 'Students'){
+            $(".student-select-box").removeClass('d-none');
+            $(".parent-select-box").addClass('d-none');
+            $('.admit-parents-select').trigger('click');
 
-           $('.select-option').removeClass('selected-option');
-
-            $(this).addClass('selected-option');
-        });
+        }
+        if($(this).html() == 'Parents'){
+            $(".student-select-box").addClass('d-none');
+            $(".parent-select-box").removeClass('d-none');
+        }
     });
+
+    $('.select-option:first').trigger('click');
 });
+
  
