@@ -157,8 +157,8 @@
                         <div class="dashboard-summery-one mg-b-20" style="overflow: hidden;">
                             <div class="row align-items-center">
                                 <div class="col-6">
-                                    <div class="item-icon bg-light-red">
-                                        <i class="flaticon-money text-red"></i>
+                                    <div class="item-icon bg-light-blue">
+                                        <i class="flaticon-money text-green"></i>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -201,6 +201,24 @@
                                     <div class="item-content">
                                         <div class="item-title">Login Devices</div>
                                         <div class="item-number"><span class="techer-count number-icon">0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="dashboard-summery-one mg-b-20">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <div class="item-icon bg-light-blue">
+                                        <i class="flaticon-money text-blue"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="item-content">
+                                        <div class="item-title">Total Advance</div>
+                                        <div class="item-number"><span class="total-advance-payment number-icon">0</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -502,7 +520,6 @@ $(document).ready(function(){
         }
     });
 });
-
 
 
 </script>
