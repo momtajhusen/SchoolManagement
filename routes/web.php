@@ -650,7 +650,6 @@ Route::get('/command/migrate_specific', function () {
            'database/migrations/2024_03_17_172859_create_students_fee_paids_table.php',
            'database/migrations/2024_03_17_172940_create_students_fee_dues_table.php',
            'database/migrations/2024_03_17_172954_create_students_fee_discs_table.php',
-
        ]
    ]);
 });

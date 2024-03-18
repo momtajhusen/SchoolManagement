@@ -8,8 +8,13 @@ use Illuminate\Http\Response;
 use Exception;
 use App\Models\Parents;
 use App\Models\Student;
-use App\Models\StudentsFeeMonth;
 use App\Models\StudentsFeeStracture;
+use App\Models\StudentsFeeMonth;
+use App\Models\StudentsFeePaid;
+use App\Models\StudentsFeeDues;
+use App\Models\StudentsFeeDisc;
+
+
 
 
 
@@ -22,19 +27,38 @@ class StudentsFeePayment extends Controller
     {
         try {
             $pr_id = $request->pr_id;
-        
+
+            $selectedMonth = $request->selectedMonth;
+            $monthLength = count($selectedMonth);
+            $year = 2080;
+
+
+            
             $parent_data = Parents::where("id", $pr_id)->first();
-            if ($parent_data) {
+            if ($parent_data && $monthLength > 0) {
                 $student_data = Student::select('id', 'first_name', 'last_name', 'student_image', 'village')->where("parents_id", $pr_id)->get();
-        
+            
                 // Loop through each student to get their total_fee
                 foreach ($student_data as $student) {
-                    $student->total_fee = StudentsFeeMonth::where('st_id', $student->id)->sum('total_fee');
-                    $student->total_paid = StudentsFeeMonth::where('st_id', $student->id)->sum('total_paid');
-                    $student->total_dues = StudentsFeeMonth::where('st_id', $student->id)->sum('total_dues');
+                    $total_fee = 0;
+                    $total_paid = 0;
+                    $total_dues = 0;
+                    $total_disc = 0;
+
+                    foreach ($selectedMonth as $month) {
+                        // Sum the fees for the selected months
+                        $total_fee += StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->value($month);
+                        $total_paid += StudentsFeePaid::where('year', $year)->where('st_id', $student->id)->value($month);
+                        $total_dues += StudentsFeeDues::where('year', $year)->where('st_id', $student->id)->value($month);
+                        $total_disc += StudentsFeeDisc::where('year', $year)->where('st_id', $student->id)->value($month);
+                    }
+                    $student->total_fee = $total_fee;
+                    $student->total_paid = $total_paid;
+                    $student->total_dues = $total_dues;
+                    $student->total_disc = $total_disc;
                 }
-        
-                return response()->json(['status' => 'success', 'parent_details' => $parent_data, 'student_details' => $student_data], 200);
+            
+                return response()->json(['status' => 'success', 'parent_details' => $parent_data, 'student_details' => $student_data], 200);            
             }
         } catch (Exception $e) {
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
@@ -47,7 +71,7 @@ class StudentsFeePayment extends Controller
     {
         try {
             $st_id = $request->st_id;
-            $year = 2080; // Assuming you want data for the year 2080
+            $year = 2080;
         
             // Fetch the fee structures for the specified student ID and year
             $feeStructures = StudentsFeeMonth::where('year', $year)->where('st_id', $st_id)->first();
