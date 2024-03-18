@@ -212,7 +212,7 @@
             <tbody>
                <tr class='bg-secondary'>
                   <td class='text-center'>   
-                     <div class="d-flex justify-content-between">
+                     <div class="d-flex align-items-center justify-content-between">
                         {{-- Start chekbox 1 to 12  --}}
                         <div class="d-flex px-1">
                            <div class="checkbox-wrapper-30 d-flex flex-column">
