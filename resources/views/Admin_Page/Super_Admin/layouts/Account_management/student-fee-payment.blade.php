@@ -64,7 +64,7 @@
 @section('contents')
    <div><h5>Student Fee Payment</h5></div>
 
-   <div class="row border py-3">
+   <div class="row border">
       <div class="col-12 col-md-4 py-3 border position-relative bg-light">
 
          <div class="student-search-box">
@@ -122,13 +122,13 @@
       <div class="col-12 col-md-8 py-3 border bg-light">
          <table class="table table-bordered table-sm table-hover">
             <thead>
-              <tr>
+              <tr class='text-center'>
                 <th scope="col">Students <span class="total-children"></span></th>
                 <th scope="col">St_id</th>
                 <th scope="col">Amount</th>
                 <th scope="col">Paid</th>
                 <th scope="col">Dues</th>
-                <th scope="col">Action</th>
+                {{-- <th scope="col">Action</th> --}}
               </tr>
             </thead>
             <tbody class="students-table">
@@ -138,33 +138,34 @@
       </div>
    </div>
 
-   {{-- Start Selectd Student Fee Stracture Month Wize --}}
-   <table class="table table-sm table-dark table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Mo.</th>
-          <th scope="col">Month</th>
-          <th scope="col">Paid</th>
-          <th scope="col">Disc</th>
-          <th scope="col">Status</th>
-          <th scope="col">Single Pay</th>
-          <th scope="col">Multi. Pay</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Baishakh</td>
-          <td>3640</td>
-          <td>3640</td>
-          <td>0</td>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-      </tbody>
-    </table>
+   <div class="row pt-3 border bg-light" style="overflow:auto;">
+       <div class="col-12"  >
+            {{-- Start Selectd Student Fee Stracture Month Wize --}}
+            <table class="table table-sm table-dark table-hover" style="width:1000px;">
+               <thead>
+               <tr class='text-center'>
+                  <th scope="col">Month</th>
+                  <th scope="col">Fee</th>
+                  <th scope="col">Paid</th>
+                  <th scope="col">Disc</th>
+                  <th scope="col">Dues</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Single Pay</th>
+                  <th scope="col">Multi. Pay</th>
+               </tr>
+               </thead>
+               <tbody class="students-fee-table">
+                  {{-- student month fee  --}}
+               </tbody>
+            </table>
+            {{-- Start Selectd Student Fee Stracture Month Wize --}}
+       </div>
+       <div class="col-12"></div>
+   </div>
 
-   {{-- Start Selectd Student Fee Stracture Month Wize --}}
+
+
+   
 
  
 @endsection

@@ -322,7 +322,7 @@ $(document).ready(function(){
                               <td style="width:70px;">
                                 <div class="form-check justify-content-center ${m.btn}">
                                   <input type="checkbox" class="form-check-input"  month="month_${i}" paid="${m.pay}" dues_fee="${m.due}" value="" id="check_${i}">
-                                  <label class="form-check-label" for="check_${i}"></label>
+                                  <label class="form-check-label" for="check_${i}" style="cursor:pointer;"></label>
                                 </div>
                               </td>
                             </tr>

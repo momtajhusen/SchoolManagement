@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students_fee_months', function (Blueprint $table) {
+        Schema::create('students_fee_paids', function (Blueprint $table) {
             $table->id();
             $table->integer("st_id")->nullable();
             $table->year('year')->nullable();
@@ -19,21 +19,15 @@ return new class extends Migration
             for ($i = 0; $i < 12; $i++) {
                 $table->decimal('month_' . $i, 10, 2)->default(0);
             }
-            // Define total columns
-            $table->decimal('total_fee', 10, 2)->default(0);
-            $table->decimal('total_paid', 10, 2)->default(0);
-            $table->decimal('total_disc', 10, 2)->default(0);
-            $table->decimal('total_dues', 10, 2)->default(0);
             $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('students_fee_months');
+        Schema::dropIfExists('students_fee_paids');
     }
 };

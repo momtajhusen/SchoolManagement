@@ -9,6 +9,7 @@ use Exception;
 use App\Models\Parents;
 use App\Models\Student;
 use App\Models\StudentsFeeMonth;
+use App\Models\StudentsFeeStracture;
 
 
 
@@ -17,7 +18,7 @@ class StudentsFeePayment extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function StudentFeePaymentRetrive(Request $request)
+    public function ParentStudentRetrive(Request $request)
     {
         try {
             $pr_id = $request->pr_id;
@@ -36,6 +37,45 @@ class StudentsFeePayment extends Controller
                 return response()->json(['status' => 'success', 'parent_details' => $parent_data, 'student_details' => $student_data], 200);
             }
         } catch (Exception $e) {
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+        
+    }
+
+    public function StudentFeePaymentRetrive(Request $request)
+    {
+        try {
+            $st_id = $request->st_id;
+            $year = 2080; // Assuming you want data for the year 2080
+        
+            // Fetch the fee structures for the specified student ID and year
+            $feeStructures = StudentsFeeMonth::where('year', $year)->where('st_id', $st_id)->first();
+
+            $Student = Student::where('id', $st_id)->first();
+        
+            if ($feeStructures) {
+                // Extract fee data from month_0 to month_12
+                $feeArray = [];
+                for ($i = 0; $i <= 11; $i++) {
+                    $column = 'month_' . $i;
+                    $feeArray[$i] = $feeStructures->$column;
+                }
+
+                $student = [
+                    'fee_year'=>$year,
+                    'st_id'=>$st_id,
+                    'pr_id'=>$Student->id,
+                ];
+        
+                // Return the fee array as JSON response
+                return response()->json(['status' => 'success', 'fee_month' => $feeArray, 'student' => $student]);
+            } else {
+                // No fee structures found for the specified criteria
+                return response()->json(['status' => 'No fee structures found for the specified criteria'], 404);
+            }
+        } catch (Exception $e) {
+            // Handle exceptions
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);
         }

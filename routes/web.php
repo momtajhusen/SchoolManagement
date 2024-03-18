@@ -218,7 +218,10 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
 
    // Start New Account payment 
       Route::view('admin/student-fee-payment', 'Admin_Page/Super_Admin/layouts/Account_management/student-fee-payment')->name('student-fee-payment');
-      Route::get('/student-payment-fee-retrive', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaymentRetrive');
+      Route::get('/parent-student-retrive', 'App\Http\Controllers\StudentsFeePayment@ParentStudentRetrive');
+
+      Route::get('/student-fee-retrive', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaymentRetrive');
+
 
 
    // End New Account payment 
@@ -644,6 +647,10 @@ Route::get('/command/migrate_specific', function () {
        '--path' => [
            'database/migrations/2024_03_06_041716_create_students_fee_stractures_table.php',
            'database/migrations/2024_03_10_054154_create_students_fee_months_table.php',
+           'database/migrations/2024_03_17_172859_create_students_fee_paids_table.php',
+           'database/migrations/2024_03_17_172940_create_students_fee_dues_table.php',
+           'database/migrations/2024_03_17_172954_create_students_fee_discs_table.php',
+
        ]
    ]);
 });
