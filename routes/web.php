@@ -218,10 +218,11 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
 
    // Start New Account payment 
       Route::view('admin/student-fee-payment', 'Admin_Page/Super_Admin/layouts/Account_management/student-fee-payment')->name('student-fee-payment');
+
       Route::get('/parent-student-retrive', 'App\Http\Controllers\StudentsFeePayment@ParentStudentRetrive');
-
       Route::get('/student-fee-retrive', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaymentRetrive');
-
+      Route::get('/student-fee-month-particular', 'App\Http\Controllers\StudentsFeePayment@StudentFeeMonthParticular');
+      Route::post('/student-fee-paid', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaid');
 
 
    // End New Account payment 

@@ -195,7 +195,7 @@
                             <input type="text" value="" required maxlength="10" id="pay_date" name="payment_date" placeholder="yyyy-mm-dd" class="form-control currentDate">
                         </div>
                         <div class="w-100 form-group m-1 d-flex justify-content-center mt-4">
-                            <button value="Payment" class="form-control paid_btn bg-success" sing_multi="#" all_st_id='#'; style="width:100%;cursor:pointer;">Payment</button>
+                            <button value="Payment" class="form-control paid_btn bg-success" sing_multi="#" pr_id='#' all_st_id='#'; style="width:100%;cursor:pointer;">Payment</button>
                             <button  class="d-none bg-success payment-loading" style="width:300px;cursor:pointer;">
                                 <span class="mr-2"></span> <i class="fa fa-circle-o-notch fa-spin" style="font-size:15px"></i>
                             </button>

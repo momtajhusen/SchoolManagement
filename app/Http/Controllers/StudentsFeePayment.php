@@ -106,6 +106,44 @@ class StudentsFeePayment extends Controller
         
     }
 
+    public function StudentFeeMonthParticular(Request $request){
+        try {
+
+            echo 'StudentFeeMonthParticular';
+
+        }catch (Exception $e) {
+            // Handle exceptions
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+
+    public function StudentFeePaid(Request $request)
+    {
+        try {
+            $payMonth = $request->payMonth;
+            $all_st_id = $request->all_st_id;
+            $fee_year = $request->fee_year;
+            $fee_amount = $request->fee_amount;
+            $paid_amount = $request->paid_amount;
+            $disc_amount = $request->disc_amount;
+            $dues_amount = $request->dues_amount;
+            $comment_disc = $request->comment_disc;
+            $pay_date = $request->pay_date;
+            $pr_id = $request->pr_id;
+
+
+            echo $dues_amount;
+
+
+        }
+        catch (Exception $e) {
+            // Handle exceptions
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      */
