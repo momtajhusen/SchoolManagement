@@ -151,20 +151,27 @@
                </button>
             </div>
             <div class="modal-body">
-                <div class="row border m-0">
-                   <div class="col-lg-6 col-md-12 border">
+                <div class="row m-0">
+                   <div class="col-lg-6 col-md-12 border py-4">
 
                    </div>
-                   <div class="col-lg-6 col-md-12 border">
+                   <div class="col-lg-6 col-md-12 border py-4">
                      <div class="d-flex flex-column align-items-center justify-content-center" style="width:100%;">
                         <div class="w-100 form-group m-1">
                             <label class="text-light">Actual Dues</label>
-                            <input type="number" readonly value="0" id="actual_dues" name="actual_dues" placeholder="Actual Dues" class="form-control" style="background:#ccc;">
+                            <input type="number" readonly value="0" id="fee_input" name="fee_dues" placeholder="Fee Dues" class="form-control" style="background:#ccc;">
                             <input type="hidden" id="last_month" value="0">
                         </div>
-                        <div class="w-100 form-group m-1">
-                            <label class="text-light">Payment</label>
-                            <input type="number" name="payment" id="payment" placeholder="Payment" class="form-control payment">
+                        <div class="w-100 form-group m-1 d-flex">
+                             <div class="w-50">
+                                 <label class="text-light">Payment</label>
+                                 <input type="number" min="0" name="paid" id="paid_input" placeholder="paid" class="form-control payment">
+                             </div>
+                             <div class="w-50 ml-1">
+                              <label class="text-light">Dues</label>
+                              <input type="number" readonly value="0" min="0" name="paid" id="dues_input" placeholder="paid" class="form-control payment" style="background:#ccc;">
+                             </div>
+
                         </div>
                         <div class="w-100 d-flex">
                             <div class="w-100 form-group m-1">
@@ -175,30 +182,22 @@
                                      <input type="number" min="0" max="100" value="0" id="percentage" name="percentage" placeholder="Per"  class="form-control px-0 pl-3 w-100" style="border-radius: 10 0 0 0px;" oninput="if (parseInt(this.value) > 100) this.value = '100';">
                                      <div class="d-flex justify-content-center  align-items-center" style="width:40%;height:45px;position:absolute;right:5px;top:0px;">%</div>
                                 </div>
-                                <input type="number" value="0" id="discount" name="discount" placeholder="Discount" class="form-control" style="width:60%;border-radius: 0 0 10 10px;">
+                                <input type="number" min="0" value="0" id="disc_input" name="disc" placeholder="Discount" class="form-control ml-1" style="width:60%;border-radius: 0 0 10 10px;">
                                 </div>
-                            </div>
-                            <div class="w-50 form-group m-1 d-none">
-                                <label class="text-light">Free</label>
-                                <input type="number" readonly value="0" id="free" name="free" placeholder="Free" class="form-control" style="background:#ccc;">
                             </div>
                         </div>
                         <div class="w-100 form-group m-1 d-none" id="comment_for_discount">
                             <label class="text-light">Comment for discount</label>
-                            <input type="text" required id="comment_discount" name="comment_discount" placeholder="Comment" class="form-control">
-                        </div>
-                        <div class="w-100 form-group m-1 d-none" id="comment_free_fee_box">
-                            <label class="text-light">Comment for fee free.</label>
-                            <input type="text" required id="comment_free_fee" name="comment_free_fee" placeholder="Comment" class="form-control">
+                            <input type="text" required id="comment_disc" name="comment_disc" placeholder="Comment" class="form-control">
                         </div>
                         <div class="w-100 form-group m-1">
                             <label class="text-light">Date</label>
-                            <input type="text" value="" required maxlength="10" id="payment_date" name="payment_date" placeholder="yyyy-mm-dd" class="form-control currentDate">
+                            <input type="text" value="" required maxlength="10" id="pay_date" name="payment_date" placeholder="yyyy-mm-dd" class="form-control currentDate">
                         </div>
                         <div class="w-100 form-group m-1 d-flex justify-content-center mt-4">
-                            <button value="Payment" class="form-control monthly_payment bg-success" feeType="#" paymode="#" style="width:300px;cursor:pointer;">Payment</button>
+                            <button value="Payment" class="form-control paid_btn bg-success" sing_multi="#" all_st_id='#'; style="width:100%;cursor:pointer;">Payment</button>
                             <button  class="d-none bg-success payment-loading" style="width:300px;cursor:pointer;">
-                                <span class="mr-2">Payment</span> <i class="fa fa-circle-o-notch fa-spin" style="font-size:15px"></i>
+                                <span class="mr-2"></span> <i class="fa fa-circle-o-notch fa-spin" style="font-size:15px"></i>
                             </button>
                         </div>
                      </div>
@@ -459,7 +458,7 @@
                         {{-- Start chekbox 1 to 12  --}}
 
                         <div class="p-0">
-                           <button class="bg-info take-pay border-0 text-light btn rounded py-3 px-4" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Payment</button>
+                           <button class="bg-info take-pay-multi border-0 text-light btn rounded py-3 px-4 d-none" dues="0" all_st_id="" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Payment</button>
                         </div>
                      </div>
 

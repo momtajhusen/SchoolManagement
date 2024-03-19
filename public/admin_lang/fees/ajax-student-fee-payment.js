@@ -118,13 +118,20 @@ $(document).ready(function(){
                 var total_paid = 0;
                 var total_disc = 0;
                 var total_dues = 0;
+                var all_st_id = [];
 
                 response.student_details.forEach(element => {
                     var student_name = element.first_name+' '+element.last_name;
                     total_fee += element.total_fee;
-                    total_fee += element.total_paid;
-                    total_fee += element.total_disc;
-                    total_fee += element.total_dues;
+                    total_paid += element.total_paid;
+                    total_disc += element.total_disc;
+                    all_st_id.push(element.id);
+
+                    var student_total_fee = element.total_fee - element.total_paid + element.total_disc;
+
+                    total_dues += student_total_fee;
+
+
                     $(".students-table").append(`
                         <tr class='students' st_id='`+element.id+`' style='cursor:pointer'>
                             <td>
@@ -134,17 +141,24 @@ $(document).ready(function(){
                             <td class='text-center'>₹ `+element.total_fee+`</td>
                             <td class='text-center'>₹ `+element.total_paid+`</td>
                             <td class='text-center'>₹ `+element.total_disc+`</td>
-                            <td class='text-center'>₹ `+element.total_dues+`</td>
+                            <td class='text-center'>₹ `+student_total_fee+`</td>
                         </tr>
                     `); 
                 });
 
                 $('.total-fee-multi').html(total_fee);
-                $('.total-paid-multi').html();
-                $('.total-disc-multi').html();
-                $('.total-dues-multi').html();
+                $('.total-paid-multi').html(total_paid);
+                $('.total-disc-multi').html(total_disc);
+                $('.total-dues-multi').html(total_dues);
 
+                $(".take-pay-multi").attr('dues', total_dues);
+                $(".take-pay-multi").attr('all_st_id', all_st_id);
 
+                if(total_dues != 0){
+                    $(".take-pay-multi").removeClass('d-none');
+                }else{
+                    $(".take-pay-multi").addClass('d-none');
+                }
             }
 
           }
@@ -158,6 +172,40 @@ $(document).ready(function(){
     });
  }
 // End Select parent than retrive stundets 
+
+// Take Pay multi 
+$(document).ready(function(){
+    $('.take-pay-multi').click(function(){
+        var dues = $(this).attr('dues');
+        var all_st_id = $(this).attr('all_st_id');
+
+        $('#fee_input').val(dues);
+        $('#paid_input').val(dues);
+        $('.paid_btn').attr('sing_multi', 'multi');
+        $('.paid_btn').attr('all_st_id', all_st_id);
+
+    });
+});
+
+// paid final sucess 
+$(document).ready(function(){
+    $('.paid_btn').click(function(){
+        var paymode = $(this).attr('sing_multi');
+        var selectedMonth = [];
+        var fee_amount =  $('#fee_input').val();
+        var paid_amount =  $('#paid_input').val();
+        var disc_amount =  $('#disc_input').val();
+        var comment_disc = $('#comment_disc').val();
+        var pay_date = $('#pay_date').val();
+        var all_st_id = $(this).attr('all_st_id');
+
+        $('.month-check-input:checked').each(function() {
+            selectedMonth.push($(this).val());
+        });
+
+    });
+});
+
 
 
 //  Selected student get fee months 
