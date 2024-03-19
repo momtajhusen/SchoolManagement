@@ -140,6 +140,78 @@
 @section('contents')
    <div><h5>Student Fee Payment</h5></div>
 
+     <!-- Fee Payment  Modal -->
+      <div class="modal fade" id="feePaymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg" role="document">
+         <div class="modal-content" style="background: #02142a;">
+            <div class="modal-header">
+               <h5 class="modal-title text-light" id="exampleModalLabel">Fee Payment</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+                <div class="row border m-0">
+                   <div class="col-lg-6 col-md-12 border">
+
+                   </div>
+                   <div class="col-lg-6 col-md-12 border">
+                     <div class="d-flex flex-column align-items-center justify-content-center" style="width:100%;">
+                        <div class="w-100 form-group m-1">
+                            <label class="text-light">Actual Dues</label>
+                            <input type="number" readonly value="0" id="actual_dues" name="actual_dues" placeholder="Actual Dues" class="form-control" style="background:#ccc;">
+                            <input type="hidden" id="last_month" value="0">
+                        </div>
+                        <div class="w-100 form-group m-1">
+                            <label class="text-light">Payment</label>
+                            <input type="number" name="payment" id="payment" placeholder="Payment" class="form-control payment">
+                        </div>
+                        <div class="w-100 d-flex">
+                            <div class="w-100 form-group m-1">
+                                <label class="text-light">Discount %</label>
+                                <label class="text-light" style="margin-left: 25%;">Discount ₹</label>
+                                <div class="d-flex">
+                                <div style="width:40%;position:relative;">
+                                     <input type="number" min="0" max="100" value="0" id="percentage" name="percentage" placeholder="Per"  class="form-control px-0 pl-3 w-100" style="border-radius: 10 0 0 0px;" oninput="if (parseInt(this.value) > 100) this.value = '100';">
+                                     <div class="d-flex justify-content-center  align-items-center" style="width:40%;height:45px;position:absolute;right:5px;top:0px;">%</div>
+                                </div>
+                                <input type="number" value="0" id="discount" name="discount" placeholder="Discount" class="form-control" style="width:60%;border-radius: 0 0 10 10px;">
+                                </div>
+                            </div>
+                            <div class="w-50 form-group m-1 d-none">
+                                <label class="text-light">Free</label>
+                                <input type="number" readonly value="0" id="free" name="free" placeholder="Free" class="form-control" style="background:#ccc;">
+                            </div>
+                        </div>
+                        <div class="w-100 form-group m-1 d-none" id="comment_for_discount">
+                            <label class="text-light">Comment for discount</label>
+                            <input type="text" required id="comment_discount" name="comment_discount" placeholder="Comment" class="form-control">
+                        </div>
+                        <div class="w-100 form-group m-1 d-none" id="comment_free_fee_box">
+                            <label class="text-light">Comment for fee free.</label>
+                            <input type="text" required id="comment_free_fee" name="comment_free_fee" placeholder="Comment" class="form-control">
+                        </div>
+                        <div class="w-100 form-group m-1">
+                            <label class="text-light">Date</label>
+                            <input type="text" value="" required maxlength="10" id="payment_date" name="payment_date" placeholder="yyyy-mm-dd" class="form-control currentDate">
+                        </div>
+                        <div class="w-100 form-group m-1 d-flex justify-content-center mt-4">
+                            <button value="Payment" class="form-control monthly_payment bg-success" feeType="#" paymode="#" style="width:300px;cursor:pointer;">Payment</button>
+                            <button  class="d-none bg-success payment-loading" style="width:300px;cursor:pointer;">
+                                <span class="mr-2">Payment</span> <i class="fa fa-circle-o-notch fa-spin" style="font-size:15px"></i>
+                            </button>
+                        </div>
+                     </div>
+                   </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary p-3 px-5" data-dismiss="modal">Cancle</button>
+            </div>
+         </div>
+         </div>
+      </div>
+
    <div class="row border">
       <div class="col-12 col-md-4 py-3 border position-relative bg-light">
 
@@ -387,7 +459,7 @@
                         {{-- Start chekbox 1 to 12  --}}
 
                         <div class="p-0">
-                           <button class="bg-info take-pay border-0 text-light btn rounded py-3 px-4" style="cursor:pointer">Payment</button>
+                           <button class="bg-info take-pay border-0 text-light btn rounded py-3 px-4" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Payment</button>
                         </div>
                      </div>
 
@@ -396,7 +468,6 @@
                   <td class='text-center text-light'>₹ <span class="total-paid-multi">0</span></td>
                   <td class='text-center text-light'>₹ <span class="total-disc-multi">0</span></td>
                   <td class='text-center text-light'>₹ <span class="total-dues-multi">0</span></td>
-                  <td class='bg-light p-0 d-none'><button class='bg-info btn w-100 h-100 text-light py-3'>Payment</button></td>
               </tr>
             </tbody>
           </table>
