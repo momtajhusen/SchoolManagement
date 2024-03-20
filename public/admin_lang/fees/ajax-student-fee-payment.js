@@ -190,11 +190,12 @@ $(document).ready(function(){
  }
 // End Select parent than retrive stundets 
 
-// Take Pay multi 
+// Take Pay multi get particular
 $(document).ready(function(){
     $('.take-pay-multi').click(function(){
         var dues = $(this).attr('dues');
         var all_st_id = $(this).attr('all_st_id');
+
 
         $('#fee_input').val(dues);
         $('#paid_input').val(dues);
@@ -206,6 +207,67 @@ $(document).ready(function(){
 
         $('.paid_btn').attr('sing_multi', 'multi');
         $('.paid_btn').attr('all_st_id', all_st_id);
+
+        var st_id_array = all_st_id.split(',');
+        var fee_year = NepaliFunctions.GetCurrentBsDate().year;
+        var month_array = [];
+        $('.month-check-input:checked').each(function() {
+            var value = $(this).val();
+            var monthNumber = parseInt(value.replace('month_', '')) + 1; // Extract number and add 1
+            month_array.push(monthNumber);
+        });
+
+ 
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+
+          $.ajax({
+            url: "/student-fee-month-particular",
+            method: "GET", 
+            data: {
+                month_array: month_array,
+                fee_year: fee_year,
+                st_id_array: st_id_array,
+            },
+            success: function (response) {
+
+                console.log(response);
+                return false;
+                if (response.status === 'success') {
+                    var data = response.data;
+                    // Iterate over each student
+                    $.each(data, function (studentId, studentData) {
+                        var studentDetails = studentData.student_details;
+                        var feeDetails = studentData.fee_details;
+                        
+                        // Access student details
+                        console.log("Student ID: " + studentId);
+                        console.log("Student Name: " + studentDetails.first_name);
+
+        
+                        // Access fee details
+                        $.each(feeDetails, function (index, feeDetail) {
+                            console.log("Fee Type: " + feeDetail.fee_type);
+                            console.log("Amount: " + feeDetail.amount);
+                            console.log("Number of Months: " + feeDetail.month);
+                        });
+                    });
+                } else {
+                    console.error("Error: " + response.status);
+                }
+        
+
+            },
+            
+            error: function (xhr, status, error) {
+                // Error callback function
+                console.log(xhr.responseText); // Log the error response in the console
+            },
+        });
 
     });
 });

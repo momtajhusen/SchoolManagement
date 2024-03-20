@@ -153,36 +153,131 @@
             <div class="modal-body">
                 <div class="row m-0">
                    <div class="col-lg-6 col-md-12 border py-4">
+                       <div>
+                          <div class="border p-2 d-flex">
+                              <img src="#" class="border" alt="" style="width:40px;height:40px;">
+                              <div class="d-flex align-items-center w-100 flex-column">
+                                 <h6 class="text-light m-0">Polar Star Secondary Boarding School</h6>
+                                 <span class="text-light" style="font-size:10px;">Mirchaiya-5, Sirha, Nepal</span>
+                              </div>
+                          </div>
+                          <div class="p-1 px-2 d-flex border mt-1 justify-content-between text-light" style="font-size:13px;">
+                           <span>Date : 2080-06-01</span>
+                           <span>Bill No : 5653</span>
+                           <span>Pan No : 0984543234</span>
+                          </div>
 
+                          <table class="table table-bordered my-1 table-sm text-light" style="font-size:12px;">
+                           <thead>
+                             <tr class="text-center">
+                               <th scope="col">SN.</th>
+                               <th scope="col">Particulars</th>
+                               <th scope="col">Months</th>
+                               <th scope="col">Amount</th>
+                             </tr>
+                           </thead>
+                           <tbody class="text-center">
+                             <tr>
+                               <th scope="row">1</th>
+                               <td>Tuition Fee</td>
+                               <td>3</td>
+                               <td>12000</td>
+                             </tr>
+                             <tr>
+                               <th scope="row">2</th>
+                               <td>Jacob</td>
+                               <td>Thornton</td>
+                               <td>@fat</td>
+                             </tr>
+                             <tr>
+                              <th scope="row">1</th>
+                              <td>Tuition Fee</td>
+                              <td>3</td>
+                              <td>12000</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2</th>
+                              <td>Jacob</td>
+                              <td>Thornton</td>
+                              <td>@fat</td>
+                            </tr>
+                           </tbody>
+                         </table>
+
+                         <span>Momtah Husen</span>
+                         <table class="table table-bordered my-1 table-sm text-light" style="font-size:12px;">
+                           <thead>
+                             <tr class="text-center">
+                               <th scope="col">SN.</th>
+                               <th scope="col">Particulars</th>
+                               <th scope="col">Months</th>
+                               <th scope="col">Amount</th>
+                             </tr>
+                           </thead>
+                           <tbody class="text-center">
+                             <tr>
+                               <th scope="row">1</th>
+                               <td>Tuition Fee</td>
+                               <td>3</td>
+                               <td>12000</td>
+                             </tr>
+                             <tr>
+                               <th scope="row">2</th>
+                               <td>Jacob</td>
+                               <td>Thornton</td>
+                               <td>@fat</td>
+                             </tr>
+                             <tr>
+                              <th scope="row">1</th>
+                              <td>Tuition Fee</td>
+                              <td>3</td>
+                              <td>12000</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2</th>
+                              <td>Jacob</td>
+                              <td>Thornton</td>
+                              <td>@fat</td>
+                            </tr>
+                           </tbody>
+                         </table>
+
+                       </div>
                    </div>
                    <div class="col-lg-6 col-md-12 border py-4">
                      <div class="d-flex flex-column align-items-center justify-content-center" style="width:100%;">
-                        <div class="w-100 form-group m-1">
+                        <div class="w-100 form-group m-1 position-relative">
+                           <span class="position-absolute" style="top:41px;left:10px;">₹</span>
                             <label class="text-light">Actual Dues</label>
-                            <input type="number" readonly value="0" id="fee_input" name="fee_dues" placeholder="Fee Dues" class="form-control" style="background:#ccc;">
+                            <input type="number" readonly value="0" id="fee_input" name="fee_dues" placeholder="Fee Dues" class="form-control" style="background:#ccc;padding-left:22px;">
                             <input type="hidden" id="last_month" value="0">
                         </div>
                         <div class="w-100 form-group m-1 d-flex">
-                             <div class="w-50">
+                             <div class="w-50 position-relative">
+                                 <span class="position-absolute" style="top:41px;left:10px;">₹</span>
                                  <label class="text-light">Payment</label>
-                                 <input type="number" min="0" name="paid" id="paid_input" placeholder="paid" class="form-control payment">
+                                 <input type="number" min="0" name="paid" id="paid_input" placeholder="paid" class="form-control payment" style="padding-left:22px;">
                              </div>
-                             <div class="w-50 ml-1">
+                             <div class="w-50 ml-1 position-relative">
+                              <span class="position-absolute" style="top:41px;left:10px;">₹</span>
                               <label class="text-light">Dues</label>
-                              <input type="number" readonly value="0" min="0" name="paid" id="dues_input" placeholder="paid" class="form-control payment" style="background:#ccc;">
+                              <input type="number" readonly value="0" min="0" name="paid" id="dues_input" placeholder="paid" class="form-control payment" style="background:#ccc;padding-left:22px;">
                              </div>
 
                         </div>
                         <div class="w-100 d-flex">
                             <div class="w-100 form-group m-1">
                                 <label class="text-light">Discount %</label>
-                                <label class="text-light" style="margin-left: 25%;">Discount ₹</label>
+                                <label class="text-light" style="margin-left: 18%;">Discount ₹</label>
                                 <div class="d-flex">
                                 <div style="width:40%;position:relative;">
                                      <input type="number" min="0" max="100" value="0" id="percentage" name="percentage" placeholder="Per"  class="form-control px-0 pl-3 w-100" style="border-radius: 10 0 0 0px;" oninput="if (parseInt(this.value) > 100) this.value = '100';">
                                      <div class="d-flex justify-content-center  align-items-center" style="width:40%;height:45px;position:absolute;right:5px;top:0px;">%</div>
                                 </div>
-                                <input type="number" min="0" value="0" id="disc_input" name="disc" placeholder="Discount" class="form-control ml-1" style="width:60%;border-radius: 0 0 10 10px;">
+                                <div class="position-relative" style="width:60%;">
+                                  <span class="position-absolute" style="top:9px;left:11px;">₹</span>
+                                 <input type="number" min="0" value="0" id="disc_input" name="disc" placeholder="Discount" class="form-control ml-1" style="width:100%;border-radius: 0 0 10 10px;padding-left:22px;">
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -458,7 +553,7 @@
                         {{-- Start chekbox 1 to 12  --}}
 
                         <div class="p-0">
-                           <button class="bg-info take-pay-multi border-0 text-light btn rounded py-3 px-4 d-none" dues="0" all_st_id="" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Payment</button>
+                           <button class="bg-info take-pay-multi border-0 text-light btn rounded py-3 px-4" dues="0" all_st_id="" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Payment</button>
                         </div>
                      </div>
 

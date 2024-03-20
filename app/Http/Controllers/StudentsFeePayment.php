@@ -106,17 +106,80 @@ class StudentsFeePayment extends Controller
         
     }
 
-    public function StudentFeeMonthParticular(Request $request){
+    public function StudentFeeMonthParticular(Request $request) {
         try {
-
-            echo 'StudentFeeMonthParticular';
-
-        }catch (Exception $e) {
+            $month_array = $request->month_array;
+            $st_id_array = $request->st_id_array;
+            $fee_year = $request->fee_year;
+    
+            $fee_details = [];
+    
+            // Iterate over each student
+            foreach ($st_id_array as $student_id) {
+                // Fetch student details
+                $student_details = Student::where('id', $student_id)->first();
+    
+                $student_fee_details = [];
+    
+                // Initialize an array to store the total amount and months for each fee type
+                $total_fee_details = [];
+    
+                // Iterate over each month
+                foreach ($month_array as $month) {
+                    // Query to fetch fee details for the student for the particular month
+                    $fee_details_month = StudentsFeeStracture::where('st_id', $student_id)
+                        ->where('year', $fee_year)
+                        ->where('month', $month)
+                        ->get();
+    
+                    // Accumulate amounts and track months for each fee type
+                    foreach ($fee_details_month as $fee_detail) {
+                        $fee_type = $fee_detail->fee_type;
+                        $amount = $fee_detail->amount;
+    
+                        // Sum the amount if the fee type already exists
+                        if (isset($total_fee_details[$fee_type])) {
+                            $total_fee_details[$fee_type]['amount'] += $amount;
+                            $total_fee_details[$fee_type]['months'][] = $month;
+                        } else {
+                            $total_fee_details[$fee_type] = [
+                                'amount' => $amount,
+                                'months' => [$month],
+                            ];
+                        }
+                    }
+                }
+    
+                // Convert months array to its length for each fee type
+                foreach ($total_fee_details as $fee_type => $details) {
+                    $total_fee_details[$fee_type]['month'] = count($details['months']);
+                    unset($total_fee_details[$fee_type]['months']);
+                }
+    
+                // Sum up the total amount for this student
+                $total_amount = 0;
+                foreach ($total_fee_details as $details) {
+                    $total_amount += $details['amount'];
+                }
+    
+                // Include student details along with fee details
+                $fee_details[$student_id] = [
+                    'student_details' => $student_details,
+                    'fee_details' => $total_fee_details,
+                    'total_amount' => $total_amount, // Add total amount to the response
+                ];
+            }
+    
+            return response()->json(['status' => 'success', 'data' => $fee_details]);
+        } catch (Exception $e) {
             // Handle exceptions
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);
         }
     }
+    
+    
+    
 
     public function StudentFeePaid(Request $request)
     {
