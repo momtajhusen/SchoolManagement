@@ -155,10 +155,10 @@
                    <div class="col-lg-6 col-md-12 border py-4">
                        <div>
                           <div class="border p-2 d-flex">
-                              <img src="#" class="border" alt="" style="width:40px;height:40px;">
+                              <img src="#" class="border school-logo" alt="" style="width:40px;height:40px;">
                               <div class="d-flex align-items-center w-100 flex-column">
-                                 <h6 class="text-light m-0">Polar Star Secondary Boarding School</h6>
-                                 <span class="text-light" style="font-size:10px;">Mirchaiya-5, Sirha, Nepal</span>
+                                 <h6 class="text-light m-0 school-name">Polar Star Secondary Boarding School</h6>
+                                 <span class="text-light school-address" style="font-size:10px;">Mirchaiya-5, Sirha, Nepal</span>
                               </div>
                           </div>
 

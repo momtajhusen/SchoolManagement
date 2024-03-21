@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Exception;
 use App\Models\Parents;
 use App\Models\Student;
+use App\Models\SchoolDetails;
 use App\Models\StudentsFeeStracture;
 use App\Models\StudentsFeeMonth;
 use App\Models\StudentsFeePaid;
@@ -182,8 +183,10 @@ class StudentsFeePayment extends Controller
                     'total_amount' => $total_amount,
                 ];
             }
+
+            $school_details = SchoolDetails::first();
     
-            return response()->json(['status' => 'success', 'data' => $fee_details, 'common_fee_details' => $common_fee_details, 'total_common_amount' => $total_common_amount]);
+            return response()->json(['status' => 'success', 'data' => $fee_details, 'common_fee_details' => $common_fee_details, 'total_common_amount' => $total_common_amount, 'school_details'=> $school_details]);
         } catch (Exception $e) {
             // Handle exceptions
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();

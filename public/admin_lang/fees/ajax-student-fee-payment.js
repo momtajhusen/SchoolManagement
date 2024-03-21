@@ -317,6 +317,12 @@ $(document).ready(function(){
                     //     alert(feeDetail.fee_type);
                     // });
 
+                    $('.school-name').html(response.school_details.school_name);
+                    $('.school-address').html(response.school_details.address);
+                    $('.school-logo').attr('src', '../storage/'+response.school_details.logo_img);
+
+
+
                     $('.modale-table').html(`
                     <table class="table table-bordered my-1 table-sm text-light" style="font-size:12px;">
                     <thead>
