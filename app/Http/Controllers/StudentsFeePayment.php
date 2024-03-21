@@ -194,12 +194,11 @@ class StudentsFeePayment extends Controller
         }
     }
     
-
     public function StudentFeePaid(Request $request)
     {
         try {
-            $payMonth = $request->payMonth;
-            $all_st_id = $request->all_st_id;
+            $pay_month_array = $request->pay_month_array;
+            $st_id_array = $request->st_id_array;
             $fee_year = $request->fee_year;
             $fee_amount = $request->fee_amount;
             $paid_amount = $request->paid_amount;
@@ -207,19 +206,64 @@ class StudentsFeePayment extends Controller
             $dues_amount = $request->dues_amount;
             $comment_disc = $request->comment_disc;
             $pay_date = $request->pay_date;
+            $data_fee_particular = $request->data_fee_particular;
             $pr_id = $request->pr_id;
+    
+            // Loop through each student ID
+            foreach ($st_id_array as $st_id) {
+                // Fetch fee details for the current student from StudentsFeeMonth table
+                $fee_details = StudentsFeeMonth::where('st_id', $st_id)
+                                                ->where('year', $fee_year)
+                                                ->first();
+            
+                if ($fee_details) {
+                    // Check if there is a record in StudentsFeePaid for this student
+                    $student_paid_record = StudentsFeePaid::where('st_id', $st_id)->first();
+            
+                    // If no record exists, create one
+                    if (!$student_paid_record) {
+                        $student_paid_record = new StudentsFeePaid();
+                        $student_paid_record->st_id = $st_id;
+                        // Set all month columns to 0 as initial values
+                        foreach ($pay_month_array as $pay_month) {
+                            $student_paid_record->$pay_month = 0;
+                            $student_paid_record->year = $fee_year;
+                        }
+                        $student_paid_record->save();
+                    }
+            
+                    // Loop through each month in pay_month_array
+                    foreach ($pay_month_array as $pay_month) {
+                        // Check if fee amount for the month is greater than already paid
+                        $month_column = $pay_month;
+                        $fee_for_month = $fee_details->$month_column;
+                        $already_paid = $student_paid_record->$month_column;
+            
+                        if ($fee_for_month > $already_paid) {
+                            // Update StudentsFeePaid table with fee from StudentsFeeMonth table
+                            $student_paid_record->$month_column = $fee_for_month;
+                        }
+                    }
+            
+                    // Update total_paid column in StudentsFeePaid table
+                    // $student_paid_record->total_paid = array_sum($student_paid_record->getAttributes());
+                    $student_paid_record->save();
+                }
+            }
+            
+    
+            // Other processing...
+    
 
+            return response()->json(['status' =>  'sucess'], 200);
 
-            echo $dues_amount;
-
-
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             // Handle exceptions
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);
         }
     }
+    
 
     /**
      * Show the form for creating a new resource.

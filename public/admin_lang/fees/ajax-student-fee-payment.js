@@ -193,6 +193,7 @@ $(document).ready(function(){
 // Take Pay multi get particular
 $(document).ready(function(){
     $('.take-pay-multi').click(function(){
+
         var dues = $(this).attr('dues');
         var all_st_id = $(this).attr('all_st_id');
 
@@ -282,11 +283,11 @@ $(document).ready(function(){
                         `;
 
                         // particular fee_details 
-                        $.each(feeDetails, function (index, feeDetail) {
-                            console.log("Fee Type: " + feeDetail.fee_type);
-                            console.log("Amount: " + feeDetail.amount);
-                            console.log("Number of Months: " + feeDetail.month);
-                        });
+                        // $.each(feeDetails, function (index, feeDetail) {
+                        //     console.log("Fee Type: " + feeDetail.fee_type);
+                        //     console.log("Amount: " + feeDetail.amount);
+                        //     console.log("Number of Months: " + feeDetail.month);
+                        // });
 
                             // Example: Iterate through commonFeeDetails
 
@@ -316,7 +317,10 @@ $(document).ready(function(){
                                 `;
                             }
 
- 
+                               console.log(commonFeeDetails);
+                               $('.paid_btn').attr('data-fee-particular', JSON.stringify(commonFeeDetails));
+
+                      
                     });
 
                     // $.each(response.common_fee_details, function (index, feeDetail) {
@@ -358,7 +362,6 @@ $(document).ready(function(){
                   
 
 
-
                 } else {
                     console.error("Error: " + response.status);
                 }
@@ -378,7 +381,7 @@ $(document).ready(function(){
 // paid final sucess 
 $(document).ready(function(){
     $('.paid_btn').click(function(){
-        var payMonth = [];
+        var payMonthArray = [];
         var fee_amount =  $('#fee_input').val();
         var paid_amount =  $('#paid_input').val();
         var disc_amount =  $('#disc_input').val();
@@ -387,11 +390,15 @@ $(document).ready(function(){
         var pay_date = $('#pay_date').val();
         var fee_year = NepaliFunctions.GetCurrentBsDate().year;
         var all_st_id = $(this).attr('all_st_id');
+        var st_id_array = all_st_id.split(',');
+
+ 
         var pr_id = $(this).attr('pr_id');
+        var dataFeeParticular =  $('.paid_btn').attr('data-fee-particular');
 
 
         $('.month-check-input:checked').each(function() {
-            payMonth.push($(this).val());
+            payMonthArray.push($(this).val());
         });
 
         $.ajaxSetup({
@@ -404,7 +411,7 @@ $(document).ready(function(){
             url: "/student-fee-paid",
             method: "POST", 
             data: {
-                payMonth: payMonth,
+                pay_month_array: payMonthArray,
                 fee_year: fee_year,
                 fee_amount: fee_amount,
                 paid_amount: paid_amount,
@@ -412,12 +419,26 @@ $(document).ready(function(){
                 dues_amount: dues_amount,
                 comment_disc: comment_disc,
                 pay_date: pay_date,
-                all_st_id: all_st_id,
+                data_fee_particular: dataFeeParticular,
+                st_id_array: st_id_array,
                 pr_id: pr_id,
             },
             success: function (response) {
 
-               alert(response);
+                console.log(response);
+               if(response.status == 'sucess'){
+                $('.payment-model-colose').click();
+                $("#search-btn").click();
+
+                Swal.fire({
+                    title: 'Payment Success!',
+                    text: "Do you want to print the bill?",
+                    icon: 'success',
+                    confirmButtonColor: '#00032e',
+                    confirmButtonText: 'OK',
+                  });
+
+               }
 
             },
             
@@ -425,7 +446,7 @@ $(document).ready(function(){
                 // Error callback function
                 console.log(xhr.responseText); // Log the error response in the console
             },
-        });
+          });
 
     });
 });

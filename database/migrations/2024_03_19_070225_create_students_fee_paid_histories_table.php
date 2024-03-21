@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('pr_id')->nullable();
             $table->string('sing_multi', 10)->nullable();
             $table->year("fee_year")->nullable();
-            $table->longText('particular_id')->nullable();
+            $table->longText('particular_data')->nullable();
             $table->longText('pay_month')->nullable();
             $table->decimal('paid', 10, 2)->default(0);
             $table->decimal('disc', 10, 2)->default(0);
