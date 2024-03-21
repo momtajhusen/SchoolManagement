@@ -324,8 +324,7 @@ $(document).ready(function(){
                           <td colspan="5">
                              <div class="d-flex justify-content-between text-light" style="font-size:13px;">
                                 <span>Billing : Up to Bhadra</span>
-                                <span>Paid Date : 2080-06-01</span>
-                                <span>Bill No : 5653</span>
+                                <span>Date : 2080-06-01</span>
                              </div>
                           </td>
                        </tr>
