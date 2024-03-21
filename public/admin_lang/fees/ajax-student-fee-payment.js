@@ -236,26 +236,119 @@ $(document).ready(function(){
             success: function (response) {
 
                 console.log(response);
-                return false;
+ 
                 if (response.status === 'success') {
                     var data = response.data;
                     // Iterate over each student
+
+                    var student_tr = '';
+                    var common_fee_particular_tr = '';
                     $.each(data, function (studentId, studentData) {
                         var studentDetails = studentData.student_details;
                         var feeDetails = studentData.fee_details;
+                        var commonFeeDetails = response.common_fee_details;
                         
-                        // Access student details
-                        console.log("Student ID: " + studentId);
-                        console.log("Student Name: " + studentDetails.first_name);
+            
 
-        
-                        // Access fee details
+                        var st_id = studentDetails.id;
+                        var student_name = studentDetails.first_name+' '+ studentDetails.last_name;
+                        var classes = studentDetails.class+' '+studentDetails.section;
+                        var student_img = studentDetails.student_image;
+
+
+                        student_tr += `
+                        <tr>
+                            <th class="text-center" style="width:30px;">
+                                <img src="../storage/`+student_img+`" class="border" alt="" style="width:25px;height:25px;">
+                            </th>
+                            <th colspan="4">
+                                <div class="d-flex justify-content-between align-items-center px-2">
+                                    <span style="font-size: 12px;">`+student_name+`</span>
+                                    <div class="d-flex">
+                                        <span class="ml-2" style="font-size: 10px;">Class :</span>
+                                        <span class="ml-2" style="font-size: 10px;">`+classes+`</span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <span class="ml-2" style="font-size: 10px;">ST_ID :</span>
+                                        <span class="ml-2" style="font-size: 10px;">`+st_id+`</span>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                        `;
+
+                        // particular fee_details 
                         $.each(feeDetails, function (index, feeDetail) {
                             console.log("Fee Type: " + feeDetail.fee_type);
                             console.log("Amount: " + feeDetail.amount);
                             console.log("Number of Months: " + feeDetail.month);
                         });
+
+                            // Example: Iterate through commonFeeDetails
+
+                            if(common_fee_particular_tr == ''){
+                                for (var feeType in commonFeeDetails) {
+                                    if (commonFeeDetails.hasOwnProperty(feeType)) {
+                                        var amount = commonFeeDetails[feeType].amount;
+                                        var monthCount = commonFeeDetails[feeType].month;
+                                        common_fee_particular_tr += `
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>`+feeType+`</td>
+                                            <td>`+monthCount+`</td>
+                                            <td>`+amount+`</td>
+                                        </tr>
+                                        `;
+                                    }
+                                }
+                                common_fee_particular_tr += `
+                                    <tr>
+                                        <th scope="row">#</th>
+                                        <td colspan='2' class='text-start'>Total Fee</td>
+                                        <td>`+response.total_common_amount+`</td>
+                                    </tr>
+                                `;
+                            }
+
+ 
                     });
+
+                    // $.each(response.common_fee_details, function (index, feeDetail) {
+                    //     alert(feeDetail.fee_type);
+                    // });
+
+                    $('.modale-table').html(`
+                    <table class="table table-bordered my-1 table-sm text-light" style="font-size:12px;">
+                    <thead>
+                       <tr>
+                          <td colspan="5">
+                             <div class="d-flex justify-content-between text-light" style="font-size:13px;">
+                                <span>Billing : Up to Bhadra</span>
+                                <span>Paid Date : 2080-06-01</span>
+                                <span>Bill No : 5653</span>
+                             </div>
+                          </td>
+                       </tr>
+
+                       `+student_tr+`
+ 
+                    <tr class="text-center">
+                       <th scope="col">SN.</th>
+                       <th scope="col">Particulars</th>
+                       <th scope="col">Months</th>
+                       <th scope="col">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                     `+common_fee_particular_tr+`
+                    </tbody>
+                 </table>
+                    `);
+
+                  
+
+
+
                 } else {
                     console.error("Error: " + response.status);
                 }

@@ -161,87 +161,14 @@
                                  <span class="text-light" style="font-size:10px;">Mirchaiya-5, Sirha, Nepal</span>
                               </div>
                           </div>
-                          <div class="p-1 px-2 d-flex border mt-1 justify-content-between text-light" style="font-size:13px;">
-                           <span>Date : 2080-06-01</span>
-                           <span>Bill No : 5653</span>
-                           <span>Pan No : 0984543234</span>
+
+                          {{-- Billing Table  --}}
+                          <div class="modale-table">
+                                {{-- table append  --}}
                           </div>
 
-                          <table class="table table-bordered my-1 table-sm text-light" style="font-size:12px;">
-                           <thead>
-                             <tr class="text-center">
-                               <th scope="col">SN.</th>
-                               <th scope="col">Particulars</th>
-                               <th scope="col">Months</th>
-                               <th scope="col">Amount</th>
-                             </tr>
-                           </thead>
-                           <tbody class="text-center">
-                             <tr>
-                               <th scope="row">1</th>
-                               <td>Tuition Fee</td>
-                               <td>3</td>
-                               <td>12000</td>
-                             </tr>
-                             <tr>
-                               <th scope="row">2</th>
-                               <td>Jacob</td>
-                               <td>Thornton</td>
-                               <td>@fat</td>
-                             </tr>
-                             <tr>
-                              <th scope="row">1</th>
-                              <td>Tuition Fee</td>
-                              <td>3</td>
-                              <td>12000</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Jacob</td>
-                              <td>Thornton</td>
-                              <td>@fat</td>
-                            </tr>
-                           </tbody>
-                         </table>
-
-                         <span>Momtah Husen</span>
-                         <table class="table table-bordered my-1 table-sm text-light" style="font-size:12px;">
-                           <thead>
-                             <tr class="text-center">
-                               <th scope="col">SN.</th>
-                               <th scope="col">Particulars</th>
-                               <th scope="col">Months</th>
-                               <th scope="col">Amount</th>
-                             </tr>
-                           </thead>
-                           <tbody class="text-center">
-                             <tr>
-                               <th scope="row">1</th>
-                               <td>Tuition Fee</td>
-                               <td>3</td>
-                               <td>12000</td>
-                             </tr>
-                             <tr>
-                               <th scope="row">2</th>
-                               <td>Jacob</td>
-                               <td>Thornton</td>
-                               <td>@fat</td>
-                             </tr>
-                             <tr>
-                              <th scope="row">1</th>
-                              <td>Tuition Fee</td>
-                              <td>3</td>
-                              <td>12000</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Jacob</td>
-                              <td>Thornton</td>
-                              <td>@fat</td>
-                            </tr>
-                           </tbody>
-                         </table>
-
+                     
+ 
                        </div>
                    </div>
                    <div class="col-lg-6 col-md-12 border py-4">

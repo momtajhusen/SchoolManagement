@@ -113,6 +113,8 @@ class StudentsFeePayment extends Controller
             $fee_year = $request->fee_year;
     
             $fee_details = [];
+            $common_fee_details = []; // Initialize array for common fee details
+            $total_common_amount = 0; // Initialize total sum of common fee amounts
     
             // Iterate over each student
             foreach ($st_id_array as $student_id) {
@@ -140,20 +142,31 @@ class StudentsFeePayment extends Controller
                         // Sum the amount if the fee type already exists
                         if (isset($total_fee_details[$fee_type])) {
                             $total_fee_details[$fee_type]['amount'] += $amount;
-                            $total_fee_details[$fee_type]['months'][] = $month;
+                            $total_fee_details[$fee_type]['month']++; // Increment month count
                         } else {
                             $total_fee_details[$fee_type] = [
                                 'amount' => $amount,
-                                'months' => [$month],
+                                'month' => 1, // Initialize month count
                             ];
                         }
                     }
                 }
     
-                // Convert months array to its length for each fee type
+                // Include common fee types in the common_fee_details array and calculate total common amount
                 foreach ($total_fee_details as $fee_type => $details) {
-                    $total_fee_details[$fee_type]['month'] = count($details['months']);
-                    unset($total_fee_details[$fee_type]['months']);
+                    // Add amount to total_common_amount
+                    $total_common_amount += $details['amount'];
+    
+                    // Check if this fee type exists in common fee details, if yes, add the amount and month count
+                    if (isset($common_fee_details[$fee_type])) {
+                        $common_fee_details[$fee_type]['amount'] += $details['amount'];
+                        $common_fee_details[$fee_type]['month'] += $details['month'];
+                    } else {
+                        $common_fee_details[$fee_type] = [
+                            'amount' => $details['amount'],
+                            'month' => $details['month'],
+                        ];
+                    }
                 }
     
                 // Sum up the total amount for this student
@@ -166,19 +179,17 @@ class StudentsFeePayment extends Controller
                 $fee_details[$student_id] = [
                     'student_details' => $student_details,
                     'fee_details' => $total_fee_details,
-                    'total_amount' => $total_amount, // Add total amount to the response
+                    'total_amount' => $total_amount,
                 ];
             }
     
-            return response()->json(['status' => 'success', 'data' => $fee_details]);
+            return response()->json(['status' => 'success', 'data' => $fee_details, 'common_fee_details' => $common_fee_details, 'total_common_amount' => $total_common_amount]);
         } catch (Exception $e) {
             // Handle exceptions
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);
         }
     }
-    
-    
     
 
     public function StudentFeePaid(Request $request)
