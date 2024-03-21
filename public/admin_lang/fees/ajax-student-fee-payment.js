@@ -217,7 +217,11 @@ $(document).ready(function(){
             month_array.push(monthNumber);
         });
 
- 
+        var UptoMonth = NepaliFunctions.GetBsMonths()[month_array.length -1 ];
+
+        $('.up-to-month').html('Up to '+UptoMonth);
+
+
 
         $.ajaxSetup({
             headers: {
@@ -287,18 +291,20 @@ $(document).ready(function(){
                             // Example: Iterate through commonFeeDetails
 
                             if(common_fee_particular_tr == ''){
+                                var index = 1;
                                 for (var feeType in commonFeeDetails) {
                                     if (commonFeeDetails.hasOwnProperty(feeType)) {
                                         var amount = commonFeeDetails[feeType].amount;
                                         var monthCount = commonFeeDetails[feeType].month;
                                         common_fee_particular_tr += `
                                         <tr>
-                                            <th scope="row">1</th>
+                                            <th scope="row">`+index+`</th>
                                             <td>`+feeType+`</td>
                                             <td>`+monthCount+`</td>
                                             <td>`+amount+`</td>
                                         </tr>
                                         `;
+                                     index++;
                                     }
                                 }
                                 common_fee_particular_tr += `
@@ -320,8 +326,7 @@ $(document).ready(function(){
                     $('.school-name').html(response.school_details.school_name);
                     $('.school-address').html(response.school_details.address);
                     $('.school-logo').attr('src', '../storage/'+response.school_details.logo_img);
-
-
+ 
 
                     $('.modale-table').html(`
                     <table class="table table-bordered my-1 table-sm text-light" style="font-size:12px;">
@@ -329,7 +334,7 @@ $(document).ready(function(){
                        <tr>
                           <td colspan="5">
                              <div class="d-flex justify-content-between text-light" style="font-size:13px;">
-                                <span>Billing : Up to Bhadra</span>
+                                <span>Billing : Up to `+UptoMonth+`</span>
                                 <span>Date : 2080-06-01</span>
                              </div>
                           </td>

@@ -175,7 +175,11 @@
                      <div class="d-flex flex-column align-items-center justify-content-center" style="width:100%;">
                         <div class="w-100 form-group m-1 position-relative">
                            <span class="position-absolute" style="top:41px;left:10px;">₹</span>
-                            <label class="text-light">Actual Dues</label>
+                           <div class="d-flex justify-content-between">
+                              <label class="text-light">Actual Dues</label>
+                              <span class="text-light up-to-month">Up to Baishakh</span>
+                           </div>
+
                             <input type="number" readonly value="0" id="fee_input" name="fee_dues" placeholder="Fee Dues" class="form-control" style="background:#ccc;padding-left:22px;">
                             <input type="hidden" id="last_month" value="0">
                         </div>
