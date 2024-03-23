@@ -426,7 +426,7 @@ $(document).ready(function(){
             success: function (response) {
 
                 console.log(response);
-               if(response.status == 'sucess'){
+               if(response.status == 'success'){
                 $('.payment-model-colose').click();
                 $("#search-btn").click();
 

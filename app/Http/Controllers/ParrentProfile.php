@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\HelperController\StudentAccountFee;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -117,13 +118,13 @@ class ParrentProfile extends Controller
             if ($StudentsFeeMonthdata) {
                 $columnName = 'month_'.$month-1;
                 $StudentsFeeMonthdata->$columnName = $all_add;
-                $StudentsFeeMonthdata->total_fee = $all_add;
-                $StudentsFeeMonthdata->total_dues = $all_add;
                 $StudentsFeeMonthdata->save();
             }
             // end StudentsFeeMonth add 
-            
 
+            //Sum total_fee, total_paid, total_disc, total_dues
+            StudentAccountFee::StudentsFeeMonthsCalculate();
+        
             // Return success response
             return response()->json(['status' => 'Fee structures saved successfully'], 200);
         } catch (Exception $e) {
@@ -164,17 +165,14 @@ class ParrentProfile extends Controller
                 if ($StudentsFeeMonthdata) {
 
                     // Update the month column with the sum of all fees
-                    $columnName = 'month_'.($fee_month - 1); // Adjusting month index
+                    $columnName = 'month_'.($fee_month - 1);
 
-                    // echo $columnName;
-                    // return false;
                     $StudentsFeeMonthdata->$columnName = $all_add;
-                    $StudentsFeeMonthdata->total_fee = $all_add;
-                    $StudentsFeeMonthdata->total_dues = $all_add;
                     $StudentsFeeMonthdata->save();
+
+                    //Sum total_fee, total_paid, total_disc, total_dues
+                    StudentAccountFee::StudentsFeeMonthsCalculate();
                 }
-            
-  
             
                 return response()->json(['status' => 'delete successfully'], 200);
             } else {
@@ -195,23 +193,14 @@ class ParrentProfile extends Controller
             $year = $request->year;
             $month = $request->month;
 
-            // Calculate the sum of the 'amount' column before deleting records
-            $deleteAmount = StudentsFeeStracture::where('st_id', $st_id)->where('month', $month)->sum('amount');
-
             // Delete records from StudentsFeeStracture table
             StudentsFeeStracture::where('st_id', $st_id)->where('month', $month)->delete();
 
             // Find or create a record in StudentsFeeMonth table
             $StudentsFeeMonthdata = StudentsFeeMonth::where('st_id', $st_id)->where('year', $year)->first();
 
-            if ($StudentsFeeMonthdata) {
-                // Update the month column with the sum of all fees
-                $columnName = 'month_' . ($month - 1); // Adjusting month index
-                $StudentsFeeMonthdata->$columnName = 0;
-                $StudentsFeeMonthdata->total_fee -= $deleteAmount;
-                $StudentsFeeMonthdata->total_dues -= $deleteAmount; // Assuming $all_add is defined elsewhere in your code
-                $StudentsFeeMonthdata->save();
-            }
+            //Sum total_fee, total_paid, total_disc, total_dues
+            StudentAccountFee::StudentsFeeMonthsCalculate();
 
             return response()->json(['status' => 'delete successfully'], 200);
 
@@ -249,10 +238,11 @@ class ParrentProfile extends Controller
                         ['st_id' => $st_id, 'year' => $year],
                         [
                             'month_' . $month-1 => $input_fee_amount,
-                            'total_fee' => $input_fee_amount,
-                            'total_dues' => $input_fee_amount,
                         ]
                     );
+
+                    //Sum total_fee, total_paid, total_disc, total_dues
+                    StudentAccountFee::StudentsFeeMonthsCalculate();
 
                     return response()->json(['status' => 'add successfully'], 200);
                 }

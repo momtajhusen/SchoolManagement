@@ -6,18 +6,15 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Exception;
+use App\Http\Controllers\HelperController\StudentAccountFee;
 use App\Models\Parents;
 use App\Models\Student;
 use App\Models\SchoolDetails;
 use App\Models\StudentsFeeStracture;
 use App\Models\StudentsFeeMonth;
 use App\Models\StudentsFeePaid;
-use App\Models\StudentsFeeDues;
 use App\Models\StudentsFeeDisc;
-
-
-
-
+use App\Models\StudentsFeeDues;
 
 class StudentsFeePayment extends Controller
 {
@@ -208,20 +205,25 @@ class StudentsFeePayment extends Controller
             $pay_date = $request->pay_date;
             $data_fee_particular = $request->data_fee_particular;
             $pr_id = $request->pr_id;
-    
+
+
+            ////////////////////// Start StudentsFeePaid //////////////////////
             // Loop through each student ID
             foreach ($st_id_array as $st_id) {
                 // Fetch fee details for the current student from StudentsFeeMonth table
-                $fee_details = StudentsFeeMonth::where('st_id', $st_id)
-                                                ->where('year', $fee_year)
-                                                ->first();
+                $fee_details = StudentsFeeMonth::where('st_id', $st_id)->where('year', $fee_year)->first();
+
+                $student_discount = $disc_amount / count($st_id_array);
             
                 if ($fee_details) {
                     // Check if there is a record in StudentsFeePaid for this student
                     $student_paid_record = StudentsFeePaid::where('st_id', $st_id)->first();
-            
-                    // If no record exists, create one
-                    if (!$student_paid_record) {
+                    $student_disc_record = StudentsFeeDisc::where('st_id', $st_id)->first();
+                    $student_dues_record = StudentsFeeDues::where('st_id', $st_id)->first();
+
+                    // If StudentsFeePaid no record exists, create one
+                    if (!$student_paid_record) 
+                    {
                         $student_paid_record = new StudentsFeePaid();
                         $student_paid_record->st_id = $st_id;
                         // Set all month columns to 0 as initial values
@@ -230,32 +232,75 @@ class StudentsFeePayment extends Controller
                             $student_paid_record->year = $fee_year;
                         }
                         $student_paid_record->save();
+
+                    }
+                    // If StudentsFeeDisc no record exists, create one
+                    if (!$student_disc_record) 
+                    {
+                        $student_disc_record = new StudentsFeeDisc();
+                        $student_disc_record->st_id = $st_id;
+                        // Set all month columns to 0 as initial values
+                        foreach ($pay_month_array as $pay_month) {
+                            $student_disc_record->$pay_month = 0;
+                            $student_disc_record->year = $fee_year;
+                        }
+                        $student_disc_record->save();
+                    }
+                    // If StudentsFeeDues no record exists, create one
+                    if (!$student_dues_record) 
+                    {
+                        $student_dues_record = new StudentsFeeDues();
+                        $student_dues_record->st_id = $st_id;
+                        // Set all month columns to 0 as initial values
+                        foreach ($pay_month_array as $pay_month) {
+                            $student_dues_record->$pay_month = 0;
+                            $student_dues_record->year = $fee_year;
+                        }
+                        $student_dues_record->save();
                     }
             
                     // Loop through each month in pay_month_array
                     foreach ($pay_month_array as $pay_month) {
-                        // Check if fee amount for the month is greater than already paid
-                        $month_column = $pay_month;
-                        $fee_for_month = $fee_details->$month_column;
-                        $already_paid = $student_paid_record->$month_column;
+                        // Check if the amount in StudentsFeePaid is less than StudentsFeeMonth for this month
+                        if ($student_paid_record->$pay_month < $fee_details->$pay_month) {
+                            // Calculate the remaining amount to be paid for this month
+                            $remaining_amount = $fee_details->$pay_month - $student_paid_record->$pay_month;
             
-                        if ($fee_for_month > $already_paid) {
-                            // Update StudentsFeePaid table with fee from StudentsFeeMonth table
-                            $student_paid_record->$month_column = $fee_for_month;
+                            // Distribute the minimum of remaining amount and paid amount for this month
+                            $amount_to_pay = min($remaining_amount, $paid_amount);
+            
+                            // Set the amount in StudentsFeePaid
+                            $student_paid_record->$pay_month += $amount_to_pay;
+            
+                            // Deduct the paid amount
+                            $paid_amount -= $amount_to_pay;
+
+
+            
+                            // If all amount has been distributed, exit the loop
+                            if ($paid_amount <= 0) {
+                                break;
+                            }
                         }
                     }
             
-                    // Update total_paid column in StudentsFeePaid table
-                    // $student_paid_record->total_paid = array_sum($student_paid_record->getAttributes());
                     $student_paid_record->save();
+
+                    // For the last iteration, save the discount amount in StudentsFeeDisc for each month
+                    if (isset($student_disc_record)) {
+                        foreach ($pay_month_array as $pay_month) {
+                            $student_disc_record->$pay_month = $disc_amount;
+                        }
+                        $student_disc_record->save();
+                    }
                 }
             }
-            
-    
-            // Other processing...
-    
+            ////////////////////// End StudentsFeePaid //////////////////////
 
-            return response()->json(['status' =>  'sucess'], 200);
+            //Sum total_fee, total_paid, total_disc, total_dues
+            StudentAccountFee::StudentsFeeMonthsCalculate();
+
+            return response()->json(['status' =>  'success'], 200);
 
         } catch (Exception $e) {
             // Handle exceptions
@@ -264,10 +309,6 @@ class StudentsFeePayment extends Controller
         }
     }
     
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
