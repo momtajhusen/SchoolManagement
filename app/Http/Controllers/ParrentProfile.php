@@ -199,6 +199,15 @@ class ParrentProfile extends Controller
             // Find or create a record in StudentsFeeMonth table
             $StudentsFeeMonthdata = StudentsFeeMonth::where('st_id', $st_id)->where('year', $year)->first();
 
+            // Find or create a record in StudentsFeeMonth table
+            $StudentsFeeMonthdata = StudentsFeeMonth::where('st_id', $st_id)->where('year', $year)->first();
+
+            if ($StudentsFeeMonthdata) {
+                $columnName = 'month_' . ($month - 1); 
+                $StudentsFeeMonthdata->$columnName = 0;
+                $StudentsFeeMonthdata->save();
+            }
+
             //Sum total_fee, total_paid, total_disc, total_dues
             StudentAccountFee::StudentsFeeMonthsCalculate();
 
