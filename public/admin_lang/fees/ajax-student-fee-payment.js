@@ -27,16 +27,7 @@ $(document).ready(function(){
 
     $('.select-option:first').trigger('click');
 });
-
-// auto selected up to current month checkbox
-$(document).ready(function(){
-    var current_month = NepaliFunctions.GetCurrentBsDate().month;
-    $(".month-check-input").each(function(index) {
-        if (index < current_month) {
-            $(this).prop("checked", true);
-        }
-    });
-});
+ 
 
 // month unchecked checkbox 
 $(document).ready(function(){
@@ -140,23 +131,34 @@ $(document).ready(function(){
                     total_fee += element.total_fee;
                     total_paid += element.total_paid;
                     total_disc += element.total_disc;
+                    total_dues += element.total_dues;
+
                     all_st_id.push(element.id);
 
-                    var student_total_fee = element.total_fee - element.total_paid + element.total_disc;
+                    var single_btn = 'd-none';
+                    if(element.total_dues != 0){
+                        single_btn = '';
+                    }
 
-                    total_dues += student_total_fee;
 
 
                     $(".students-table").append(`
                         <tr class='students' st_id='`+element.id+`' style='cursor:pointer'>
                             <td>
-                               <img class="border p-1 parent-image" src="../storage/`+element.student_image+`" alt="parent" style="width:40px;">
-                               <span>`+student_name+`</span>
+                               <div class='d-flex justify-content-between'>
+                                <div>
+                                    <img class="border p-1 parent-image" src="../storage/`+element.student_image+`" alt="parent" style="width:40px;">
+                                    <span>`+student_name+`</span>
+                                </div>
+                                 <button class="bg-info `+single_btn+` take-pay-multi border-0 text-light btn rounded py-2 px-3" dues="`+element.total_dues+`" all_st_id="`+element.id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Single Paid</button>
+                               </div>
+
+
                             </td>
                             <td class='text-center'>₹ `+element.total_fee+`</td>
                             <td class='text-center'>₹ `+element.total_paid+`</td>
                             <td class='text-center'>₹ `+element.total_disc+`</td>
-                            <td class='text-center'>₹ `+student_total_fee+`</td>
+                            <td class='text-center'>₹ `+element.total_dues+`</td>
                         </tr>
                     `); 
                 });
@@ -166,15 +168,62 @@ $(document).ready(function(){
                 $('.total-disc-multi').html(total_disc);
                 $('.total-dues-multi').html(total_dues);
 
-                $(".take-pay-multi").attr('dues', total_dues);
-                $(".take-pay-multi").attr('all_st_id', all_st_id);
                 $(".paid_btn").attr('pr_id', pr_id);
 
 
+
+                var multi_paid_btn = 'd-none';
                 if(total_dues != 0){
-                    $(".take-pay-multi").removeClass('d-none');
-                }else{
-                    $(".take-pay-multi").addClass('d-none');
+                    multi_paid_btn = '';
+                }
+
+                $('.multiple-paid-btn').html(`
+                    <button class="bg-info `+multi_paid_btn+` take-pay-multi border-0 text-light btn rounded py-3 px-4" dues="`+total_dues+`" all_st_id="`+all_st_id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Multi Paid</button>
+                `);
+
+                // month status 
+                for (var i = 0; i < 12; i++) {
+                    var month = 'month_' + i;
+                    var month_status = response.month_status[month];
+                    if (month_status == "Paid") {
+                        // Add bg-success class to the input elements
+                        $('.check_month_' + i + ' input').prop("disabled", true);
+                        $('.check_month_' + i + ' input').prop("checked", false);
+                        $('.check_month_' + i+ ' input').removeClass('bg-dues');
+                        $('.check_month_' + i+ ' input').addClass('bg-paid');
+                        $('.check_month_' + i + ' input').removeClass('month-check-input');
+                    }
+                    if(month_status == "Dues"){
+                        $('.check_month_' + i + ' input').prop("disabled", false);
+                        $('.check_month_' + i + ' input').prop("checked", true);
+                        $('.check_month_' + i+ ' input').removeClass('bg-paid');
+                        $('.check_month_' + i+ ' input').addClass('bg-dues');
+                    }
+                    if(month_status == "Unpaid"){
+                        // Add bg-success class to the input elements
+                        $('.check_month_' + i + ' input').prop("disabled", false);
+                        $('.check_month_' + i + ' input').addClass('month-check-input');
+                        $('.check_month_' + i+ ' input').removeClass('bg-paid');
+                        $('.check_month_' + i+ ' input').removeClass('bg-dues');
+                    }
+                    if(month_status == "FeeNotSet"){
+                        // Add bg-success class to the input elements
+                        $('.check_month_' + i + ' input').prop("disabled", false);
+                        $('.check_month_' + i + ' input').addClass('month-check-input');
+                        $('.check_month_' + i+ ' input').removeClass('bg-paid');
+                        $('.check_month_' + i+ ' input').removeClass('bg-dues');
+                        $('.check_month_' + i+ ' input').addClass('bg-feenotset');
+                    }
+                }
+                // month status 
+
+                if(selectedMonth.length == 0){
+                    var current_month = NepaliFunctions.GetCurrentBsDate().month - 1;
+                    var month = 'month_' + current_month;
+ 
+                    if(response.month_status[month] != 'Paid'){
+                        $('.check_month_' + current_month + ' input').click();
+                    }
                 }
             }
 
@@ -184,15 +233,17 @@ $(document).ready(function(){
         error: function (xhr, status, error) 
         {
             console.log(xhr.responseText);
-            // $(".students-table").html(''); 
         },
     });
  }
 // End Select parent than retrive stundets 
 
-// Take Pay multi get particular
+// Take Paid get particular
 $(document).ready(function(){
-    $('.take-pay-multi').click(function(){
+    // $('.take-pay-multi').click(function(){
+
+        $(".students-table, .multiple-paid-btn").on("click", ".take-pay-multi", function()
+        {  
 
         var dues = $(this).attr('dues');
         var all_st_id = $(this).attr('all_st_id');
@@ -427,8 +478,7 @@ $(document).ready(function(){
 
                 console.log(response);
                if(response.status == 'success'){
-                $('.payment-model-colose').click();
-                $("#search-btn").click();
+              
 
                 Swal.fire({
                     title: 'Payment Success!',
@@ -437,8 +487,10 @@ $(document).ready(function(){
                     confirmButtonColor: '#00032e',
                     confirmButtonText: 'OK',
                   });
-
                }
+
+               $('.payment-model-colose').click();
+               $("#search-btn").click();
 
             },
             

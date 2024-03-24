@@ -21,50 +21,121 @@ class StudentsFeePayment extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function ParentStudentRetrive(Request $request)
+     public function ParentStudentRetrive(Request $request)
     {
         try {
             $pr_id = $request->pr_id;
-
             $selectedMonth = $request->selectedMonth;
-            $monthLength = count($selectedMonth);
             $year = 2080;
-
-
-            
+    
             $parent_data = Parents::where("id", $pr_id)->first();
-            if ($parent_data && $monthLength > 0) {
+            if ($parent_data) {
                 $student_data = Student::select('id', 'first_name', 'last_name', 'student_image', 'village')->where("parents_id", $pr_id)->get();
-            
-                // Loop through each student to get their total_fee
-                foreach ($student_data as $student) {
-                    $total_fee = 0;
-                    $total_paid = 0;
-                    $total_dues = 0;
-                    $total_disc = 0;
-
-                    foreach ($selectedMonth as $month) {
-                        // Sum the fees for the selected months
-                        $total_fee += StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->value($month);
-                        $total_paid += StudentsFeePaid::where('year', $year)->where('st_id', $student->id)->value($month);
-                        $total_dues += StudentsFeeDues::where('year', $year)->where('st_id', $student->id)->value($month);
-                        $total_disc += StudentsFeeDisc::where('year', $year)->where('st_id', $student->id)->value($month);
+    
+                // Initialize MonthFeePaidStatus array
+                $MonthFeePaidStatus = [];
+    
+                // Check if $selectedMonth is null or empty
+                if (is_array($selectedMonth) && count($selectedMonth) > 0) {
+                    // Loop through each student
+                    foreach ($student_data as $student) {
+                        $total_fee = 0;
+                        $total_paid = 0;
+                        $total_dues = 0;
+                        $total_disc = 0;
+    
+                        foreach ($selectedMonth as $month) 
+                        {
+                            // Sum the fees for the selected months
+                            $total_fee += StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
+                            $total_paid += StudentsFeePaid::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
+                            $total_dues += StudentsFeeDues::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
+                            $total_disc += StudentsFeeDisc::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
+                        }
+    
+                        $student->total_fee = $total_fee;
+                        $student->total_paid = $total_paid;
+                        $student->total_disc = $total_disc;
+    
+                        $dues_amount_sum = (int) ltrim((string) ($total_paid + $total_disc - $total_fee), '-');
+                        $student->total_dues =  $dues_amount_sum;
                     }
-                    $student->total_fee = $total_fee;
-                    $student->total_paid = $total_paid;
-                    $student->total_dues = $total_dues;
-                    $student->total_disc = $total_disc;
+                } else {
+                    // If $selectedMonth is not provided or empty, initialize totals to zero
+                    foreach ($student_data as $student) {
+                        $student->total_fee = 0;
+                        $student->total_paid = 0;
+                        $student->total_disc = 0;
+                        $student->total_dues = 0;
+                        $student->MonthFeePaidStatus = [];
+                    }
                 }
-            
-                return response()->json(['status' => 'success', 'parent_details' => $parent_data, 'student_details' => $student_data], 200);            
+
+               // Initialize monthStatus array outside of the if-else block
+$monthStatus = [];
+
+// Determine payment status for each month
+for ($i = 0; $i < 12; $i++) {
+    $month = 'month_' . $i;
+
+    // Calculate total fee for this month across all students
+    $total_fee = StudentsFeeMonth::where('year', $year)->sum($month) ?? 0;
+
+    // Initialize total paid and total discount
+    $total_fee = 0;
+    $total_paid = 0;
+    $total_disc = 0;
+    $unFeeSet = false;
+
+    // Loop through all students to sum their payments and discounts
+    foreach ($student_data as $student) {
+
+        $status_fee = StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
+        $status_paid = StudentsFeePaid::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
+        $status_disc = StudentsFeeDisc::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
+        
+        // Accumulate total paid and total discount
+        $total_fee += $status_fee;
+        $total_paid += $status_paid;
+        $total_disc += $status_disc;
+
+        // Check if any student has no fee set for this month
+        if ($status_fee == 0) {
+            $unFeeSet = true;
+        }
+    }
+
+    // Calculate total payments including discounts
+    $total_paids = $total_paid + $total_disc;
+
+    // Determine status based on total fee and total payments
+    if ($unFeeSet) {
+        $status = 'FeeNotSet';
+    } else {
+        $status = ($total_paids >= $total_fee) ? 'Paid' : (($total_paids > 0) ? 'Dues' : 'Unpaid');
+    }
+
+    $monthStatus[$month] = $status;
+}
+
+// Assign month status array to each student
+foreach ($student_data as $student) {
+    $student->MonthFeePaidStatus = $monthStatus;
+}
+
+    
+                return response()->json(['status' => 'success', 'parent_details' => $parent_data, 'student_details' => $student_data, 'month_status' => $monthStatus], 200);
+            } else {
+                return response()->json(['status' => 'Parent not found'], 404);
             }
         } catch (Exception $e) {
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);
         }
-        
+ 
     }
-
+    
+    
     public function StudentFeePaymentRetrive(Request $request)
     {
         try {
@@ -206,95 +277,78 @@ class StudentsFeePayment extends Controller
             $data_fee_particular = $request->data_fee_particular;
             $pr_id = $request->pr_id;
 
-
             ////////////////////// Start StudentsFeePaid //////////////////////
-            // Loop through each student ID
-            foreach ($st_id_array as $st_id) {
-                // Fetch fee details for the current student from StudentsFeeMonth table
-                $fee_details = StudentsFeeMonth::where('st_id', $st_id)->where('year', $fee_year)->first();
+                // Loop through each student ID
+                foreach ($st_id_array as $st_id) {
+                    // Fetch fee details for the current student from StudentsFeeMonth table
+                    $fee_details = StudentsFeeMonth::where('st_id', $st_id)->where('year', $fee_year)->first();
 
-                $student_discount = $disc_amount / count($st_id_array);
-            
-                if ($fee_details) {
-                    // Check if there is a record in StudentsFeePaid for this student
-                    $student_paid_record = StudentsFeePaid::where('st_id', $st_id)->first();
-                    $student_disc_record = StudentsFeeDisc::where('st_id', $st_id)->first();
-                    $student_dues_record = StudentsFeeDues::where('st_id', $st_id)->first();
+                    $per_st_paid = $paid_amount / count($st_id_array);
+                    $per_st_disc = $disc_amount / count($st_id_array);
+                    $per_st_dues = $dues_amount / count($st_id_array);
+                    
 
-                    // If StudentsFeePaid no record exists, create one
-                    if (!$student_paid_record) 
-                    {
-                        $student_paid_record = new StudentsFeePaid();
-                        $student_paid_record->st_id = $st_id;
-                        // Set all month columns to 0 as initial values
-                        foreach ($pay_month_array as $pay_month) {
-                            $student_paid_record->$pay_month = 0;
-                            $student_paid_record->year = $fee_year;
-                        }
-                        $student_paid_record->save();
+                    if ($fee_details) {
+                        // Check if there is a record in StudentsFeePaid for this student
+                        $student_paid_record = StudentsFeePaid::where('st_id', $st_id)->where('year', $fee_year)->first();
+                        $student_disc_record = StudentsFeeDisc::where('st_id', $st_id)->where('year', $fee_year)->first();
+                        $student_dues_record = StudentsFeeDues::where('st_id', $st_id)->where('year', $fee_year)->first();
 
-                    }
-                    // If StudentsFeeDisc no record exists, create one
-                    if (!$student_disc_record) 
-                    {
-                        $student_disc_record = new StudentsFeeDisc();
-                        $student_disc_record->st_id = $st_id;
-                        // Set all month columns to 0 as initial values
-                        foreach ($pay_month_array as $pay_month) {
-                            $student_disc_record->$pay_month = 0;
-                            $student_disc_record->year = $fee_year;
-                        }
-                        $student_disc_record->save();
-                    }
-                    // If StudentsFeeDues no record exists, create one
-                    if (!$student_dues_record) 
-                    {
-                        $student_dues_record = new StudentsFeeDues();
-                        $student_dues_record->st_id = $st_id;
-                        // Set all month columns to 0 as initial values
-                        foreach ($pay_month_array as $pay_month) {
-                            $student_dues_record->$pay_month = 0;
-                            $student_dues_record->year = $fee_year;
-                        }
-                        $student_dues_record->save();
-                    }
-            
-                    // Loop through each month in pay_month_array
-                    foreach ($pay_month_array as $pay_month) {
-                        // Check if the amount in StudentsFeePaid is less than StudentsFeeMonth for this month
-                        if ($student_paid_record->$pay_month < $fee_details->$pay_month) {
-                            // Calculate the remaining amount to be paid for this month
-                            $remaining_amount = $fee_details->$pay_month - $student_paid_record->$pay_month;
-            
-                            // Distribute the minimum of remaining amount and paid amount for this month
-                            $amount_to_pay = min($remaining_amount, $paid_amount);
-            
-                            // Set the amount in StudentsFeePaid
-                            $student_paid_record->$pay_month += $amount_to_pay;
-            
-                            // Deduct the paid amount
-                            $paid_amount -= $amount_to_pay;
-
-
-            
-                            // If all amount has been distributed, exit the loop
-                            if ($paid_amount <= 0) {
-                                break;
+                        // If StudentsFeePaid no record exists, create one
+                        if (!$student_paid_record) 
+                        {
+                            $student_paid_record = new StudentsFeePaid();
+                            $student_paid_record->st_id = $st_id;
+                            // Set all month columns to 0 as initial values
+                            foreach ($pay_month_array as $pay_month) {
+                                $student_paid_record->$pay_month = 0;
+                                $student_paid_record->year = $fee_year;
                             }
-                        }
-                    }
-            
-                    $student_paid_record->save();
+                            $student_paid_record->save();
 
-                    // For the last iteration, save the discount amount in StudentsFeeDisc for each month
-                    if (isset($student_disc_record)) {
-                        foreach ($pay_month_array as $pay_month) {
-                            $student_disc_record->$pay_month = $disc_amount;
                         }
+                        // If StudentsFeeDisc no record exists, create one
+                        if (!$student_disc_record) 
+                        {
+                            $student_disc_record = new StudentsFeeDisc();
+                            $student_disc_record->st_id = $st_id;
+                            // Set all month columns to 0 as initial values
+                            foreach ($pay_month_array as $pay_month) {
+                                $student_disc_record->$pay_month = 0;
+                                $student_disc_record->year = $fee_year;
+                            }
+                            $student_disc_record->save();
+                        }
+                        // If StudentsFeeDues no record exists, create one
+                        if (!$student_dues_record) 
+                        {
+                            $student_dues_record = new StudentsFeeDues();
+                            $student_dues_record->st_id = $st_id;
+                            // Set all month columns to 0 as initial values
+                            foreach ($pay_month_array as $pay_month) {
+                                $student_dues_record->$pay_month = 0;
+                                $student_dues_record->year = $fee_year;
+                            }
+                            $student_dues_record->save();
+                        }
+                
+                        // Loop through each month in pay_month_array
+                        foreach ($pay_month_array as $pay_month) {
+
+                            $per_mon_paid = $per_st_paid / count($pay_month_array);
+                            $per_mon_disc = $per_st_disc / count($pay_month_array);
+                            $per_mon_dues = $per_st_dues / count($pay_month_array);
+      
+                            $student_paid_record->$pay_month  = $per_mon_paid + $student_paid_record->$pay_month;
+                            $student_disc_record->$pay_month  = $per_mon_disc + $student_disc_record->$pay_month;
+
+                        }
+                
+                        $student_paid_record->save();
                         $student_disc_record->save();
+
                     }
                 }
-            }
             ////////////////////// End StudentsFeePaid //////////////////////
 
             //Sum total_fee, total_paid, total_disc, total_dues

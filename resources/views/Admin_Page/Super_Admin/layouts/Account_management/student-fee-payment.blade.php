@@ -35,14 +35,11 @@
       color: #ccc;
    }
 
-
-
-
    .checkbox-wrapper-30 .checkbox {
         --bg: #fff;
         --brdr: #d1d6ee;
-        --brdr-actv: #1e2235;
-        --brdr-hovr: #bbc1e1;
+        --brdr-actv: #351e1e;
+        --brdr-hovr: #e1bbbb;
         --dur: calc((var(--size, 2)/2) * 0.6s);
         display: inline-block;
         width: calc(var(--size, 1) * 15px);
@@ -109,6 +106,16 @@
       .check-month{
          font-size: 10px;
          color: #fff;
+      }
+
+      .bg-paid{
+         background-color: rgb(160, 250, 142) !important;
+      }
+      .bg-dues{
+         background-color: rgb(250, 239, 142) !important;
+      }
+      .bg-feenotset{
+         background-color: rgb(149, 142, 250) !important;
       }
  
   </style>
@@ -312,9 +319,9 @@
                      <div class="d-flex align-items-center justify-content-between">
                         {{-- Start chekbox 1 to 12  --}}
                         <div class="d-flex px-1">
-                           <div class="checkbox-wrapper-30 d-flex flex-column">
+                           <div class="checkbox-wrapper-30 d-flex flex-column check_month_0">
                               <span class="checkbox">
-                              <input type="checkbox" disabled value="month_0" class="month-check-input" />
+                              <input type="checkbox" value="month_0" class="month-check-input" />
                               <svg>
                                  <use xlink:href="#checkbox-30" class="checkbox"></use>
                               </svg>
@@ -326,7 +333,7 @@
                               </svg>
                               <span class="check-month">Bai</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_1">
                               <span class="checkbox">
                               <input type="checkbox" value="month_1" class="month-check-input" />
                               <svg>
@@ -340,7 +347,7 @@
                               </svg>
                               <span class="check-month">Jes</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_2">
                               <span class="checkbox">
                               <input type="checkbox" value="month_2" class="month-check-input" />
                               <svg>
@@ -354,9 +361,9 @@
                               </svg>
                               <span class="check-month">Ash</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_3">
                               <span class="checkbox">
-                              <input type="checkbox" value="month_3" class="month-check-input" />
+                              <input type="checkbox" value="month_3" class="month-check-input check-success" />
                               <svg>
                                  <use xlink:href="#checkbox-30" class="checkbox"></use>
                               </svg>
@@ -368,7 +375,7 @@
                               </svg>
                               <span class="check-month">Shr</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_4">
                               <span class="checkbox">
                               <input type="checkbox" value="month_4" class="month-check-input" />
                               <svg>
@@ -382,7 +389,7 @@
                               </svg>
                               <span class="check-month">Bha</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_5">
                               <span class="checkbox">
                               <input type="checkbox" value="month_5" class="month-check-input" />
                               <svg>
@@ -396,7 +403,7 @@
                               </svg>
                               <span class="check-month">Ash</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_6">
                               <span class="checkbox">
                               <input type="checkbox" value="month_6" class="month-check-input" />
                               <svg>
@@ -410,7 +417,7 @@
                               </svg>
                               <span class="check-month">Kar</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_7">
                               <span class="checkbox">
                               <input type="checkbox" value="month_7" class="month-check-input" />
                               <svg>
@@ -424,7 +431,7 @@
                               </svg>
                               <span class="check-month">Man</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_8">
                               <span class="checkbox">
                               <input type="checkbox" value="month_8" class="month-check-input" />
                               <svg>
@@ -438,7 +445,7 @@
                               </svg>
                               <span class="check-month">Pou</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_9">
                               <span class="checkbox">
                               <input type="checkbox" value="month_9" class="month-check-input" />
                               <svg>
@@ -452,7 +459,7 @@
                               </svg>
                               <span class="check-month">Mag</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_10">
                               <span class="checkbox">
                               <input type="checkbox" value="month_10" class="month-check-input" />
                               <svg>
@@ -466,7 +473,7 @@
                               </svg>
                               <span class="check-month">Fal</span>
                            </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2">
+                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_11">
                               <span class="checkbox">
                               <input type="checkbox" value="month_11" class="month-check-input" />
                               <svg>
@@ -483,8 +490,8 @@
                         </div>
                         {{-- Start chekbox 1 to 12  --}}
 
-                        <div class="p-0">
-                           <button class="bg-info take-pay-multi border-0 text-light btn rounded py-3 px-4" dues="0" all_st_id="" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Payment</button>
+                        <div class="p-0 multiple-paid-btn">
+                           
                         </div>
                      </div>
 
