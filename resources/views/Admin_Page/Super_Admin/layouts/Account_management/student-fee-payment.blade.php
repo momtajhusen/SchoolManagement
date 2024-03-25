@@ -298,8 +298,8 @@
             </div>
          </div>
       </div>
-      <div class="col-12 col-md-8 py-3 border bg-light" style="overflow:auto;">
-         <table class="table table-bordered table-sm table-hover"  style="width:675px;">
+      <div class="col-12 col-md-8 py-3 border bg-light">
+         <table class="table table-bordered table-sm table-hover table-responsive-md">
             <thead>
               <tr>
                 <th scope="col">
@@ -562,7 +562,7 @@
                <tbody>
                  <tr class="text-center">
                    <th scope="row">1</th>
-                   <td>Bibek Mandal</td>
+                   <td nowrap="nowrap">Bibek Mandal</td>
                    <td>2080</td>
                    <td>3434</td>
                    <td>3454</td>

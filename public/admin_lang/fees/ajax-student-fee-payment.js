@@ -170,10 +170,10 @@ $(document).ready(function(){
 
 
                             </td>
-                            <td class='text-center'>₹ `+element.total_fee+`</td>
-                            <td class='text-center'>₹ `+element.total_paid+`</td>
-                            <td class='text-center'>₹ `+element.total_disc+`</td>
-                            <td class='text-center'>₹ `+element.total_dues+`</td>
+                            <td class='text-center' nowrap="nowrap">₹ `+element.total_fee+`</td>
+                            <td class='text-center' nowrap="nowrap">₹ `+element.total_paid+`</td>
+                            <td class='text-center' nowrap="nowrap">₹ `+element.total_disc+`</td>
+                            <td class='text-center' nowrap="nowrap">₹ `+element.total_dues+`</td>
                         </tr>
                     `); 
                 });
@@ -182,7 +182,6 @@ $(document).ready(function(){
                 $('.total-paid-multi').html(total_paid);
                 $('.total-disc-multi').html(total_disc);
                 $('.total-dues-multi').html(total_dues);
-
                 $(".paid_btn").attr('pr_id', pr_id);
 
 
@@ -193,7 +192,7 @@ $(document).ready(function(){
                 }
 
                 $('.multiple-paid-btn').html(`
-                    <button class="bg-info `+multi_paid_btn+` take-pay-multi border-0 text-light btn rounded py-3 px-4" dues="`+total_dues+`" all_st_id="`+all_st_id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Multi Paid</button>
+                    <button class="bg-info `+multi_paid_btn+` take-pay-multi border-0 text-light btn rounded ml-3 py-3 px-4" dues="`+total_dues+`" all_st_id="`+all_st_id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Multi Paid</button>
                 `);
 
                 // month status 
