@@ -149,7 +149,7 @@
 
             /* For horizontal scrollbar */
             ::-webkit-scrollbar-thumb:horizontal {
-                background-color: #F5F5F5;
+                background-color: #b2bff8d3;
                 box-shadow: inset 0 0 10px rgba(63, 63, 63, 0.5);
             }
 
