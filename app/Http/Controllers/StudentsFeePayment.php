@@ -352,6 +352,46 @@ class StudentsFeePayment extends Controller
         return response()->json(['status' => 'success', 'data' => $StudentsFeePaidHistory]);
 
     }
+
+    public function StudentFeeInvoiceData(Request $request){
+        try {
+            $invoice_id = $request->invoice_id;
+    
+            $StudentsFeePaidHistory = StudentsFeePaidHistory::where('id', $invoice_id)->first();
+            $st_ids_string = $StudentsFeePaidHistory->st_id;
+            $particular_data = $StudentsFeePaidHistory->particular_data;
+
+            // Convert the string data to an array of integers
+            $st_ids_array = json_decode($st_ids_string);
+            $particular_data = json_decode($particular_data);
+
+            $fee = $StudentsFeePaidHistory->fee;
+            $paid = $StudentsFeePaidHistory->paid;
+            $disc = $StudentsFeePaidHistory->disc;
+            $dues = $StudentsFeePaidHistory->dues;
+            
+            $total_fee = [
+                'total_fee' => $fee,
+                'fee' => $fee,
+                'paid' => $paid,
+                'disc' => $disc,
+                'dues' => $dues
+            ];
+
+
+    
+            $students = Student::whereIn('id', $st_ids_array)->get();
+            $SchoolDetails = SchoolDetails::first();
+ 
+            return response()->json(['status'=>'success', 'total_fee'=> $total_fee, 'students' => $students, 'particular_data' => $particular_data, 'school_details' => $SchoolDetails], 200);
+    
+        } catch (Exception $e) {
+            // Handle exceptions
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+    
     
     public function create()
     {

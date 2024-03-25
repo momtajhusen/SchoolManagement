@@ -169,18 +169,18 @@ $(document).ready(function(){
                                </div>
 
                             </td>
-                            <td class='text-center' nowrap="nowrap">₹ `+element.total_fee+`</td>
-                            <td class='text-center' nowrap="nowrap">₹ `+element.total_paid+`</td>
-                            <td class='text-center' nowrap="nowrap">₹ `+element.total_disc+`</td>
-                            <td class='text-center' nowrap="nowrap">₹ `+element.total_dues+`</td>
+                            <td class='text-center' nowrap="nowrap">₹ `+element.total_fee.toFixed(2)+`</td>
+                            <td class='text-center' nowrap="nowrap">₹ `+element.total_paid.toFixed(2)+`</td>
+                            <td class='text-center' nowrap="nowrap">₹ `+element.total_disc.toFixed(2)+`</td>
+                            <td class='text-center' nowrap="nowrap">₹ `+element.total_dues.toFixed(2)+`</td>
                         </tr>
                     `); 
                 });
 
-                $('.total-fee-multi').html(total_fee);
-                $('.total-paid-multi').html(total_paid);
-                $('.total-disc-multi').html(total_disc);
-                $('.total-dues-multi').html(total_dues);
+                $('.total-fee-multi').html(total_fee.toFixed(2));
+                $('.total-paid-multi').html(total_paid.toFixed(2));
+                $('.total-disc-multi').html(total_disc.toFixed(2));
+                $('.total-dues-multi').html(total_dues.toFixed(2));
                 $(".paid_btn").attr('pr_id', pr_id);
                 $('.all_student_st').attr('st_id', all_st_id);
 
@@ -547,17 +547,35 @@ $(document).ready(function(){
                     $('.paid-history-table').html('');
                     response.data.forEach((element, index) => {
                         var index = index+1;
+
+                        var monthsString = element.pay_month.substring(1, element.pay_month.length - 1);
+                        // Splitting the string into an array using comma as the delimiter
+                        var monthsArray = monthsString.split(',');
+ 
+                        // Accessing the first and last elements
+                        var firstMonthString = monthsArray[0]; // Accessing the first element
+                        var lastMonthString = monthsArray[monthsArray.length - 1]; // Accessing the last element
+
+                        // Extracting the number part
+                        var firstMonthNumber = parseInt(firstMonthString.match(/\d+/)[0]);
+                        var lastMonthNumber = parseInt(lastMonthString.match(/\d+/)[0]);
+
+                        var UptoFirstMonth = NepaliFunctions.GetBsMonths()[firstMonthNumber].substring(0, 3);
+                        var UptoLastMonth = NepaliFunctions.GetBsMonths()[lastMonthNumber].substring(0, 3);
+
+                        
+ 
                          $('.paid-history-table').append(`
                             <tr class="text-center">
                                 <th scope="row">`+index+`</th>
-                                <td nowrap="nowrap">Up to Baishakh</td>
+                                <td nowrap="nowrap">`+UptoFirstMonth+` to `+UptoLastMonth+`</td>
                                 <td nowrap="nowrap">₹ `+element.fee+`</td>
                                 <td nowrap="nowrap">₹ `+element.paid+`</td>
                                 <td nowrap="nowrap">₹ `+element.disc+`</td>
                                 <td nowrap="nowrap">₹ `+element.dues+`</td>
                                 <td nowrap="nowrap">`+element.pay_date+`</td>
                                 <td>
-                                <button class='btn btn-block border border-primary d-flex align-items-center justify-content-center'>
+                                <button invoice_id=`+element.id+` class='btn btn-block invoice-print-btn border border-primary d-flex align-items-center justify-content-center' data-toggle="modal" data-target="#feeInvoiceModal" >
                                     <span class="material-symbols-outlined" style='font-size:10px;'>description</span> View
                                 </button>
                                 </td>
@@ -569,6 +587,162 @@ $(document).ready(function(){
                             </tr>
                          `);
                     });
+                }
+
+            },
+            
+            error: function (xhr, status, error) {
+                // Error callback function
+                console.log(xhr.responseText); // Log the error response in the console
+            },
+        });
+
+    });
+});
+
+// Fee Invoice View Model Open
+$(document).ready(function(){
+    $(".paid-history-table").on("click", ".invoice-print-btn", function()
+    {  
+
+        var invoice_id = $(this).attr('invoice_id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "/student-invoice-data",
+            method: "GET", 
+            data: {
+                invoice_id: invoice_id,
+            },
+            success: function (response) {
+
+                console.log(response);
+ 
+
+                if(response.status == 'success'){
+
+                    var commonFeeDetails = response.particular_data;
+
+                    var fee = response.total_fee.fee;
+                    var paid = response.total_fee.paid;
+                    var disc = response.total_fee.disc;
+                    var dues = response.total_fee.dues;
+
+
+
+                    var student_tr = '';
+                    var fee_particular_tr = '';
+
+                    response.students.forEach(element => {
+                        var st_id = element.id;
+                        var student_name = element.first_name+' '+ element.last_name;
+                        var classes = element.class+' '+element.section;
+                        var student_img = element.student_image;
+                        student_tr += `
+                        <tr>
+                            <th class="text-center" style="width:30px;">
+                                <img src="../storage/`+student_img+`" class="border" alt="" style="width:25px;height:25px;">
+                            </th>
+                            <th colspan="4">
+                                <div class="d-flex justify-content-between align-items-center px-2">
+                                    <span style="font-size: 12px;">`+student_name+`</span>
+                                    <div class="d-flex">
+                                        <span class="ml-2" style="font-size: 10px;">Class :</span>
+                                        <span class="ml-2" style="font-size: 10px;">`+classes+`</span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <span class="ml-2" style="font-size: 10px;">ST_ID :</span>
+                                        <span class="ml-2" style="font-size: 10px;">`+st_id+`</span>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                        `;
+                        
+                    });
+
+                    var commonFeeDetails = response.particular_data;
+                    var index = 1;
+                    var fee_particular_tr = ''; // Initialize the variable to store HTML markup
+
+                    for (var feeType in commonFeeDetails) {
+                        if (commonFeeDetails.hasOwnProperty(feeType)) {
+                            var amount = commonFeeDetails[feeType].amount;
+                            var monthCount = commonFeeDetails[feeType].month;
+                            fee_particular_tr += `
+                                <tr>
+                                    <th scope="row">${index}</th>
+                                    <td>${feeType}</td>
+                                    <td>${monthCount}</td>
+                                    <td>${amount}</td>
+                                </tr>
+                            `;
+                            index++;
+                        }
+                    }
+
+                    var disc_display = disc <= 0 ? 'd-none' : '';
+
+                    // Append total fee row
+                    fee_particular_tr += `
+                        <tr>
+                            <th scope="row">#</th>
+                            <td colspan='2' class='text-start border'>
+                             <div class='border w-100'>Total Fee</div>
+                            </td>
+                            <td>`+fee+`</td>
+                        </tr>
+                        <tr class='`+disc_display+`'>
+                            <th scope="row">#</th>
+                            <td colspan='2' class='text-start'>Disc</td>
+                            <td>`+disc+`</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">#</th>
+                            <td colspan='2' class='text-start'>Paid</td>
+                            <td>`+paid+`</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">#</th>
+                            <td colspan='2' class='text-start'>Dues</td>
+                            <td>`+dues+`</td>
+                        </tr>
+                    `;
+
+
+                    $('.school-name').html(response.school_details.school_name);
+                    $('.school-address').html(response.school_details.address);
+                    $('.school-logo').attr('src', '../storage/'+response.school_details.logo_img);
+
+                    $('.invoice-particular-table').html(`
+                        <table class="table table-bordered my-1 table-sm text-light" style="font-size:12px;">
+                        <thead>
+                        <tr>
+                            <td colspan="5">
+                                <div class="d-flex justify-content-between text-light" style="font-size:13px;">
+                                    <span>Billing : Up to Bai</span>
+                                    <span>Date : 2080-06-01</span>
+                                </div>
+                            </td>
+                        </tr>
+                        `+student_tr+`
+                        <tr class="text-center">
+                        <th scope="col">SN.</th>
+                        <th scope="col">Particulars</th>
+                        <th scope="col">Months</th>
+                        <th scope="col">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            `+fee_particular_tr+`
+                        </tbody>
+                    </table>
+                    `);
                 }
 
             },

@@ -224,6 +224,8 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       Route::get('/student-fee-month-particular', 'App\Http\Controllers\StudentsFeePayment@StudentFeeMonthParticular');
       Route::post('/student-fee-paid', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaid');
       Route::get('/student-paid-history', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaidHistory');
+      Route::get('/student-invoice-data', 'App\Http\Controllers\StudentsFeePayment@StudentFeeInvoiceData');
+
 
 
 

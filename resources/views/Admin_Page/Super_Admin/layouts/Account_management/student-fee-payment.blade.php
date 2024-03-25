@@ -147,7 +147,7 @@
 @section('contents')
    <div><h5>Student Fee Payment</h5></div>
 
-     <!-- Fee Payment  Modal -->
+   <!-- Start Fee Payment  Modal -->
       <div class="modal fade" id="feePaymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog modal-lg" role="document">
          <div class="modal-content" style="background: #02142a;">
@@ -243,6 +243,55 @@
          </div>
          </div>
       </div>
+   <!-- End Fee Payment  Modal -->
+
+
+    <!-- Start Fee Payment  Modal -->
+    <div class="modal fade" id="feeInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background: #02142a;">
+         <div class="modal-header">
+            <h5 class="modal-title text-light" id="exampleModalLabel">Fee Invoice</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+             <div class="row m-0">
+                <div class="col-lg-12 col-md-12 border py-4">
+                    <div>
+                       <div class="border p-2 d-flex">
+                           <img src="#" class="border school-logo" alt="" style="width:40px;height:40px;">
+                           <div class="d-flex align-items-center w-100 flex-column">
+                              <h6 class="text-light m-0 school-name">Polar Star Secondary Boarding School</h6>
+                              <span class="text-light school-address" style="font-size:10px;">Mirchaiya-5, Sirha, Nepal</span>
+                           </div>
+                       </div>
+
+                       {{-- Billing Table  --}}
+                       <div class="invoice-particular-table">
+                             {{-- table append  --}}
+                       </div>
+
+                  
+
+                    </div>
+                </div>
+             </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary p-3 px-5 payment-model-colose" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary">
+               <span class="material-symbols-outlined">download</span>
+            </button>
+            <button type="button" class="btn btn-secondary">
+               <span class="material-symbols-outlined">print</span>
+            </button>
+         </div>
+      </div>
+      </div>
+   </div>
+<!-- End Fee Payment  Modal -->
 
    <div class="row border">
       <div class="col-12 col-md-4 py-3 border position-relative bg-light">
@@ -351,7 +400,8 @@
                                           </svg>
                                           <span class="check-month">
                                              @php
-                                                $month = \Carbon\Carbon::create()->month($i + 1)->format('M');
+                                                $monthArray = ['Bai', 'Jes', 'Ash', 'Shr', 'Bha', 'Ash', 'Kar', 'Man', 'Pou', 'Mag', 'Fal', 'Cha'];
+                                                $month =  $monthArray[$i];
                                              @endphp
                                              {{ $month }}
                                           </span>
@@ -378,7 +428,7 @@
                   <thead>
                     <tr class="text-center">
                       <th scope="col">SN.</th>
-                      <th scope="col">Month</th>
+                      <th scope="col">Months</th>
                       <th scope="col">Fee</th>
                       <th scope="col">Paid</th>
                       <th scope="col">Disc</th>
