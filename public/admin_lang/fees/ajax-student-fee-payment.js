@@ -4,6 +4,7 @@ $(document).ready(function(){
         $(".parent-details-box").addClass('d-none');
         $(".student-search-box").removeClass('d-none');
         $(".students-table").html(''); 
+        $('.mult-total-row').addClass('d-none');
     });
 });
 
@@ -106,6 +107,7 @@ $(document).ready(function(){
           {
             $(".parent-details-box").removeClass('d-none');
             $(".student-search-box").addClass('d-none');
+            $('.mult-total-row').removeClass('d-none');
 
             var pr_id = response.parent_details.id;
             var father_img = response.parent_details.father_image;
@@ -115,8 +117,6 @@ $(document).ready(function(){
             var ward_no = response.student_details[0].ward_no;
             var village = response.student_details[0].village;
             var municipality = response.student_details[0].municipality;
-
-            $(".total-children").html(response.student_details.length);
 
             $('.pr-id').html(pr_id);
             $('.parent-image').attr('src','../storage/'+father_img+'');
@@ -167,7 +167,6 @@ $(document).ready(function(){
                                 </div>
                                  <button class="bg-info `+single_btn+` take-pay-multi border-0 text-light btn rounded py-2 px-3" dues="`+element.total_dues+`" all_st_id="`+element.id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Single Paid</button>
                                </div>
-
 
                             </td>
                             <td class='text-center' nowrap="nowrap">₹ `+element.total_fee+`</td>

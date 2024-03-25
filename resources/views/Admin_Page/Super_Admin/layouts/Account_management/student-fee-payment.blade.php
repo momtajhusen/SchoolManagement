@@ -253,6 +253,7 @@
                <div class="d-flex ml-3" style="font-size: 14px;">
                   <span class="border p-1 mx-1 px-2 select-option ">Students</span>
                   <span class="border p-1 mx-1 px-2 select-option">Parents</span>
+                  <span class="material-symbols-outlined refresh-icon border text-center d-flex align-items-center" style="cursor: pointer;font-size:18px;">refresh</span>
                </div>
             </div>
             <div class="col-12 mt-2 p-0 d-none parent-select-box">
@@ -273,7 +274,10 @@
          <div class="parent-details-box d-none">
             <div class="border p-1 d-flex justify-content-between">
                <span>Partent Details</span>
-               <span class="material-symbols-outlined border parent-search-icon" style="cursor:pointer;">person_search</span>
+               <div class="d-flex">
+                  <span class="material-symbols-outlined border parent-search-icon" style="cursor:pointer;">person_search</span>
+                  <span class="material-symbols-outlined refresh-icon border text-center d-flex align-items-center" style="cursor: pointer;font-size:18px;">refresh</span>
+               </div>
             </div>
             <div class="d-flex mt-2">
               <img class="border p-2 parent-image" src="#" alt="parent" style="width:100px;">
@@ -299,216 +303,114 @@
          </div>
       </div>
       <div class="col-12 col-md-8 py-3 border bg-light">
-         <table class="table table-bordered table-sm table-hover table-responsive-md">
-            <thead>
-              <tr>
-                <th scope="col">
-                  <div class="d-flex">
-                     <span class="material-symbols-outlined refresh-icon border text-center bg-secondary text-light" style="cursor: pointer;">refresh</span>
-                     <span class="ml-2">Students</span> 
-                     <span class="total-children"></span>
-                  </div>
-               </th>
-                <th scope="col">Fee</th>
-                <th scope="col">Paid</th>
-                <th scope="col">Disc</th>
-                <th scope="col">Dues</th>
-                {{-- <th scope="col">Action</th> --}}
-              </tr>
-            </thead>
-            <tbody class="students-table">
-                    {{-- hello  --}}
-            </tbody>
-            <tbody>
-               <tr class='bg-secondary'>
-                  <td class='text-center'>   
-                     <div class="d-flex align-items-center justify-content-between">
-                        {{-- Start chekbox 1 to 12  --}}
-                        <div class="d-flex px-1">
-                           <div class="checkbox-wrapper-30 d-flex flex-column check_month_0">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_0" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Bai</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_1">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_1" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Jes</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_2">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_2" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Ash</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_3">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_3" class="month-check-input check-success" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Shr</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_4">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_4" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Bha</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_5">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_5" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Ash</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_6">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_6" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Kar</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_7">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_7" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Man</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_8">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_8" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Pou</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_9">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_9" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Mag</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_10">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_10" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Fal</span>
-                           </div>
-                           <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_11">
-                              <span class="checkbox">
-                              <input type="checkbox" value="month_11" class="month-check-input" />
-                              <svg>
-                                 <use xlink:href="#checkbox-30" class="checkbox"></use>
-                              </svg>
-                              </span>
-                              <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-                              <symbol id="checkbox-30" viewBox="0 0 22 22">
-                                 <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
-                              </symbol>
-                              </svg>
-                              <span class="check-month">Cha</span>
-                           </div>
+         <nav>
+            <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Fee Payment</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Payment History</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+               <table class="table table-bordered table-sm table-hover table-responsive-md">
+                  <thead>
+                    <tr>
+                      <th scope="col">
+                        <div class="d-flex">
+                           <span class="ml-2">Students</span> 
                         </div>
-                        {{-- Start chekbox 1 to 12  --}}
+                     </th>
+                      <th scope="col">Fee</th>
+                      <th scope="col">Paid</th>
+                      <th scope="col">Disc</th>
+                      <th scope="col">Dues</th>
+                      {{-- <th scope="col">Action</th> --}}
+                    </tr>
+                  </thead>
+                  <tbody class="students-table">
+                          {{-- hello  --}}
+                  </tbody>
+                  <tbody class="mult-total-row d-none">
+                     <tr class='bg-secondary'>
+                        <td class='text-center'>   
+                           <div class="d-flex align-items-center justify-content-between">
+                              {{-- Start chekbox 1 to 12  --}}
+                              <div class="d-flex px-1">
+                                 @for ($i = 0; $i < 12; $i++)
+                                    <div class="checkbox-wrapper-30 d-flex flex-column ml-2 check_month_{{ $i }}">
+                                          <span class="checkbox">
+                                             <input type="checkbox" value="month_{{ $i }}" class="month-check-input" />
+                                             <svg>
+                                                <use xlink:href="#checkbox-30" class="checkbox"></use>
+                                             </svg>
+                                          </span>
+                                          <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+                                             <symbol id="checkbox-30" viewBox="0 0 22 22">
+                                                <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
+                                             </symbol>
+                                          </svg>
+                                          <span class="check-month">
+                                             @php
+                                                $month = \Carbon\Carbon::create()->month($i + 1)->format('M');
+                                             @endphp
+                                             {{ $month }}
+                                          </span>
+                                    </div>
+                                 @endfor
+                              </div>
+                              {{-- Start chekbox 1 to 12  --}}
+                              <div class="p-0 multiple-paid-btn">
+                                  {{-- multi paid btn   --}}
+                              </div>
+                           </div>
+      
+                        </td>
+                        <td class='text-center text-light'>₹ <span class="total-fee-multi">0</span></td>
+                        <td class='text-center text-light'>₹ <span class="total-paid-multi">0</span></td>
+                        <td class='text-center text-light'>₹ <span class="total-disc-multi">0</span></td>
+                        <td class='text-center text-light'>₹ <span class="total-dues-multi">0</span></td>
+                    </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+               <table class="table table-striped table-sm table-responsive-md">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Month</th>
+                      <th scope="col">Paid</th>
+                      <th scope="col">Disc</th>
+                      <th scope="col">Dues</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Bill Print</th>
+                      <th scope="col">Reset</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                      <td>@twitter</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
 
-                        <div class="p-0 multiple-paid-btn">
-                           
-                        </div>
-                     </div>
 
-                  </td>
-                  <td class='text-center text-light'>₹ <span class="total-fee-multi">0</span></td>
-                  <td class='text-center text-light'>₹ <span class="total-paid-multi">0</span></td>
-                  <td class='text-center text-light'>₹ <span class="total-disc-multi">0</span></td>
-                  <td class='text-center text-light'>₹ <span class="total-dues-multi">0</span></td>
-              </tr>
-            </tbody>
-          </table>
       </div>
    </div>
 
@@ -535,6 +437,7 @@
             {{-- Start Selectd Student Fee Stracture Month Wize --}}
 
 
+            <span>Fee Stracture</span>
             <table class="table table-bordered table-sm table-responsive-md">
                <thead>
                  <tr class="text-center">
