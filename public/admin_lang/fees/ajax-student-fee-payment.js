@@ -182,6 +182,7 @@ $(document).ready(function(){
                 $('.total-disc-multi').html(total_disc);
                 $('.total-dues-multi').html(total_dues);
                 $(".paid_btn").attr('pr_id', pr_id);
+                $('.all_student_st').attr('st_id', all_st_id);
 
 
 
@@ -272,8 +273,6 @@ $(document).ready(function(){
         $('#disc_input').val(0);
         $('#percentage').val(0);
 
-
-        $('.paid_btn').attr('sing_multi', 'multi');
         $('.paid_btn').attr('all_st_id', all_st_id);
 
         var st_id_array = all_st_id.split(',');
@@ -456,6 +455,7 @@ $(document).ready(function(){
         var comment_disc = $('#comment_disc').val();
         var pay_date = $('#pay_date').val();
         var fee_year = NepaliFunctions.GetCurrentBsDate().year;
+
         var all_st_id = $(this).attr('all_st_id');
         var st_id_array = all_st_id.split(',');
 
@@ -515,6 +515,69 @@ $(document).ready(function(){
                 console.log(xhr.responseText); // Log the error response in the console
             },
           });
+
+    });
+});
+
+// Paid History 
+$(document).ready(function(){
+    $('.history-btn').click(function(){
+
+        var year = NepaliFunctions.GetCurrentBsDate().year;
+        var pr_id = $(".pr-id").html();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "/student-paid-history",
+            method: "GET", 
+            data: {
+                year: year,
+                pr_id: pr_id,
+            },
+            success: function (response) {
+
+                console.log(response);
+
+                if(response.status == 'success'){
+                    $('.paid-history-table').html('');
+                    response.data.forEach((element, index) => {
+                        var index = index+1;
+                         $('.paid-history-table').append(`
+                            <tr class="text-center">
+                                <th scope="row">`+index+`</th>
+                                <td nowrap="nowrap">Up to Baishakh</td>
+                                <td nowrap="nowrap">₹ `+element.fee+`</td>
+                                <td nowrap="nowrap">₹ `+element.paid+`</td>
+                                <td nowrap="nowrap">₹ `+element.disc+`</td>
+                                <td nowrap="nowrap">₹ `+element.dues+`</td>
+                                <td nowrap="nowrap">`+element.pay_date+`</td>
+                                <td>
+                                <button class='btn btn-block border border-primary d-flex align-items-center justify-content-center'>
+                                    <span class="material-symbols-outlined" style='font-size:10px;'>description</span> View
+                                </button>
+                                </td>
+                                <td>
+                                <button class='btn btn-block border border-primary d-flex align-items-center justify-content-center'>
+                                    <span class="material-symbols-outlined" style='font-size:10px;'>restart_alt</span> Reset
+                                </button>
+                                </td>
+                            </tr>
+                         `);
+                    });
+                }
+
+            },
+            
+            error: function (xhr, status, error) {
+                // Error callback function
+                console.log(xhr.responseText); // Log the error response in the console
+            },
+        });
 
     });
 });
@@ -657,6 +720,11 @@ $(document).ready(function(){
         $(".students-table").on("click", ".students", function(){  
 
             var st_id = $(this).attr('st_id');
+            var all_st_id = $('.all_student_st').attr('st_id');
+            var st_id_array = all_st_id.split(',');
+            
+            console.log(st_id_array);
+            
 
             $.ajax({
                 url: "/student-fee-retrive",

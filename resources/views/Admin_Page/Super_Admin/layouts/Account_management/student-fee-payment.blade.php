@@ -298,6 +298,7 @@
                      <span>pr_id :</span>
                      <span class="pr-id">4556</span>
                    </div>
+                   <span class="all_student_st" st_id='#'></span>
               </div>
             </div>
          </div>
@@ -305,8 +306,8 @@
       <div class="col-12 col-md-8 py-3 border bg-light">
          <nav>
             <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Fee Payment</a>
-              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Payment History</a>
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Payment</a>
+              <a class="nav-item nav-link history-btn" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">History</a>
             </div>
           </nav>
           <div class="tab-content" id="nav-tabContent">
@@ -375,36 +376,20 @@
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                <table class="table table-striped table-sm table-responsive-md">
                   <thead>
-                    <tr>
-                      <th scope="col">#</th>
+                    <tr class="text-center">
+                      <th scope="col">SN.</th>
                       <th scope="col">Month</th>
+                      <th scope="col">Fee</th>
                       <th scope="col">Paid</th>
                       <th scope="col">Disc</th>
                       <th scope="col">Dues</th>
                       <th scope="col">Date</th>
-                      <th scope="col">Bill Print</th>
+                      <th scope="col">Invoice</th>
                       <th scope="col">Reset</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter</td>
-                    </tr>
+                  <tbody class="paid-history-table ">
+                     {{-- payment history  --}}
                   </tbody>
                 </table>
             </div>

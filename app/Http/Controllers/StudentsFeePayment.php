@@ -15,6 +15,8 @@ use App\Models\StudentsFeeMonth;
 use App\Models\StudentsFeePaid;
 use App\Models\StudentsFeeDisc;
 use App\Models\StudentsFeeDues;
+use App\Models\StudentsFeePaidHistory;
+
 
 class StudentsFeePayment extends Controller
 {
@@ -94,6 +96,7 @@ class StudentsFeePayment extends Controller
     {
         try {
             $st_id = $request->st_id;
+            $st_id_array = $request->st_id_array;
             $year = 2080;
         
             // Fetch the fee structures for the specified student ID and year
@@ -305,13 +308,28 @@ class StudentsFeePayment extends Controller
                             $student_disc_record->$pay_month  = $discount;
 
                         }
-                
                         $student_paid_record->save();
                         $student_disc_record->save();
-
                     }
                 }
             ////////////////////// End StudentsFeePaid //////////////////////
+
+            // History Save
+            $StudentsFeePaidHistory = new StudentsFeePaidHistory(); 
+            $StudentsFeePaidHistory->st_id = json_encode($st_id_array);
+            $StudentsFeePaidHistory->pr_id = $pr_id;
+            $StudentsFeePaidHistory->fee_year = $fee_year;
+            $StudentsFeePaidHistory->particular_data =  $data_fee_particular;
+            $StudentsFeePaidHistory->pay_month = json_encode($pay_month_array);
+            $StudentsFeePaidHistory->fee = $fee_amount;
+            $StudentsFeePaidHistory->paid = $paid_amount;
+            $StudentsFeePaidHistory->disc = $disc_amount;
+            $StudentsFeePaidHistory->dues = $dues_amount;
+            $StudentsFeePaidHistory->comment_disc = $comment_disc;
+            $StudentsFeePaidHistory->pay_with = 'Cash';
+            $StudentsFeePaidHistory->pay_date = $pay_date;
+            $StudentsFeePaidHistory->save();                        
+            // History Save 
 
             //Sum total_fee, total_paid, total_disc, total_dues
             StudentAccountFee::StudentsFeeMonthsCalculate();
@@ -323,6 +341,16 @@ class StudentsFeePayment extends Controller
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);
         }
+    }
+
+    public function StudentFeePaidHistory(Request $request){
+        $year = $request->year;
+        $pr_id = $request->pr_id;
+
+        $StudentsFeePaidHistory = StudentsFeePaidHistory::where('fee_year', $year)->where('pr_id', $pr_id)->get();
+
+        return response()->json(['status' => 'success', 'data' => $StudentsFeePaidHistory]);
+
     }
     
     public function create()

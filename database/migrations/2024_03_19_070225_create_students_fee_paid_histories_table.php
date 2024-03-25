@@ -16,10 +16,10 @@ return new class extends Migration
             $table->integer('reset_id')->nullable();
             $table->string('st_id', 100)->nullable();
             $table->integer('pr_id')->nullable();
-            $table->string('sing_multi', 10)->nullable();
             $table->year("fee_year")->nullable();
             $table->longText('particular_data')->nullable();
             $table->longText('pay_month')->nullable();
+            $table->decimal('fee', 10, 2)->default(0);
             $table->decimal('paid', 10, 2)->default(0);
             $table->decimal('disc', 10, 2)->default(0);
             $table->decimal('dues', 10, 2)->default(0);

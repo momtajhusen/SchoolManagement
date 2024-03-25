@@ -223,6 +223,8 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       Route::get('/student-fee-retrive', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaymentRetrive');
       Route::get('/student-fee-month-particular', 'App\Http\Controllers\StudentsFeePayment@StudentFeeMonthParticular');
       Route::post('/student-fee-paid', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaid');
+      Route::get('/student-paid-history', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaidHistory');
+
 
 
    // End New Account payment 
