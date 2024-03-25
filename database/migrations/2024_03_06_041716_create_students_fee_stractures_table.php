@@ -17,7 +17,7 @@ return new class extends Migration
             $table->year('year');
             $table->integer('month')->nullable();
             $table->string("fee_type", 100)->nullable();
-            $table->double("amount")->nullable();
+            $table->decimal("amount", 10, 2)->default(0);
             $table->string("fee_stracture_type", 10)->nullable();
             $table->timestamps();
         });

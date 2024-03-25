@@ -44,6 +44,13 @@ $(document).ready(function(){
     });
 });
 
+// Refresh Click 
+$(document).ready(function(){
+    $('.refresh-icon').click(function(){
+        $("#search-btn").click();
+    });
+});
+
 // Start Select parent than retrive stundets 
 $(document).ready(function(){
     // on change event
@@ -128,6 +135,8 @@ $(document).ready(function(){
 
                 response.student_details.forEach(element => {
                     var student_name = element.first_name+' '+element.last_name;
+                    var classes = element.class+' '+element.section;
+
                     total_fee += element.total_fee;
                     total_paid += element.total_paid;
                     total_disc += element.total_disc;
@@ -146,9 +155,15 @@ $(document).ready(function(){
                         <tr class='students' st_id='`+element.id+`' style='cursor:pointer'>
                             <td>
                                <div class='d-flex justify-content-between'>
-                                <div>
-                                    <img class="border p-1 parent-image" src="../storage/`+element.student_image+`" alt="parent" style="width:40px;">
-                                    <span>`+student_name+`</span>
+                                <div class='d-flex'>
+                                    <img class="border p-1 parent-image" src="../storage/`+element.student_image+`" alt="parent" style="width:40px;" />
+                                    <div class='ml-2' style='line-height:18px;'>
+                                       <span>`+student_name+`</span>
+                                       <div style='font-size:12px;'>
+                                           <span>cls: `+classes+`</span>
+                                           <span class='ml-2'>id: `+element.id+`</span>
+                                       </div>
+                                    </div>
                                 </div>
                                  <button class="bg-info `+single_btn+` take-pay-multi border-0 text-light btn rounded py-2 px-3" dues="`+element.total_dues+`" all_st_id="`+element.id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Single Paid</button>
                                </div>
@@ -190,13 +205,15 @@ $(document).ready(function(){
                         $('.check_month_' + i + ' input').prop("disabled", true);
                         $('.check_month_' + i + ' input').prop("checked", false);
                         $('.check_month_' + i+ ' input').removeClass('bg-dues');
+                        $('.check_month_' + i+ ' input').removeClass('bg-feenotset');
                         $('.check_month_' + i+ ' input').addClass('bg-paid');
                         $('.check_month_' + i + ' input').removeClass('month-check-input');
                     }
                     if(month_status == "Dues"){
                         $('.check_month_' + i + ' input').prop("disabled", false);
-                        $('.check_month_' + i + ' input').prop("checked", true);
+                        // $('.check_month_' + i + ' input').prop("checked", true);
                         $('.check_month_' + i+ ' input').removeClass('bg-paid');
+                        $('.check_month_' + i+ ' input').removeClass('bg-feenotset');
                         $('.check_month_' + i+ ' input').addClass('bg-dues');
                     }
                     if(month_status == "Unpaid"){
@@ -205,6 +222,7 @@ $(document).ready(function(){
                         $('.check_month_' + i + ' input').addClass('month-check-input');
                         $('.check_month_' + i+ ' input').removeClass('bg-paid');
                         $('.check_month_' + i+ ' input').removeClass('bg-dues');
+                        $('.check_month_' + i+ ' input').removeClass('bg-feenotset');
                     }
                     if(month_status == "FeeNotSet"){
                         // Add bg-success class to the input elements

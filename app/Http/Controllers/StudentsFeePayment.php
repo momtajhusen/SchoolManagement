@@ -30,7 +30,7 @@ class StudentsFeePayment extends Controller
     
             $parent_data = Parents::where("id", $pr_id)->first();
             if ($parent_data) {
-                $student_data = Student::select('id', 'first_name', 'last_name', 'student_image', 'village')->where("parents_id", $pr_id)->get();
+                $student_data = Student::select('id', 'class', 'section', 'first_name', 'last_name', 'student_image', 'village')->where("parents_id", $pr_id)->get();
     
                 // Initialize MonthFeePaidStatus array
                 $MonthFeePaidStatus = [];
@@ -71,57 +71,8 @@ class StudentsFeePayment extends Controller
                     }
                 }
 
-               // Initialize monthStatus array outside of the if-else block
-$monthStatus = [];
-
-// Determine payment status for each month
-for ($i = 0; $i < 12; $i++) {
-    $month = 'month_' . $i;
-
-    // Calculate total fee for this month across all students
-    $total_fee = StudentsFeeMonth::where('year', $year)->sum($month) ?? 0;
-
-    // Initialize total paid and total discount
-    $total_fee = 0;
-    $total_paid = 0;
-    $total_disc = 0;
-    $unFeeSet = false;
-
-    // Loop through all students to sum their payments and discounts
-    foreach ($student_data as $student) {
-
-        $status_fee = StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
-        $status_paid = StudentsFeePaid::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
-        $status_disc = StudentsFeeDisc::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
-        
-        // Accumulate total paid and total discount
-        $total_fee += $status_fee;
-        $total_paid += $status_paid;
-        $total_disc += $status_disc;
-
-        // Check if any student has no fee set for this month
-        if ($status_fee == 0) {
-            $unFeeSet = true;
-        }
-    }
-
-    // Calculate total payments including discounts
-    $total_paids = $total_paid + $total_disc;
-
-    // Determine status based on total fee and total payments
-    if ($unFeeSet) {
-        $status = 'FeeNotSet';
-    } else {
-        $status = ($total_paids >= $total_fee) ? 'Paid' : (($total_paids > 0) ? 'Dues' : 'Unpaid');
-    }
-
-    $monthStatus[$month] = $status;
-}
-
-// Assign month status array to each student
-foreach ($student_data as $student) {
-    $student->MonthFeePaidStatus = $monthStatus;
-}
+                // After fetching $student_data
+                $monthStatus = StudentAccountFee::feePaidMonthStatus($year, $student_data);
 
     
                 return response()->json(['status' => 'success', 'parent_details' => $parent_data, 'student_details' => $student_data, 'month_status' => $monthStatus], 200);
@@ -338,9 +289,17 @@ foreach ($student_data as $student) {
                             $per_mon_paid = $per_st_paid / count($pay_month_array);
                             $per_mon_disc = $per_st_disc / count($pay_month_array);
                             $per_mon_dues = $per_st_dues / count($pay_month_array);
-      
-                            $student_paid_record->$pay_month  = $per_mon_paid + $student_paid_record->$pay_month;
-                            $student_disc_record->$pay_month  = $per_mon_disc + $student_disc_record->$pay_month;
+
+                            $disc_dues = $per_mon_disc+$per_mon_dues;
+
+                            // Retrive Month Fee
+                            $fee_month = $fee_details->$pay_month - $student_disc_record->$pay_month;
+ 
+                            $payment = $fee_month - $disc_dues;
+                            $discount = $per_mon_disc + $student_disc_record->$pay_month;
+
+                            $student_paid_record->$pay_month  = $payment;
+                            $student_disc_record->$pay_month  = $discount;
 
                         }
                 

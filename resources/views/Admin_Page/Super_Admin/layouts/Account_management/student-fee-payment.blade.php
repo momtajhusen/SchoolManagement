@@ -301,8 +301,14 @@
       <div class="col-12 col-md-8 py-3 border bg-light" style="overflow:auto;">
          <table class="table table-bordered table-sm table-hover"  style="width:675px;">
             <thead>
-              <tr class='text-center'>
-                <th scope="col">Students <span class="total-children"></span></th>
+              <tr>
+                <th scope="col">
+                  <div class="d-flex">
+                     <span class="material-symbols-outlined refresh-icon border text-center bg-secondary text-light" style="cursor: pointer;">refresh</span>
+                     <span class="ml-2">Students</span> 
+                     <span class="total-children"></span>
+                  </div>
+               </th>
                 <th scope="col">Fee</th>
                 <th scope="col">Paid</th>
                 <th scope="col">Disc</th>

@@ -51,6 +51,55 @@ class StudentAccountFee extends Controller
 
         }
     }
+
+    public static function feePaidMonthStatus($year, $student_data)
+    {
+        // Initialize monthStatus array outside of the if-else block
+        $monthStatus = [];
+
+        // Determine payment status for each month
+        for ($i = 0; $i < 12; $i++) {
+            $month = 'month_' . $i;
+
+            // Initialize total paid and total discount
+            $total_fee =  0;
+            $total_paid = 0;
+            $total_disc = 0;
+            $unFeeSet = false;
+
+            // Loop through all students to sum their payments and discounts
+            foreach ($student_data as $student) {
+                $status_fee = StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
+                $status_paid = StudentsFeePaid::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
+                $status_disc = StudentsFeeDisc::where('year', $year)->where('st_id', $student->id)->value($month) ?? 0;
+
+                // Accumulate total paid and total discount
+                $total_fee += $status_fee;
+                $total_paid += $status_paid;
+                $total_disc += $status_disc;
+
+
+                // Check if any student has no fee set for this month
+                if ($status_fee == 0) {
+                    $unFeeSet = true;
+                }
+            }
+
+            // Calculate total payments including discounts
+            $total_paids = $total_paid + $total_disc;
+
+            // Determine status based on total fee and total payments
+            if ($unFeeSet) {
+                $status = 'FeeNotSet';
+            } else {
+                $status = ($total_paids >= $total_fee) ? 'Paid' : (($total_paids > 0) ? 'Dues' : 'Unpaid');
+            }
+
+            $monthStatus[$month] = $status;
+        }
+
+        return $monthStatus;
+    }
 }
 
  
