@@ -143,15 +143,14 @@
         /* Start Scroll Designe  */
             /* For vertical scrollbar */
             ::-webkit-scrollbar-thumb:vertical {
-                background: rgb(44,0,120);
-                background: linear-gradient(90deg, rgba(44,0,120,1) 16%, rgba(4,41,84,1) 72%);
-                box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+                      background-color: #b2bff8d3;
+                box-shadow: inset 0 0 10px rgba(63, 63, 63, 0.5);
             }
 
             /* For horizontal scrollbar */
             ::-webkit-scrollbar-thumb:horizontal {
-                background: rgb(44,0,120);
-                background: linear-gradient(90deg, rgba(44,0,120,1) 16%, rgba(4,41,84,1) 72%);
+                background-color: #F5F5F5;
+                box-shadow: inset 0 0 10px rgba(63, 63, 63, 0.5);
             }
 
             /* Set the width, height, and background color for both scrollbars */
