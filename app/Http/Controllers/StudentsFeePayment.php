@@ -71,8 +71,12 @@ class StudentsFeePayment extends Controller
                     }
                 }
 
+                //Sum total_fee, total_paid, total_disc, total_dues
+                StudentAccountFee::StudentsFeeMonthsCalculate();
+
                 // After fetching $student_data
                 $monthStatus = StudentAccountFee::feePaidMonthStatus($year, $student_data);
+
 
     
                 return response()->json(['status' => 'success', 'parent_details' => $parent_data, 'student_details' => $student_data, 'month_status' => $monthStatus], 200);
@@ -85,7 +89,6 @@ class StudentsFeePayment extends Controller
         }
  
     }
-    
     
     public function StudentFeePaymentRetrive(Request $request)
     {

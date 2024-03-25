@@ -515,7 +515,7 @@
    <div class="row pt-3 border bg-light" style="overflow:auto;">
        <div class="col-12"  >
             {{-- Start Selectd Student Fee Stracture Month Wize --}}
-            <table class="table table-sm table-dark table-hover" style="width:1000px;">
+            <table class="table table-sm table-dark table-hover d-none" style="width:1000px;">
                <thead>
                <tr class='text-center'>
                   <th scope="col">Month</th>
@@ -533,6 +533,42 @@
                </tbody>
             </table>
             {{-- Start Selectd Student Fee Stracture Month Wize --}}
+
+
+            <table class="table table-bordered table-sm table-responsive-md">
+               <thead>
+                 <tr class="text-center">
+                   <th scope="col">#</th>
+                   <th scope="col">Student</th>
+                   <th scope="col">Year</th>
+                   <th scope="col">Bai</th>
+                   <th scope="col">Jes</th>
+                   <th scope="col">Ash</th>
+                   <th scope="col">Shr</th>
+                   <th scope="col">Bha</th>
+                   <th scope="col">Ash</th>
+                   <th scope="col">Kar</th>
+                   <th scope="col">Man</th>
+                   <th scope="col">Pou</th>
+                   <th scope="col">Mag</th>
+                   <th scope="col">Fal</th>
+                   <th scope="col">Cha</th>
+                   <th scope="col">Fee</th>
+                   <th scope="col">Paid</th>
+                   <th scope="col">Disc</th>
+                   <th scope="col">Dues</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr class="text-center">
+                   <th scope="row">1</th>
+                   <td>Bibek Mandal</td>
+                   <td>2080</td>
+                   <td>3434</td>
+                   <td>3454</td>
+                 </tr>
+               </tbody>
+             </table>
        </div>
        <div class="col-12"></div>
    </div>

@@ -238,7 +238,7 @@ $(document).ready(function(){
                 if(selectedMonth.length == 0){
                     var current_month = NepaliFunctions.GetCurrentBsDate().month - 1;
                     var month = 'month_' + current_month;
- 
+
                     if(response.month_status[month] != 'Paid'){
                         $('.check_month_' + current_month + ' input').click();
                     }
@@ -508,7 +508,7 @@ $(document).ready(function(){
                }
 
                $('.payment-model-colose').click();
-               $("#search-btn").click();
+               $('.month-check-input:first').click();
 
             },
             

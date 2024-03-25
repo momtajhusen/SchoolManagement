@@ -46,7 +46,7 @@ class StudentAccountFee extends Controller
             $studentFeeMonth->total_fee = $totalmonthFee;
             $studentFeeMonth->total_paid = $totalpaidFee;
             $studentFeeMonth->total_disc = $totaldiscFee;
-            $studentFeeMonth->total_dues = $totalmonthFee - $totalpaidFee + $totaldiscFee;
+            $studentFeeMonth->total_dues = $totalpaidFee + $totaldiscFee - $totalmonthFee;
             $studentFeeMonth->save();
 
         }
