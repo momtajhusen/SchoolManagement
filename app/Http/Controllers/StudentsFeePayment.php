@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\HelperController\StudentAccountFee;
 use App\Models\Parents;
 use App\Models\Student;
@@ -391,7 +392,40 @@ class StudentsFeePayment extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
-    
+
+    public function saveInvoice(Request $request)
+    {
+        try {
+        // Check if image data is present in the request
+        if ($request->has('image')) {
+            // Get the image data from the request
+            $imageData = $request->input('image');
+
+            // Decode the base64 encoded image data
+            $imageData = str_replace('data:image/png;base64,', '', $imageData);
+            $imageData = str_replace(' ', '+', $imageData);
+            $imageData = base64_decode($imageData);
+
+            // Generate a unique filename for the image
+            $filename = 'invoice_' . uniqid() . '.png';
+
+            // Save the image to the public storage folder
+            Storage::disk('public')->put('images/' . $filename, $imageData);
+
+            // Construct the URL for the saved image
+            $imageUrl = asset('storage/images/' . $filename);
+
+            // Return the URL of the saved image
+            return response()->json(['image_url' => $imageUrl]);
+        }
+            // Return error if image data is not present
+            return response()->json(['error' => 'Image data not found'], 400);
+        } catch (Exception $e) {
+            // Handle exceptions
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
     
     public function create()
     {

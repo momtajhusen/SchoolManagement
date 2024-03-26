@@ -627,7 +627,7 @@ $(document).ready(function(){
 // Share 
 $(document).ready(function(){
   $('.invoice-share').click(function(){
-   try {
+    try {
       // Get the target element
       var element = $('.invoice-content')[0];
       
@@ -656,11 +656,29 @@ $(document).ready(function(){
         // Convert canvas to data URL
         var imageData = canvas.toDataURL("image/png");
 
-        // Prepare the WhatsApp share URL with the image encoded in base64 format
-        var shareURL = "whatsapp://send?text=Check out this invoice:&attachment=" + encodeURIComponent(imageData);
-        
-        // Open WhatsApp share URL in a new window
-        window.open(shareURL, "_blank");
+        // Send the image data to the server to save in Laravel's public folder
+        $.ajax({
+          type: 'POST',
+          url: '/save-invoice-image', // Change this URL to your Laravel route for saving images
+          data: {
+            image: imageData
+          },
+          success: function(response) {
+            // Once the image is saved successfully, construct the WhatsApp share URL with the image URL
+            var domainName = window.location.origin;
+            var imageURL = domainName + response.image_url;
+
+            var shareText = "imageURL";
+            var shareURL = "whatsapp://send?text=" + imageURL;
+            
+            // Open WhatsApp share URL in a new window
+            window.open(shareURL, "_blank");
+          },
+          error: function(xhr, status, error) {
+            console.error('Error saving image: ', error);
+            alert('Error saving image. Please try again.');
+          }
+        });
       }).catch(function(error) {
         console.error('Error capturing content: ', error);
         alert('Error capturing content. Please try again.');
@@ -670,7 +688,8 @@ $(document).ready(function(){
       alert('Error sharing via WhatsApp. Please try again.');
     }
   });
-});  
+});
+
 
 
 
