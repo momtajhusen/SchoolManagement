@@ -297,7 +297,7 @@
    <!-- End Fee Payment  Modal -->
 
 
-    <!-- Start Fee Payment  Modal -->
+    <!-- Start Invoice  Modal -->
     <div class="modal fade" id="feeInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
       <div class="modal-content" style="background: #02142a;">
@@ -358,7 +358,7 @@
       </div>
       </div>
    </div>
-<!-- End Fee Payment  Modal -->
+    <!-- End Fee Invoice  Modal -->
 
    <div class="row border">
       <div class="col-12 col-md-4 py-3 border position-relative bg-light">
@@ -540,12 +540,16 @@
 
 
             <span>Fee Stracture</span>
-            <table class="table table-bordered table-sm table-responsive-md">
+            <table class="table table-bordered table-responsive-md">
                <thead>
                  <tr class="text-center">
                    <th scope="col">#</th>
                    <th scope="col">Student</th>
                    <th scope="col">Year</th>
+                   <th scope="col">Fee</th>
+                   <th scope="col">Paid</th>
+                   <th scope="col">Disc</th>
+                   <th scope="col">Dues</th>
                    <th scope="col">Bai</th>
                    <th scope="col">Jes</th>
                    <th scope="col">Ash</th>
@@ -558,20 +562,10 @@
                    <th scope="col">Mag</th>
                    <th scope="col">Fal</th>
                    <th scope="col">Cha</th>
-                   <th scope="col">Fee</th>
-                   <th scope="col">Paid</th>
-                   <th scope="col">Disc</th>
-                   <th scope="col">Dues</th>
                  </tr>
                </thead>
-               <tbody>
-                 <tr class="text-center">
-                   <th scope="row">1</th>
-                   <td nowrap="nowrap">Bibek Mandal</td>
-                   <td>2080</td>
-                   <td>3434</td>
-                   <td>3454</td>
-                 </tr>
+               <tbody class="student-month-fee">
+                  {{-- Student Month Fee  --}}
                </tbody>
              </table>
        </div>

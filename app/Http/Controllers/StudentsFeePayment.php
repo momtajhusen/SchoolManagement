@@ -37,9 +37,11 @@ class StudentsFeePayment extends Controller
     
                 // Initialize MonthFeePaidStatus array
                 $MonthFeePaidStatus = [];
+
     
                 // Check if $selectedMonth is null or empty
-                if (is_array($selectedMonth) && count($selectedMonth) > 0) {
+                if (is_array($selectedMonth) && count($selectedMonth) > 0) 
+                {
                     // Loop through each student
                     foreach ($student_data as $student) {
                         $total_fee = 0;
@@ -62,7 +64,8 @@ class StudentsFeePayment extends Controller
     
                         $dues_amount_sum = (int) ltrim((string) ($total_paid + $total_disc - $total_fee), '-');
                         $student->total_dues =  $dues_amount_sum;
-                    }
+
+                    }    
                 } else {
                     // If $selectedMonth is not provided or empty, initialize totals to zero
                     foreach ($student_data as $student) {
@@ -74,6 +77,23 @@ class StudentsFeePayment extends Controller
                     }
                 }
 
+                $studentFeeStructure = StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->first();
+                if ($studentFeeStructure) {
+                    $StudentMonthFeeStracture = [];
+                // Start Student Fee Structure Month 
+                    foreach ($student_data as $student) {
+                       $studentFeeStructure = StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->first();
+                        $student_name = ($student->first_name ?? '') . ' ' . ($student->last_name ?? '');
+                        $studentFeeStructure->student_name = $student_name;
+                        $StudentMonthFeeStracture[] = $studentFeeStructure;
+                    }
+                }
+                
+             
+
+             
+
+
                 //Sum total_fee, total_paid, total_disc, total_dues
                 StudentAccountFee::StudentsFeeMonthsCalculate();
 
@@ -82,7 +102,7 @@ class StudentsFeePayment extends Controller
 
 
     
-                return response()->json(['status' => 'success', 'parent_details' => $parent_data, 'student_details' => $student_data, 'month_status' => $monthStatus], 200);
+                return response()->json(['status' => 'success', 'parent_details' => $parent_data, 'student_details' => $student_data, 'month_status' => $monthStatus, 'StudentMonthFeeStracture'=>$StudentMonthFeeStracture], 200);
             } else {
                 return response()->json(['status' => 'Parent not found'], 404);
             }
@@ -455,6 +475,9 @@ class StudentsFeePayment extends Controller
     
             // Delete records from StudentsFeePaidHistory table
             StudentsFeePaidHistory::where('fee_year', $year)->where('pr_id', $pr_id)->delete();
+
+            //Sum total_fee, total_paid, total_disc, total_dues
+            StudentAccountFee::StudentsFeeMonthsCalculate();
     
             return response()->json(['status' => 'success'], 200);
         } catch (Exception $e) {
@@ -463,6 +486,22 @@ class StudentsFeePayment extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
+
+    public function StudentFeeStractureMonth(Request $request){
+        try {
+
+
+            echo "Hello";
+
+        } catch (Exception $e) {
+            // Handle exceptions
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+
+    }
+
+
     
     
     public function create()

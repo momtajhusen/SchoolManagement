@@ -103,6 +103,8 @@ $(document).ready(function(){
 
           console.log(response);
 
+          var studentMonthFeeStracture = response.StudentMonthFeeStracture;
+
           if(response.status == 'success')
           {
             $(".parent-details-box").removeClass('d-none');
@@ -243,6 +245,48 @@ $(document).ready(function(){
                     }
                 }
             }
+
+
+            // Start Student Fee Month 
+            $('.student-month-fee').html('');
+            if(response.StudentMonthFeeStracture.length != 0){
+                var studentMonthFeeStracture = response.StudentMonthFeeStracture;
+                studentMonthFeeStracture.forEach(function(data, index) {
+                    // Access the properties of each fee structure
+                    $('.student-month-fee').append(`
+                        <tr class="text-center">
+                            <th scope="row">1</th>
+                            <td nowrap="nowrap">`+data.student_name+`</td>
+                            <td nowrap="nowrap">`+data.year+`</td>
+                            <td nowrap="nowrap">₹ `+data.total_fee+`</td>
+                            <td nowrap="nowrap">₹ `+data.total_paid+`</td>
+                            <td nowrap="nowrap">₹ `+data.total_disc+`</td>
+                            <td nowrap="nowrap">₹ `+data.total_dues+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_0+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_1+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_2+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_3+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_4+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_5+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_6+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_7+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_8+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_9+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_10+`</td>
+                            <td nowrap="nowrap">₹ `+data.month_11+`</td>
+                        </tr>
+                    `);
+                });;
+            }else{
+                $('.student-month-fee').append(`
+                <tr class="text-center">
+                  <th scope="row"></th>
+                  <th scope="row" colspan='17'>Fee Not Set Any Student</th>
+                </tr>
+            `); 
+            }
+   
+        // End Student Fee Month 
 
           }
 
@@ -876,6 +920,7 @@ $(document).ready(function(){
  
     }); 
 }); 
+
  
 // Paid Oninput Condition  
 $(document).ready(function () {
