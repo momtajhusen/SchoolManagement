@@ -648,19 +648,19 @@ $(document).ready(function(){
                             <th class="text-center" style="width:30px;">
                                 <img src="../storage/`+student_img+`" class="border" alt="" style="width:25px;height:25px;">
                             </th>
-                            <th colspan="4">
+                            <td colspan="4">
                                 <div class="d-flex justify-content-between align-items-center px-2">
-                                    <span style="font-size: 12px;">`+student_name+`</span>
+                                    <span>`+student_name+`</span>
                                     <div class="d-flex">
-                                        <span class="ml-2" style="font-size: 10px;">Class :</span>
-                                        <span class="ml-2" style="font-size: 10px;">`+classes+`</span>
+                                        <span class="ml-2">Class :</span>
+                                        <span class="ml-2">`+classes+`</span>
                                     </div>
                                     <div class="d-flex">
-                                        <span class="ml-2" style="font-size: 10px;">ST_ID :</span>
-                                        <span class="ml-2" style="font-size: 10px;">`+st_id+`</span>
+                                        <span class="ml-2">ST_ID :</span>
+                                        <span class="ml-2">`+st_id+`</span>
                                     </div>
                                 </div>
-                            </th>
+                            </td>
                         </tr>
                         `;
                         
@@ -723,14 +723,17 @@ $(document).ready(function(){
 
                     $('.school-name').html(response.school_details.school_name);
                     $('.school-address').html(response.school_details.address);
+                    // $('.school-email').html(response.school_details.email);
+                    $('.school-phone').html('Contact: '+response.school_details.phone);
                     $('.school-logo').attr('src', '../storage/'+response.school_details.logo_img);
+                    $('.school-logo-watermark').attr('src', '../storage/'+response.school_details.logo_img);
 
                     $('.invoice-particular-table').html(`
-                        <table class="table table-bordered my-1 table-sm text-light" style="font-size:12px;">
+                        <table class="table table-bordered border-dark my-1 table-sm">
                         <thead>
                         <tr>
                             <td colspan="5">
-                                <div class="d-flex justify-content-between text-light" style="font-size:13px;">
+                                <div class="d-flex justify-content-between">
                                     <span>Billing : Up to Bai</span>
                                     <span>Date : 2080-06-01</span>
                                 </div>
@@ -749,6 +752,14 @@ $(document).ready(function(){
                         </tbody>
                     </table>
                     `);
+             
+                    for (var i = 0; i < 200; i++) {
+                        $('.background-water-mark').append(`
+                            <div>`+response.school_details.school_name.substring(0, 17)+`</div>
+                        `);
+                    }
+
+   
                 }
 
             },

@@ -1,5 +1,29 @@
 @extends('Admin_Page/Super_Admin/admin_template')
 
+@section('script')
+
+    <!-- ajax ajax-student-fee-payment,js  -->
+    <script src="{{ asset('../admin_lang/fees/ajax-student-fee-payment.js')}}?v={{ time() }}"></script> 
+
+    <!-- Select 2 Js -->
+    <script src="{{ asset('../admin_template_assets/js/select2.min.js')}}"></script>
+
+    <!-- Date Picker Js -->
+    <script src="{{ asset('../admin_template_assets/js/datepicker.min.js')}}"></script>
+
+   <!-- ajax select option all-parents.js -->
+   <script src="{{ asset('../admin_lang/SelectOption/StudentsParents/all-parents.js')}}?v={{ time() }}"></script> 
+
+   <!-- ajax select option all-students.js -->
+   <script src="{{ asset('../admin_lang/SelectOption/StudentsParents/all-students.js')}}?v={{ time() }}"></script> 
+
+{{-- School Name Font  --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
+ 
+@endsection
+
 @section('style')
     <!-- Select 2 CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/select2.min.css')}}">
@@ -118,31 +142,49 @@
       .bg-feenotset{
          background-color: rgb(149, 142, 250) !important;
       }
+
+     .school-name{
+      font-family: "Rakkas", serif;
+      font-weight: 400;
+      font-style: normal;
+     }
+     .school-address,.school-phone{
+      font-size: 13px;
+     }
+     .invoice-content{
+         background-color: #bdbdbd;
+         color: rgb(0, 0, 0);
+         overflow: hidden;
+      }
+      .background-water-mark{
+         position: absolute;
+         top:0px;
+         left:0px;
+         height: 100%;
+         width: 100%;
+         z-index: -1;
+         color: #807f7f54;
+         font-size: 10px;
+         text-align: justify;
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         overflow: hidden;
+      }
+
+      .school-logo-watermark{
+         position: absolute;
+         z-index: -1;
+         opacity: 0.1;
+         top: 30%;
+         left: 20%;
+         width: 300px;
+      }
  
   </style>
 @endsection
 
-@section('script')
 
-    <!-- ajax ajax-student-fee-payment,js  -->
-    <script src="{{ asset('../admin_lang/fees/ajax-student-fee-payment.js')}}?v={{ time() }}"></script> 
-
-    <!-- Select 2 Js -->
-    <script src="{{ asset('../admin_template_assets/js/select2.min.js')}}"></script>
-
-    <!-- Date Picker Js -->
-    <script src="{{ asset('../admin_template_assets/js/datepicker.min.js')}}"></script>
-
-   <!-- ajax select option all-parents.js -->
-   <script src="{{ asset('../admin_lang/SelectOption/StudentsParents/all-parents.js')}}?v={{ time() }}"></script> 
-
-   <!-- ajax select option all-students.js -->
-   <script src="{{ asset('../admin_lang/SelectOption/StudentsParents/all-students.js')}}?v={{ time() }}"></script> 
-
-
-
-    
-@endsection
 
 
 @section('contents')
@@ -162,11 +204,11 @@
                 <div class="row m-0">
                    <div class="col-lg-6 col-md-12 border py-4">
                        <div>
-                          <div class="border p-2 d-flex">
+                          <div class="border p-2 py-5 d-flex">
                               <img src="#" class="border school-logo" alt="" style="width:40px;height:40px;">
                               <div class="d-flex align-items-center w-100 flex-column">
                                  <h6 class="text-light m-0 school-name">Polar Star Secondary Boarding School</h6>
-                                 <span class="text-light school-address" style="font-size:10px;">Mirchaiya-5, Sirha, Nepal</span>
+                                 <span class="text-light school-address">Mirchaiya-5, Sirha, Nepal</span>
                               </div>
                           </div>
 
@@ -259,14 +301,19 @@
          </div>
          <div class="modal-body">
              <div class="row m-0">
-                <div class="col-12 border py-4 invoice-content bg-secondary" style="position:relative;z-index:100;height:675px;">
+                <div class="col-12 border py-4 invoice-content" style="position:relative;z-index:100;height:675px;">
+                  <img class="school-logo-watermark" src="#" alt="">
+                    <div class="background-water-mark border">
+                        {{-- school name water mark  --}}
+                    </div>
                   
                     <div>
-                       <div class="border p-2 d-flex">
-                           <img src="#" class="border school-logo" alt="" style="width:40px;height:40px;">
+                       <div class="border p-2 d-flex justify-content-between align-items-start">
+                           <img src="#" class="border school-logo p-2" alt="" style="width:50px;height:50px;">
                            <div class="d-flex align-items-center w-100 flex-column">
-                              <h6 class="text-light m-0 school-name">Polar Star Secondary Boarding School</h6>
-                              <span class="text-light school-address" style="font-size:10px;">Mirchaiya-5, Sirha, Nepal</span>
+                              <h4 class="m-0 school-name ">Polar Star Secondary Boarding School</h4>
+                              <span class="school-address">Mirchaiya-5, Sirha, Nepal</span>
+                              <span class="school-phone"></span>
                            </div>
                        </div>
 
@@ -291,7 +338,7 @@
                <span class="material-symbols-outlined">print</span>
             </button>
             <button type="button" class="btn btn-secondary invoice-share">
-               <span class="material-symbols-outlined">share</span>
+               <i class="fa fa-whatsapp p-1" aria-hidden="true" style="font-size:23px;"></i>
             </button>
          </div>
       </div>
