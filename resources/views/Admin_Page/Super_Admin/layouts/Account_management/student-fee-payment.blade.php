@@ -285,7 +285,7 @@
          <div class="modal-footer">
             <button type="button" class="btn btn-secondary p-3 px-5 payment-model-colose" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-secondary">
-               <span class="material-symbols-outlined">download</span>
+               <span class="material-symbols-outlined invoice-download">download</span>
             </button>
             <button type="button" class="btn btn-secondary invoice-print">
                <span class="material-symbols-outlined">print</span>
@@ -571,6 +571,106 @@ $(document).ready(function(){
     }
   });
 });
+
+// Download 
+// $(document).ready(function(){
+//   $('.invoice-download').click(function(){
+
+//    try {
+//       // Get the target element
+//       var element = $('.invoice-content')[0];
+      
+//       // Calculate scaled dimensions for canvas
+//       var scale = 8; // Increase scale for higher resolution
+//       var canvasWidth = element.offsetWidth * scale;
+//       var canvasHeight = element.offsetHeight * scale;
+      
+//       // Create a new canvas element
+//       var canvas = document.createElement('canvas');
+//       canvas.width = canvasWidth;
+//       canvas.height = canvasHeight;
+//       var context = canvas.getContext('2d');
+
+//       // Scale the context to match the scaling factor
+//       context.scale(scale, scale);
+      
+//       // Draw the content of the target element onto the canvas
+//       html2canvas(element, { 
+//         scale: scale, 
+//         useCORS: true, // Enable anti-aliasing
+//         backgroundColor: null, // Transparent background
+//         allowTaint: true, // Allow images from different origins
+//         letterRendering: true // Improve text rendering
+//       }).then(function(canvas) {
+//         // Convert canvas to data URL
+//         var imageData = canvas.toDataURL("image/png");
+        
+//         // Create a link element
+//         var link = document.createElement('a');
+//         link.href = imageData;
+//         link.download = 'invoice.png';
+//         link.click();
+//       }).catch(function(error) {
+//         console.error('Error capturing content: ', error);
+//         alert('Error capturing content. Please try again.');
+//       });
+//     } catch (e) {
+//       console.error('Error downloading: ', e);
+//       alert('Error downloading. Please try again.');
+//     }
+//   });
+// });
+
+
+// Share 
+$(document).ready(function(){
+  $('.invoice-download').click(function(){
+   try {
+      // Get the target element
+      var element = $('.invoice-content')[0];
+      
+      // Calculate scaled dimensions for canvas
+      var scale = 8; // Increase scale for higher resolution
+      var canvasWidth = element.offsetWidth * scale;
+      var canvasHeight = element.offsetHeight * scale;
+      
+      // Create a new canvas element
+      var canvas = document.createElement('canvas');
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      var context = canvas.getContext('2d');
+
+      // Scale the context to match the scaling factor
+      context.scale(scale, scale);
+      
+      // Draw the content of the target element onto the canvas
+      html2canvas(element, { 
+        scale: scale, 
+        useCORS: true, // Enable anti-aliasing
+        backgroundColor: null, // Transparent background
+        allowTaint: true, // Allow images from different origins
+        letterRendering: true // Improve text rendering
+      }).then(function(canvas) {
+        // Convert canvas to data URL
+        var imageData = canvas.toDataURL("image/png");
+
+        // Prepare the WhatsApp share URL with the image encoded in base64 format
+        var shareURL = "whatsapp://send?text=Check out this invoice:&attachment=" + encodeURIComponent(imageData);
+        
+        // Open WhatsApp share URL in a new window
+        window.location.href = shareURL;
+      }).catch(function(error) {
+        console.error('Error capturing content: ', error);
+        alert('Error capturing content. Please try again.');
+      });
+    } catch (e) {
+      console.error('Error sharing via WhatsApp: ', e);
+      alert('Error sharing via WhatsApp. Please try again.');
+    }
+});
+});
+
+
 
 
 
