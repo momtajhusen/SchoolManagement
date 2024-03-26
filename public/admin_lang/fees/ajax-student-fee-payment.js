@@ -692,24 +692,30 @@ $(document).ready(function(){
                     fee_particular_tr += `
                         <tr>
                             <th scope="row">#</th>
-                            <td colspan='2' class='text-start border'>
-                             <div class='border w-100'>Total Fee</div>
+                            <td colspan='2'>
+                             <div class='w-100 d-flex justify-content-end'>Total Fee: </div>
                             </td>
                             <td>`+fee+`</td>
                         </tr>
                         <tr class='`+disc_display+`'>
                             <th scope="row">#</th>
-                            <td colspan='2' class='text-start'>Disc</td>
+                            <td colspan='2' class='text-start'>
+                             <div class='w-100 d-flex justify-content-end'>Disc: </div>
+                            </td>
                             <td>`+disc+`</td>
                         </tr>
                         <tr>
                             <th scope="row">#</th>
-                            <td colspan='2' class='text-start'>Paid</td>
+                            <td colspan='2' class='text-start'>
+                             <div class='w-100 d-flex justify-content-end'>Paid: </div>
+                            </td>
                             <td>`+paid+`</td>
                         </tr>
                         <tr>
                             <th scope="row">#</th>
-                            <td colspan='2' class='text-start'>Dues</td>
+                            <td colspan='2' class='text-start'>
+                             <div class='w-100 d-flex justify-content-end'>Dues: </div>
+                            </td>
                             <td>`+dues+`</td>
                         </tr>
                     `;
@@ -755,7 +761,7 @@ $(document).ready(function(){
 
     });
 });
-
+ 
 // Paid Oninput Condition  
 $(document).ready(function () {
     $("#paid_input").on("input", function (e) {

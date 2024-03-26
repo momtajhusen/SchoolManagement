@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/style.css')}}">
 
 
-    <link rel="stylesheet" href="{{ asset('../admin_template_assets/custom.css')}}">
+    {{-- <link rel="stylesheet" href="{{ asset('../admin_template_assets/custom.css')}}"> --}}
 
 
     <!-- Google fa fa icon  -->

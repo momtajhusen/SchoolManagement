@@ -8,6 +8,7 @@
     <!-- Date Picker CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/datepicker.min.css')}}">
 
+
   <style>
    .search-select{
       border: 1px solid #888;
@@ -258,7 +259,8 @@
          </div>
          <div class="modal-body">
              <div class="row m-0">
-                <div class="col-lg-12 col-md-12 border py-4">
+                <div class="col-12 border py-4 invoice-content bg-secondary" style="position:relative;z-index:100;height:675px;">
+                  
                     <div>
                        <div class="border p-2 d-flex">
                            <img src="#" class="border school-logo" alt="" style="width:40px;height:40px;">
@@ -272,11 +274,12 @@
                        <div class="invoice-particular-table">
                              {{-- table append  --}}
                        </div>
-
-                  
-
                     </div>
+
+                    {{-- <img src="../storage/invoice-bg.jpg" class="img-fluid rounded-top" alt="" style="position:absolute;top:0;left:0;z-index:-1;"/> --}}
+
                 </div>
+
              </div>
          </div>
          <div class="modal-footer">
@@ -284,7 +287,7 @@
             <button type="button" class="btn btn-secondary">
                <span class="material-symbols-outlined">download</span>
             </button>
-            <button type="button" class="btn btn-secondary">
+            <button type="button" class="btn btn-secondary invoice-print">
                <span class="material-symbols-outlined">print</span>
             </button>
          </div>
@@ -514,8 +517,67 @@
 
  
  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('.invoice-print').click(function(){
+    try {
+      // Get the target element
+      var element = $('.invoice-content')[0];
+      
+      // Calculate scaled dimensions for canvas
+      var scale = 8; // Increase scale for higher resolution
+      var canvasWidth = element.offsetWidth * scale;
+      var canvasHeight = element.offsetHeight * scale;
+      
+      // Create a new canvas element
+      var canvas = document.createElement('canvas');
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      var context = canvas.getContext('2d');
+
+      // Scale the context to match the scaling factor
+      context.scale(scale, scale);
+      
+      // Draw the content of the target element onto the canvas
+      html2canvas(element, { 
+        scale: scale, 
+        useCORS: true, // Enable anti-aliasing
+        backgroundColor: null, // Transparent background
+        allowTaint: true, // Allow images from different origins
+        letterRendering: true // Improve text rendering
+      }).then(function(canvas) {
+        var imageData = canvas.toDataURL("image/png");
+
+        // Open a new window to print the captured image
+        var printWindow = window.open('', '_blank');
+        printWindow.document.open();
+        printWindow.document.write('<html><head><title>Print</title><style>body {margin: 0; padding: 0;} img {width: 100%; height: auto;}</style></head><body><img src="' + imageData + '"></body></html>');
+        printWindow.document.close();
+
+        // Add a delay before triggering print
+        setTimeout(function() {
+          printWindow.print();
+          printWindow.close(); // Close the window after printing
+        }, 1000); // Adjust delay time as needed (in milliseconds)
+      }).catch(function(error) {
+        console.error('Error capturing content: ', error);
+        alert('Error capturing content. Please try again.');
+      });
+    } catch (e) {
+      console.error('Error printing: ', e);
+      alert('Error printing. Please try again.');
+    }
+  });
+});
 
 
+
+
+
+
+</script>
    
 
  
