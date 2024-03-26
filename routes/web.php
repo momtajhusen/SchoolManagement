@@ -225,6 +225,8 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       Route::post('/student-fee-paid', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaid');
       Route::get('/student-paid-history', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaidHistory');
       Route::get('/student-invoice-data', 'App\Http\Controllers\StudentsFeePayment@StudentFeeInvoiceData');
+      Route::post('/student-all-fee-reset', 'App\Http\Controllers\StudentsFeePayment@StudentAllFeeReset');
+
 
       Route::post('/save-invoice-image', 'App\Http\Controllers\StudentsFeePayment@saveInvoice')->name('save.image');
 

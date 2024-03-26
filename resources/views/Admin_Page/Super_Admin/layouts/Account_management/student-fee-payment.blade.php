@@ -314,10 +314,9 @@
                     <div class="background-water-mark border">
                         {{-- school name water mark  --}}
                     </div>
-
                     <div class="signature-box" style="position: absolute; bottom:5px; right:12px;">
                      <div style="width:150px;height:35px;border:1px solid #000;"></div>
-                      <div class="text-center">Cashiern Signature</div>
+                      <div class="text-center">Cashier Signature</div>
                     </div>
 
                   

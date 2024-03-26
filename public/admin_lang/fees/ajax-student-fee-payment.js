@@ -545,8 +545,15 @@ $(document).ready(function(){
 
                 if(response.status == 'success'){
                     $('.paid-history-table').html('');
+
+                    var total_fee = 0;
+                    var total_paid = 0;
+                    var total_disc = 0;
+                    var total_dues = 0;
+
+                    var historyLength = response.data.length;
                     response.data.forEach((element, index) => {
-                        var index = index+1;
+                        var sn = historyLength--;
 
                         var monthsString = element.pay_month.substring(1, element.pay_month.length - 1);
                         // Splitting the string into an array using comma as the delimiter
@@ -563,11 +570,17 @@ $(document).ready(function(){
                         var UptoFirstMonth = NepaliFunctions.GetBsMonths()[firstMonthNumber].substring(0, 3);
                         var UptoLastMonth = NepaliFunctions.GetBsMonths()[lastMonthNumber].substring(0, 3);
 
-                        
- 
+                        total_fee += Number(element.fee);
+                        total_paid += Number(element.paid);
+                        total_disc += Number(element.disc);
+                        total_dues += Number(element.dues);
+
+
+
+                    
                          $('.paid-history-table').append(`
                             <tr class="text-center">
-                                <th scope="row">`+index+`</th>
+                                <th scope="row">`+sn+`</th>
                                 <td nowrap="nowrap">`+UptoFirstMonth+` to `+UptoLastMonth+`</td>
                                 <td nowrap="nowrap">₹ `+element.fee+`</td>
                                 <td nowrap="nowrap">₹ `+element.paid+`</td>
@@ -587,6 +600,24 @@ $(document).ready(function(){
                             </tr>
                          `);
                     });
+
+                    var total_paid = total_paid+total_disc;
+                    $('.paid-history-table').append(`
+                      <tr class="text-center">
+                        <th scope="row">#</th>
+                        <td nowrap="nowrap">Total</td>
+                        <td nowrap="nowrap">₹ `+total_fee+`</td>
+                        <td nowrap="nowrap">₹ `+total_paid+`</td>
+                        <td nowrap="nowrap">₹ `+total_disc+`</td>
+                        <td colspan="2" nowrap="nowrap">(Paid + Disc) ₹ `+total_paid+`</td>
+                        <td nowrap="nowrap"></td>
+                        <td nowrap="nowrap">
+                          <button pr_id='`+pr_id+`' year='`+year+`' class='btn reset-all-btn btn-block border border-primary d-flex align-items-center justify-content-center'>
+                           <span class="material-symbols-outlined" style='font-size:10px;'>restart_alt</span> Reset All
+                          </button>
+                        </td>
+                        </tr>
+                    `);
                 }
 
             },
@@ -782,6 +813,69 @@ $(document).ready(function(){
 
     });
 });
+
+// All Reset 
+$(document).ready(function(){
+    $(".paid-history-table").on("click", ".reset-all-btn", function()
+    {  
+       var pr_id =  $(this).attr('pr_id');
+       var year =  $(this).attr('year');
+
+       $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    Swal.fire({
+        title: 'Are You Sure Reset History?',
+        text: " Please note that reset deleting this student will permanently remove all paid hsitory data.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, reset it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+        $.ajax({
+            url: "/student-all-fee-reset",
+            method: "POST", 
+            data: {
+                pr_id: pr_id,
+                year: year,
+            },
+            success: function (response) {
+
+                console.log(response);
+
+                if(response.status == 'success'){
+
+                    Swal.fire({
+                        title: 'Reset Success!',
+                        text: "All Paid History Reset",
+                        icon: 'success',
+                        confirmButtonColor: '#00032e',
+                        confirmButtonText: 'OK',
+                    });
+
+                    $("#search-btn").click();
+                    $('.history-btn').click();
+                }
+
+            },
+            
+            error: function (xhr, status, error) {
+                // Error callback function
+                console.log(xhr.responseText); // Log the error response in the console
+            },
+        });
+
+         }
+     });
+ 
+    }); 
+}); 
  
 // Paid Oninput Condition  
 $(document).ready(function () {

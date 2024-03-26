@@ -323,7 +323,7 @@ class StudentsFeePayment extends Controller
             $StudentsFeePaidHistory->particular_data =  $data_fee_particular;
             $StudentsFeePaidHistory->pay_month = json_encode($pay_month_array);
             $StudentsFeePaidHistory->fee = $fee_amount;
-            $StudentsFeePaidHistory->paid = $paid_amount;
+            $StudentsFeePaidHistory->paid = $paid_amount - $disc_amount;
             $StudentsFeePaidHistory->disc = $disc_amount;
             $StudentsFeePaidHistory->dues = $dues_amount;
             $StudentsFeePaidHistory->comment_disc = $comment_disc;
@@ -348,7 +348,7 @@ class StudentsFeePayment extends Controller
         $year = $request->year;
         $pr_id = $request->pr_id;
 
-        $StudentsFeePaidHistory = StudentsFeePaidHistory::where('fee_year', $year)->where('pr_id', $pr_id)->get();
+        $StudentsFeePaidHistory = StudentsFeePaidHistory::where('fee_year', $year)->where('pr_id', $pr_id)->orderBy('id','desc')->get();
 
         return response()->json(['status' => 'success', 'data' => $StudentsFeePaidHistory]);
 
@@ -433,6 +433,37 @@ class StudentsFeePayment extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
+
+    public function StudentAllFeeReset(Request $request){
+        try {
+            $pr_id = $request->pr_id;
+            $year = $request->year;
+    
+            $students = Student::where('parents_id', $pr_id)->get();
+            foreach($students as $student){
+                $st_id =  $student->id;
+    
+                // Delete records from StudentsFeePaid table
+                StudentsFeePaid::where('year', $year)->where('st_id', $st_id)->delete();
+    
+                // Delete records from StudentsFeeDisc table
+                StudentsFeeDisc::where('year', $year)->where('st_id', $st_id)->delete();
+    
+                // Delete records from StudentsFeeDues table
+                StudentsFeeDues::where('year', $year)->where('st_id', $st_id)->delete(); 
+            }
+    
+            // Delete records from StudentsFeePaidHistory table
+            StudentsFeePaidHistory::where('fee_year', $year)->where('pr_id', $pr_id)->delete();
+    
+            return response()->json(['status' => 'success'], 200);
+        } catch (Exception $e) {
+            // Handle exceptions
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+    
     
     public function create()
     {
