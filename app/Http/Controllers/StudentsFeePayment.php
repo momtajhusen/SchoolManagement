@@ -370,13 +370,20 @@ class StudentsFeePayment extends Controller
             $paid = $StudentsFeePaidHistory->paid;
             $disc = $StudentsFeePaidHistory->disc;
             $dues = $StudentsFeePaidHistory->dues;
+            $pay_month = $StudentsFeePaidHistory->pay_month;
+            $pay_date = $StudentsFeePaidHistory->pay_date;
+
             
             $total_fee = [
                 'total_fee' => $fee,
                 'fee' => $fee,
                 'paid' => $paid,
                 'disc' => $disc,
-                'dues' => $dues
+                'dues' => $dues,
+                'pay_month' => $pay_month,
+                'pay_date' => $pay_date,
+
+
             ];
 
 

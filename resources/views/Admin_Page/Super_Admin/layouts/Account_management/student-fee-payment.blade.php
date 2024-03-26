@@ -152,7 +152,7 @@
       font-size: 13px;
      }
      .invoice-content{
-         background-color: #bdbdbd;
+         background-color: #a7a7a7d3;
          color: rgb(0, 0, 0);
          overflow: hidden;
       }
@@ -179,7 +179,15 @@
          top: 30%;
          left: 20%;
          width: 300px;
+
+         border: 8px solid transparent;
+         border-radius: 20px; 
+         /* filter: blur(4px);  */
+         background: linear-gradient(45deg, transparent 49.5%, white 49.5%, white 50.5%, transparent 50.5%);
+
+
       }
+
  
   </style>
 @endsection
@@ -300,16 +308,22 @@
             </button>
          </div>
          <div class="modal-body">
-             <div class="row m-0">
+             <div class="row m-0 bg-light">
                 <div class="col-12 border py-4 invoice-content" style="position:relative;z-index:100;height:675px;">
                   <img class="school-logo-watermark" src="#" alt="">
                     <div class="background-water-mark border">
                         {{-- school name water mark  --}}
                     </div>
+
+                    <div class="signature-box" style="position: absolute; bottom:5px; right:12px;">
+                     <div style="width:150px;height:35px;border:1px solid #000;"></div>
+                      <div class="text-center">Cashiern Signature</div>
+                    </div>
+
                   
                     <div>
                        <div class="border p-2 d-flex justify-content-between align-items-start">
-                           <img src="#" class="border school-logo p-2" alt="" style="width:50px;height:50px;">
+                           <img src="#" class="border school-logo p-1" alt="" style="width:55px;height:55px;">
                            <div class="d-flex align-items-center w-100 flex-column">
                               <h4 class="m-0 school-name ">Polar Star Secondary Boarding School</h4>
                               <span class="school-address">Mirchaiya-5, Sirha, Nepal</span>
@@ -318,6 +332,7 @@
                        </div>
 
                        {{-- Billing Table  --}}
+                       <div class="invoice-students"></div>
                        <div class="invoice-particular-table">
                              {{-- table append  --}}
                        </div>

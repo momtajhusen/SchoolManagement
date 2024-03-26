@@ -632,9 +632,24 @@ $(document).ready(function(){
                     var paid = response.total_fee.paid;
                     var disc = response.total_fee.disc;
                     var dues = response.total_fee.dues;
+                    var pay_date = response.total_fee.pay_date;
 
+                    var monthsString = response.total_fee.pay_month.substring(1, response.total_fee.pay_month.length - 1);
+                    // Splitting the string into an array using comma as the delimiter
+                    var monthsArray = monthsString.split(',');
 
+                    // Accessing the first and last elements
+                    var firstMonthString = monthsArray[0]; // Accessing the first element
+                    var lastMonthString = monthsArray[monthsArray.length - 1]; // Accessing the last element
 
+                    // Extracting the number part
+                    var firstMonthNumber = parseInt(firstMonthString.match(/\d+/)[0]);
+                    var lastMonthNumber = parseInt(lastMonthString.match(/\d+/)[0]);
+
+                    var UptoFirstMonth = NepaliFunctions.GetBsMonths()[firstMonthNumber].substring(0, 3);
+                    var UptoLastMonth = NepaliFunctions.GetBsMonths()[lastMonthNumber].substring(0, 3);
+
+                
                     var student_tr = '';
                     var fee_particular_tr = '';
 
@@ -644,24 +659,17 @@ $(document).ready(function(){
                         var classes = element.class+' '+element.section;
                         var student_img = element.student_image;
                         student_tr += `
-                        <tr>
-                            <th class="text-center" style="width:30px;">
-                                <img src="../storage/`+student_img+`" class="border" alt="" style="width:25px;height:25px;">
-                            </th>
-                            <td colspan="4">
-                                <div class="d-flex justify-content-between align-items-center px-2">
-                                    <span>`+student_name+`</span>
-                                    <div class="d-flex">
-                                        <span class="ml-2">Class :</span>
-                                        <span class="ml-2">`+classes+`</span>
-                                    </div>
-                                    <div class="d-flex">
-                                        <span class="ml-2">ST_ID :</span>
-                                        <span class="ml-2">`+st_id+`</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                        <div class="d-flex justify-content-between p-2 border">
+                           <div>
+                             <img src="../storage/`+student_img+`" class="border p-1" alt="" style="width:40px;height:40px;">
+                             <span class='ml-2'>`+student_name+`</span>
+                           </div>
+                           <div class='d-flex flex-column' style='font-size:11px;'>
+                             <span>Class: `+classes+`</span>
+                             <span>ST_ID: `+st_id+`</span>
+                           </div>
+                        </div>
+                    
                         `;
                         
                     });
@@ -728,18 +736,20 @@ $(document).ready(function(){
                     $('.school-logo').attr('src', '../storage/'+response.school_details.logo_img);
                     $('.school-logo-watermark').attr('src', '../storage/'+response.school_details.logo_img);
 
+                    $('.invoice-students').html(student_tr);
+
                     $('.invoice-particular-table').html(`
-                        <table class="table table-bordered border-dark my-1 table-sm">
+                        <table class="table table-bordered table-border-dark my-1 table-sm">
                         <thead>
                         <tr>
                             <td colspan="5">
-                                <div class="d-flex justify-content-between">
-                                    <span>Billing : Up to Bai</span>
-                                    <span>Date : 2080-06-01</span>
+                                <div class="d-flex justify-content-between px-2 py-3">
+                                    <span>Billing :  `+UptoFirstMonth+` to  `+UptoLastMonth+`</span>
+                                    <span>Date :  `+pay_date+`</span>
                                 </div>
                             </td>
                         </tr>
-                        `+student_tr+`
+                     
                         <tr class="text-center">
                         <th scope="col">SN.</th>
                         <th scope="col">Particulars</th>
