@@ -220,12 +220,13 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       Route::view('admin/student-fee-payment', 'Admin_Page/Super_Admin/layouts/Account_management/student-fee-payment')->name('student-fee-payment');
 
       Route::get('/parent-student-retrive', 'App\Http\Controllers\StudentsFeePayment@ParentStudentRetrive');
-      Route::get('/student-fee-retrive', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaymentRetrive');
       Route::get('/student-fee-month-particular', 'App\Http\Controllers\StudentsFeePayment@StudentFeeMonthParticular');
       Route::post('/student-fee-paid', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaid');
       Route::get('/student-paid-history', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaidHistory');
       Route::get('/student-invoice-data', 'App\Http\Controllers\StudentsFeePayment@StudentFeeInvoiceData');
       Route::post('/student-all-fee-reset', 'App\Http\Controllers\StudentsFeePayment@StudentAllFeeReset');
+      Route::post('/student-single-fee-reset', 'App\Http\Controllers\StudentsFeePayment@StudentSingleFeeReset');
+
       Route::get('/student-fee-stracture-month', 'App\Http\Controllers\StudentsFeePayment@StudentFeeStractureMonth');
 
 
@@ -662,6 +663,7 @@ Route::get('/command/migrate_specific', function () {
            'database/migrations/2024_03_17_172940_create_students_fee_dues_table.php',
            'database/migrations/2024_03_17_172954_create_students_fee_discs_table.php',
            'database/migrations/2024_03_19_070225_create_students_fee_paid_histories_table.php',
+           'database/migrations/2024_03_27_104300_create_students_fee_for_resets_table.php',
        ]
    ]);
 });

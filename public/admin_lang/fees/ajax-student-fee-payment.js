@@ -154,29 +154,29 @@ $(document).ready(function(){
 
 
                     $(".students-table").append(`
-                        <tr class='students' st_id='`+element.id+`' style='cursor:pointer'>
-                            <td>
-                               <div class='d-flex justify-content-between'>
+                    <tr class='students' st_id='`+element.id+`' style='cursor:pointer'>
+                        <td>
+                            <div class='d-flex justify-content-between'>
                                 <div class='d-flex'>
                                     <img class="border p-1 parent-image" src="../storage/`+element.student_image+`" alt="parent" style="width:40px;" />
                                     <div class='ml-2' style='line-height:18px;'>
-                                       <span>`+student_name+`</span>
-                                       <div style='font-size:12px;'>
-                                           <span>cls: `+classes+`</span>
-                                           <span class='ml-2'>id: `+element.id+`</span>
-                                       </div>
+                                        <span>`+student_name+`</span>
+                                        <div style='font-size:12px;'>
+                                            <span>cls: `+classes+`</span>
+                                            <span class='ml-2'>id: `+element.id+`</span>
+                                        </div>
                                     </div>
                                 </div>
-                                 <button class="bg-info `+single_btn+` take-pay-multi border-0 text-light btn rounded py-2 px-3" dues="`+element.total_dues+`" all_st_id="`+element.id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Single Paid</button>
-                               </div>
-
-                            </td>
-                            <td class='text-center' nowrap="nowrap">₹ `+element.total_fee.toFixed(2)+`</td>
-                            <td class='text-center' nowrap="nowrap">₹ `+element.total_paid.toFixed(2)+`</td>
-                            <td class='text-center' nowrap="nowrap">₹ `+element.total_disc.toFixed(2)+`</td>
-                            <td class='text-center' nowrap="nowrap">₹ `+element.total_dues.toFixed(2)+`</td>
-                        </tr>
-                    `); 
+                                <button class="bg-info `+single_btn+` take-pay-multi border-0 text-light btn rounded py-2 px-3" dues="`+element.total_dues+`" all_st_id="`+element.id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Single Paid</button>
+                            </div>
+                        </td>
+                        <td class='text-center' nowrap="nowrap">₹ `+element.total_fee.toFixed(2)+`</td>
+                        <td class='text-center' nowrap="nowrap">₹ `+element.total_paid.toFixed(2)+`</td>
+                        <td class='text-center' nowrap="nowrap">₹ `+element.total_disc.toFixed(2)+`</td>
+                        <td class='text-center' nowrap="nowrap">₹ `+element.total_dues.toFixed(2)+`</td>
+                    </tr>
+                `);
+                
                 });
 
                 $('.total-fee-multi').html(total_fee.toFixed(2));
@@ -249,9 +249,42 @@ $(document).ready(function(){
 
             // Start Student Fee Month 
             $('.student-month-fee').html('');
+            var multi_total_fee = 0;
+            var multi_total_paid = 0;
+            var multi_total_disc = 0;
+            var multi_total_dues = 0;
+            var multi_month_0 = 0;
+            var multi_month_1 = 0;
+            var multi_month_2 = 0;
+            var multi_month_3 = 0;
+            var multi_month_4 = 0;
+            var multi_month_5 = 0;
+            var multi_month_6 = 0;
+            var multi_month_7 = 0;
+            var multi_month_8 = 0;
+            var multi_month_9 = 0;
+            var multi_month_10 = 0;
+            var multi_month_11 = 0;
+
             if(response.StudentMonthFeeStracture.length != 0){
                 var studentMonthFeeStracture = response.StudentMonthFeeStracture;
                 studentMonthFeeStracture.forEach(function(data, index) {
+                    multi_total_fee += Number(data.total_fee);
+                    multi_total_paid += Number(data.total_paid);
+                    multi_total_disc += Number(data.total_disc);
+                    multi_total_dues += Number(data.total_dues);
+                    multi_month_0 += Number(data.month_0);
+                    multi_month_1 += Number(data.month_1);
+                    multi_month_2 += Number(data.month_2);
+                    multi_month_3 += Number(data.month_3);
+                    multi_month_4 += Number(data.month_4);
+                    multi_month_5 += Number(data.month_5);
+                    multi_month_6 += Number(data.month_6);
+                    multi_month_7 += Number(data.month_7);
+                    multi_month_8 += Number(data.month_8);
+                    multi_month_9 += Number(data.month_9);
+                    multi_month_10 += Number(data.month_10);
+                    multi_month_11 += Number(data.month_11);
                     // Access the properties of each fee structure
                     $('.student-month-fee').append(`
                         <tr class="text-center">
@@ -276,7 +309,32 @@ $(document).ready(function(){
                             <td nowrap="nowrap">₹ `+data.month_11+`</td>
                         </tr>
                     `);
-                });;
+                });
+
+                $('.student-month-fee').append(`
+                <tr class="text-center">
+                    <th scope="row">1</th>
+                    <td nowrap="nowrap" colspan="2">Total Fee</td>
+                    <td nowrap="nowrap">₹ `+ multi_total_fee+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_total_paid+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_total_disc+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_total_dues+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_0+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_1+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_2+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_3+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_4+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_5+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_6+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_7+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_8+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_9+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_10+`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_11+`</td>
+                </tr>
+            `);
+
+
             }else{
                 $('.student-month-fee').append(`
                 <tr class="text-center">
@@ -301,8 +359,6 @@ $(document).ready(function(){
 
 // Take Paid get particular
 $(document).ready(function(){
-    // $('.take-pay-multi').click(function(){
-
         $(".students-table, .multiple-paid-btn").on("click", ".take-pay-multi", function()
         {  
 
@@ -427,7 +483,6 @@ $(document).ready(function(){
                                 `;
                             }
 
-                               console.log(commonFeeDetails);
                                $('.paid_btn').attr('data-fee-particular', JSON.stringify(commonFeeDetails));
 
                       
@@ -469,14 +524,9 @@ $(document).ready(function(){
                  </table>
                     `);
 
-                  
-
-
                 } else {
                     console.error("Error: " + response.status);
                 }
-        
-
             },
             
             error: function (xhr, status, error) {
@@ -599,6 +649,8 @@ $(document).ready(function(){
                     response.data.forEach((element, index) => {
                         var sn = historyLength--;
 
+
+
                         var monthsString = element.pay_month.substring(1, element.pay_month.length - 1);
                         // Splitting the string into an array using comma as the delimiter
                         var monthsArray = monthsString.split(',');
@@ -619,7 +671,8 @@ $(document).ready(function(){
                         total_disc += Number(element.disc);
                         total_dues += Number(element.dues);
 
-
+                        var resetButtonClass = index != 0 ? 'd-none' : ''; 
+ 
 
                     
                          $('.paid-history-table').append(`
@@ -637,7 +690,7 @@ $(document).ready(function(){
                                 </button>
                                 </td>
                                 <td>
-                                <button class='btn btn-block border border-primary d-flex align-items-center justify-content-center'>
+                                <button invoice_id=`+element.id+` class='btn reset-single-btn btn-block border border-primary  `+resetButtonClass+`'>
                                     <span class="material-symbols-outlined" style='font-size:10px;'>restart_alt</span> Reset
                                 </button>
                                 </td>
@@ -869,7 +922,7 @@ $(document).ready(function(){
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    });
+      });
 
     Swal.fire({
         title: 'Are You Sure Reset History?',
@@ -919,41 +972,76 @@ $(document).ready(function(){
      });
  
     }); 
+});
+
+// Single Reset
+$(document).ready(function(){
+    $(".paid-history-table").on("click", ".reset-single-btn", function()
+    {  
+        var invoice_id =  $(this).attr('invoice_id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+
+          $.ajax({
+            url: "/student-single-fee-reset",
+            method: "POST", 
+            data: {
+                invoice_id: invoice_id,
+            },
+            success: function (response) {
+
+                console.log(response);
+                if(response.status == 'success'){
+                    $("#search-btn").click();
+                    $('.history-btn').click();
+                }
+            },
+            error: function (xhr, status, error) {
+                // Error callback function
+                console.log(xhr.responseText); // Log the error response in the console
+            },
+        });
+ 
+    });  
 }); 
 
  
-    // Paid Oninput Condition  
-    $(document).ready(function () {
-        $("#paid_input").on("input", function (e) {
-            var ActualDues = Number($("#fee_input").val());
-            var discount = Number($("#disc_input").val());
-            var payment = Number($(this).val());
-            
-            if (payment < 0) {
-                $(this).val(0);
-                payment = 0; // Update payment value
-            }
+// Paid Oninput Condition  
+$(document).ready(function () {
+    $("#paid_input").on("input", function (e) {
+        var ActualDues = Number($("#fee_input").val());
+        var discount = Number($("#disc_input").val());
+        var payment = Number($(this).val());
+        
+        if (payment < 0) {
+            $(this).val(0);
+            payment = 0; // Update payment value
+        }
 
-            if (ActualDues < payment) {
-                $("#paid_input").val(ActualDues);
-                $("#percentage").val(0);
-                $("#disc_input").val(0);
-                $("#comment_for_discount").addClass("d-none");
-                payment = ActualDues; // Update payment value
-            }
+        if (ActualDues < payment) {
+            $("#paid_input").val(ActualDues);
+            $("#percentage").val(0);
+            $("#disc_input").val(0);
+            $("#comment_for_discount").addClass("d-none");
+            payment = ActualDues; // Update payment value
+        }
 
-            // Calculate and update dues
-            var newDues = ActualDues - payment;
-            $("#dues_input").val(newDues - discount);
+        // Calculate and update dues
+        var newDues = ActualDues - payment;
+        $("#dues_input").val(newDues - discount);
 
-        });
-
-        $("input[type='number']").on("keypress", function (e) {
-            if (e.key === "+" || e.key === "-" || e.key === "e") {
-                e.preventDefault();
-            }
-        });
     });
+
+    $("input[type='number']").on("keypress", function (e) {
+        if (e.key === "+" || e.key === "-" || e.key === "e") {
+            e.preventDefault();
+        }
+    });
+});
 
     // Saving Oninput Condition
     $(document).ready(function () {
@@ -1055,71 +1143,6 @@ $(document).ready(function(){
         });
     });
   
-    //  Selected student get fee months 
-    $(document).ready(function(){
-        $(".students-table").on("click", ".students", function(){  
-
-            var st_id = $(this).attr('st_id');
-            var all_st_id = $('.all_student_st').attr('st_id');
-            var st_id_array = all_st_id.split(',');
-            
-            console.log(st_id_array);
-            
-
-            $.ajax({
-                url: "/student-fee-retrive",
-                method: 'GET',
-                data:{
-                    st_id:st_id
-                },
-                // Success 
-                success:function(response)
-                {
-                console.log(response);
-
-                if(response.status == 'success'){
-                    $('.students-fee-table').html('');
-                    response.fee_month.forEach((element, index) => {
-
-                        $('.students-fee-table').append(`
-                            <tr class='text-center'>
-                                <td>`+NepaliFunctions.GetBsMonth(index)+`</td>
-                                <td>₹ `+element+`</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td><button class="bg-danger border-0 text-light rounded px-4 btn">unpaid</button></td>
-                                <td><button class="bg-info take-pay border-0 text-light btn rounded p-2 px-4" style="cursor:pointer">Payment</button></td>
-                                <td>
-                                    <div class="form-check justify-content-center d-flex">
-                                    <input type="checkbox" class="form-check-input" id="check_${index}">
-                                    <label class="form-check-label" for="check_${index}" style="cursor:pointer;"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                        `);
-                    });
-                }
-                
-                },
-                error: function (xhr, status, error) 
-                {
-                    // console.log(xhr.status);
-                    $('.students-fee-table').html('');
-                    if(xhr.status == 404){
-                        $('.students-fee-table').append(`
-                            <tr>
-                                <td colspan='8' class='py-3 px-3'><span>No fee structures set this student</sapn></td>
-                            </tr>
-                        `);
-                    }
-                    console.log(xhr.responseText);
-                },
-            });
-
-        });
-    });
-
 
 
 

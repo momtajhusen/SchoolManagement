@@ -17,6 +17,9 @@ use App\Models\StudentsFeePaid;
 use App\Models\StudentsFeeDisc;
 use App\Models\StudentsFeeDues;
 use App\Models\StudentsFeePaidHistory;
+use App\Models\StudentsFeeForReset;
+
+
 
 
 class StudentsFeePayment extends Controller
@@ -113,46 +116,6 @@ class StudentsFeePayment extends Controller
  
     }
     
-    public function StudentFeePaymentRetrive(Request $request)
-    {
-        try {
-            $st_id = $request->st_id;
-            $st_id_array = $request->st_id_array;
-            $year = 2080;
-        
-            // Fetch the fee structures for the specified student ID and year
-            $feeStructures = StudentsFeeMonth::where('year', $year)->where('st_id', $st_id)->first();
-
-            $Student = Student::where('id', $st_id)->first();
-        
-            if ($feeStructures) {
-                // Extract fee data from month_0 to month_12
-                $feeArray = [];
-                for ($i = 0; $i <= 11; $i++) {
-                    $column = 'month_' . $i;
-                    $feeArray[$i] = $feeStructures->$column;
-                }
-
-                $student = [
-                    'fee_year'=>$year,
-                    'st_id'=>$st_id,
-                    'pr_id'=>$Student->id,
-                ];
-        
-                // Return the fee array as JSON response
-                return response()->json(['status' => 'success', 'fee_month' => $feeArray, 'student' => $student]);
-            } else {
-                // No fee structures found for the specified criteria
-                return response()->json(['status' => 'No fee structures found for the specified criteria'], 404);
-            }
-        } catch (Exception $e) {
-            // Handle exceptions
-            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
-            return response()->json(['status' => $message], 500);
-        }
-        
-    }
-
     public function StudentFeeMonthParticular(Request $request) {
         try {
             $month_array = $request->month_array;
@@ -180,23 +143,42 @@ class StudentsFeePayment extends Controller
                         ->where('year', $fee_year)
                         ->where('month', $month)
                         ->get();
+
+
+                        $dues_column = 'month_'.$month-1;
+                        $dues_amount_month = StudentsFeeDues::where('st_id', $student_id)
+                            ->where('year', $fee_year)->value($dues_column) ?? 0;
     
-                    // Accumulate amounts and track months for each fee type
-                    foreach ($fee_details_month as $fee_detail) {
-                        $fee_type = $fee_detail->fee_type;
-                        $amount = $fee_detail->amount;
-    
-                        // Sum the amount if the fee type already exists
-                        if (isset($total_fee_details[$fee_type])) {
-                            $total_fee_details[$fee_type]['amount'] += $amount;
-                            $total_fee_details[$fee_type]['month']++; // Increment month count
+                        if ($dues_amount_month <= 0) {
+                            // Accumulate amounts and track months for each fee type
+                            foreach ($fee_details_month as $fee_detail) {
+                                $fee_type = $fee_detail->fee_type;
+                                $amount = $fee_detail->amount;
+                                // Sum the amount if the fee type already exists
+                                if (isset($total_fee_details[$fee_type])) {
+                                    $total_fee_details[$fee_type]['amount'] += $amount;
+                                    $total_fee_details[$fee_type]['month']++; // Increment month count
+                                } else {
+                                    $total_fee_details[$fee_type] = [
+                                        'amount' => $amount,
+                                        'month' => 1, // Initialize month count
+                                    ];
+                                }
+                            }
                         } else {
-                            $total_fee_details[$fee_type] = [
-                                'amount' => $amount,
-                                'month' => 1, // Initialize month count
-                            ];
+                                // Sum the dues amount for each month in the $month_array
+                                $prev_balance_amount = 0;
+                                foreach ($month_array as $month) {
+                                    $dues_column = 'month_' . ($month - 1); // Adjusting month to match column index
+                                    $prev_balance_amount += StudentsFeeDues::where('st_id', $student_id)
+                                        ->where('year', $fee_year)
+                                        ->value($dues_column) ?? 0;
+                                }
+                                $total_fee_details['Previous Balance'] = [
+                                    'amount' => $prev_balance_amount,
+                                    'month' => 1, // Initialize month count
+                                ];
                         }
-                    }
                 }
     
                 // Include common fee types in the common_fee_details array and calculate total common amount
@@ -254,6 +236,53 @@ class StudentsFeePayment extends Controller
             $pay_date = $request->pay_date;
             $data_fee_particular = $request->data_fee_particular;
             $pr_id = $request->pr_id;
+
+
+
+            ////////////////////// Start History Save //////////////////////
+                $StudentsFeePaidHistory = new StudentsFeePaidHistory(); 
+                $StudentsFeePaidHistory->st_id = json_encode($st_id_array);
+                $StudentsFeePaidHistory->pr_id = $pr_id;
+                $StudentsFeePaidHistory->fee_year = $fee_year;
+                $StudentsFeePaidHistory->particular_data =  $data_fee_particular;
+                $StudentsFeePaidHistory->pay_month = json_encode($pay_month_array);
+                $StudentsFeePaidHistory->fee = $fee_amount;
+                $StudentsFeePaidHistory->paid = $paid_amount - $disc_amount;
+                $StudentsFeePaidHistory->disc = $disc_amount;
+                $StudentsFeePaidHistory->dues = $dues_amount;
+                $StudentsFeePaidHistory->comment_disc = $comment_disc;
+                $StudentsFeePaidHistory->pay_with = 'Cash';
+                $StudentsFeePaidHistory->pay_date = $pay_date;
+                $StudentsFeePaidHistory->save();                        
+            ////////////////////// End History Save ////////////////////// 
+
+            /////////////////////// Start Fee Data Save For Reset ///////////////
+                foreach ($st_id_array as $st_id) {
+                    // Fetch corresponding records for Paid, Disc, and Dues
+                    $StudentsFeePaid = StudentsFeePaid::where('st_id', $st_id)->where('year', $fee_year)->first();
+                    $StudentsFeeDisc = StudentsFeeDisc::where('st_id', $st_id)->where('year', $fee_year)->first();
+                    $StudentsFeeDues = StudentsFeeDues::where('st_id', $st_id)->where('year', $fee_year)->first();
+
+                    // Iterate through different fee types (Paid, Disc, Dues)
+                    $feeTypes = ['students_fee_paids', 'students_fee_disc', 'students_fee_dues'];
+                    foreach ($feeTypes as $feeType) {
+                        $StudentsFeeForReset = new StudentsFeeForReset();
+                        $StudentsFeeForReset->hs_id = $StudentsFeePaidHistory->id;
+                        $StudentsFeeForReset->st_id = $st_id;
+                        $StudentsFeeForReset->year = $feeType === 'students_fee_paids' ? ($StudentsFeePaid->year ?? $fee_year) : ($StudentsFeeDisc->year ?? $fee_year);
+                        
+                        // Assign month values dynamically based on fee type
+                        for ($i = 0; $i < 12; $i++) {
+                            $monthField = "month_$i";
+                            $monthValue = $feeType === 'students_fee_paids' ? ($StudentsFeePaid->$monthField ?? 0) : ($StudentsFeeDisc->$monthField ?? 0);
+                            $StudentsFeeForReset->$monthField = $monthValue;
+                        }
+
+                        $StudentsFeeForReset->table = $feeType;
+                        $StudentsFeeForReset->save();
+                    }
+                }
+            /////////////////////// End Fee Data Save For Reset ///////////////
 
             ////////////////////// Start StudentsFeePaid //////////////////////
                 // Loop through each student ID
@@ -317,6 +346,9 @@ class StudentsFeePayment extends Controller
                             $per_mon_disc = $per_st_disc / count($pay_month_array);
                             $per_mon_dues = $per_st_dues / count($pay_month_array);
 
+                            
+          
+
                             $disc_dues = $per_mon_disc+$per_mon_dues;
 
                             // Retrive Month Fee
@@ -327,30 +359,16 @@ class StudentsFeePayment extends Controller
 
                             $student_paid_record->$pay_month  = $payment;
                             $student_disc_record->$pay_month  = $discount;
+                            $student_dues_record->$pay_month = $per_mon_dues;
 
                         }
                         $student_paid_record->save();
                         $student_disc_record->save();
+                        $student_dues_record->save();
+
                     }
                 }
             ////////////////////// End StudentsFeePaid //////////////////////
-
-            // History Save
-            $StudentsFeePaidHistory = new StudentsFeePaidHistory(); 
-            $StudentsFeePaidHistory->st_id = json_encode($st_id_array);
-            $StudentsFeePaidHistory->pr_id = $pr_id;
-            $StudentsFeePaidHistory->fee_year = $fee_year;
-            $StudentsFeePaidHistory->particular_data =  $data_fee_particular;
-            $StudentsFeePaidHistory->pay_month = json_encode($pay_month_array);
-            $StudentsFeePaidHistory->fee = $fee_amount;
-            $StudentsFeePaidHistory->paid = $paid_amount - $disc_amount;
-            $StudentsFeePaidHistory->disc = $disc_amount;
-            $StudentsFeePaidHistory->dues = $dues_amount;
-            $StudentsFeePaidHistory->comment_disc = $comment_disc;
-            $StudentsFeePaidHistory->pay_with = 'Cash';
-            $StudentsFeePaidHistory->pay_date = $pay_date;
-            $StudentsFeePaidHistory->save();                        
-            // History Save 
 
             //Sum total_fee, total_paid, total_disc, total_dues
             StudentAccountFee::StudentsFeeMonthsCalculate();
@@ -471,6 +489,9 @@ class StudentsFeePayment extends Controller
     
                 // Delete records from StudentsFeeDues table
                 StudentsFeeDues::where('year', $year)->where('st_id', $st_id)->delete(); 
+
+                // Delete records from StudentsFeeForReset table
+                StudentsFeeForReset::where('year', $year)->where('st_id', $st_id)->delete(); 
             }
     
             // Delete records from StudentsFeePaidHistory table
@@ -480,6 +501,88 @@ class StudentsFeePayment extends Controller
             StudentAccountFee::StudentsFeeMonthsCalculate();
     
             return response()->json(['status' => 'success'], 200);
+        } catch (Exception $e) {
+            // Handle exceptions
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+
+    public function StudentSingleFeeReset(Request $request){
+        try {
+
+            $invoice_id = $request->invoice_id;
+
+            $StudentsFeePaidHistory = StudentsFeePaidHistory::where('id', $invoice_id)->first();
+            $st_ids_string = $StudentsFeePaidHistory->st_id;
+            $st_ids_array = json_decode($st_ids_string);
+
+    
+            foreach ($st_ids_array as $st_id) {
+
+                $PaidResetData = StudentsFeeForReset::where('hs_id', $invoice_id)->where('st_id', $st_id)->where('table', 'students_fee_paids')->first();
+                $DiscResetData = StudentsFeeForReset::where('hs_id', $invoice_id)->where('st_id', $st_id)->where('table', 'students_fee_disc')->first();
+                $DuesResetData = StudentsFeeForReset::where('hs_id', $invoice_id)->where('st_id', $st_id)->where('table', 'students_fee_dues')->first();
+
+
+
+                $StudentsFeePaid = StudentsFeePaid::where('st_id', $st_id)->where('year', $PaidResetData->year)->first();
+                $StudentsFeePaid->month_0 = $PaidResetData->month_0;
+                $StudentsFeePaid->month_1 = $PaidResetData->month_1;
+                $StudentsFeePaid->month_2 = $PaidResetData->month_2;
+                $StudentsFeePaid->month_3 = $PaidResetData->month_3;
+                $StudentsFeePaid->month_4 = $PaidResetData->month_4;
+                $StudentsFeePaid->month_5 = $PaidResetData->month_5;
+                $StudentsFeePaid->month_6 = $PaidResetData->month_6;
+                $StudentsFeePaid->month_7 = $PaidResetData->month_7;
+                $StudentsFeePaid->month_8 = $PaidResetData->month_8;
+                $StudentsFeePaid->month_9 = $PaidResetData->month_9;
+                $StudentsFeePaid->month_10 = $PaidResetData->month_10;
+                $StudentsFeePaid->month_11 = $PaidResetData->month_11;
+                $StudentsFeePaid->save();
+                $PaidResetData->delete();
+
+                $StudentsFeeDisc = StudentsFeeDisc::where('st_id', $st_id)->where('year', $PaidResetData->year)->first();
+                $StudentsFeeDisc->month_0 = $DiscResetData->month_0;
+                $StudentsFeeDisc->month_1 = $DiscResetData->month_1;
+                $StudentsFeeDisc->month_2 = $DiscResetData->month_2;
+                $StudentsFeeDisc->month_3 = $DiscResetData->month_3;
+                $StudentsFeeDisc->month_4 = $DiscResetData->month_4;
+                $StudentsFeeDisc->month_5 = $DiscResetData->month_5;
+                $StudentsFeeDisc->month_6 = $DiscResetData->month_6;
+                $StudentsFeeDisc->month_7 = $DiscResetData->month_7;
+                $StudentsFeeDisc->month_8 = $DiscResetData->month_8;
+                $StudentsFeeDisc->month_9 = $DiscResetData->month_9;
+                $StudentsFeeDisc->month_10 = $DiscResetData->month_10;
+                $StudentsFeeDisc->month_11 = $DiscResetData->month_11;
+                $StudentsFeeDisc->save();
+                $DiscResetData->delete();
+
+
+                $StudentsFeeDues = StudentsFeeDues::where('st_id', $st_id)->where('year', $PaidResetData->year)->first();
+                $StudentsFeeDues->month_0 = $DuesResetData->month_0;
+                $StudentsFeeDues->month_1 = $DuesResetData->month_1;
+                $StudentsFeeDues->month_2 = $DuesResetData->month_2;
+                $StudentsFeeDues->month_3 = $DuesResetData->month_3;
+                $StudentsFeeDues->month_4 = $DuesResetData->month_4;
+                $StudentsFeeDues->month_5 = $DuesResetData->month_5;
+                $StudentsFeeDues->month_6 = $DuesResetData->month_6;
+                $StudentsFeeDues->month_7 = $DuesResetData->month_7;
+                $StudentsFeeDues->month_8 = $DuesResetData->month_8;
+                $StudentsFeeDues->month_9 = $DuesResetData->month_9;
+                $StudentsFeeDues->month_10 = $DuesResetData->month_10;
+                $StudentsFeeDues->month_11 = $DuesResetData->month_11;
+                $StudentsFeeDues->save();
+                $DuesResetData->delete();
+
+            }
+
+            StudentsFeePaidHistory::where('id', $invoice_id)->delete();
+
+            //Sum total_fee, total_paid, total_disc, total_dues
+            StudentAccountFee::StudentsFeeMonthsCalculate();
+
+            return response()->json(['status'=>'success'], 200);
         } catch (Exception $e) {
             // Handle exceptions
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
