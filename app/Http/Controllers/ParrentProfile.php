@@ -80,8 +80,17 @@ class ParrentProfile extends Controller
             'annualfee'=>$annualfee
 
         ];
+        
+        $monthStatus = StudentAccountFee::singleStudentMonthStatus($year, $st_id);
     
-        return response(array("StudentFeeStracture" => $organizedFeeStructures, 'student'=>$student), 200);
+        $responseData = array(
+            "StudentFeeStructure" => $organizedFeeStructures,
+            'student' => $student,
+            'month_status' => $monthStatus
+        );
+    
+        // Return the response with HTTP status 200
+        return response($responseData, 200);
     }
 
     public function StudentsFeeStracturesSave(Request $request){

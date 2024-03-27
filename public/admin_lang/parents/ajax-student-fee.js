@@ -40,13 +40,28 @@ $(document).ready(function(){
             console.log(response);
 
             // Assuming the response is structured as described before
-                var studentFeeStracture = response.StudentFeeStracture;
+                var studentFeeStracture = response.StudentFeeStructure;
+                
 
                 var feeYear = response.student.fee_year;
                 var st_id = response.student.st_id;
 
                 $("#month_feestracture").html('');
                 $.each(studentFeeStracture, function(month, feeDetails) {
+
+                    var monthStatus = response.month_status;
+                    // Accessing status for the current month
+                    var statusForCurrentMonth = monthStatus[month-1];
+
+                    var PaidBlock = 'd-flex';
+                    var StatusColor = 'bg-light';
+                    if(statusForCurrentMonth == 'Paid'){
+                        PaidBlock = 'd-none';
+                        StatusColor = 'bg-paid';
+                    }if(statusForCurrentMonth == 'Dues'){
+                        PaidBlock = 'd-none';
+                        StatusColor = 'bg-dues';
+                    }
 
                     var monthHtml = '';
                     var monthfee = 0;
@@ -58,11 +73,11 @@ $(document).ready(function(){
                                 <input class="px-2 input_fee_name" required name='fee[`+month+`]' value="${fee.fee_name}">
                                 <span class="pr-3">₹</span>
                                 <input type="number" min="0" required name='amount[`+month+`]' class="input_fee_amount" value="${fee.amount}">
-                                <span class="material-symbols-outlined p-1 border delete_fee" fee_id="${fee.id}"  data-toggle="tooltip" data-placement="bottom" title="Delete This Fee" style="cursor: pointer;">delete</span>
+                                <span class="`+PaidBlock+` material-symbols-outlined p-1 border delete_fee" fee_id="${fee.id}"  data-toggle="tooltip" data-placement="bottom" title="Delete This Fee" style="cursor: pointer;">delete</span>
                             </div>`;
                     });
                     
-                        monthHtml += `<input class='p-1 px-5 month-fee-save-btn' type="submit" value="save" style='cursor:pointer'>`;
+                        monthHtml += `<input class='p-1 `+PaidBlock+` px-5 month-fee-save-btn' type="submit" value="save" style='cursor:pointer'>`;
                      //  End Iterate through each fee detail for the month
                     
 
@@ -75,7 +90,8 @@ $(document).ready(function(){
                                     <span>`+monthfee+`</span> 
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center p-2 border">
+                            <div class="d-flex p-1 `+StatusColor+`"></div>
+                            <div class="`+PaidBlock+` align-items-center p-2 border">
                               <span class="material-symbols-outlined p-1 border mr-2 add-new-fee" data-toggle="tooltip" data-placement="bottom" title="Add New Fee">add</span>
                               <span class="material-symbols-outlined p-1 border delete-month" st_id=`+st_id+` year=`+feeYear+` month=`+month+` data-toggle="tooltip" data-placement="bottom" title="Delete This Month">delete</span>
                             </div>

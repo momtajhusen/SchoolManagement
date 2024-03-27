@@ -61,6 +61,16 @@
             display: inline-flex; /* Ensure the label behaves like a flex container */
             align-items: center; /* Align items vertically in the center */
         }
+
+        .bg-paid{
+         background-color: rgb(160, 250, 142) !important;
+      }
+      .bg-dues{
+         background-color: rgb(250, 239, 142) !important;
+      }
+      .bg-feenotset{
+         background-color: rgb(149, 142, 250) !important;
+      }
     </style>
 
 @endsection

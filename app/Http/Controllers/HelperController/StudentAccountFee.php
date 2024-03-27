@@ -8,6 +8,8 @@ use App\Models\StudentsFeeMonth;
 use App\Models\StudentsFeePaid;
 use App\Models\StudentsFeeDisc;
 use App\Models\StudentsFeeDues;
+use App\Models\StudentsFeeStracture;
+
 
 class StudentAccountFee extends Controller
 {
@@ -101,6 +103,41 @@ class StudentAccountFee extends Controller
 
         return $monthStatus;
     }
+
+    public static function singleStudentMonthStatus($year, $st_id)
+    {
+        // Initialize monthStatus array
+        $monthStatus = [];
+    
+        // Determine payment status for each month
+        for ($i = 0; $i <= 11; $i++) {
+            $month = 'month_' . $i;
+    
+            // Fetch the fee status, paid amount, and discount amount for the current month
+            $status_fee = StudentsFeeMonth::where('year', $year)->where('st_id', $st_id)->value($month) ?? 0;
+            $status_paid = StudentsFeePaid::where('year', $year)->where('st_id', $st_id)->value($month) ?? 0;
+            $status_disc = StudentsFeeDisc::where('year', $year)->where('st_id', $st_id)->value($month) ?? 0;
+    
+            // Determine the status for the current month
+            if ($status_fee == 0) {
+                $status = 'FeeNotSet';
+            } elseif ($status_paid >= $status_fee) {
+                $status = 'Paid';
+            } elseif ($status_paid + $status_disc >= $status_fee) {
+                $status = 'Dues';
+            } else {
+                $status = 'Unpaid';
+            }
+    
+            $monthStatus[$i] = $status;
+        }
+    
+        return $monthStatus;
+    }
+    
+    
+
+    
 
     
 }
