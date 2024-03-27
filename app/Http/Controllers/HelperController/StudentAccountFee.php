@@ -14,7 +14,8 @@ class StudentAccountFee extends Controller
     public static function StudentsFeeMonthsCalculate(){
         $studentsFeeMonths = StudentsFeeMonth::get();
 
-        foreach ($studentsFeeMonths as $studentFeeMonth) {
+        foreach ($studentsFeeMonths as $studentFeeMonth) 
+        {
 
         $st_id = $studentFeeMonth->st_id;
 

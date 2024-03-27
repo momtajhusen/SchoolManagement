@@ -922,138 +922,138 @@ $(document).ready(function(){
 }); 
 
  
-// Paid Oninput Condition  
-$(document).ready(function () {
-    $("#paid_input").on("input", function (e) {
+    // Paid Oninput Condition  
+    $(document).ready(function () {
+        $("#paid_input").on("input", function (e) {
+            var ActualDues = Number($("#fee_input").val());
+            var discount = Number($("#disc_input").val());
+            var payment = Number($(this).val());
+            
+            if (payment < 0) {
+                $(this).val(0);
+                payment = 0; // Update payment value
+            }
+
+            if (ActualDues < payment) {
+                $("#paid_input").val(ActualDues);
+                $("#percentage").val(0);
+                $("#disc_input").val(0);
+                $("#comment_for_discount").addClass("d-none");
+                payment = ActualDues; // Update payment value
+            }
+
+            // Calculate and update dues
+            var newDues = ActualDues - payment;
+            $("#dues_input").val(newDues - discount);
+
+        });
+
+        $("input[type='number']").on("keypress", function (e) {
+            if (e.key === "+" || e.key === "-" || e.key === "e") {
+                e.preventDefault();
+            }
+        });
+    });
+
+    // Saving Oninput Condition
+    $(document).ready(function () {
+        $("#disc_input").on("input", function (e) {
+        
         var ActualDues = Number($("#fee_input").val());
         var discount = Number($("#disc_input").val());
-        var payment = Number($(this).val());
         
-        if (payment < 0) {
-            $(this).val(0);
-            payment = 0; // Update payment value
-        }
-
-        if (ActualDues < payment) {
+        var AfterDiscuntPay = ActualDues - discount;
+        $("#paid_input").val(AfterDiscuntPay);
+        
+            if(discount <= 0){
             $("#paid_input").val(ActualDues);
             $("#percentage").val(0);
-            $("#disc_input").val(0);
-            $("#comment_for_discount").addClass("d-none");
-            payment = ActualDues; // Update payment value
-        }
-
-        // Calculate and update dues
-        var newDues = ActualDues - payment;
-        $("#dues_input").val(newDues - discount);
-
-    });
-
-    $("input[type='number']").on("keypress", function (e) {
-        if (e.key === "+" || e.key === "-" || e.key === "e") {
-            e.preventDefault();
-        }
-    });
-});
-
-// Saving Oninput Condition
-$(document).ready(function () {
-    $("#disc_input").on("input", function (e) {
-    
-      var ActualDues = Number($("#fee_input").val());
-      var discount = Number($("#disc_input").val());
-    
-      var AfterDiscuntPay = ActualDues - discount;
-      $("#paid_input").val(AfterDiscuntPay);
-    
-        if(discount <= 0){
-          $("#paid_input").val(ActualDues);
-          $("#percentage").val(0);
-          $(this).val(0);
-          return false;
-        }
-    
-        var percentage = (discount / ActualDues * 100).toFixed(3);
-        $("#percentage").val(percentage);
-    
-        if(discount >= ActualDues){
-          $(this).val(ActualDues);
-          $("#percentage").val(100);
-          $("#paid_input").val(0);
-        }
-    
-    });
-    
-      $("input[type='number']").on("keypress", function (e) {
-          if (e.key === "+" || e.key === "-" || e.key === "e" || e.key === ".") {
-              e.preventDefault();
-          }
-      });
-});
-
-$(document).ready(function(){
- 
-    $("#disc_input,#percentage").on("input",function()
-    {  
-        if ($(this).val()) {
-            // Check if there are leading zeros followed by non-zero digits and remove them
-            let inputValue = $(this).val().replace(/^0+(?=[1-9])/, '');
-        
-            // Set the value to '100' if it's empty
-            $(this).val(inputValue || 100);
-        }
-    });
-  });
-
-// Percentage Oninput Condition
-$(document).ready(function(){
-    $("#percentage").on("input", function(e){
-        var percentage = $(this).val();
-        var ActualDues = Number($("#fee_input").val());
-  
-          if(percentage < 0){
             $(this).val(0);
             return false;
-          }
-  
-          if(percentage > 100){
-            $(this).val(100);
+            }
+        
+            var percentage = (discount / ActualDues * 100).toFixed(3);
+            $("#percentage").val(percentage);
+        
+            if(discount >= ActualDues){
+            $(this).val(ActualDues);
+            $("#percentage").val(100);
             $("#paid_input").val(0);
-            $("#disc_input").val(ActualDues);
-            return false;
-          }
-  
-          var discountAmount  = ActualDues / 100 * percentage;
+            }
+        
+        });
+        
+        $("input[type='number']").on("keypress", function (e) {
+            if (e.key === "+" || e.key === "-" || e.key === "e" || e.key === ".") {
+                e.preventDefault();
+            }
+        });
+    });
+
+    $(document).ready(function(){
+    
+        $("#disc_input,#percentage").on("input",function()
+        {  
+            if ($(this).val()) {
+                // Check if there are leading zeros followed by non-zero digits and remove them
+                let inputValue = $(this).val().replace(/^0+(?=[1-9])/, '');
             
-          $("#disc_input").val(discountAmount);
-  
-          $("#paid_input").val(ActualDues - discountAmount);
-          
-    })
-});
-
-  // Discount Comment input display 
-  $(document).ready(function () {
-    $('#percentage, #disc_input').on('input', function () {
-      var percentage = $('#disc_input').val();
-      $("#dues_input").val(0);
-  
-        if(percentage > 0){
-          $("#comment_for_discount").removeClass("d-none");
-        }
-  
-        if(percentage <= 0){
-          $("#comment_for_discount").addClass("d-none");
-        }
+                // Set the value to '100' if it's empty
+                $(this).val(inputValue || 100);
+            }
+        });
     });
-  });
 
-  $(document).ready(function () {
-    $('#percentage').on('keydown', function (e) {
-      if (e.keyCode === 190 || e.keyCode === 110) {
-        e.preventDefault();
-      }
+    // Percentage Oninput Condition
+    $(document).ready(function(){
+        $("#percentage").on("input", function(e){
+            var percentage = $(this).val();
+            var ActualDues = Number($("#fee_input").val());
+
+            if(percentage < 0){
+                $(this).val(0);
+                return false;
+            }
+
+            if(percentage > 100){
+                $(this).val(100);
+                $("#paid_input").val(0);
+                $("#disc_input").val(ActualDues);
+                return false;
+            }
+
+            var discountAmount  = ActualDues / 100 * percentage;
+                
+            $("#disc_input").val(discountAmount);
+
+            $("#paid_input").val(ActualDues - discountAmount);
+            
+        })
     });
-  });
+
+    // Discount Comment input display 
+    $(document).ready(function () {
+        $('#percentage, #disc_input').on('input', function () {
+        var percentage = $('#disc_input').val();
+        $("#dues_input").val(0);
+    
+            if(percentage > 0){
+            $("#comment_for_discount").removeClass("d-none");
+            }
+    
+            if(percentage <= 0){
+            $("#comment_for_discount").addClass("d-none");
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('#percentage').on('keydown', function (e) {
+        if (e.keyCode === 190 || e.keyCode === 110) {
+            e.preventDefault();
+        }
+        });
+    });
   
     //  Selected student get fee months 
     $(document).ready(function(){

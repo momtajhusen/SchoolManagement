@@ -77,9 +77,9 @@ class StudentsFeePayment extends Controller
                     }
                 }
 
+                $StudentMonthFeeStracture = [];
                 $studentFeeStructure = StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->first();
                 if ($studentFeeStructure) {
-                    $StudentMonthFeeStracture = [];
                 // Start Student Fee Structure Month 
                     foreach ($student_data as $student) {
                        $studentFeeStructure = StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->first();
@@ -501,51 +501,4 @@ class StudentsFeePayment extends Controller
 
     }
 
-
-    
-    
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
