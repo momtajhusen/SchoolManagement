@@ -99,7 +99,7 @@
     <script src="{{ asset('../admin_template_assets/js/datepicker.min.js')}}"></script>
 
    {{-- Sorting Script  --}}
-<script src="{{ asset('../admin_lang/common/sorting-script.js')}}?v={{ time() }}"></script>
+   <script src="{{ asset('../admin_lang/common/sorting-script.js')}}?v={{ time() }}"></script>
  
 
     <script>
@@ -238,11 +238,10 @@
                         </div>
 
                         <div class="d-flex">
-                            <input type="text" id="searchInput" class="form-control" placeholder="Search...">
-                            <button class="btn px-4 border table-search">Search</button>
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="border-radius: 0%; box-shadow:none;">
                         </div>
                         <div class="table-responsive">
-                            <table class="table display data-table text-nowrap table-sm" id="myTable">
+                            <table class="table data-table text-nowrap table-sm table-bordered sortable-table" id="myTable">
                             <thead>
                                 <tr>
                                 <th  data-column="0">SN.</th>
@@ -258,7 +257,7 @@
                                 <th  data-column="10">Phone</th>
                                 </tr>
                             </thead>
-                            <tbody class="studnt-table">
+                            <tbody class="studnt-table sortable-bordy">
  
                                 
                             </tbody>

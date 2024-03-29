@@ -203,7 +203,15 @@
     .demo-visitor-form-box input{
         cursor: pointer;
     }
-
+ 
+    .sortable-table thead th{
+        cursor: pointer;
+    }
+    .sortable-table thead th{
+        padding: 10px;
+        user-select: none;
+    }
+ 
     </style>
 
 </head>

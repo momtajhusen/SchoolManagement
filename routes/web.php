@@ -227,8 +227,11 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       Route::get('/student-invoice-data', 'App\Http\Controllers\StudentsFeePayment@StudentFeeInvoiceData');
       Route::post('/student-all-fee-reset', 'App\Http\Controllers\StudentsFeePayment@StudentAllFeeReset');
       Route::post('/student-single-fee-reset', 'App\Http\Controllers\StudentsFeePayment@StudentSingleFeeReset');
-      Route::get('/student-fee-stracture-month', 'App\Http\Controllers\StudentsFeePayment@StudentFeeStractureMonth');
+      // Route::get('/student-fee-stracture-month', 'App\Http\Controllers\StudentsFeePayment@StudentFeeStractureMonth');
       Route::post('/save-invoice-image', 'App\Http\Controllers\StudentsFeePayment@saveInvoice')->name('save.image');
+
+      Route::get('/student-fee-dues-list', 'App\Http\Controllers\StudentsFeePayment@StudentFeeDuesList');
+
 
    // End New Account payment 
 

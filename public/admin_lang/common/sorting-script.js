@@ -7,9 +7,9 @@ $(document).ready(function(){
         table.find('th').removeClass('asc').removeClass('desc').find('i').remove();
         $(this).addClass(sortOrder).append('<i class="ml-2 fa fa-sort-amount-' + (sortOrder == 'asc' ? 'asc' : 'desc') + '" aria-hidden="true"></i>');
 
-        var rows = table.find('tbody.studnt-table tr').toArray().sort(comparer(columnIndex, sortOrder));
+        var rows = table.find('tbody.sortable-bordy tr').toArray().sort(comparer(columnIndex, sortOrder));
         if (sortOrder === 'desc') { rows = rows.reverse(); }
-        for (var i = 0; i < rows.length; i++){ table.find('tbody.studnt-table').append(rows[i]); }
+        for (var i = 0; i < rows.length; i++){ table.find('tbody.sortable-bordy').append(rows[i]); }
     });
     
     function comparer(index, order) {
@@ -26,19 +26,26 @@ $(document).ready(function(){
 
 
 $(document).ready(function() {
-    $(document).on('input', '#searchInput', function() {
-        var searchText = $(this).val().toLowerCase();
-        var tbody = $('#myTable tbody');
+    // Function to filter table rows
+    function filterTableRows(searchText) {
+        var tbody = $('.sortable-table tbody');
+        var rows = tbody.children('tr');
         
-        // Detach all rows from the table body
-        var rows = tbody.children('tr').detach();
-        
-        // Filter and prepend matching rows
         rows.each(function() {
             var rowText = $(this).text().toLowerCase();
+            // Show rows that match the search text, hide others
             if (rowText.includes(searchText)) {
-                $(this).prependTo(tbody);
+                $(this).show();
+            } else {
+                $(this).hide();
             }
         });
+    }
+
+    // Event listener for search input
+    $(document).on('input', '#searchInput', function() {
+        var searchText = $(this).val().toLowerCase();
+        filterTableRows(searchText);
     });
 });
+

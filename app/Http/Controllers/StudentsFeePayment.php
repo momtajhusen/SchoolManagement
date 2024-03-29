@@ -590,7 +590,7 @@ class StudentsFeePayment extends Controller
         }
     }
 
-    public function StudentFeeStractureMonth(Request $request){
+    public function StudentFeeDuesList(Request $request){
         try {
 
 
