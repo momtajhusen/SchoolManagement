@@ -383,6 +383,33 @@
                             </ul>
                         </li>
 
+                        
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link d-flex" id="new-account-btn">
+                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">account_balance</span>
+                                <span>New Acconunt</span>
+                            </a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item d-none">
+                                    <a href="{{route('student-fee-payment')}}" class="nav-link">
+                                       <i class="fas fa-angle-right"></i>
+                                       <span>Fee Payment</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('dues-list')}}" class="nav-link">
+                                       <i class="fas fa-angle-right"></i>
+                                        <span>Dues Fee</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('add-expenses')}}" class="nav-link"><i class="fas fa-angle-right"></i>
+                                        <span>Add Expenses</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">receipt_long</span>

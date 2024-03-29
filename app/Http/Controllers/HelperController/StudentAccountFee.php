@@ -54,7 +54,6 @@ class StudentAccountFee extends Controller
 
         }
     }
-
     public static function feePaidMonthStatus($year, $student_data)
     {
         // Initialize monthStatus array outside of the if-else block
@@ -103,21 +102,20 @@ class StudentAccountFee extends Controller
 
         return $monthStatus;
     }
-
     public static function singleStudentMonthStatus($year, $st_id)
     {
         // Initialize monthStatus array
         $monthStatus = [];
-    
+
         // Determine payment status for each month
         for ($i = 0; $i <= 11; $i++) {
             $month = 'month_' . $i;
-    
+
             // Fetch the fee status, paid amount, and discount amount for the current month
             $status_fee = StudentsFeeMonth::where('year', $year)->where('st_id', $st_id)->value($month) ?? 0;
             $status_paid = StudentsFeePaid::where('year', $year)->where('st_id', $st_id)->value($month) ?? 0;
             $status_disc = StudentsFeeDisc::where('year', $year)->where('st_id', $st_id)->value($month) ?? 0;
-    
+
             // Determine the status for the current month
             if ($status_fee == 0) {
                 $status = 'FeeNotSet';
@@ -128,18 +126,12 @@ class StudentAccountFee extends Controller
             } else {
                 $status = 'Unpaid';
             }
-    
+
             $monthStatus[$i] = $status;
         }
-    
+
         return $monthStatus;
     }
-    
-    
-
-    
-
-    
 }
 
  
