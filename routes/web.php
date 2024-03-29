@@ -217,7 +217,8 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    Route::post('/admin/delete-month', 'App\Http\Controllers\ParrentProfile@DeleteMonth');
 
    // Start New Account payment 
-      Route::view('admin/student-fee-payment', 'Admin_Page/Super_Admin/layouts/Account_management/student-fee-payment')->name('student-fee-payment');
+      Route::view('admin/student-fee-payment', 'Admin_Page/Super_Admin/layouts/New_Account_Management/student-fee-payment')->name('student-fee-payment');
+      Route::view('admin/student-deus-fee-list', 'Admin_Page/Super_Admin/layouts/New_Account_Management/student-deus-fee-list')->name('student-deus-fee-list');
 
       Route::get('/parent-student-retrive', 'App\Http\Controllers\StudentsFeePayment@ParentStudentRetrive');
       Route::get('/student-fee-month-particular', 'App\Http\Controllers\StudentsFeePayment@StudentFeeMonthParticular');
@@ -226,15 +227,8 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       Route::get('/student-invoice-data', 'App\Http\Controllers\StudentsFeePayment@StudentFeeInvoiceData');
       Route::post('/student-all-fee-reset', 'App\Http\Controllers\StudentsFeePayment@StudentAllFeeReset');
       Route::post('/student-single-fee-reset', 'App\Http\Controllers\StudentsFeePayment@StudentSingleFeeReset');
-
       Route::get('/student-fee-stracture-month', 'App\Http\Controllers\StudentsFeePayment@StudentFeeStractureMonth');
-
-
-
       Route::post('/save-invoice-image', 'App\Http\Controllers\StudentsFeePayment@saveInvoice')->name('save.image');
-
-
-
 
    // End New Account payment 
 

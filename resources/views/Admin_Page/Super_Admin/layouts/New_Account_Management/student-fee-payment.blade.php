@@ -3,7 +3,7 @@
 @section('script')
 
     <!-- ajax ajax-student-fee-payment,js  -->
-    <script src="{{ asset('../admin_lang/fees/ajax-student-fee-payment.js')}}?v={{ time() }}"></script> 
+    <script src="{{ asset('../admin_lang/Accounts/ajax-student-fee-payment.js')}}?v={{ time() }}"></script> 
 
     <!-- Select 2 Js -->
     <script src="{{ asset('../admin_template_assets/js/select2.min.js')}}"></script>
@@ -17,11 +17,11 @@
    <!-- ajax select option all-students.js -->
    <script src="{{ asset('../admin_lang/SelectOption/StudentsParents/all-students.js')}}?v={{ time() }}"></script> 
 
-{{-- School Name Font  --}}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
- 
+   {{-- School Name Font  --}}
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
+   
 @endsection
 
 @section('style')

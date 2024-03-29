@@ -374,12 +374,6 @@
                                         <span>Fee & Disc Exceptions</span>
                                     </a>
                                 </li>
-                                <li class="nav-item d-none">
-                                    <a href="{{route('student-fee-payment')}}" class="nav-link">
-                                       <i class="fas fa-angle-right"></i>
-                                       <span>Student Fee Payment</span>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
 
@@ -390,21 +384,21 @@
                                 <span>New Acconunt</span>
                             </a>
                             <ul class="nav sub-group-menu">
-                                <li class="nav-item d-none">
+                                <li class="nav-item">
                                     <a href="{{route('student-fee-payment')}}" class="nav-link">
                                        <i class="fas fa-angle-right"></i>
-                                       <span>Fee Payment</span>
+                                       <span>Student Fee Payment</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('dues-list')}}" class="nav-link">
+                                    <a href="{{route('student-deus-fee-list')}}" class="nav-link">
                                        <i class="fas fa-angle-right"></i>
-                                        <span>Dues Fee</span>
+                                        <span>Dues Fee List</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('add-expenses')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>Add Expenses</span>
+                                        <span>Add New Expenses</span>
                                     </a>
                                 </li>
                             </ul>
