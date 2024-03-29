@@ -14,7 +14,7 @@
     <!-- Include SheetJS library for .xlsx export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
-
+ 
     <style>
         .no-spinners::-webkit-outer-spin-button,
         .no-spinners::-webkit-inner-spin-button 
@@ -97,7 +97,10 @@
 
     <!-- Date Picker Js -->
     <script src="{{ asset('../admin_template_assets/js/datepicker.min.js')}}"></script>
-    
+
+   {{-- Sorting Script  --}}
+<script src="{{ asset('../admin_lang/common/sorting-script.js')}}?v={{ time() }}"></script>
+ 
 
     <script>
        const dragArea = document.querySelector(".fee-stracture-body");
@@ -238,17 +241,17 @@
                             <table class="table display data-table text-nowrap table-sm" id="myTable">
                             <thead>
                                 <tr>
-                                <td>SN.</td>
-                                <th>Photo</th>
-                                <th>Student Name</th>
-                                <th>Class</th>
-                                <th>st_id</th>
-                                <th>Total Fee</th>
-                                <th>Prev. Bal.</th>
-                                <th>Prev. Year</th>
-                                <th>Net Pay</th>
-                                <th>Parents Contact</th>
-                                <th>Phone</th>
+                                <th  data-column="0">SN.</th>
+                                <th  data-column="1">Photo</th>
+                                <th  data-column="2">Student Name</th>
+                                <th  data-column="3">Class</th>
+                                <th  data-column="4">st_id</th>
+                                <th  data-column="5">Total Fee</th>
+                                <th  data-column="6">Prev. Bal.</th>
+                                <th  data-column="7">Prev. Year</th>
+                                <th  data-column="8">Net Pay</th>
+                                <th  data-column="9">Parents Contact</th>
+                                <th  data-column="10">Phone</th>
 
                                 </tr>
                             </thead>
@@ -263,7 +266,6 @@
                                 <th class="prevBlanc">0</th>
                                 <th class="preYear">0</th>
                                 <th class="netPay">0</th>
-
                                 </tr>
                             </tbody>
                             </table>
