@@ -23,3 +23,22 @@ $(document).ready(function(){
         return $(row).children('td').eq(index).text();
     }
 });
+
+
+$(document).ready(function() {
+    $(document).on('input', '#searchInput', function() {
+        var searchText = $(this).val().toLowerCase();
+        var tbody = $('#myTable tbody');
+        
+        // Detach all rows from the table body
+        var rows = tbody.children('tr').detach();
+        
+        // Filter and prepend matching rows
+        rows.each(function() {
+            var rowText = $(this).text().toLowerCase();
+            if (rowText.includes(searchText)) {
+                $(this).prependTo(tbody);
+            }
+        });
+    });
+});

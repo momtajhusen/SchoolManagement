@@ -237,6 +237,10 @@
                                 </div>
                         </div>
 
+                        <div class="d-flex">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+                            <button class="btn px-4 border table-search">Search</button>
+                        </div>
                         <div class="table-responsive">
                             <table class="table display data-table text-nowrap table-sm" id="myTable">
                             <thead>
@@ -252,7 +256,6 @@
                                 <th  data-column="8">Net Pay</th>
                                 <th  data-column="9">Parents Contact</th>
                                 <th  data-column="10">Phone</th>
-
                                 </tr>
                             </thead>
                             <tbody class="studnt-table">
