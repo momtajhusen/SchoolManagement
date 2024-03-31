@@ -630,25 +630,13 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
 ///////////////////////////// END STUDENT ACCOUNT /////////////////////////////
 
 
-// Route::get('/command/seed', function () {
-//   Artisan::call('db:seed');
-// });
-
-// Route::get('/command/cache', function () {
-//   Artisan::call('cache:clear');
-// });
-
-// Route::get('/command/storage', function () {
-//   Artisan::call('storage:link');
-// });
-
-// Route::get('/command/migrate_fresh', function () {
-//   Artisan::call('migrate:fresh');
-// });
-
-// Route::get('/command/migrate', function () {
-//   Artisan::call('migrate');
-// });
+Route::get('/command/storage', function () {
+  Artisan::call('storage:link');
+});
+ 
+Route::get('/command/migrate', function () {
+  Artisan::call('migrate');
+});
 
 
 Route::get('/command/migrate_specific', function () {
