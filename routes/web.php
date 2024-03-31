@@ -633,7 +633,11 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
 Route::get('/command/storage', function () {
   Artisan::call('storage:link');
 });
- 
+
+Route::get('/command/migrate_fresh', function () {
+  Artisan::call('migrate:fresh');
+});
+
 Route::get('/command/migrate', function () {
   Artisan::call('migrate');
 });
