@@ -111,6 +111,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 
+    <!-- new-account-skip-school  -->
+    <script src="{{ asset('../admin_lang/developer/new-account-skip-school.js')}}?v={{ time() }}"></script>
+
+
+
 
     @yield('style')
 
