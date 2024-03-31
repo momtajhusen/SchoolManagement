@@ -194,7 +194,7 @@ $(document).ready(function(){
                 }
 
                 $('.multiple-paid-btn').html(`
-                    <button class="bg-info `+multi_paid_btn+` take-pay-multi border-0 text-light btn rounded ml-3 py-3 px-4" dues="`+total_dues+`" all_st_id="`+all_st_id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Multi Paid</button>
+                    <button pr_id='`+pr_id+`' class="bg-info `+multi_paid_btn+` take-pay-multi border-0 text-light btn rounded ml-3 py-3 px-4" dues="`+total_dues+`" all_st_id="`+all_st_id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Multi Paid</button>
                 `);
 
                 // month status 
@@ -364,7 +364,9 @@ $(document).ready(function(){
 
         var dues = $(this).attr('dues');
         var all_st_id = $(this).attr('all_st_id');
+        var pr_id = $(this).attr('pr_id');
 
+        // alert(pr_id);
 
         $('#fee_input').val(dues);
         $('#paid_input').val(dues);
@@ -403,10 +405,12 @@ $(document).ready(function(){
                 month_array: month_array,
                 fee_year: fee_year,
                 st_id_array: st_id_array,
+                pr_id: pr_id,
             },
             success: function (response) {
 
                 console.log(response);
+
  
                 if (response.status === 'success') {
                     var data = response.data;

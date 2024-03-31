@@ -9,11 +9,15 @@ use App\Models\StudentsFeePaid;
 use App\Models\StudentsFeeDisc;
 use App\Models\StudentsFeeDues;
 use App\Models\StudentsFeeStracture;
+use App\Models\Student;
+use App\Models\SchoolDetails;
 
 
 class StudentAccountFee extends Controller
 {
-    public static function StudentsFeeMonthsCalculate(){
+
+    public static function StudentsFeeMonthsCalculate()
+    {
         $studentsFeeMonths = StudentsFeeMonth::get();
 
         foreach ($studentsFeeMonths as $studentFeeMonth) 
@@ -54,6 +58,7 @@ class StudentAccountFee extends Controller
 
         }
     }
+
     public static function feePaidMonthStatus($year, $student_data)
     {
         // Initialize monthStatus array outside of the if-else block
@@ -102,6 +107,7 @@ class StudentAccountFee extends Controller
 
         return $monthStatus;
     }
+
     public static function singleStudentMonthStatus($year, $st_id)
     {
         // Initialize monthStatus array
@@ -132,6 +138,121 @@ class StudentAccountFee extends Controller
 
         return $monthStatus;
     }
+
+    public static function StudentFeeMonthParticular($month_array, $pr_id, $fee_year) 
+    {
+        try {
+            $fee_details = [];
+            $common_fee_details = []; 
+            $total_common_amount = 0; 
+            $students = Student::where('parents_id', $pr_id)->get();
+    
+            // Iterate over each student
+            foreach ($students as $student) {
+                // Fetch student details
+                $student_id = $student->id;
+    
+                $student_details = [
+                    'id' => $student->id,
+                    'student_name' => $student->first_name . ' ' . $student->last_name,
+                    'class' => $student->class,
+                    'section' => $student->section,
+                ];
+    
+                // Initialize an array to store the total amount and months for each fee type
+                $total_fee_details = [];
+    
+                // Iterate over each month
+                foreach ($month_array as $month) {
+                    // Query to fetch fee details for the student for the particular month
+                    $fee_details_month = StudentsFeeStracture::where('st_id', $student_id)
+                        ->where('year', $fee_year)
+                        ->where('month', $month)
+                        ->get();
+    
+                    $dues_column =  $month;
+                    $dues_amount_month = StudentsFeeDues::where('st_id', $student_id)
+                        ->where('year', $fee_year)
+                        ->value($dues_column) ?? 0;
+    
+                    if ($dues_amount_month <= 0) {
+                        // Accumulate amounts and track months for each fee type
+                        foreach ($fee_details_month as $fee_detail) {
+                            $fee_type = $fee_detail->fee_type;
+                            $amount = $fee_detail->amount;
+                            // Sum the amount if the fee type already exists
+                            if (isset($total_fee_details[$fee_type])) {
+                                $total_fee_details[$fee_type]['amount'] += $amount;
+                                $total_fee_details[$fee_type]['month']++; // Increment month count
+                            } else {
+                                $total_fee_details[$fee_type] = [
+                                    'amount' => $amount,
+                                    'month' => 1, // Initialize month count
+                                ];
+                            }
+                        }
+                    } else {
+                        // Sum the dues amount for each month in the $month_array
+                        $prev_balance_amount = 0;
+                        foreach ($month_array as $month) {
+                            $dues_column = $month; // Adjusting month to match column index
+                            $prev_balance_amount += StudentsFeeDues::where('st_id', $student_id)
+                                ->where('year', $fee_year)
+                                ->value($dues_column) ?? 0;
+                        }
+                        $total_fee_details['Previous Balance'] = [
+                            'amount' => $prev_balance_amount,
+                            'month' => 1, // Initialize month count
+                        ];
+                    }
+                }
+    
+                // Include common fee types in the common_fee_details array and calculate total common amount
+                foreach ($total_fee_details as $fee_type => $details) {
+                    // Add amount to total_common_amount
+                    $total_common_amount += $details['amount'];
+    
+                    // Check if this fee type exists in common fee details, if yes, add the amount and month count
+                    if (isset($common_fee_details[$fee_type])) {
+                        $common_fee_details[$fee_type]['amount'] += $details['amount'];
+                        $common_fee_details[$fee_type]['month'] += $details['month'];
+                    } else {
+                        $common_fee_details[$fee_type] = [
+                            'amount' => $details['amount'],
+                            'month' => $details['month'],
+                        ];
+                    }
+                }
+    
+                // Sum up the total amount for this student
+                $total_amount = array_sum(array_column($total_fee_details, 'amount'));
+    
+                // Include student details along with fee details
+                $fee_details[$student_id] = [
+                    'student_details' => $student_details,
+                    'fee_details' => $total_fee_details,
+                    'total_amount' => $total_amount,
+                ];
+            }
+    
+            $school_details = SchoolDetails::first();
+    
+            return response()->json([
+                'status' => 'success',
+                'data' => $fee_details,
+                'common_fee_details' => $common_fee_details,
+                'total_common_amount' => $total_common_amount,
+                'school_details' => $school_details
+            ]);
+    
+            
+        } catch (Exception $e) {
+            // Handle exceptions
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+
 }
 
  

@@ -164,14 +164,12 @@
         <th  data-column="3">Class</th>
         <th  data-column="4">st_id</th>
         <th  data-column="5">Total Fee</th>
-        <th  data-column="6">Prev. Bal.</th>
-        <th  data-column="7">Prev. Year</th>
-        <th  data-column="8">Net Pay</th>
+        <th  data-column="8">Dues Pay</th>
         <th  data-column="9">Parents Contact</th>
         <th  data-column="10">Phone</th>
         </tr>
     </thead>
-    <tbody class="studnt-table sortable-bordy">
+    <tbody class="student-dues-table sortable-bordy">
 
     </tbody>
     <tbody class="total-row d-none">
