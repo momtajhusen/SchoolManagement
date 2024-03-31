@@ -391,7 +391,7 @@
                         </li>
 
                         
-                        <li class="nav-item sidebar-nav-item">
+                        <li class="nav-item sidebar-nav-item d-none" id="new-account-menu">
                             <a href="#" class="nav-link d-flex" id="new-account-btn">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">account_balance</span>
                                 <span>New Acconunt</span>
