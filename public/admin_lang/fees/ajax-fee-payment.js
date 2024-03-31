@@ -3,6 +3,7 @@
 $(document).ready(function () 
 {
     $(".monthly_payment").click(function () {
+        $(".monthly_payment").addClass('d-none');
 
         var payment_date =  $("#payment_date").val();
         if(!NepaliFunctions.ValidateBsDate(payment_date)){
@@ -151,7 +152,7 @@ $(document).ready(function ()
 $(document).ready(function () 
 {
     $(".monthly_payment").click(function () {
-
+        $(".monthly_payment").addClass('d-none');
 
         if($(".monthly_payment").attr("paymode") == "multi-pay")
         {
@@ -254,7 +255,7 @@ $(document).ready(function ()
                     beforeSend: function() 
                     {
                      // setting a timeout
-                    //    $(".monthly_payment").addClass('d-none');
+                       $(".monthly_payment").addClass('d-none');
                        $("#payment-loading").removeClass('d-none');
                     },
                     // Success
