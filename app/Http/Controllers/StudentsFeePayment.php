@@ -356,18 +356,13 @@ class StudentsFeePayment extends Controller
                             $per_mon_disc = $per_st_disc / count($pay_month_array);
                             $per_mon_dues = $per_st_dues / count($pay_month_array);
 
-                            
-          
-
-                            $disc_dues = $per_mon_disc+$per_mon_dues;
-
+        
                             // Retrive Month Fee
                             $fee_month = $fee_details->$pay_month - $student_disc_record->$pay_month;
- 
-                            $payment = $fee_month - $disc_dues;
+  
                             $discount = $per_mon_disc + $student_disc_record->$pay_month;
 
-                            $student_paid_record->$pay_month  = $payment;
+                            $student_paid_record->$pay_month  = $per_mon_paid;
                             $student_disc_record->$pay_month  = $discount;
                             $student_dues_record->$pay_month = $per_mon_dues;
 
