@@ -111,8 +111,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 
-    <!-- new-account-skip-school  -->
-    <script src="{{ asset('../admin_lang/developer/new-account-skip-school.js')}}?v={{ time() }}"></script>
 
 
 
@@ -341,7 +339,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item sidebar-nav-item">
+                        <li class="nav-item sidebar-nav-item" id="old-account-menu">
                             <a href="#" class="nav-link d-flex" id="account-btn">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">account_balance</span>
                                 <span>Acconunt Management</span>
@@ -389,12 +387,11 @@
                                 </li>
                             </ul>
                         </li>
-
                         
                         <li class="nav-item sidebar-nav-item d-none" id="new-account-menu">
                             <a href="#" class="nav-link d-flex" id="new-account-btn">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">account_balance</span>
-                                <span>New Acconunt</span>
+                                <span>Acconunt Management</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
@@ -1009,6 +1006,10 @@
 
      {{-- ajax-check-menu-sub-menu.js --}}
     <script src="{{ asset('../admin_lang/RoleAndPermission/ajax-check-menu-sub-menu.js')}}?v={{ time() }}"></script>
+
+    <!-- new-account-skip-school  -->
+    <script src="{{ asset('../admin_lang/developer/new-account-skip-school.js')}}?v={{ time() }}"></script>
+
 
     <!-- Calculator js -->
     <script src="{{ asset('../admin_template_assets/calculator/script.js')}}?v={{ time() }}"></script>

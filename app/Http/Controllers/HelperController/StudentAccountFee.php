@@ -51,9 +51,9 @@ class StudentAccountFee extends Controller
 
             // Update total_fee column
             $studentFeeMonth->total_fee = $totalmonthFee;
-            $studentFeeMonth->total_paid = $totalpaidFee;
+            $studentFeeMonth->total_paid = $totalpaidFee - $totaldiscFee;
             $studentFeeMonth->total_disc = $totaldiscFee;
-            $studentFeeMonth->total_dues = (int) ltrim((string) ($totalpaidFee + $totaldiscFee - $totalmonthFee), '-');
+            $studentFeeMonth->total_dues = (int) ltrim((string) ($totalpaidFee - $totalmonthFee), '-');
             $studentFeeMonth->save();
 
         }

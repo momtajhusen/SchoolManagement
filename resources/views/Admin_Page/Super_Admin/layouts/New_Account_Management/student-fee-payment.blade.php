@@ -396,8 +396,8 @@
                </div>
             </div>
             <div class="d-flex mt-2">
-              <img class="border p-2 parent-image" src="#" alt="parent" style="width:100px;">
-              <div class="px-3" style="line-height:23px;">
+              {{-- <img class="border p-2 parent-image" src="#" alt="parent" style="width:70px;"> --}}
+              <div class="px-2" style="line-height:23px;">
                   <div class="d-flex">
                      <span>Parent :</span>
                      <span class="father-name">Momtaj Husen</span>
@@ -436,10 +436,10 @@
                            <span class="ml-2">Students</span> 
                         </div>
                      </th>
-                      <th scope="col">Fee</th>
-                      <th scope="col">Paid</th>
-                      <th scope="col">Disc</th>
-                      <th scope="col">Dues</th>
+                      <th scope="col" nowrap="nowrap">Fee</th>
+                      <th scope="col" nowrap="nowrap">Paid</th>
+                      <th scope="col" nowrap="nowrap">Disc</th>
+                      <th scope="col" nowrap="nowrap">Dues</th>
                       {{-- <th scope="col">Action</th> --}}
                     </tr>
                   </thead>
@@ -482,10 +482,10 @@
                            </div>
       
                         </td>
-                        <td class='text-center text-light'>₹ <span class="total-fee-multi">0</span></td>
-                        <td class='text-center text-light'>₹ <span class="total-paid-multi">0</span></td>
-                        <td class='text-center text-light'>₹ <span class="total-disc-multi">0</span></td>
-                        <td class='text-center text-light'>₹ <span class="total-dues-multi">0</span></td>
+                        <td nowrap="nowrap" class='text-center text-light'>₹ <span class="total-fee-multi">0</span></td>
+                        <td nowrap="nowrap" class='text-center text-light'>₹ <span class="total-paid-multi">0</span></td>
+                        <td nowrap="nowrap" class='text-center text-light'>₹ <span class="total-disc-multi">0</span></td>
+                        <td nowrap="nowrap" class='text-center text-light'>₹ <span class="total-dues-multi">0</span></td>
                     </tr>
                   </tbody>
                </table>

@@ -257,7 +257,7 @@ class StudentsFeePayment extends Controller
                 $StudentsFeePaidHistory->particular_data =  $data_fee_particular;
                 $StudentsFeePaidHistory->pay_month = json_encode($pay_month_array);
                 $StudentsFeePaidHistory->fee = $fee_amount;
-                $StudentsFeePaidHistory->paid = $paid_amount - $disc_amount;
+                $StudentsFeePaidHistory->paid = $paid_amount;
                 $StudentsFeePaidHistory->disc = $disc_amount;
                 $StudentsFeePaidHistory->dues = $dues_amount;
                 $StudentsFeePaidHistory->comment_disc = $comment_disc;
@@ -356,13 +356,12 @@ class StudentsFeePayment extends Controller
                             $per_mon_disc = $per_st_disc / count($pay_month_array);
                             $per_mon_dues = $per_st_dues / count($pay_month_array);
 
-        
                             // Retrive Month Fee
-                            $fee_month = $fee_details->$pay_month - $student_disc_record->$pay_month;
-  
+                            $payment = $fee_details->$pay_month - $per_mon_dues;
+
                             $discount = $per_mon_disc + $student_disc_record->$pay_month;
 
-                            $student_paid_record->$pay_month  = $per_mon_paid;
+                            $student_paid_record->$pay_month  = $payment - $per_mon_disc;
                             $student_disc_record->$pay_month  = $discount;
                             $student_dues_record->$pay_month = $per_mon_dues;
 
