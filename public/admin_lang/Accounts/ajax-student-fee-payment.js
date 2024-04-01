@@ -131,20 +131,28 @@ $(document).ready(function(){
             if(response.student_details)
             {
                 $(".students-table").html(''); 
-                var total_fee = 0;
-                var total_paid = 0;
-                var total_disc = 0;
-                var total_dues = 0;
+                var sum_total_fee = 0;
+                var sum_total_paid = 0;
+                var sum_total_disc = 0;
+                var sum_total_dues = 0;
                 var all_st_id = [];
 
                 response.student_details.forEach(element => {
                     var student_name = element.first_name+' '+element.last_name;
                     var classes = element.class+' '+element.section;
 
-                    total_fee += element.total_fee;
-                    total_paid += element.total_paid;
-                    total_disc += element.total_disc;
-                    total_dues += element.total_dues;
+                    
+                    var total_fee = Math.ceil(element.total_fee);
+                    var total_paid = Math.ceil(element.total_paid);
+                    var total_disc = Math.ceil(element.total_disc);
+                    var total_dues = Math.ceil(element.total_dues);
+                    
+
+
+                    sum_total_fee += element.total_fee;
+                    sum_total_paid += element.total_paid;
+                    sum_total_disc += element.total_disc;
+                    sum_total_dues += element.total_dues;
 
                     all_st_id.push(element.id);
 
@@ -169,34 +177,35 @@ $(document).ready(function(){
                                         </div>
                                     </div>
                                 </div>
-                                <button class="bg-info `+single_btn+` take-pay-multi border-0 text-light btn rounded py-2 px-3" dues="`+element.total_dues+`" all_st_id="`+element.id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Single Paid</button>
+                                <button class="bg-info `+single_btn+` take-pay-multi border-0 text-light btn rounded py-2 px-3" dues="`+total_dues+`" all_st_id="`+element.id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Single Paid</button>
                             </div>
                         </td>
-                        <td class='text-center' nowrap="nowrap">₹ `+element.total_fee.toFixed(2)+`</td>
-                        <td class='text-center' nowrap="nowrap">₹ `+element.total_paid.toFixed(2)+`</td>
-                        <td class='text-center' nowrap="nowrap">₹ `+element.total_disc.toFixed(2)+`</td>
-                        <td class='text-center' nowrap="nowrap">₹ `+element.total_dues.toFixed(2)+`</td>
+                        <td class='text-center' nowrap="nowrap">₹ `+total_fee+`</td>
+                        <td class='text-center' nowrap="nowrap">₹ `+total_paid+`</td>
+                        <td class='text-center' nowrap="nowrap">₹ `+total_disc+`</td>
+                        <td class='text-center' nowrap="nowrap">₹ `+total_dues+`</td>
                     </tr>
                 `);
                 
                 });
 
-                $('.total-fee-multi').html(total_fee.toFixed(2));
-                $('.total-paid-multi').html(total_paid.toFixed(2));
-                $('.total-disc-multi').html(total_disc.toFixed(2));
-                $('.total-dues-multi').html(total_dues.toFixed(2));
+                $('.total-fee-multi').html(sum_total_fee.toFixed(0));
+                $('.total-paid-multi').html(sum_total_paid.toFixed(0));
+                $('.total-disc-multi').html(sum_total_disc.toFixed(0));
+                $('.total-dues-multi').html(sum_total_dues.toFixed(0));
+                
                 $(".paid_btn").attr('pr_id', pr_id);
                 $('.all_student_st').attr('st_id', all_st_id);
 
 
 
                 var multi_paid_btn = 'd-none';
-                if(total_dues != 0){
+                if(sum_total_dues != 0){
                     multi_paid_btn = '';
                 }
 
                 $('.multiple-paid-btn').html(`
-                    <button pr_id='`+pr_id+`' class="bg-info `+multi_paid_btn+` take-pay-multi border-0 text-light btn rounded ml-3 py-3 px-4" dues="`+total_dues+`" all_st_id="`+all_st_id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Multi Paid</button>
+                    <button pr_id='`+pr_id+`' class="bg-info `+multi_paid_btn+` take-pay-multi border-0 text-light btn rounded ml-3 py-3 px-4" dues="`+sum_total_dues.toFixed(0)+`" all_st_id="`+all_st_id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Multi Paid</button>
                 `);
 
                 // month status 
@@ -297,52 +306,54 @@ $(document).ready(function(){
 
 
                     $('.student-month-fee').append(`
-                        <tr class="text-center bg-secondary text-light">
-                            <th scope="row">1</th>
-                            <td nowrap="nowrap">`+data.student_name+`</td>
-                            <td nowrap="nowrap">`+data.year+`</td>
-                            <td nowrap="nowrap">₹ `+data.total_fee+`</td>
-                            <td nowrap="nowrap">₹ `+actual_paid+`</td>
-                            <td nowrap="nowrap">₹ `+data.total_disc+`</td>
-                            <td nowrap="nowrap">₹ `+data.total_dues+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_0+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_1+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_2+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_3+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_4+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_5+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_6+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_7+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_8+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_9+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_10+`</td>
-                            <td nowrap="nowrap">₹ `+data.month_11+`</td>
-                        </tr>
-                    `);
+                    <tr class="text-center bg-secondary text-light">
+                        <th scope="row">1</th>
+                        <td nowrap="nowrap">`+data.student_name+`</td>
+                        <td nowrap="nowrap">`+data.year+`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.total_fee) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(actual_paid) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.total_disc) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.total_dues) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_0) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_1) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_2) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_3) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_4) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_5) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_6) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_7) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_8) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_9) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_10) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.month_11) +`</td>
+                    </tr>
+                `);
+                
                 });
 
                 $('.student-month-fee').append(`
                 <tr class="text-center bg-dark text-light">
                     <th scope="row">1</th>
                     <td nowrap="nowrap" colspan="2">Total Fee</td>
-                    <td nowrap="nowrap">₹ `+ multi_total_fee+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_total_paid+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_total_disc+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_total_dues+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_0+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_1+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_2+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_3+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_4+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_5+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_6+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_7+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_8+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_9+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_10+`</td>
-                    <td nowrap="nowrap">₹ `+ multi_month_11+`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_total_fee) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_total_paid) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_total_disc) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_total_dues) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_0) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_1) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_2) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_3) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_4) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_5) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_6) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_7) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_8) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_9) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_10) +`</td>
+                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_11) +`</td>
                 </tr>
             `);
+            
 
 
             }else{
@@ -714,7 +725,7 @@ $(document).ready(function(){
 
                     var total_paid = total_paid+total_disc;
                     $('.paid-history-table').append(`
-                      <tr class="text-center">
+                      <tr class="text-center bg-dark text-light">
                         <th scope="row">#</th>
                         <td nowrap="nowrap">Total</td>
                         <td nowrap="nowrap">₹ `+total_fee+`</td>

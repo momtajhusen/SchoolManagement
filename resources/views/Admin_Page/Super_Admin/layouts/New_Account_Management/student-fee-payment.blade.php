@@ -496,7 +496,7 @@
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                <table class="table table-striped table-sm table-responsive-md">
                   <thead>
-                    <tr class="text-center">
+                    <tr class="text-center bg-dark text-light">
                       <th scope="col">SN.</th>
                       <th scope="col">Months</th>
                       <th scope="col">Fee</th>
@@ -508,7 +508,7 @@
                       <th scope="col">Reset</th>
                     </tr>
                   </thead>
-                  <tbody class="paid-history-table ">
+                  <tbody class="paid-history-table">
                      {{-- payment history  --}}
                   </tbody>
                 </table>

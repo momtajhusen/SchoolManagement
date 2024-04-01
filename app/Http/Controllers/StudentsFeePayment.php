@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\HelperController\StudentAccountFee;
 use App\Models\Parents;
@@ -64,9 +65,10 @@ class StudentsFeePayment extends Controller
                         $student->total_fee = $total_fee;
                         $student->total_paid = $total_paid;
                         $student->total_disc = $total_disc;
-    
-                        $dues_amount_sum = (int) ltrim((string) ($total_paid + $total_disc - $total_fee), '-');
-                        $student->total_dues =  $dues_amount_sum;
+
+                        $paid_disc = $total_paid + $total_disc;
+                        // $dues_amount_sum = (int) ltrim((string) ($total_paid + $total_disc - $total_fee), '-');
+                        $student->total_dues =  $total_fee - $paid_disc;
 
                     }    
                 } else {
@@ -234,156 +236,188 @@ class StudentsFeePayment extends Controller
     
     public function StudentFeePaid(Request $request)
     {
-        try {
-            $pay_month_array = $request->pay_month_array;
-            $st_id_array = $request->st_id_array;
-            $fee_year = $request->fee_year;
-            $fee_amount = $request->fee_amount;
-            $paid_amount = $request->paid_amount;
-            $disc_amount = $request->disc_amount;
-            $dues_amount = $request->dues_amount;
-            $comment_disc = $request->comment_disc;
-            $pay_date = $request->pay_date;
-            $data_fee_particular = $request->data_fee_particular;
-            $pr_id = $request->pr_id;
+         // Validation rules
+            $rules = [
+                'pay_month_array' => 'required|array',
+                'st_id_array' => 'required|array',
+                'fee_year' => 'required|integer',
+                'fee_amount' => 'required|numeric',
+                'paid_amount' => 'required|numeric',
+                'disc_amount' => 'required|numeric',
+                'dues_amount' => 'required|numeric',
+                'comment_disc' => 'nullable|string',
+                'pay_date' => 'required|date',
+                'data_fee_particular' => 'required|json',
+                'pr_id' => 'required|integer',
+            ];
+            // Perform validation
+            $validator = Validator::make($request->all(), $rules);
+            // Check if validation fails
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            try {
+                $pay_month_array = $request->pay_month_array;
+                $st_id_array = $request->st_id_array;
+                $fee_year = $request->fee_year;
+                $fee_amount = $request->fee_amount;
+                $paid_amount = $request->paid_amount;
+                $disc_amount = $request->disc_amount;
+                $dues_amount = $request->dues_amount;
+                $comment_disc = $request->comment_disc;
+                $pay_date = $request->pay_date;
+                $data_fee_particular = $request->data_fee_particular;
+                $pr_id = $request->pr_id;
 
 
 
-            ////////////////////// Start History Save //////////////////////
-                $StudentsFeePaidHistory = new StudentsFeePaidHistory(); 
-                $StudentsFeePaidHistory->st_id = json_encode($st_id_array);
-                $StudentsFeePaidHistory->pr_id = $pr_id;
-                $StudentsFeePaidHistory->fee_year = $fee_year;
-                $StudentsFeePaidHistory->particular_data =  $data_fee_particular;
-                $StudentsFeePaidHistory->pay_month = json_encode($pay_month_array);
-                $StudentsFeePaidHistory->fee = $fee_amount;
-                $StudentsFeePaidHistory->paid = $paid_amount;
-                $StudentsFeePaidHistory->disc = $disc_amount;
-                $StudentsFeePaidHistory->dues = $dues_amount;
-                $StudentsFeePaidHistory->comment_disc = $comment_disc;
-                $StudentsFeePaidHistory->pay_with = 'Cash';
-                $StudentsFeePaidHistory->pay_date = $pay_date;
-                $StudentsFeePaidHistory->save();                        
-            ////////////////////// End History Save ////////////////////// 
+           
 
-            /////////////////////// Start Fee Data Save For Reset ///////////////
-                foreach ($st_id_array as $st_id) {
-                    // Fetch corresponding records for Paid, Disc, and Dues
-                    $StudentsFeePaid = StudentsFeePaid::where('st_id', $st_id)->where('year', $fee_year)->first();
-                    $StudentsFeeDisc = StudentsFeeDisc::where('st_id', $st_id)->where('year', $fee_year)->first();
-                    $StudentsFeeDues = StudentsFeeDues::where('st_id', $st_id)->where('year', $fee_year)->first();
+                ////////////////////// Start History Save //////////////////////
+                    $StudentsFeePaidHistory = new StudentsFeePaidHistory(); 
+                    $StudentsFeePaidHistory->st_id = json_encode($st_id_array);
+                    $StudentsFeePaidHistory->pr_id = $pr_id;
+                    $StudentsFeePaidHistory->fee_year = $fee_year;
+                    $StudentsFeePaidHistory->particular_data =  $data_fee_particular;
+                    $StudentsFeePaidHistory->pay_month = json_encode($pay_month_array);
+                    $StudentsFeePaidHistory->fee = $fee_amount;
+                    $StudentsFeePaidHistory->paid = $paid_amount;
+                    $StudentsFeePaidHistory->disc = $disc_amount;
+                    $StudentsFeePaidHistory->dues = $dues_amount;
+                    $StudentsFeePaidHistory->comment_disc = $comment_disc;
+                    $StudentsFeePaidHistory->pay_with = 'Cash';
+                    $StudentsFeePaidHistory->pay_date = $pay_date;
+                    $StudentsFeePaidHistory->save();                        
+                ////////////////////// End History Save ////////////////////// 
 
-                    // Iterate through different fee types (Paid, Disc, Dues)
-                    $feeTypes = ['students_fee_paids', 'students_fee_disc', 'students_fee_dues'];
-                    foreach ($feeTypes as $feeType) {
-                        $StudentsFeeForReset = new StudentsFeeForReset();
-                        $StudentsFeeForReset->hs_id = $StudentsFeePaidHistory->id;
-                        $StudentsFeeForReset->st_id = $st_id;
-                        $StudentsFeeForReset->year = $feeType === 'students_fee_paids' ? ($StudentsFeePaid->year ?? $fee_year) : ($StudentsFeeDisc->year ?? $fee_year);
-                        
-                        // Assign month values dynamically based on fee type
-                        for ($i = 0; $i < 12; $i++) {
-                            $monthField = "month_$i";
-                            $monthValue = $feeType === 'students_fee_paids' ? ($StudentsFeePaid->$monthField ?? 0) : ($StudentsFeeDisc->$monthField ?? 0);
-                            $StudentsFeeForReset->$monthField = $monthValue;
+                /////////////////////// Start Fee Data Save For Reset ///////////////
+                    foreach ($st_id_array as $st_id) {
+                        // Fetch corresponding records for Paid, Disc, and Dues
+                        $StudentsFeePaid = StudentsFeePaid::where('st_id', $st_id)->where('year', $fee_year)->first();
+                        $StudentsFeeDisc = StudentsFeeDisc::where('st_id', $st_id)->where('year', $fee_year)->first();
+                        $StudentsFeeDues = StudentsFeeDues::where('st_id', $st_id)->where('year', $fee_year)->first();
+
+                        // Iterate through different fee types (Paid, Disc, Dues)
+                        $feeTypes = ['students_fee_paids', 'students_fee_disc', 'students_fee_dues'];
+                        foreach ($feeTypes as $feeType) {
+                            $StudentsFeeForReset = new StudentsFeeForReset();
+                            $StudentsFeeForReset->hs_id = $StudentsFeePaidHistory->id;
+                            $StudentsFeeForReset->st_id = $st_id;
+                            $StudentsFeeForReset->year = $feeType === 'students_fee_paids' ? ($StudentsFeePaid->year ?? $fee_year) : ($StudentsFeeDisc->year ?? $fee_year);
+                            
+                            // Assign month values dynamically based on fee type
+                            for ($i = 0; $i < 12; $i++) {
+                                $monthField = "month_$i";
+                                $monthValue = $feeType === 'students_fee_paids' ? ($StudentsFeePaid->$monthField ?? 0) : ($StudentsFeeDisc->$monthField ?? 0);
+                                $StudentsFeeForReset->$monthField = $monthValue;
+                            }
+
+                            $StudentsFeeForReset->table = $feeType;
+                            $StudentsFeeForReset->save();
                         }
-
-                        $StudentsFeeForReset->table = $feeType;
-                        $StudentsFeeForReset->save();
                     }
-                }
-            /////////////////////// End Fee Data Save For Reset ///////////////
+                /////////////////////// End Fee Data Save For Reset ///////////////
 
-            ////////////////////// Start StudentsFeePaid //////////////////////
-                // Loop through each student ID
-                foreach ($st_id_array as $st_id) {
-                    // Fetch fee details for the current student from StudentsFeeMonth table
-                    $fee_details = StudentsFeeMonth::where('st_id', $st_id)->where('year', $fee_year)->first();
+                ////////////////////// Start StudentsFeePaid //////////////////////
+                    // Loop through each student ID
+                    foreach ($st_id_array as $st_id) {
+                        // Fetch fee details for the current student from StudentsFeeMonth table
+                        $fee_details = StudentsFeeMonth::where('st_id', $st_id)->where('year', $fee_year)->first();
 
-                    $per_st_paid = $paid_amount / count($st_id_array);
-                    $per_st_disc = $disc_amount / count($st_id_array);
-                    $per_st_dues = $dues_amount / count($st_id_array);
+                        $per_st_paid = $paid_amount / count($st_id_array);
+                        $per_st_disc = $disc_amount / count($st_id_array);
+                        $per_st_dues = $dues_amount / count($st_id_array);
+                        
+
+                        if ($fee_details) {
+                            // Check if there is a record in StudentsFeePaid for this student
+                            $student_paid_record = StudentsFeePaid::where('st_id', $st_id)->where('year', $fee_year)->first();
+                            $student_disc_record = StudentsFeeDisc::where('st_id', $st_id)->where('year', $fee_year)->first();
+                            $student_dues_record = StudentsFeeDues::where('st_id', $st_id)->where('year', $fee_year)->first();
+
+                            // If StudentsFeePaid no record exists, create one
+                            if (!$student_paid_record) 
+                            {
+                                $student_paid_record = new StudentsFeePaid();
+                                $student_paid_record->st_id = $st_id;
+                                // Set all month columns to 0 as initial values
+                                foreach ($pay_month_array as $pay_month) {
+                                    $student_paid_record->$pay_month = 0;
+                                    $student_paid_record->year = $fee_year;
+                                }
+                                $student_paid_record->save();
+
+                            }
+                            // If StudentsFeeDisc no record exists, create one
+                            if (!$student_disc_record) 
+                            {
+                                $student_disc_record = new StudentsFeeDisc();
+                                $student_disc_record->st_id = $st_id;
+                                // Set all month columns to 0 as initial values
+                                foreach ($pay_month_array as $pay_month) {
+                                    $student_disc_record->$pay_month = 0;
+                                    $student_disc_record->year = $fee_year;
+                                }
+                                $student_disc_record->save();
+                            }
+                            // If StudentsFeeDues no record exists, create one
+                            if (!$student_dues_record) 
+                            {
+                                $student_dues_record = new StudentsFeeDues();
+                                $student_dues_record->st_id = $st_id;
+                                // Set all month columns to 0 as initial values
+                                foreach ($pay_month_array as $pay_month) {
+                                    $student_dues_record->$pay_month = 0;
+                                    $student_dues_record->year = $fee_year;
+                                }
+                                $student_dues_record->save();
+                            }
                     
-
-                    if ($fee_details) {
-                        // Check if there is a record in StudentsFeePaid for this student
-                        $student_paid_record = StudentsFeePaid::where('st_id', $st_id)->where('year', $fee_year)->first();
-                        $student_disc_record = StudentsFeeDisc::where('st_id', $st_id)->where('year', $fee_year)->first();
-                        $student_dues_record = StudentsFeeDues::where('st_id', $st_id)->where('year', $fee_year)->first();
-
-                        // If StudentsFeePaid no record exists, create one
-                        if (!$student_paid_record) 
-                        {
-                            $student_paid_record = new StudentsFeePaid();
-                            $student_paid_record->st_id = $st_id;
-                            // Set all month columns to 0 as initial values
+                            // Disc & Dues Save 
                             foreach ($pay_month_array as $pay_month) {
-                                $student_paid_record->$pay_month = 0;
-                                $student_paid_record->year = $fee_year;
+
+                                $per_mon_paid = $per_st_paid / count($pay_month_array);
+                                $per_mon_disc = $per_st_disc / count($pay_month_array);
+                                $per_mon_dues = $per_st_dues / count($pay_month_array);
+
+                                $discount = $per_mon_disc + $student_disc_record->$pay_month;
+
+                                $student_disc_record->$pay_month  = $discount;
+                                $student_dues_record->$pay_month = $per_mon_dues;
+                            }
+                            $student_disc_record->save();
+                            $student_dues_record->save();
+ 
+                            // Paid Save 
+                            foreach ($pay_month_array as $pay_month) {
+
+                                $fee = $fee_details->$pay_month;
+                                $disc = $student_disc_record->$pay_month;
+                                $dues = $student_dues_record->$pay_month;
+
+                                $disc_dues = $disc + $dues;
+                                $payment = $fee - $disc_dues;
+
+                                $student_paid_record->$pay_month  = $payment;
                             }
                             $student_paid_record->save();
 
-                        }
-                        // If StudentsFeeDisc no record exists, create one
-                        if (!$student_disc_record) 
-                        {
-                            $student_disc_record = new StudentsFeeDisc();
-                            $student_disc_record->st_id = $st_id;
-                            // Set all month columns to 0 as initial values
-                            foreach ($pay_month_array as $pay_month) {
-                                $student_disc_record->$pay_month = 0;
-                                $student_disc_record->year = $fee_year;
-                            }
-                            $student_disc_record->save();
-                        }
-                        // If StudentsFeeDues no record exists, create one
-                        if (!$student_dues_record) 
-                        {
-                            $student_dues_record = new StudentsFeeDues();
-                            $student_dues_record->st_id = $st_id;
-                            // Set all month columns to 0 as initial values
-                            foreach ($pay_month_array as $pay_month) {
-                                $student_dues_record->$pay_month = 0;
-                                $student_dues_record->year = $fee_year;
-                            }
-                            $student_dues_record->save();
-                        }
-                
-                        // Loop through each month in pay_month_array
-                        foreach ($pay_month_array as $pay_month) {
-
-                            $per_mon_paid = $per_st_paid / count($pay_month_array);
-                            $per_mon_disc = $per_st_disc / count($pay_month_array);
-                            $per_mon_dues = $per_st_dues / count($pay_month_array);
-
-                            // Retrive Month Fee
-                            $payment = $fee_details->$pay_month - $per_mon_dues;
-
-                            $discount = $per_mon_disc + $student_disc_record->$pay_month;
-
-                            $student_paid_record->$pay_month  = $payment - $per_mon_disc;
-                            $student_disc_record->$pay_month  = $discount;
-                            $student_dues_record->$pay_month = $per_mon_dues;
 
                         }
-                        $student_paid_record->save();
-                        $student_disc_record->save();
-                        $student_dues_record->save();
-
                     }
-                }
-            ////////////////////// End StudentsFeePaid //////////////////////
+                ////////////////////// End StudentsFeePaid //////////////////////
 
-            //Sum total_fee, total_paid, total_disc, total_dues
-            StudentAccountFee::StudentsFeeMonthsCalculate();
+                //Sum total_fee, total_paid, total_disc, total_dues
+                StudentAccountFee::StudentsFeeMonthsCalculate();
 
-            return response()->json(['status' =>  'success'], 200);
+                return response()->json(['status' =>  'success'], 200);
 
-        } catch (Exception $e) {
-            // Handle exceptions
-            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
-            return response()->json(['status' => $message], 500);
-        }
+            } catch (Exception $e) {
+                // Handle exceptions
+                $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+                return response()->json(['status' => $message], 500);
+            }
     }
 
     public function StudentFeePaidHistory(Request $request){

@@ -37,6 +37,7 @@ class StudentAccountFee extends Controller
             if($studentsFeePaid){
                 for ($i = 0; $i <= 11; $i++) {
                     $totalpaidFee += $studentsFeePaid->{"month_$i"};
+                    
                 }
             }
 
