@@ -32,7 +32,7 @@ class StudentsFeePayment extends Controller
         try {
             $pr_id = $request->pr_id;
             $selectedMonth = $request->selectedMonth;
-            $year = 2080;
+            $year = $request->current_year;
     
             $parent_data = Parents::where("id", $pr_id)->first();
             if ($parent_data) {

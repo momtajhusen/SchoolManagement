@@ -89,13 +89,15 @@ $(document).ready(function(){
     $('.month-check-input:checked').each(function() {
         selectedMonth.push($(this).val());
     });
- 
+
+    var current_year = NepaliFunctions.GetCurrentBsDate().year;
     $.ajax({
         url: "/parent-student-retrive",
         method: 'GET',
         data:{
             pr_id:pr_id,
-            selectedMonth: selectedMonth
+            selectedMonth: selectedMonth,
+            current_year:current_year
         },
          // Success 
         success:function(response)
@@ -154,7 +156,7 @@ $(document).ready(function(){
 
 
                     $(".students-table").append(`
-                    <tr class='students' st_id='`+element.id+`' style='cursor:pointer'>
+                    <tr class='students bg-secondary text-light' st_id='`+element.id+`' style='cursor:pointer'>
                         <td>
                             <div class='d-flex justify-content-between'>
                                 <div class='d-flex'>
@@ -295,7 +297,7 @@ $(document).ready(function(){
 
 
                     $('.student-month-fee').append(`
-                        <tr class="text-center">
+                        <tr class="text-center bg-secondary text-light">
                             <th scope="row">1</th>
                             <td nowrap="nowrap">`+data.student_name+`</td>
                             <td nowrap="nowrap">`+data.year+`</td>
@@ -320,7 +322,7 @@ $(document).ready(function(){
                 });
 
                 $('.student-month-fee').append(`
-                <tr class="text-center">
+                <tr class="text-center bg-dark text-light">
                     <th scope="row">1</th>
                     <td nowrap="nowrap" colspan="2">Total Fee</td>
                     <td nowrap="nowrap">₹ `+ multi_total_fee+`</td>

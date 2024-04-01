@@ -21,6 +21,11 @@
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
+
+   
+   {{-- Sorting Script  --}}
+   <script src="{{ asset('../admin_lang/common/sorting-script.js')}}?v={{ time() }}"></script>
+ 
    
 @endsection
 
@@ -428,26 +433,25 @@
           </nav>
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-               <table class="table table-bordered table-sm table-hover table-responsive-md">
+               <table class="table table-bordered table-sm table-hover table-responsive-md sortable-table">
                   <thead>
-                    <tr>
-                      <th scope="col">
-                        <div class="d-flex">
-                           <span class="ml-2">Students</span> 
-                        </div>
-                     </th>
-                      <th scope="col" nowrap="nowrap">Fee</th>
-                      <th scope="col" nowrap="nowrap">Paid</th>
-                      <th scope="col" nowrap="nowrap">Disc</th>
-                      <th scope="col" nowrap="nowrap">Dues</th>
-                      {{-- <th scope="col">Action</th> --}}
+                    <tr class="bg-dark text-light text-center">
+                        <th scope="col">
+                           <div class="d-flex">
+                              <span class="ml-2">Students</span> 
+                           </div>
+                        </th>
+                        <th scope="col" nowrap="nowrap" data-column="0">Fee</th>
+                        <th scope="col" nowrap="nowrap" data-column="1">Paid</th>
+                        <th scope="col" nowrap="nowrap" data-column="2">Disc</th>
+                        <th scope="col" nowrap="nowrap" data-column="3">Dues</th>
                     </tr>
                   </thead>
-                  <tbody class="students-table">
+                  <tbody class="students-table sortable-bordy">
                           {{-- hello  --}}
                   </tbody>
                   <tbody class="mult-total-row d-none">
-                     <tr class='bg-secondary'>
+                     <tr class='bg-dark'>
                         <td class='text-center'>   
                            <div class="d-flex align-items-center justify-content-between">
                               {{-- Start chekbox 1 to 12  --}}
@@ -480,7 +484,6 @@
                                   {{-- multi paid btn   --}}
                               </div>
                            </div>
-      
                         </td>
                         <td nowrap="nowrap" class='text-center text-light'>₹ <span class="total-fee-multi">0</span></td>
                         <td nowrap="nowrap" class='text-center text-light'>₹ <span class="total-paid-multi">0</span></td>
@@ -542,7 +545,7 @@
             <span>Fee Stracture</span>
             <table class="table table-bordered table-responsive-md">
                <thead>
-                 <tr class="text-center">
+                 <tr class="text-center bg-dark text-light">
                    <th scope="col">#</th>
                    <th scope="col">Student</th>
                    <th scope="col">Year</th>
