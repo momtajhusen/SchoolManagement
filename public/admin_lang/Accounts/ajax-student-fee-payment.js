@@ -300,7 +300,7 @@ $(document).ready(function(){
                     // Access the properties of each fee structure
                     var total_paid = data.total_paid;
                     var total_disc = data.total_disc;
-                    var actual_paid = data.total_paid;
+                    var actual_paid = data.total_paid - data.total_disc;
 
 
 
