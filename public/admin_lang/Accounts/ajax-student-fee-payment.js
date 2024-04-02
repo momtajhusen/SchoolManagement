@@ -280,22 +280,22 @@ $(document).ready(function(){
             if(response.StudentMonthFeeStracture.length != 0){
                 var studentMonthFeeStracture = response.StudentMonthFeeStracture;
                 studentMonthFeeStracture.forEach(function(data, index) {
-                    multi_total_fee += Number(data.total_fee);
-                    multi_total_paid += Number(data.total_paid);
-                    multi_total_disc += Number(data.total_disc);
-                    multi_total_dues += Number(data.total_dues);
-                    multi_month_0 += Number(data.month_0);
-                    multi_month_1 += Number(data.month_1);
-                    multi_month_2 += Number(data.month_2);
-                    multi_month_3 += Number(data.month_3);
-                    multi_month_4 += Number(data.month_4);
-                    multi_month_5 += Number(data.month_5);
-                    multi_month_6 += Number(data.month_6);
-                    multi_month_7 += Number(data.month_7);
-                    multi_month_8 += Number(data.month_8);
-                    multi_month_9 += Number(data.month_9);
-                    multi_month_10 += Number(data.month_10);
-                    multi_month_11 += Number(data.month_11);
+                    multi_total_fee += Math.ceil(data.total_fee);
+                    multi_total_paid += Math.ceil(data.total_paid);
+                    multi_total_disc += Math.ceil(data.total_disc);
+                    multi_total_dues += Math.ceil(data.total_dues);
+                    multi_month_0 += Math.ceil(data.month_0);
+                    multi_month_1 += Math.ceil(data.month_1);
+                    multi_month_2 += Math.ceil(data.month_2);
+                    multi_month_3 += Math.ceil(data.month_3);
+                    multi_month_4 += Math.ceil(data.month_4);
+                    multi_month_5 += Math.ceil(data.month_5);
+                    multi_month_6 += Math.ceil(data.month_6);
+                    multi_month_7 += Math.ceil(data.month_7);
+                    multi_month_8 += Math.ceil(data.month_8);
+                    multi_month_9 += Math.ceil(data.month_9);
+                    multi_month_10 += Math.ceil(data.month_10);
+                    multi_month_11 += Math.ceil(data.month_11);
 
  
                     $('.student-month-fee').append(`
@@ -324,26 +324,27 @@ $(document).ready(function(){
                 
                 });
  
+
                 $('.student-month-fee').append(`
                 <tr class="text-center bg-dark text-light">
                     <th scope="row">1</th>
                     <td nowrap="nowrap" colspan="2">Total Fee</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_total_fee) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_total_paid) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_total_disc) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_total_dues) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_0) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_1) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_2) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_3) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_4) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_5) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_6) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_7) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_8) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_9) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_10) +`</td>
-                    <td nowrap="nowrap">₹ `+ Math.ceil(multi_month_11) +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_total_fee +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_total_paid +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_total_disc +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_total_dues +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_0 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_1 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_2 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_3 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_4 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_5 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_6 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_7 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_8 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_9 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_10 +`</td>
+                    <td nowrap="nowrap">₹ `+ multi_month_11 +`</td>
                 </tr>
             `);
             
