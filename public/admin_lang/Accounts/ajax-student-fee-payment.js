@@ -722,8 +722,8 @@ $(document).ready(function(){
                             </tr>
                          `);
                     });
+ 
 
-                    var total_paid = total_paid-total_disc;
                     $('.paid-history-table').append(`
                       <tr class="text-center bg-dark text-light">
                         <th scope="row">#</th>
