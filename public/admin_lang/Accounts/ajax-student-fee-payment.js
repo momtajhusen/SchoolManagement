@@ -177,7 +177,7 @@ $(document).ready(function(){
                                         </div>
                                     </div>
                                 </div>
-                                <button class="bg-info `+single_btn+` take-pay-multi border-0 text-light btn rounded py-2 px-3" dues="`+total_dues+`" all_st_id="`+element.id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Single Paid</button>
+                                <button class="bg-info `+single_btn+` take-pay-multi border-0 text-light btn rounded py-2 px-3" dues="`+total_dues+`" pr_id='`+pr_id+`' all_st_id="`+element.id+`" data-toggle="modal" data-target="#feePaymentModal" style="cursor:pointer">Single Paid</button>
                             </div>
                         </td>
                         <td class='text-center' nowrap="nowrap">₹ `+total_fee+`</td>
