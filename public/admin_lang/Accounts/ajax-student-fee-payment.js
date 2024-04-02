@@ -161,8 +161,6 @@ $(document).ready(function(){
                         single_btn = '';
                     }
 
-
-
                     $(".students-table").append(`
                     <tr class='students bg-secondary text-light' st_id='`+element.id+`' style='cursor:pointer'>
                         <td>
@@ -196,7 +194,6 @@ $(document).ready(function(){
                 
                 $(".paid_btn").attr('pr_id', pr_id);
                 $('.all_student_st').attr('st_id', all_st_id);
-
 
 
                 var multi_paid_btn = 'd-none';
@@ -699,13 +696,13 @@ $(document).ready(function(){
                         var resetButtonClass = index != 0 ? 'd-none' : ''; 
  
 
-                    
+                           var paid_dus =  element.paid - element.disc;
                          $('.paid-history-table').append(`
                             <tr class="text-center">
                                 <th scope="row">`+sn+`</th>
                                 <td nowrap="nowrap">`+UptoFirstMonth+` to `+UptoLastMonth+`</td>
                                 <td nowrap="nowrap">₹ `+element.fee+`</td>
-                                <td nowrap="nowrap">₹ `+element.paid+`</td>
+                                <td nowrap="nowrap">₹ `+paid_dus+`</td>
                                 <td nowrap="nowrap">₹ `+element.disc+`</td>
                                 <td nowrap="nowrap">₹ `+element.dues+`</td>
                                 <td nowrap="nowrap">`+element.pay_date+`</td>
@@ -723,7 +720,7 @@ $(document).ready(function(){
                          `);
                     });
 
-                    var total_paid = total_paid+total_disc;
+                    var total_paid = total_paid - total_disc;
                     $('.paid-history-table').append(`
                       <tr class="text-center bg-dark text-light">
                         <th scope="row">#</th>
