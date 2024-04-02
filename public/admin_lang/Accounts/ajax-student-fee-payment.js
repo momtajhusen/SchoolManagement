@@ -724,6 +724,7 @@ $(document).ready(function(){
                     });
  
 
+                    var paid_disc = total_paid + total_disc;
                     $('.paid-history-table').append(`
                       <tr class="text-center bg-dark text-light">
                         <th scope="row">#</th>
@@ -731,7 +732,7 @@ $(document).ready(function(){
                         <td nowrap="nowrap">₹ `+total_fee+`</td>
                         <td nowrap="nowrap">₹ `+total_paid+`</td>
                         <td nowrap="nowrap">₹ `+total_disc+`</td>
-                        <td colspan="2" nowrap="nowrap">(Paid + Disc) ₹ `+total_paid+`</td>
+                        <td colspan="2" nowrap="nowrap">(Paid + Disc) ₹ `+paid_disc+`</td>
                         <td nowrap="nowrap"></td>
                         <td nowrap="nowrap">
                           <button pr_id='`+pr_id+`' year='`+year+`' class='btn reset-all-btn btn-block border border-primary d-flex align-items-center justify-content-center'>
