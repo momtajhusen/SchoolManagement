@@ -283,7 +283,7 @@ $(document).ready(function(){
                     multi_total_fee += Number(data.total_fee);
                     multi_total_paid += Number(data.total_paid);
                     multi_total_disc += Number(data.total_disc);
-                    multi_total_dues += Number(data.total_dues) - Number(data.total_disc);
+                    multi_total_dues += Number(data.total_dues);
                     multi_month_0 += Number(data.month_0);
                     multi_month_1 += Number(data.month_1);
                     multi_month_2 += Number(data.month_2);
@@ -297,22 +297,14 @@ $(document).ready(function(){
                     multi_month_10 += Number(data.month_10);
                     multi_month_11 += Number(data.month_11);
 
-                    // Access the properties of each fee structure
-                    var total_paid = data.total_paid;
-                    var total_disc = data.total_disc;
-                    var actual_paid = data.total_paid - data.total_disc;
-                    
-
-
-
-
+ 
                     $('.student-month-fee').append(`
                     <tr class="text-center bg-secondary text-light">
                         <th scope="row">1</th>
                         <td nowrap="nowrap">`+data.student_name+`</td>
                         <td nowrap="nowrap">`+data.year+`</td>
                         <td nowrap="nowrap">₹ `+ Math.ceil(data.total_fee) +`</td>
-                        <td nowrap="nowrap">₹ `+ Math.ceil(actual_paid) +`</td>
+                        <td nowrap="nowrap">₹ `+ Math.ceil(data.total_paid) +`</td>
                         <td nowrap="nowrap">₹ `+ Math.ceil(data.total_disc) +`</td>
                         <td nowrap="nowrap">₹ `+ Math.ceil(data.total_dues) +`</td>
                         <td nowrap="nowrap">₹ `+ Math.ceil(data.month_0) +`</td>
@@ -331,9 +323,7 @@ $(document).ready(function(){
                 `);
                 
                 });
-
-                // var multi_actual_paid = multi_total_paid - multi_total_disc;
-                // var multi_actual_dues = multi_total_fee - multi_actual_paid;
+ 
                 $('.student-month-fee').append(`
                 <tr class="text-center bg-dark text-light">
                     <th scope="row">1</th>
