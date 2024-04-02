@@ -280,22 +280,22 @@ $(document).ready(function(){
             if(response.StudentMonthFeeStracture.length != 0){
                 var studentMonthFeeStracture = response.StudentMonthFeeStracture;
                 studentMonthFeeStracture.forEach(function(data, index) {
-                    multi_total_fee += data.total_fee;
-                    multi_total_paid += data.total_paid;
-                    multi_total_disc += data.total_disc;
-                    multi_total_dues += data.total_dues;
-                    multi_month_0 += data.month_0;
-                    multi_month_1 += data.month_1;
-                    multi_month_2 += data.month_2;
-                    multi_month_3 += data.month_3;
-                    multi_month_4 += data.month_4;
-                    multi_month_5 += data.month_5;
-                    multi_month_6 += data.month_6;
-                    multi_month_7 += data.month_7;
-                    multi_month_8 += data.month_8;
-                    multi_month_9 += data.month_9;
-                    multi_month_10 += data.month_10;
-                    multi_month_11 += data.month_11;
+                    multi_total_fee += Number(data.total_fee);
+                    multi_total_paid += Number(data.total_paid);
+                    multi_total_disc += Number(data.total_disc);
+                    multi_total_dues += Number(data.total_dues);
+                    multi_month_0 += Number(data.month_0);
+                    multi_month_1 += Number(data.month_1);
+                    multi_month_2 += Number(data.month_2);
+                    multi_month_3 += Number(data.month_3);
+                    multi_month_4 += Number(data.month_4);
+                    multi_month_5 += Number(data.month_5);
+                    multi_month_6 += Number(data.month_6);
+                    multi_month_7 += Number(data.month_7);
+                    multi_month_8 += Number(data.month_8);
+                    multi_month_9 += Number(data.month_9);
+                    multi_month_10 += Number(data.month_10);
+                    multi_month_11 += Number(data.month_11);
 
  
                     $('.student-month-fee').append(`
