@@ -281,9 +281,9 @@ $(document).ready(function(){
                 var studentMonthFeeStracture = response.StudentMonthFeeStracture;
                 studentMonthFeeStracture.forEach(function(data, index) {
                     multi_total_fee += Number(data.total_fee);
-                    multi_total_paid += Number(data.total_paid) - Number(data.total_disc);
+                    multi_total_paid += Number(data.total_paid);
                     multi_total_disc += Number(data.total_disc);
-                    multi_total_dues += Number(data.total_dues);
+                    multi_total_dues += Number(data.total_dues) - Number(data.total_disc);
                     multi_month_0 += Number(data.month_0);
                     multi_month_1 += Number(data.month_1);
                     multi_month_2 += Number(data.month_2);
@@ -300,6 +300,7 @@ $(document).ready(function(){
                     // Access the properties of each fee structure
                     var total_paid = data.total_paid;
                     var total_disc = data.total_disc;
+                    var actual_paid = data.total_paid - data.total_disc;
                     
 
 
@@ -331,6 +332,8 @@ $(document).ready(function(){
                 
                 });
 
+                // var multi_actual_paid = multi_total_paid - multi_total_disc;
+                // var multi_actual_dues = multi_total_fee - multi_actual_paid;
                 $('.student-month-fee').append(`
                 <tr class="text-center bg-dark text-light">
                     <th scope="row">1</th>
