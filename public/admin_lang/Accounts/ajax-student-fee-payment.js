@@ -703,7 +703,6 @@ $(document).ready(function(){
                             <tr class="text-center">
                                 <th scope="row">`+sn+`</th>
                                 <td nowrap="nowrap">`+UptoFirstMonth+` to `+UptoLastMonth+`</td>
-                                <td nowrap="nowrap">₹ `+element.fee+`</td>
                                 <td nowrap="nowrap">₹ `+element.paid+`</td>
                                 <td nowrap="nowrap">₹ `+element.disc+`</td>
                                 <td nowrap="nowrap">₹ `+element.dues+`</td>
@@ -728,7 +727,6 @@ $(document).ready(function(){
                       <tr class="text-center bg-dark text-light">
                         <th scope="row">#</th>
                         <td nowrap="nowrap">Total</td>
-                        <td nowrap="nowrap">₹ `+total_fee+`</td>
                         <td nowrap="nowrap">₹ `+total_paid+`</td>
                         <td nowrap="nowrap">₹ `+total_disc+`</td>
                         <td colspan="2" nowrap="nowrap">(Paid + Disc) ₹ `+paid_disc+`</td>

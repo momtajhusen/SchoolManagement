@@ -499,7 +499,6 @@
                     <tr class="text-center bg-dark text-light">
                       <th scope="col">SN.</th>
                       <th scope="col">Months</th>
-                      <th scope="col">Fee</th>
                       <th scope="col">Paid</th>
                       <th scope="col">Disc</th>
                       <th scope="col">Dues</th>
