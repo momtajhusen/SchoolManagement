@@ -28,7 +28,6 @@ $(document).ready(function(){
 
     $('.select-option:first').trigger('click');
 });
- 
 
 // month unchecked checkbox 
 $(document).ready(function(){
@@ -52,8 +51,8 @@ $(document).ready(function(){
     });
 });
 
-// Start Select parent than retrive stundets 
-$(document).ready(function(){
+ // Start Select parent than retrive stundets 
+ $(document).ready(function(){
     // on change event
     $(".search-select").on("change", function(){
        var pr_id = $(this).val();
@@ -212,6 +211,7 @@ $(document).ready(function(){
                 for (var i = 0; i < 12; i++) {
                     var month = 'month_' + i;
                     var month_status = response.month_status[month];
+                    
                     if (month_status == "Paid") {
                         // Add bg-success class to the input elements
                         $('.check_month_' + i + ' input').prop("disabled", true);

@@ -541,7 +541,7 @@
             {{-- Start Selectd Student Fee Stracture Month Wize --}}
 
 
-            <span>Students Lager</span>
+            <span>Students Ledger</span>
             <table class="table table-bordered table-responsive-md">
                <thead>
                  <tr class="text-center bg-dark text-light">

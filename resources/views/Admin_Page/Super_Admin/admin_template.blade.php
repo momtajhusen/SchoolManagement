@@ -30,9 +30,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/style.css')}}">
 
-
     {{-- <link rel="stylesheet" href="{{ asset('../admin_template_assets/custom.css')}}"> --}}
-
 
     <!-- Google fa fa icon  -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -110,7 +108,6 @@
     <link rel="stylesheet"  href="{{ asset('../admin_template_assets/calculator/style.css')}}">
 
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-
 
 
 
@@ -1140,7 +1137,8 @@ updateNepalTime();
 
 </script>
 
-
+    {{-- Helper Date js  --}}
+    <script src="{{ asset('admin_lang/HelperScript/date.js')}}?v={{ time() }}"></script>
 </body>
 
 
