@@ -28,6 +28,8 @@
             <table class="table display data-table text-nowrap table-sm exportTable">
                 <thead>
                     <tr>
+                        <th>St_ID</th>
+                        <th>Pr_ID</th>
                         <th>Photo</th>
                         <th>Name</th>
                         <th>Gender</th>

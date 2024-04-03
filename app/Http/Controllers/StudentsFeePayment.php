@@ -83,16 +83,15 @@ class StudentsFeePayment extends Controller
                 }
 
                 $StudentMonthFeeStracture = [];
-                $studentFeeStructure = StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->first();
-                if ($studentFeeStructure) {
-                // Start Student Fee Structure Month 
-                    foreach ($student_data as $student) {
-                       $studentFeeStructure = StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->first();
+                foreach ($student_data as $student) {
+                    $studentFeeStructure = StudentsFeeMonth::where('year', $year)->where('st_id', $student->id)->first();
+                    if ($studentFeeStructure) {
                         $student_name = ($student->first_name ?? '') . ' ' . ($student->last_name ?? '');
                         $studentFeeStructure->student_name = $student_name;
                         $StudentMonthFeeStracture[] = $studentFeeStructure;
                     }
                 }
+                
                 
              
 

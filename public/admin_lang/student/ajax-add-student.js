@@ -28,7 +28,7 @@ $(document).ready(function () {
         }
 
 
-        var class_year = admission_date.split("-")[0];
+        var class_year = NepaliFunctions.GetCurrentBsDate().year;
         var parent_check = $(".parent-check").val();
 
 
