@@ -985,10 +985,12 @@
     <!-- Custom Js -->
     <script src="{{ asset('../admin_template_assets/js/main.js')}}"></script>
 
+    
+    <script src="{{ asset('../admin_lang/common/nepali_date/nepali.datepicker.js')}}" type="text/javascript"></script>
+
     <!--flaticon -->
     @yield('script')
 
-  <script src="{{ asset('../admin_lang/common/nepali_date/nepali.datepicker.js')}}" type="text/javascript"></script>
 
 
     <!-- Start Date Piceker Clander -->
