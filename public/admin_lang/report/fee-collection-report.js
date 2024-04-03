@@ -2,6 +2,7 @@ $(document).ready(function(){
     $(".select-colection").on("change",function(){
 
       var collection_option =  $(this).val();
+      var date = NepaliFunctions.GetCurrentBsDate();
 
       var optionText = $(this).find('option:selected').text();
       $(".collection-day").html(optionText);
@@ -12,9 +13,9 @@ $(document).ready(function(){
             url: "/get-collection-history",
             method: "GET",
             data: {
-                year:current_year,
-                month:current_month,
-                day:current_day,
+                year:date.year,
+                month:date.month,
+                day:date.day,
                 collection_option: collection_option,
             },
             success: function (response) {
@@ -128,13 +129,14 @@ $(document).ready(function(){
       
     });
 
+    var date = NepaliFunctions.GetCurrentBsDate();
     $.ajax({
         url: "/get-collection-history",
         method: "GET",
         data: {
-            year:current_year,
-            month:current_month,
-            day:current_day,
+            year:date.year,
+            month:date.month,
+            day:date.day,
             collection_option:  "today",
         },
         success: function (response) {
@@ -245,7 +247,7 @@ $(document).ready(function(){
 
             
             for (var i = 1; i <= 12; i++) {
-                var month_name = MonthsArray(i-1);
+                var month_name = NepaliFunctions.GetBsMonth(i-1);
                 var month = "month_"+i;
 
                 var generateAmount = response.GenerateMonthsAmount[month];
@@ -312,13 +314,14 @@ $(document).ready(function(){
 // Get Monthly Fee Generate 
 $(document).ready(function(){
 
+    var date = NepaliFunctions.GetCurrentBsDate();
     $.ajax({
         url: "/get-monthlyfee-generate",
         method: "GET",
         data: {
-            year:current_year,
-            month:current_month,
-            day:current_day,
+            year:date.year,
+            month:date.month,
+            day:date.day,
         },
         success: function (response) {
 
@@ -327,8 +330,8 @@ $(document).ready(function(){
             for (var i = 1; i <= 12; i++) 
             {
  
-                var Months = MonthsArray[i - 1];
- 
+                var Months = NepaliFunctions.GetBsMonths()[i - 1];
+            
                 $("#GenerateFeebox").append(`
                     <div class="col-6 col-md-6">
                         <div class="my-2 mr-1 monthBox">
