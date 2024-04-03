@@ -10,8 +10,7 @@ $(document).ready(function(){
     var page = segments[segments.length - 1];
 
     // current date 
-    var { year, month, day } = NepaliFunctions.GetCurrentBsDate();
-    var current_date = `${year}-${month}-${day}`;
+    var current_date = `${current_year}-${current_month}-${current_day}`;
  
     if (visitorId !== null) {
 

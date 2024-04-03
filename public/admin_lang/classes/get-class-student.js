@@ -4,14 +4,13 @@ $(document).ready(function(){
     $(".class-select").change(function(){
 
        var classvalue = $(this).val();
-       var year = NepaliFunctions.GetCurrentBsDate().year;
        
         $.ajax({
             url: "/get-class-roll",
             method: 'GET',
              data:{
                 class:classvalue,
-                year : year,
+                year : current_year,
              },
             success:function(response)
             {

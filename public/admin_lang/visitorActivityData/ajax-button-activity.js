@@ -1,7 +1,6 @@
 // Get Page Activity
 $(document).ready(function(){
-    var date = NepaliFunctions.GetCurrentBsDate();
-    var today = date.year+'-'+date.month+'-'+date.day;
+    var today = current_year+'-'+current_month+'-'+current_day;
     $(".activity_start_date, .activity_end_date").val(today);
 
     $("#search-btn").click(function(){

@@ -10,8 +10,6 @@ $(document).ready(function(){
       var select_section = $(".section-select").val();
       var select_subject = $(".select-subject").val();
 
-      var current_year = NepaliFunctions.GetCurrentBsDate().year;
-
       $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -139,8 +137,6 @@ $(document).ready(function(){
        var class_select = $(".class-select").val();
        var section_select = $(".section-select").val();
        var select_subject= $(".select-subject").val();
-
-       var current_year = NepaliFunctions.GetCurrentBsDate().year;
 
 
         var formData = new FormData(this);

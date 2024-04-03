@@ -1,8 +1,6 @@
 $(document).ready(function(){
 
-    var date = NepaliFunctions.GetCurrentBsDate();
-    var today = date.year+'-'+date.month+'-'+date.day;
-    var year = date.year;
+    alert(year);
  
         $.ajaxSetup({
             headers: {
@@ -14,7 +12,7 @@ $(document).ready(function(){
             url: "/get-salary-report",
             method: "GET",
             data: {
-            year:year,
+            year:current_year,
             },
             success: function (response) {
     

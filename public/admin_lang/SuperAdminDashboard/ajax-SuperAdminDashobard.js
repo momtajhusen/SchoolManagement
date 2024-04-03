@@ -1,7 +1,5 @@
 // Retrive All Student
 $(document).ready(function(){
-
-  var current_year = NepaliFunctions.GetCurrentBsDate().year;
  
     $.ajaxSetup({
         headers: {
@@ -125,8 +123,6 @@ $(document).ready(function(){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
-    var current_year = NepaliFunctions.GetCurrentBsDate().year;
 
     $.ajax({
         url: "/month-earning-charts",

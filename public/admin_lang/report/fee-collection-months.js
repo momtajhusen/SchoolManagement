@@ -5,9 +5,9 @@ $(document).ready(function(){
         url: "/get-collection-months",
         method: "GET",
         data: {
-            year:date.year,
-            month:date.month,
-            day:date.day,
+            year:current_year,
+            month:current_month,
+            day:current_day,
         },
         success: function (response) {
 

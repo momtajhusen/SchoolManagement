@@ -24,7 +24,6 @@ $(document).ready(function()
  
  
         var student_id = $("#st_id").html();
-        var select_year =  NepaliFunctions.GetCurrentBsDate().year;
         var select_month = $(this).attr("month");
 
 
@@ -56,7 +55,7 @@ $(document).ready(function()
             method: "GET",
             data: {
                 student_id: student_id,
-                year: select_year,
+                year: current_year,
                 months: JSON.stringify(monthsArray),
             },
             success: function (response) {

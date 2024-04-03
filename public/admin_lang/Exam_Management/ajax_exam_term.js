@@ -10,8 +10,6 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
  
         var formData = new FormData(this);
         formData.append("current_year", current_year);

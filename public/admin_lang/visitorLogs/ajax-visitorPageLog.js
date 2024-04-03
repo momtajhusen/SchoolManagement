@@ -21,8 +21,7 @@ $(document).ready(function () {
     localStorage.setItem('pageLogCurrentPage',  page);
 
     // current date 
-    var { year, month, day } = NepaliFunctions.GetCurrentBsDate();
-    var current_date = `${year}-${month}-${day}`;
+    var current_date = `${current_year}-${current_month}-${current_day}`;
 
     var visitorId = localStorage.getItem('visitorid');
     var visitorname = localStorage.getItem('visitorname');

@@ -1011,7 +1011,11 @@
     <!-- Calculator js -->
     <script src="{{ asset('../admin_template_assets/calculator/script.js')}}?v={{ time() }}"></script>
 
+{{-- Helper Date js  --}}
+<script src="{{ asset('admin_lang/HelperScript/date.js')}}?v={{ time() }}"></script>
+
 <script type="text/javascript">
+ 
 
     jQuery(document).ready(function () {
         $('.date-picker').nepaliDatePicker();
@@ -1034,17 +1038,13 @@
     $(document).ready(function(){
         $(".today-btn").click(function(){
         
-            var today =   $(this).parent().parent().find(".today-date");
-
-                var year = NepaliFunctions.GetCurrentBsDate().year;
-                var momth = NepaliFunctions.GetCurrentBsDate().month;
-                var day = NepaliFunctions.GetCurrentBsDate().day;
+                var today =   $(this).parent().parent().find(".today-date");
                 
                 for (var i = 0; i < today.length; i++) {
                 // Set the value of the current input element
-                var dayString = day.toString().padStart(2, '0');
+                var dayString = current_day.toString().padStart(2, '0');
 
-                var today =  today[i].value = year+"-"+momth+"-"+dayString;
+                var today =  today[i].value = current_year+"-"+current_month+"-"+dayString;
 
                 // $(this).parent().parent().find("input").val(today[i].value = dayString+"/"+momth+"/"+year);
 
@@ -1092,11 +1092,9 @@ $(document).ready(function() {
 
 // Current Nepal Date
 $(document).ready(function(){
-    var year = NepaliFunctions.GetCurrentBsDate().year;
-    var month = NepaliFunctions.GetCurrentBsDate().month;
-    var day = NepaliFunctions.GetCurrentBsDate().day;
-    var current_date = year + "-" + month + "-" + day;
-    var current_satrt = year + "-" + month + "-1";
+
+    var current_date = current_year + "-" + current_month + "-" + current_day;
+    var current_satrt = current_year + "-" + current_month + "-1";
 
     $(".currentDate").val(current_date);
     $(".currentSatrtDate").val(current_satrt);
@@ -1137,8 +1135,7 @@ updateNepalTime();
 
 </script>
 
-    {{-- Helper Date js  --}}
-    <script src="{{ asset('admin_lang/HelperScript/date.js')}}?v={{ time() }}"></script>
+
 </body>
 
 

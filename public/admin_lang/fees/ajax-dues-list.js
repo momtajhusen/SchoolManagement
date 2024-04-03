@@ -9,10 +9,6 @@ $(document).ready(function(){
             var select_class =  $("#class-select").val();
             var select_section =  $(".section-select").val();
 
-            var current_year = NepaliFunctions.GetCurrentBsDate().year;
-            var current_month = NepaliFunctions.GetCurrentBsDate().month;
-            var current_day = NepaliFunctions.GetCurrentBsDate().day;
-
             var current_date = current_year+"-"+current_month+"-"+current_day;
 
             $(".studnt-table").html(``);
@@ -568,9 +564,7 @@ $(document).ready(function(){
 // checkbox Condition auto select 
 $(document).ready(function() {
 
-    var current_month = NepaliFunctions.GetCurrentBsDate().month-1;
-
-    for (var i = 0; i <= current_month; i++) {
+    for (var i = 0; i <= decremented_current_month; i++) {
          $('input[value="month_' + i + '"]').click();
     }
 

@@ -7,9 +7,7 @@ $(document).ready(function(){
           var checkboxes = $('.check-box');
           var checkedBoxes = checkboxes.filter(':checked');
           var numChecked = checkedBoxes.length;
-  
-          var current_year = NepaliFunctions.GetCurrentBsDate().year;
-  
+ 
               if(numChecked != "0")
               {
                   ///////// Start Select Month Set ////////
@@ -162,8 +160,7 @@ $(document).ready(function(){
   
    $(document).ready(function(){
    
-      var current_month = NepaliFunctions.GetCurrentBsDate().month-1;
-  
+ 
       for (var i = 0; i <= current_month; i++) {
            $('input[value="month_' + i + '"]').click();
       }

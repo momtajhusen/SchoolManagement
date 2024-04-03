@@ -89,7 +89,6 @@ $(document).ready(function(){
         selectedMonth.push($(this).val());
     });
 
-    var current_year = NepaliFunctions.GetCurrentBsDate().year;
     $.ajax({
         url: "/parent-student-retrive",
         method: 'GET',
@@ -248,9 +247,7 @@ $(document).ready(function(){
                 // month status 
 
                 if(selectedMonth.length == 0){
-                    var current_month = NepaliFunctions.GetCurrentBsDate().month - 1;
-                    var month = 'month_' + current_month;
-
+                    var month = 'month_' + decremented_current_month;
                     if(response.month_status[month] != 'Paid'){
                         $('.check_month_' + current_month + ' input').click();
                     }
@@ -393,7 +390,6 @@ $(document).ready(function(){
         $('.paid_btn').attr('all_st_id', all_st_id);
 
         var st_id_array = all_st_id.split(',');
-        var fee_year = NepaliFunctions.GetCurrentBsDate().year;
         var month_array = [];
         $('.month-check-input:checked').each(function() {
             var value = $(this).val();
@@ -401,7 +397,7 @@ $(document).ready(function(){
             month_array.push(monthNumber);
         });
 
-        var UptoMonth = NepaliFunctions.GetBsMonths()[month_array.length -1 ];
+        var UptoMonth = MonthsArray[month_array.length -1 ];
 
         $('.up-to-month').html('Up to '+UptoMonth);
 
@@ -418,7 +414,7 @@ $(document).ready(function(){
             method: "GET", 
             data: {
                 month_array: month_array,
-                fee_year: fee_year,
+                fee_year: current_year,
                 st_id_array: st_id_array,
                 pr_id: pr_id,
             },
@@ -567,7 +563,6 @@ $(document).ready(function(){
         var dues_amount =  $('#dues_input').val();
         var comment_disc = $('#comment_disc').val();
         var pay_date = $('#pay_date').val();
-        var fee_year = NepaliFunctions.GetCurrentBsDate().year;
 
         var all_st_id = $(this).attr('all_st_id');
         var st_id_array = all_st_id.split(',');
@@ -592,7 +587,7 @@ $(document).ready(function(){
             method: "POST", 
             data: {
                 pay_month_array: payMonthArray,
-                fee_year: fee_year,
+                fee_year: current_year,
                 fee_amount: fee_amount,
                 paid_amount: paid_amount,
                 disc_amount: disc_amount,
@@ -635,9 +630,9 @@ $(document).ready(function(){
 // Paid History 
 $(document).ready(function(){
     $('.history-btn').click(function(){
-
-        var year = NepaliFunctions.GetCurrentBsDate().year;
+ 
         var pr_id = $(".pr-id").html();
+ 
 
         $.ajaxSetup({
             headers: {
@@ -649,7 +644,7 @@ $(document).ready(function(){
             url: "/student-paid-history",
             method: "GET", 
             data: {
-                year: year,
+                year: current_year,
                 pr_id: pr_id,
             },
             success: function (response) {
@@ -682,8 +677,8 @@ $(document).ready(function(){
                         var firstMonthNumber = parseInt(firstMonthString.match(/\d+/)[0]);
                         var lastMonthNumber = parseInt(lastMonthString.match(/\d+/)[0]);
 
-                        var UptoFirstMonth = NepaliFunctions.GetBsMonths()[firstMonthNumber].substring(0, 3);
-                        var UptoLastMonth = NepaliFunctions.GetBsMonths()[lastMonthNumber].substring(0, 3);
+                        var UptoFirstMonth = MonthsArray[firstMonthNumber].substring(0, 3);
+                        var UptoLastMonth = MonthsArray[lastMonthNumber].substring(0, 3);
 
                         total_fee += Number(element.fee);
                         total_paid += Number(element.paid);
@@ -727,7 +722,7 @@ $(document).ready(function(){
                         <td colspan="2" nowrap="nowrap">(Paid + Disc) ₹ `+paid_disc+`</td>
                         <td nowrap="nowrap"></td>
                         <td nowrap="nowrap">
-                          <button pr_id='`+pr_id+`' year='`+year+`' class='btn reset-all-btn btn-block border border-primary d-flex align-items-center justify-content-center'>
+                          <button pr_id='`+pr_id+`' year='`+current_year+`' class='btn reset-all-btn btn-block border border-primary d-flex align-items-center justify-content-center'>
                            <span class="material-symbols-outlined" style='font-size:10px;'>restart_alt</span> Reset All
                           </button>
                         </td>
@@ -792,8 +787,8 @@ $(document).ready(function(){
                     var firstMonthNumber = parseInt(firstMonthString.match(/\d+/)[0]);
                     var lastMonthNumber = parseInt(lastMonthString.match(/\d+/)[0]);
 
-                    var UptoFirstMonth = NepaliFunctions.GetBsMonths()[firstMonthNumber].substring(0, 3);
-                    var UptoLastMonth = NepaliFunctions.GetBsMonths()[lastMonthNumber].substring(0, 3);
+                    var UptoFirstMonth = MonthsArray[firstMonthNumber].substring(0, 3);
+                    var UptoLastMonth = MonthsArray[lastMonthNumber].substring(0, 3);
 
                 
                     var student_tr = '';

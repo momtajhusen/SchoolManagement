@@ -1,14 +1,8 @@
 // Retrive  Student For Update
 $(document).ready(function () {
  
-
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
-      
- 
         var student_id = $("#student_id").val();
  
- 
-
         if (student_id != "") {
             $.ajaxSetup({
                 headers: {
@@ -285,7 +279,6 @@ $(document).ready(function () {
             },
         });
 
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
         var parent_check = $(".parent-check").val();
 
         if($(".parent-check").val() == "existing_parent")
@@ -425,7 +418,6 @@ $(document).ready(function () {
 $(document).ready(function(){
     $(".class-select").change(function () {
         var classvalue = $(this).val();
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
 
         $.ajax({
             url: "/class-section",

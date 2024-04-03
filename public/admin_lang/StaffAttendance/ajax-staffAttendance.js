@@ -2,8 +2,7 @@
 // Retrive attendance on date button click 
 $(document).ready(function () {
  
-    var dateData = NepaliFunctions.GetCurrentBsDate();
-    var current_date = dateData.year+'-'+dateData.month+'-'+dateData.day;
+    var current_date = current_year+'-'+current_month+'-'+current_day;
     $("#today-date").val(current_date);
 
     $("#attendance-date-btn").click(function(){

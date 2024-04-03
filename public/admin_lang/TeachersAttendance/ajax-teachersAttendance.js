@@ -1,8 +1,7 @@
 // Retrive attendance on date button click 
 $(document).ready(function () {
- 
-    var dateData = NepaliFunctions.GetCurrentBsDate();
-    var current_date = dateData.year+'-'+dateData.month+'-'+dateData.day;
+
+    var current_date = current_year+'-'+current_month+'-'+current_day;
     $("#today-date").val(current_date);
 
     $("#attendance-date-btn").click(function(){
@@ -26,7 +25,7 @@ $(document).ready(function () {
         $.ajax({
             url: "/get-teacher-attendance-period",
             data:{
-                year:dateData.year,
+                year:current_year,
                 date:todayDate,
             },
             method: "GET",
@@ -158,7 +157,6 @@ $(document).ready(function () {
         var totalPresentPeriod = 0;
         var totalAbsentPeriod = 0;
 
-        var dateData = NepaliFunctions.GetCurrentBsDate();
 
         var todayDate = $("#today-date").val();
 

@@ -3,10 +3,9 @@ $(document).ready(function(){
  
         if($('.select-class').val() != "")
         {
-            var select_month = NepaliFunctions.GetCurrentBsDate().month - 1;
  
             // Add readonly attribute to the input fields for past months
-            // for (var i = 0; i <= select_month; i++) 
+            // for (var i = 0; i <= current_month; i++) 
             // {
             //     var month_input = "month_" + i + "[]";
             //     $("input[name='" + month_input + "']").attr("readonly", true);
@@ -38,8 +37,7 @@ $(document).ready(function(){
         `);
 
         // Add readonly attribute to the input fields for past months
-        // var select_month = NepaliFunctions.GetCurrentBsDate().month;
-        // for (var i = 0; i < select_month; i++) { // modify the condition of the loop
+        // for (var i = 0; i < current_month; i++) { // modify the condition of the loop
         //     var month_input = "month_" + i + "[]";
         //     $("input[name='" + month_input + "']").attr("readonly", true);
         //     $("input[name='" + month_input + "']").css("background", "#f0f1f3");

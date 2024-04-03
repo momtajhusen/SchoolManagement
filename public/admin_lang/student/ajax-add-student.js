@@ -27,8 +27,6 @@ $(document).ready(function () {
             return false;
         }
 
-
-        var class_year = NepaliFunctions.GetCurrentBsDate().year;
         var parent_check = $(".parent-check").val();
 
 
@@ -49,7 +47,7 @@ $(document).ready(function () {
 
  
         var formData = new FormData(this);
-        formData.append("class_year", class_year);
+        formData.append("class_year", current_year);
         formData.append("parent_check", parent_check);
         formData.append("parent_existing_id", selectedParentId);
         formData.append("student_image_name", student_image_name);

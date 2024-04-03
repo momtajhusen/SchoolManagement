@@ -4,7 +4,7 @@ $(document).ready(function(){
          if ($(".payment-table").html() != "") 
          {
 
-            var select_year = NepaliFunctions.GetCurrentBsDate().year;
+            var current_year = NepaliFunctions.GetCurrentBsDate().year;
             var st_id = $("#back-year-btn").attr("st_id");
 
             $.ajaxSetup({
@@ -19,7 +19,7 @@ $(document).ready(function(){
             url: "/back-year-fee",
             method: "GET",
             data: {
-                year: select_year,
+                year: current_year,
                 student_id:st_id,
             },
             success: function (response) 

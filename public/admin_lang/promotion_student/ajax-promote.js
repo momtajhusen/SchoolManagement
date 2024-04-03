@@ -8,7 +8,6 @@ $(document).ready(function(){
 
     var from_class = $("#class-select").val();
     var promote_class = $("#promote-class").val();
-    var current_year = NepaliFunctions.GetCurrentBsDate().year;
  
     const PromotedStudent = [];
     const DemotionStudent = [];

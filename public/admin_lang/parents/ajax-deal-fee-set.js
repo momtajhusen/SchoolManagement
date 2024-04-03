@@ -6,8 +6,6 @@ $(document).ready(function(){
         var checkedfeeType = [];
         var fee_amount = $('.deal-fee').val();
         var st_id = $(this).attr('st_id');
-        var year = NepaliFunctions.GetCurrentBsDate().year;
-
 
         // Collect checked months
         $('.month-input:checked').each(function() {
@@ -42,7 +40,7 @@ $(document).ready(function(){
                 checkedfeeType: checkedfeeType,
                 fee_amount: fee_amount,
                 st_id: st_id,
-                year: year,
+                year: current_year,
 
             },
             success: function (response) {

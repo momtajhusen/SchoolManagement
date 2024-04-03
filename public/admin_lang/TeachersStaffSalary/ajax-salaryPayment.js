@@ -15,8 +15,7 @@ $(document).ready(function(){
 
         $(".year-notice").html(attendanceYear);
  
-        var date = NepaliFunctions.GetCurrentBsDate();
-        var CurrentDate = date.year+'-'+date.month+'-'+date.day;
+        var CurrentDate = current_year+'-'+current_month+'-'+current_day;
 
         $("#teacher_name").html(teacherName);
 
@@ -50,7 +49,7 @@ $(document).ready(function(){
                         var emp_id =  response.Data[i].emp_id;
 
                         var monthNameNo  = month_no-1;
-                        var month = NepaliFunctions.GetBsMonths()[monthNameNo];
+                        var month = MonthsArray[monthNameNo];
                         var periods =  response.Data[i].attendance;
                         var percent =  response.Data[i].percent;
                         var salary =  response.Data[i].salary;
@@ -309,7 +308,7 @@ $(document).ready(function(){
                     response.data.forEach((item, index) => {
                         var sn = index + 1;
                         var month = item.salary_month - 1;
-                        var SalaryMonth = NepaliFunctions.GetBsMonths()[month];
+                        var SalaryMonth = MonthsArray[month];
                     
                         // Check if it's the last item in the loop
                         var lastBtnClass = (index === 0) ? 'd-block' : 'd-none';
@@ -393,19 +392,12 @@ $(document).ready(function(){
 
 // Current Year & Month auto select and search 
 $(document).ready(function(){
-    var date = NepaliFunctions.GetCurrentBsDate();
-    var CurrentYear = date.year;
-    var CurrentMonth = date.month-1;
-
-    var MonthArray = NepaliFunctions.GetBsMonths();
- 
-
     $("#attendance-year option").filter(function () {
-        return $(this).text() == CurrentYear;
+        return $(this).text() == current_year;
      }).prop("selected", true);
 
      $("#attendance-month option").filter(function () {
-        return $(this).text() == MonthArray[CurrentMonth];
+        return $(this).text() == MonthsArray[decremented_current_month];
      }).prop("selected", true);
 
      $(".search-btn").click();
@@ -455,7 +447,7 @@ $(document).ready(function() {
             $("#pan_no").html(response.SchoolDetails.pan_no);
 
             var monthNameNo  = response.SlipData.salary_month-1;
-            var month = NepaliFunctions.GetBsMonths()[monthNameNo];
+            var month = MonthsArray[monthNameNo];
             $("#salary_month").html(month);
 
             $(".Billsalary").html(response.SlipData.salary);

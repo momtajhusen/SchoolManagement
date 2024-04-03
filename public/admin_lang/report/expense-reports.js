@@ -1,8 +1,7 @@
 
 
 $(document).ready(function(){
-    var date = NepaliFunctions.GetCurrentBsDate();
-    var today = date.year+'-'+date.month+'-'+date.day;
+    var today = current_year+'-'+current_month+'-'+current_day;
 
     $(".expenses_start_date, .expenses_end_date").val(today);
 

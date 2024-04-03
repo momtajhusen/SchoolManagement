@@ -226,19 +226,13 @@ $(document).ready(function(){
 
 // Current Year & Month auto select and search 
 $(document).ready(function(){
-    var date = NepaliFunctions.GetCurrentBsDate();
-    var CurrentYear = date.year;
-    var CurrentMonth = date.month-1;
-
-    var MonthArray = NepaliFunctions.GetBsMonths();
- 
 
     $("#attendance-year option").filter(function () {
-        return $(this).text() == CurrentYear;
+        return $(this).text() == current_year;
      }).prop("selected", true);
 
      $("#attendance-month option").filter(function () {
-        return $(this).text() == MonthArray[CurrentMonth];
+        return $(this).text() == MonthsArray[decremented_current_month];
      }).prop("selected", true);
 
      $(".search-btn").click();

@@ -12,7 +12,6 @@ $(document).ready(function(){
         var class_select = $(".class-select").val();
         var student_id = $(this).attr("student_id");
         var history_id = $(this).attr("history_id");
-        var select_year = NepaliFunctions.GetCurrentBsDate().year;
 
         var month = $(this).attr("month");
 
@@ -32,7 +31,7 @@ $(document).ready(function(){
             method: "GET",
             data: {
                 class_select: class_select,
-                year: select_year,
+                year: current_day,
                 student_id: student_id,
                 history_id: history_id,
             },

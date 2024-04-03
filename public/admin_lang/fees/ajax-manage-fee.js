@@ -1,8 +1,6 @@
 
    //  Retrive Fee Structer aftre class option select
     $(document).ready(function () {
-    
-            var current_year = NepaliFunctions.GetCurrentBsDate().year;
 
             $(".monthly-fee-table").html('');
 
@@ -145,8 +143,6 @@
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
             });
-
-            var current_year = NepaliFunctions.GetCurrentBsDate().year;
 
             $.ajax({
                 url: "/joining-set",
