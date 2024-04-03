@@ -18,6 +18,10 @@
     <!-- Include SheetJS library for .xlsx export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
+       {{-- Sorting Script  --}}
+   <script src="{{ asset('../admin_lang/common/sorting-script.js')}}?v={{ time() }}"></script>
+ 
+
     <style>
 .select-dropdown {
 	position: relative;
@@ -143,20 +147,20 @@ input{
               <!-- Body  -->
               <div class="border" style="height:400px; overflow-y: scroll;">
 
-                    <table class="table table-dark table-hover table-sm" id="payment-history-table">
+                    <table class="table table-dark table-hover table-sm table-responsive-md sortable-table" id="payment-history-table">
                         <thead>
                         <tr>
-                            <th>SN.</th>
-                            <th>Paid</th>
-                            <th>Student ID</th>
-                            <th>Class</th>
-                            <th>Students Name</th>
-                            <th>Parents</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                            <th nowrap="nowrap" data-column="0">SN.</th>
+                            <th nowrap="nowrap" data-column="1">Paid</th>
+                            <th nowrap="nowrap" data-column="2">Student ID</th>
+                            <th nowrap="nowrap" data-column="3">Class</th>
+                            <th nowrap="nowrap" data-column="4">Students Name</th>
+                            <th nowrap="nowrap" data-column="5">Parents</th>
+                            <th nowrap="nowrap" data-column="6">Date</th>
+                            <th nowrap="nowrap" data-column="7">Time</th>
                         </tr>
                         </thead>
-                        <tbody class="payment-history">
+                        <tbody class="payment-history sortable-bordy">
                             
                         </tbody>
                     </table>
@@ -197,20 +201,20 @@ input{
 
               <!-- Body  -->
               <div class="border" style="height:375px; overflow-y: scroll;">
-                <table class="table table-dark table-hover table-sm" id="payment-history-date">
+                <table class="table table-dark table-hover table-sm table-responsive-md sortable-table" id="payment-history-date">
                     <thead>
                     <tr>
-                            <th>SN.</th>
-                            <th>Paid</th>
-                            <th>Student ID</th>
-                            <th>Class</th>
-                            <th>Students Name</th>
-                            <th>Parents</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                        <th nowrap="nowrap" data-column="0">SN.</th>
+                        <th nowrap="nowrap" data-column="1">Paid</th>
+                        <th nowrap="nowrap" data-column="2">Student ID</th>
+                        <th nowrap="nowrap" data-column="3">Class</th>
+                        <th nowrap="nowrap" data-column="4">Students Name</th>
+                        <th nowrap="nowrap" data-column="5">Parents</th>
+                        <th nowrap="nowrap" data-column="6">Date</th>
+                        <th nowrap="nowrap" data-column="7">Time</th>
                     </tr>
                     </thead>
-                    <tbody class="payment-history-date">
+                    <tbody class="payment-history-date sortable-bordy">
                         
                     </tbody>
 
@@ -240,20 +244,20 @@ input{
               <!-- Body  -->
               <div class="border" style="height:375px; overflow-y: scroll;">
 
-                    <table class="table table-dark table-hover table-sm" id="payment-history-date">
+                    <table class="table table-dark table-hover table-sm table-responsive-md sortable-table" id="payment-history-date">
                         <thead>
                         <tr>
                         <th>SN.</th>
-                            <th>Paid</th>
-                            <th>Student ID</th>
-                            <th>Class</th>
-                            <th>Students Name</th>
-                            <th>Parents</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                            <th nowrap="nowrap" data-column="0">Paid</th>
+                            <th nowrap="nowrap" data-column="1">Student ID</th>
+                            <th nowrap="nowrap" data-column="2">Class</th>
+                            <th nowrap="nowrap" data-column="3">Students Name</th>
+                            <th nowrap="nowrap" data-column="4">Parents</th>
+                            <th nowrap="nowrap" data-column="5">Date</th>
+                            <th nowrap="nowrap" data-column="6">Time</th>
                         </tr>
                         </thead>
-                        <tbody class="payment-history-date">
+                        <tbody class="payment-history-date sortable-bordy">
                             
                         </tbody>
 

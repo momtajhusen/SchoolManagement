@@ -93,15 +93,15 @@ input[type="text"] {
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                          <form class="feestracture-form" feetype="monthly-feestracture">
                             
-                            <table class="table table-sm">
+                            <table class="table table-sm table-responsive-md">
                                 <thead class="thead-dark">
                                     <tr style="width:50px;">
-                                    <th style="width:50px;" scope="col">Class</th>
-                                        <th style="width:50px;" scope="col">Tuition Fee</th>
-                                        <th style="width:50px;" scope="col">Full Hostel Fee</th>
-                                        <th style="width:50px;" scope="col">Half Hostel Fee</th>
-                                        <th style="width:50px;" scope="col">Computer Fee</th>
-                                        <th style="width:50px;" scope="col">Coaching Fee</th>
+                                    <th style="width:50px;" nowrap="nowrap">Class</th>
+                                        <th style="width:50px;" nowrap="nowrap">Tuition Fee</th>
+                                        <th style="width:50px;" nowrap="nowrap">Full Hostel Fee</th>
+                                        <th style="width:50px;" nowrap="nowrap">Half Hostel Fee</th>
+                                        <th style="width:50px;" nowrap="nowrap">Computer Fee</th>
+                                        <th style="width:50px;" nowrap="nowrap">Coaching Fee</th>
                                     </tr>
                                 </thead>
                                 <tbody class="monthly-fee-table">
