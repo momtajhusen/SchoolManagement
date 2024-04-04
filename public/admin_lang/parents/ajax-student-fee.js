@@ -86,7 +86,7 @@ $(document).ready(function(){
                         <div class='d-flex collapse_box'>
                             <div class="collapse_btn w-100 border p-1 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#collapse`+month+`" aria-expanded="false" aria-controls="collapseExample">
                                 <div>
-                                    <span>`+MonthsArray(month-1)+` ₹</span>
+                                    <span>`+NepaliFunctions.GetBsMonths()[month-1]+` ₹</span>
                                     <span>`+monthfee+`</span> 
                                 </div>
                             </div>

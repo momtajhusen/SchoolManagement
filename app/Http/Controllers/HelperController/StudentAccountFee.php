@@ -294,17 +294,26 @@ class StudentAccountFee extends Controller
             'admission_fee' => 0,
             'annual_charge' => 0,
             'transport_fee' => 0,
+            'computer_fee' => 0,
+            'coaching_fee' => 0,
+
+
         ];
     
         // Include computer_fee if its value is greater than 0
-        if ($FeestractureMonthly->computer_fee > 0) {
-            $fees['computer_fee'] = $FeestractureMonthly->computer_fee;
+        if($request->computer_fee == 'Yes'){
+            if ($FeestractureMonthly->computer_fee > 0) {
+                $fees['computer_fee'] = $FeestractureMonthly->computer_fee;
+            }
         }
     
         // Include coaching_fee if its value is greater than 0
-        if ($FeestractureMonthly->coaching_fee > 0) {
-            $fees['coaching_fee'] = $FeestractureMonthly->coaching_fee;
+        if($request->coaching_fee == 'Yes'){
+            if ($FeestractureMonthly->coaching_fee > 0) {
+                $fees['coaching_fee'] = $FeestractureMonthly->coaching_fee;
+            }
         }
+
 
         if ($VehicleRoot) {
             $fees['transport_fee'] = $VehicleRoot->amount;  
