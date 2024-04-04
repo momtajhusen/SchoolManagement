@@ -247,9 +247,8 @@ $(document).ready(function(){
                 // month status 
 
                 if(selectedMonth.length == 0){
-                    var month = 'month_' + decremented_current_month;
                     if(response.month_status[month] != 'Paid'){
-                        $('.check_month_' + current_month + ' input').click();
+                     $('.check_month_' + decremented_current_month).find('.month-check-input').click();   
                     }
                 }
             }
