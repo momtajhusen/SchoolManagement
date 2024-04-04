@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Exception;
-use Image;
-
+use Intervention\Image\Facades\Image;
 
 
 class ImageCropController extends Controller
