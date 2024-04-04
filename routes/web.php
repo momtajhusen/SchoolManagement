@@ -643,6 +643,12 @@ Route::get('/command/migrate', function () {
 });
 
 
+
+Route::get('/command/image', function () {
+   Artisan::call('intervention:image');
+ });
+
+
 Route::get('/command/migrate_specific', function () {
    Artisan::call('migrate', [
        '--path' => [
@@ -656,4 +662,6 @@ Route::get('/command/migrate_specific', function () {
        ]
    ]);
 });
+ 
+
  

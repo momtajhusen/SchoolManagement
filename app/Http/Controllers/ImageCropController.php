@@ -8,6 +8,7 @@ use Exception;
 use Intervention\Image\Facades\Image;
 
 
+
 class ImageCropController extends Controller
 {
     // Student Image Crope 
