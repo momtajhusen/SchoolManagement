@@ -80,9 +80,9 @@ $(document).ready(function(){
 
             
                 $(".marks-entry").append(`
-                <tr id="`+id+`">
+                   <tr id="`+id+`">
+                    <td>`+sn+`</td>
                     <td>`+id+`</td>
-                    <td>`+roll_no+`</td>
                     <td>`+first_name+' '+middle_name+' '+last_name+`</td>
                     <td>
                         <input type="hidden" value="`+id+`" name="st_id[]">

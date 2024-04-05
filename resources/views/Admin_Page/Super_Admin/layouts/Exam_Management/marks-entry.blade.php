@@ -85,7 +85,7 @@
                                         <thead>
                                             <tr>
                                                 <th data-column="0">SN.</th>
-                                                <th data-column="1">Roll.</th>
+                                                <th data-column="1">st_id.</th>
                                                 <th data-column="2">Name</th>
                                                 {{-- <th>Parent</th> --}}
                                                 <th data-column="3">Marks Obtained</th>
