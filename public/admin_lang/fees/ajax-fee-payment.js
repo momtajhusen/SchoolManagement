@@ -4,10 +4,6 @@ $(document).ready(function ()
 {
     $(".monthly_payment").click(function () {
         $(".monthly_payment").addClass('d-none');
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
 
         var payment_date =  $("#payment_date").val();
         if(!NepaliFunctions.ValidateBsDate(payment_date)){
@@ -156,10 +152,6 @@ $(document).ready(function ()
 {
     $(".monthly_payment").click(function () {
         $(".monthly_payment").addClass('d-none');
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
 
         if($(".monthly_payment").attr("paymode") == "multi-pay")
         {
