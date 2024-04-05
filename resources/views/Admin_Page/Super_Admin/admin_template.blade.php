@@ -10,6 +10,10 @@
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="{{ asset('../admin_lang/common/nepali_date/nepali.datepicker.js')}}" defer></script>
+    <script src="{{ asset('admin_lang/HelperScript/date.js')}}?v={{ time() }}" defer></script>
+
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('../admin_template_assets/img/favicon.png')}}">
     <!-- Normalize CSS -->
@@ -985,9 +989,6 @@
     <!-- Custom Js -->
     <script src="{{ asset('../admin_template_assets/js/main.js')}}"></script>
 
-    
-    <script src="{{ asset('../admin_lang/common/nepali_date/nepali.datepicker.js')}}" type="text/javascript"></script>
-
     <!--flaticon -->
     @yield('script')
 
@@ -1012,9 +1013,6 @@
 
     <!-- Calculator js -->
     <script src="{{ asset('../admin_template_assets/calculator/script.js')}}?v={{ time() }}"></script>
-
-{{-- Helper Date js  --}}
-<script src="{{ asset('admin_lang/HelperScript/date.js')}}?v={{ time() }}"></script>
 
 <script type="text/javascript">
  
