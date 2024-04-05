@@ -1470,7 +1470,7 @@
 
                         <div class="col-12-xxxl roll-box col-lg-5 col-12 form-group animate__animated">
                             <label>Select Student *</label>
-                            <select name="period" class="select2 student-select">
+                            <select name="period" class="select2 student-select" id="student-select">
                                 <option value="">Please Select Student :</option>
                             </select>
                         </div>
@@ -1654,8 +1654,6 @@
                 <div id="invoice-box" style="position:absolute; z-index:-1; background:white; width: 148mm; height: 250mm; border : 1px solid black;  padding: 0px; margin: 0px;overflow: hidden; ">
 
                 </div>
-
- 
 
             </div>
             <div>
