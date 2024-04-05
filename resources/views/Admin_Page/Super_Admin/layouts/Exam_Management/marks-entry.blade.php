@@ -3,8 +3,6 @@
 @section('style')
     <!-- Select 2 CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/select2.min.css')}}">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('../admin_template_assets/style.css')}}">
     <!-- Date Picker CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/datepicker.min.css')}}">
 @endsection
@@ -77,7 +75,7 @@
                                 </form>
                         
                                 <form class="table-responsive entry-mark-form">
-                                    <table class="table display data-table text-nowrap table-sm">
+                                    <table class="table data-table text-nowrap table-sm">
                                         <thead>
                                             <tr>
                                                 <th>SN.</th>
