@@ -4,11 +4,15 @@ $(document).ready(function(){
       e.preventDefault();
 
       $(".marks-entry").html('');
+      $("#enter-subject").html('');
+      $("#searchInput").val('');
   
       var select_exam = $("#select_exam").val();
       var select_class = $(".class-select").val();
       var select_section = $(".section-select").val();
       var select_subject = $(".select-subject").val();
+
+      var current_year = NepaliFunctions.GetCurrentBsDate().year;
 
       $.ajaxSetup({
         headers: {
@@ -56,7 +60,7 @@ $(document).ready(function(){
 
 
              var index = 1;
-             $(".marks-entry").append(`<td class="text-center border" colspan="7">Subject : `+select_subject+`</td>`);
+             $("#enter-subject").html(select_subject);
              response.student_data.forEach(function(item, index) {
                 var sn = index + 1;
                 var id = item.id;
@@ -137,6 +141,8 @@ $(document).ready(function(){
        var class_select = $(".class-select").val();
        var section_select = $(".section-select").val();
        var select_subject= $(".select-subject").val();
+
+       var current_year = NepaliFunctions.GetCurrentBsDate().year;
 
 
         var formData = new FormData(this);

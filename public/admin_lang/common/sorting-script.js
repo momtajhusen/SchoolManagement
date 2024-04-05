@@ -28,7 +28,7 @@ $(document).ready(function(){
 $(document).ready(function() {
     // Function to filter table rows
     function filterTableRows(searchText) {
-        var tbody = $('.sortable-table tbody');
+        var tbody = $('.sortable-table .sortable-bordy');
         var rows = tbody.children('tr');
         
         rows.each(function() {
