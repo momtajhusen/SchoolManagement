@@ -1,5 +1,6 @@
  
 ///////// Custom Date /////////
+var subdomain = window.location.hostname.split('.')[0];
     if(subdomain == '127' && subdomain == 'dev'){
         if (website.includes(subdomain)) {
             // const current_year = 2081;
