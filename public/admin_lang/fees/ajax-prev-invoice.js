@@ -15,10 +15,6 @@ $(document).ready(function(){
           var student_id = $(".student-id").val();
         }
 
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
-        var current_month = NepaliFunctions.GetCurrentBsDate().month;
-        var current_day = NepaliFunctions.GetCurrentBsDate().day;
-
         var current_date = current_year+"-"+current_month+"-"+current_day;
 
 
@@ -327,7 +323,6 @@ $(document).ready(function(){
 
 // checkbox Condition auto select 
 $(document).ready(function() {
-    var current_month = NepaliFunctions.GetCurrentBsDate().month-1;
 
     for (var i = 0; i <= current_month; i++) {
          $('input[value="month_' + i + '"]').click();

@@ -64,8 +64,7 @@ $(document).ready(function () {
                 $(".address").html(response.StudentData.village);
                 $(".phone").html(response.StudentData.phone);
 
-                var select_month = NepaliFunctions.GetCurrentBsDate().month - 1;
-                $("#" + select_month).click();
+                $("#" + decremented_current_month).click();
             } else {
                 alert("Student Not Avable");
             }

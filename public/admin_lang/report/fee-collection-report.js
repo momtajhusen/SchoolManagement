@@ -2,7 +2,6 @@ $(document).ready(function(){
     $(".select-colection").on("change",function(){
 
       var collection_option =  $(this).val();
-      var date = NepaliFunctions.GetCurrentBsDate();
 
       var optionText = $(this).find('option:selected').text();
       $(".collection-day").html(optionText);
@@ -13,9 +12,9 @@ $(document).ready(function(){
             url: "/get-collection-history",
             method: "GET",
             data: {
-                year:date.year,
-                month:date.month,
-                day:date.day,
+                year:current_year,
+                month:current_month,
+                day:current_day,
                 collection_option: collection_option,
             },
             success: function (response) {
@@ -95,13 +94,12 @@ $(document).ready(function(){
                         $(".payment-history").append(`
                         <tr>
                         <td scope="row">`+sn+`</td>
-                          <td scope="row">₹ `+parseInt(payment)+`</td>
-                          <td scope="row">`+st_id+`</td>
-                          <td scope="row">`+classes+' '+section+`</td>
-                          <td scope="row">`+student_name+`</td>
-                          <td scope="row">`+father_name+`</td>
-                          <td scope="row" style="width:100px">`+pay_date+`</td>
-                          <td scope="row" style="width:100px">`+pay_time+`</td>
+                          <td nowrap="nowrap">₹ `+parseInt(payment)+`</td>
+                          <td nowrap="nowrap">`+st_id+`</td>
+                          <td nowrap="nowrap">`+classes+' '+section+`</td>
+                          <td nowrap="nowrap">`+student_name+`</td>
+                          <td nowrap="nowrap">`+father_name+`</td>
+                          <td nowrap="nowrap" style="width:100px">`+pay_date+`</td>
                         </tr> 
                     `);               
 
@@ -129,14 +127,13 @@ $(document).ready(function(){
       
     });
 
-    var date = NepaliFunctions.GetCurrentBsDate();
     $.ajax({
         url: "/get-collection-history",
         method: "GET",
         data: {
-            year:date.year,
-            month:date.month,
-            day:date.day,
+            year:current_year,
+            month:current_month,
+            day:current_day,
             collection_option:  "today",
         },
         success: function (response) {
@@ -218,14 +215,14 @@ $(document).ready(function(){
 
                     $(".payment-history").append(`
                     <tr>
-                        <td scope="row">`+sn+`</td>
-                        <td scope="row">₹ `+parseInt(payment)+`</td>
-                        <td scope="row">`+st_id+`</td>
-                        <td scope="row">`+classes+' '+section+`</td>
-                        <td scope="row">`+student_name+`</td>
-                        <td scope="row">`+father_name+`</td>
-                        <td scope="row" style="width:100px">`+pay_date+`</td>
-                        <td scope="row" style="width:100px">`+pay_time+`</td>
+                        <td  nowrap="nowrap">`+sn+`</td>
+                        <td  nowrap="nowrap">₹ `+parseInt(payment)+`</td>
+                        <td  nowrap="nowrap">`+st_id+`</td>
+                        <td  nowrap="nowrap">`+classes+' '+section+`</td>
+                        <td  nowrap="nowrap">`+student_name+`</td>
+                        <td  nowrap="nowrap">`+father_name+`</td>
+                        <td  nowrap="nowrap">`+pay_date+`</td>
+                        <td  nowrap="nowrap">`+pay_time+`</td>
                     </tr> 
                 `);
 
@@ -313,15 +310,14 @@ $(document).ready(function(){
  
 // Get Monthly Fee Generate 
 $(document).ready(function(){
-
-    var date = NepaliFunctions.GetCurrentBsDate();
+ 
     $.ajax({
         url: "/get-monthlyfee-generate",
         method: "GET",
         data: {
-            year:date.year,
-            month:date.month,
-            day:date.day,
+            year:current_year,
+            month:current_month,
+            day:current_day,
         },
         success: function (response) {
 
@@ -467,14 +463,14 @@ $(document).ready(function(){
 
                     $(".payment-history-date").append(`
                     <tr>
-                    <td scope="row">`+sn+`</td>
-                      <td scope="row">₹ `+parseInt(payment)+`</td>
-                      <td scope="row">`+st_id+`</td>
-                      <td scope="row">`+classes+' '+section+`</td>
-                      <td scope="row">`+student_name+`</td>
-                      <td scope="row">`+father_name+`</td>
-                      <td scope="row" style="width:100px">`+pay_date+`</td>
-                      <td scope="row" style="width:100px">`+pay_time+`</td>
+                    <td nowrap="nowrap">`+sn+`</td>
+                      <td nowrap="nowrap">₹ `+parseInt(payment)+`</td>
+                      <td nowrap="nowrap">`+st_id+`</td>
+                      <td nowrap="nowrap">`+classes+' '+section+`</td>
+                      <td nowrap="nowrap">`+student_name+`</td>
+                      <td nowrap="nowrap">`+father_name+`</td>
+                      <td nowrap="nowrap" style="width:100px">`+pay_date+`</td>
+                      <td nowrap="nowrap" style="width:100px">`+pay_time+`</td>
                     </tr> 
                 `);
                                 
@@ -483,8 +479,8 @@ $(document).ready(function(){
 
             $(".payment-history-date").append(`
                 <tr>
-                <th>₹ :</th>
-                <th id="total-month-wize">`+totalPayment+`</th>
+                <th nowrap="nowrap">₹ :</th>
+                <th nowrap="nowrap" id="total-month-wize">`+totalPayment+`</th>
                 </tr> 
             `);
 
@@ -613,14 +609,14 @@ $(document).ready(function(){
 
                             $(".payment-history-date").append(`
                             <tr>
-                            <td scope="row">`+sn+`</td>
-                            <td scope="row">₹ `+parseInt(payment)+`</td>
-                            <td scope="row">`+st_id+`</td>
-                            <td scope="row">`+classes+' '+section+`</td>
-                            <td scope="row">`+student_name+`</td>
-                            <td scope="row">`+father_name+`</td>
-                            <td scope="row" style="width:100px">`+pay_date+`</td>
-                            <td scope="row" style="width:100px">`+pay_time+`</td>
+                            <td nowrap="nowrap">`+sn+`</td>
+                            <td nowrap="nowrap">₹ `+parseInt(payment)+`</td>
+                            <td nowrap="nowrap">`+st_id+`</td>
+                            <td nowrap="nowrap">`+classes+' '+section+`</td>
+                            <td nowrap="nowrap">`+student_name+`</td>
+                            <td nowrap="nowrap">`+father_name+`</td>
+                            <td nowrap="nowrap" style="width:100px">`+pay_date+`</td>
+                            <td nowrap="nowrap" style="width:100px">`+pay_time+`</td>
                             </tr> 
                         `);
                                         

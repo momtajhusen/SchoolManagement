@@ -97,7 +97,6 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(".class-select").change(function () {
         var classvalue = $(this).val();
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
 
         $(".section-select").html('');
         $(".section-select").append(`<option value="all_section">All Section</option>`);

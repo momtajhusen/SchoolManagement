@@ -1,15 +1,20 @@
 
-// click student border change 
+ // click student border change 
 $(document).ready(function(){
     $("#student_box").on("click", ".students", function()
     {
          $('.students').each(function(){
           $(this).css('border', '0px');
+          $(this).removeClass('selected-sudent');
          });
+
          $(this).css('border', '2px solid #042954');
+         $(this).addClass('selected-sudent');
 
          var st_id = $(this).attr('st_id');
          $(".add-month").attr('st_id', st_id);
+         $(".save-deal-fee").attr('st_id', st_id);
+
     });
 });
 
@@ -35,44 +40,60 @@ $(document).ready(function(){
             console.log(response);
 
             // Assuming the response is structured as described before
-                var studentFeeStracture = response.StudentFeeStracture;
+                var studentFeeStracture = response.StudentFeeStructure;
+                
 
                 var feeYear = response.student.fee_year;
                 var st_id = response.student.st_id;
 
-
-
                 $("#month_feestracture").html('');
                 $.each(studentFeeStracture, function(month, feeDetails) {
 
+                    var monthStatus = response.month_status;
+                    // Accessing status for the current month
+                    var statusForCurrentMonth = monthStatus[month-1];
+
+                    var PaidBlock = 'd-flex';
+                    var StatusColor = 'bg-light';
+                    if(statusForCurrentMonth == 'Paid'){
+                        PaidBlock = 'd-none';
+                        StatusColor = 'bg-paid';
+                    }if(statusForCurrentMonth == 'Dues'){
+                        PaidBlock = 'd-none';
+                        StatusColor = 'bg-dues';
+                    }
+
                     var monthHtml = '';
+                    var monthfee = 0;
                      //  Start Iterate through each fee detail for the month
                      $.each(feeDetails, function(index, fee) {
+                        monthfee += fee.amount;
                         monthHtml += `
                             <div class="border d-flex align-items-center fee_stracture">
                                 <input class="px-2 input_fee_name" required name='fee[`+month+`]' value="${fee.fee_name}">
                                 <span class="pr-3">₹</span>
                                 <input type="number" min="0" required name='amount[`+month+`]' class="input_fee_amount" value="${fee.amount}">
-                                <span class="material-symbols-outlined p-1 border delete_fee" st_id=`+st_id+` month=`+month+` year=`+feeYear+` fee_name="${fee.fee_name}" data-toggle="tooltip" data-placement="bottom" title="Delete This Fee" style="cursor: pointer;">delete</span>
+                                <span class="`+PaidBlock+` material-symbols-outlined p-1 border delete_fee" fee_id="${fee.id}"  data-toggle="tooltip" data-placement="bottom" title="Delete This Fee" style="cursor: pointer;">delete</span>
                             </div>`;
                     });
                     
-                        monthHtml += `<input class='p-1 px-5 month-fee-save-btn' type="submit" value="save" style='cursor:pointer'>`;
+                        monthHtml += `<input class='p-1 `+PaidBlock+` px-5 month-fee-save-btn' type="submit" value="save" style='cursor:pointer'>`;
                      //  End Iterate through each fee detail for the month
                     
 
                     $('#month_feestracture').append(`
                         <div class="d-flex flex-column">
                         <div class='d-flex collapse_box'>
-                            <div class="collapse_btn w-100 border p-3 d-flex justify-content-between" data-toggle="collapse" data-target="#collapse`+month+`" aria-expanded="false" aria-controls="collapseExample">
+                            <div class="collapse_btn w-100 border p-1 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#collapse`+month+`" aria-expanded="false" aria-controls="collapseExample">
                                 <div>
-                                    <span>`+NepaliFunctions.GetBsMonth(month-1)+` ₹</span>
-                                    <span>23000</span> 
+                                    <span>`+NepaliFunctions.GetBsMonths()[month-1]+` ₹</span>
+                                    <span>`+monthfee+`</span> 
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center p-2 border">
+                            <div class="d-flex p-1 `+StatusColor+`"></div>
+                            <div class="`+PaidBlock+` align-items-center p-2 border">
                               <span class="material-symbols-outlined p-1 border mr-2 add-new-fee" data-toggle="tooltip" data-placement="bottom" title="Add New Fee">add</span>
-                              <span class="material-symbols-outlined p-1 border" data-toggle="tooltip" data-placement="bottom" title="Delete This Month">delete</span>
+                              <span class="material-symbols-outlined p-1 border delete-month" st_id=`+st_id+` year=`+feeYear+` month=`+month+` data-toggle="tooltip" data-placement="bottom" title="Delete This Month">delete</span>
                             </div>
                            </div>
 
@@ -134,6 +155,16 @@ $(document).on('submit', '.student-fee-save', function (e) {
         data: requestData,
         success: function (response) {
             console.log(response);
+            if(response.status == 'Fee structures saved successfully')
+            {
+                iziToast.success({
+                    title: 'Save',
+                    message: 'Save Successfully !',
+                    position: 'topRight', 
+                    timeout: 2000,
+                });
+                $(".selected-sudent").click();
+            }
         },
         error: function (xhr, status, error) {
             // Error callback function
@@ -197,7 +228,14 @@ $(document).ready(function(){
                 console.log(response);
     
                 if(response.status == 'add successfully'){
-                    alert('add successfully');
+                    iziToast.success({
+                        title: 'Month',
+                        message: 'Add Successfully !',
+                        position: 'topRight', 
+                        timeout: 2000,
+                    });
+                    $(".close-model").click();
+                    $(".selected-sudent").click();
                 }else{
                     alert(response.status);
                 }
@@ -220,37 +258,77 @@ $(document).ready(function(){
 });
 
 
-
-
-    
-
 // Delete Fee 
  $(document).ready(function(){
     $("#month_feestracture").on("click", ".delete_fee", function(){
            // Get the values of st_id, month, and year
-    var st_id = $(this).attr('st_id');
-    var month = $(this).attr('month');
-    var year = $(this).attr('year');
-    var fee_name =$(this).attr('fee_name');
-
+ 
+    var fee_id = $(this).attr('fee_id');
     $(this).parent().addClass('deleted-fee-process');
-
 
       // Send the AJAX request
       $.ajax({
         url: "/admin/delete-month-fee",
         method: "POST",
         data: {
-            st_id: st_id,
-            month: month,
-            year: year,
-            fee_name: fee_name 
+            fee_id: fee_id 
         },
         success: function (response) {
             console.log(response);
 
             if(response.status == 'delete successfully'){
               $('.deleted-fee-process').remove();
+              iziToast.success({
+                title: 'Fee',
+                message: 'Delete Successfully !',
+                position: 'topRight', 
+                timeout: 2000,
+            });
+              $(".selected-sudent").click();
+            }
+        },
+        error: function (xhr, status, error) {
+            // Error callback function
+            console.log(xhr.responseText); // Log the error response in the console
+        },
+    });
+
+
+
+    });
+ });
+
+
+ // Delete Month 
+ $(document).ready(function(){
+    $("#month_feestracture").on("click", ".delete-month", function(){
+           // Get the values of st_id, month, and year
+ 
+    var st_id = $(this).attr('st_id');
+    var year = $(this).attr('year');
+    var month = $(this).attr('month');
+ 
+      // Send the AJAX request
+      $.ajax({
+        url: "/admin/delete-month",
+        method: "POST",
+        data: {
+            st_id:st_id,
+            year: year,
+            month: month, 
+
+        },
+        success: function (response) {
+            console.log(response);
+
+            if(response.status == 'delete successfully'){
+                iziToast.success({
+                    title: 'Month',
+                    message: 'Delete Successfully !',
+                    position: 'topRight', 
+                    timeout: 2000,
+                });
+                $(".selected-sudent").click();
             }
         },
         error: function (xhr, status, error) {

@@ -10,10 +10,8 @@ $(document).ready(function(){
         var attendanceMonth = $("#attendance-month").val();
         var attendance_role = $("#attendance-role").val();
 
-
-        var MonthArray = NepaliFunctions.GetBsMonths();
         $(".year-notice").html(attendanceYear);
-        $(".month-notice").html(MonthArray[attendanceMonth-1]);
+        $(".month-notice").html(MonthsArray[attendanceMonth-1]);
 
 
         $(".attendance-table").empty();
@@ -102,7 +100,7 @@ $(document).ready(function(){
                             var col = totalDay + 1;
                             $(".attendance-table").append(`<tr>
                                 <td><b>#</b></td>
-                                <td colspan="`+col+`"><b>Total Teachers Persent `+MonthArray[attendanceMonth-1]+` Month :</b></td>
+                                <td colspan="`+col+`"><b>Total Teachers Persent `+MonthsArray[attendanceMonth-1]+` Month :</b></td>
                                 <td><b>`+TotalPeriod+'/'+TotalPersent+`</b></td>
                                 <td><b>`+AllTeacherpercentage+`</b></td><tr>`);
                         }
@@ -203,7 +201,7 @@ $(document).ready(function(){
                         var col = totalDay + 1;
                         // $(".attendance-table").append(`<tr>
                         //     <td><b>#</b></td>
-                        //     <td colspan="`+col+`"><b>Total Teachers Persent `+MonthArray[attendanceMonth-1]+` Month :</b></td>
+                        //     <td colspan="`+col+`"><b>Total Teachers Persent `+MonthsArray[attendanceMonth-1]+` Month :</b></td>
                         //     <td><b>`+TotalAttendance+`</b></td>
                         //     <td><b>`+AllTeacherpercentage+`</b></td><tr>`);
                     }
@@ -231,19 +229,12 @@ $(document).ready(function(){
 
 // Current Year & Month auto select and search 
 $(document).ready(function(){
-    var date = NepaliFunctions.GetCurrentBsDate();
-    var CurrentYear = date.year;
-    var CurrentMonth = date.month-1;
-
-    var MonthArray = NepaliFunctions.GetBsMonths();
- 
-
     $("#attendance-year option").filter(function () {
-        return $(this).text() == CurrentYear;
+        return $(this).text() == current_year;
      }).prop("selected", true);
 
      $("#attendance-month option").filter(function () {
-        return $(this).text() == MonthArray[CurrentMonth];
+        return $(this).text() == MonthsArray[decremented_current_month];
      }).prop("selected", true);
 
      $(".search-btn").click();

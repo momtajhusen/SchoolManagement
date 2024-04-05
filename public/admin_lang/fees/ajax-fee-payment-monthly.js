@@ -1,10 +1,7 @@
 
 $(document).ready(function(){
 
-  var year = NepaliFunctions.GetCurrentBsDate().year;
-  var month = NepaliFunctions.GetCurrentBsDate().month;
-  var day = NepaliFunctions.GetCurrentBsDate().day;
-  var full_date = year+"-"+month+"-"+day
+  var full_date = current_year+"-"+current_month+"-"+current_day
 
   $("#payment_date").val(full_date);
 
@@ -20,8 +17,6 @@ $(document).ready(function(){
         var student_id = $(".student-id").val();
       }
 
-      var select_year = NepaliFunctions.GetCurrentBsDate().year;
-
       if (student_id != "") 
       {
           $.ajax({
@@ -29,7 +24,7 @@ $(document).ready(function(){
               method: "GET",
               data: {
                   student_id: student_id,
-                  year: select_year,
+                  year: current_year,
               },
               // Success
               success: function (response) {
@@ -285,10 +280,7 @@ $(document).ready(function(){
                       
 
                         // check admission month and year for monthly fee
-                        var select_year = NepaliFunctions.GetCurrentBsDate().year;
-
-                    
-                        if(select_year != admission_year)
+                        if(current_year != admission_year)
                         {
                             var start_month = 0;
                         }
@@ -322,7 +314,7 @@ $(document).ready(function(){
                               <td style="width:70px;">
                                 <div class="form-check justify-content-center ${m.btn}">
                                   <input type="checkbox" class="form-check-input"  month="month_${i}" paid="${m.pay}" dues_fee="${m.due}" value="" id="check_${i}">
-                                  <label class="form-check-label" for="check_${i}"></label>
+                                  <label class="form-check-label" for="check_${i}" style="cursor:pointer;"></label>
                                 </div>
                               </td>
                             </tr>
@@ -571,7 +563,6 @@ $(document).ready(function(){
      $("#last_month").val("0");
  
     var student_id = $("#st_id").html();
-    var select_year =  NepaliFunctions.GetCurrentBsDate().year;
     var select_month = $(this).attr("month");
 
 
@@ -580,7 +571,7 @@ $(document).ready(function(){
       method: "GET",
       data: {
           student_id: student_id,
-          year: select_year,
+          year: current_year,
           select_month : select_month,
       },
       success: function (response) {
@@ -788,9 +779,8 @@ $(document).ready(function () {
 
 // Select year 10 year below
 $(document).ready(function(){
-      var year = NepaliFunctions.GetCurrentBsDate().year;
       for (let i = 0; i < 10; i++) {
-          var yearOption = year - i;
+          var yearOption = current_year - i;
           $(".select-year").append(`
         <option value="${yearOption}">${yearOption}</option>
       `);

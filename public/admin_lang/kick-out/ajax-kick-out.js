@@ -36,8 +36,7 @@ $(document).ready(function(){
     $("#model-save-btn").click(function(){
 
         var st_id = $("#st_id-input").val();
-
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
+        
         var kickout_month = $("#month").val();
         if(kickout_month == ""){
           alert("Select Kick out Month");

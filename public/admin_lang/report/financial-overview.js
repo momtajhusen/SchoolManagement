@@ -1,6 +1,5 @@
 $(document).ready(function(){
-    var date = NepaliFunctions.GetCurrentBsDate();
-    var today = date.year+'-1-1';
+    var today = current_year+'-1-1';
 
     $("#expenses_start_date").val(today);
 
@@ -11,9 +10,6 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
           });
-
-          var date = NepaliFunctions.GetCurrentBsDate();
-          var currentYear = date.year;
 
          var startDate = $("#expenses_start_date").val();
          var endtDate = $("#expenses_end_date").val();
@@ -29,7 +25,7 @@ $(document).ready(function(){
               data: {
                 startDate:startDate,
                 endDate:endtDate,
-                currentYear:currentYear,
+                currentYear:current_year,
               },
               success: function (response) {
       

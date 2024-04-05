@@ -48,6 +48,13 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    //Middleware Super Admin
    Route::group(['middleware' => 'SuperAdminLogin'], function () {
 
+   // Developer 
+      Route::view('admin/developer', 'Admin_Page/Super_Admin/layouts/developer')->name('developer');
+      Route::post('/student-fee-set', 'App\Http\Controllers\DeveloperController@StudentFeeSet');
+
+   // Developer 
+
+
    Route::view('admin/dashboard', 'Admin_Page/Super_Admin/layouts/SuperAdminDashboard')->name('dashboard');
    Route::view('admin', 'Admin_Page/Super_Admin/layouts/SuperAdminDashboard')->name('admin');
    Route::get('/super-admin-dashboard-data', 'App\Http\Controllers\SuperAdminDashboardController@index');
@@ -202,15 +209,44 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       return view('Admin_Page/Super_Admin/layouts/Parents/parent-profile', ['id' => $id]);
    });
 
+
    Route::get('/get-parent-profile', 'App\Http\Controllers\ParrentProfile@index');
    Route::get('/admin/student-fee-starcture-retrive', 'App\Http\Controllers\ParrentProfile@StudentsFeeStractures');
    Route::post('/admin/student-fee-starcture-save', 'App\Http\Controllers\ParrentProfile@StudentsFeeStracturesSave');
    Route::post('/admin/delete-month-fee', 'App\Http\Controllers\ParrentProfile@DeleteMonthFee');
+   Route::post('/admin/delete-month', 'App\Http\Controllers\ParrentProfile@DeleteMonth');
 
+   // Start New Account payment 
+      Route::view('admin/student-fee-payment', 'Admin_Page/Super_Admin/layouts/New_Account_Management/student-fee-payment')->name('student-fee-payment');
+      Route::view('admin/student-deus-fee-list', 'Admin_Page/Super_Admin/layouts/New_Account_Management/student-deus-fee-list')->name('student-deus-fee-list');
+
+      Route::get('/parent-student-retrive', 'App\Http\Controllers\StudentsFeePayment@ParentStudentRetrive');
+      Route::get('/student-fee-month-particular', 'App\Http\Controllers\StudentsFeePayment@StudentFeeMonthParticular');
+      Route::post('/student-fee-paid', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaid');
+      Route::get('/student-paid-history', 'App\Http\Controllers\StudentsFeePayment@StudentFeePaidHistory');
+      Route::get('/student-invoice-data', 'App\Http\Controllers\StudentsFeePayment@StudentFeeInvoiceData');
+      Route::post('/student-all-fee-reset', 'App\Http\Controllers\StudentsFeePayment@StudentAllFeeReset');
+      Route::post('/student-single-fee-reset', 'App\Http\Controllers\StudentsFeePayment@StudentSingleFeeReset');
+      // Route::get('/student-fee-stracture-month', 'App\Http\Controllers\StudentsFeePayment@StudentFeeStractureMonth');
+      Route::post('/save-invoice-image', 'App\Http\Controllers\StudentsFeePayment@saveInvoice')->name('save.image');
+
+      Route::get('/student-fee-dues-list', 'App\Http\Controllers\StudentsFeePayment@StudentFeeDuesList');
+
+
+   // End New Account payment 
+
+   // Start SelectOption 
+      Route::get('/get-all-admit-parents', 'App\Http\Controllers\SelectOption@AllAdmitParents');
+
+      Route::get('/get-all-admit-student', 'App\Http\Controllers\SelectOption@AllAdmitStudents');
+
+
+   // End SelectOption 
+
+    
+
+   Route::post('/admin/save-deal-fee', 'App\Http\Controllers\ParrentProfile@SaveDealFee');
    Route::post('/admin/add-month', 'App\Http\Controllers\ParrentProfile@AddMonth');
-
-
-
 
 
    Route::post('/parent-blance-load', 'App\Http\Controllers\ParrentWallet@loadBlanceSave');
@@ -221,7 +257,6 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    });
 
    Route::view('admin/student-identification', 'Admin_Page/Super_Admin/layouts/Student_Management/generate_id_card')->name('student-identification');
-
    Route::get('/get-parent-data', 'App\Http\Controllers\ParentsController@show');
    Route::post('/update-parent-data', 'App\Http\Controllers\ParentsController@update');
    Route::post('/delete-parent', 'App\Http\Controllers\ParentsController@DeleteParent');
@@ -231,8 +266,6 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    Route::post('/registration-conform', 'App\Http\Controllers\StudentController@RegistrationConform');
    Route::post('/all-registration-conform', 'App\Http\Controllers\StudentController@AllRegistrationConform');
    Route::post('/all-registration-delete', 'App\Http\Controllers\StudentController@AllRegistrationDelete');
-
-
 
 
    Route::get('/admin/admission-print', 'App\Http\Controllers\StudentController@admission_print');
@@ -481,95 +514,88 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
 
 });
 
-// Employee Management
-Route::view('admin/add_new_employee', 'Admin_Page/Super_Admin/layouts/Employee_Management/add_new_employee')->name('add-new-employee');
-Route::view('admin/teacher_staff_details', 'Admin_Page/Super_Admin/layouts/Employee_Management/teacher_staff_details')->name('teacher-staff-details');
+   // Employee Management
+   Route::view('admin/add_new_employee', 'Admin_Page/Super_Admin/layouts/Employee_Management/add_new_employee')->name('add-new-employee');
+   Route::view('admin/teacher_staff_details', 'Admin_Page/Super_Admin/layouts/Employee_Management/teacher_staff_details')->name('teacher-staff-details');
 
-Route::post('admin/add_new_employee', 'App\Http\Controllers\EmployeeController@AddEmployee');
-Route::get('/get-all-employee', 'App\Http\Controllers\EmployeeController@GetAllemployee');
+   Route::post('admin/add_new_employee', 'App\Http\Controllers\EmployeeController@AddEmployee');
+   Route::get('/get-all-employee', 'App\Http\Controllers\EmployeeController@GetAllemployee');
 
 
-// Role & Permission
-Route::view('admin/sub_admin_list', 'Admin_Page/Super_Admin/layouts/RoleAndPermission/sub_admin_list')->name('sub_admin_list');
-Route::view('admin/role_permission', 'Admin_Page/Super_Admin/layouts/RoleAndPermission/role_permission')->name('role_permission');
+   // Role & Permission
+   Route::view('admin/sub_admin_list', 'Admin_Page/Super_Admin/layouts/RoleAndPermission/sub_admin_list')->name('sub_admin_list');
+   Route::view('admin/role_permission', 'Admin_Page/Super_Admin/layouts/RoleAndPermission/role_permission')->name('role_permission');
 
-Route::get('admin/role-permission-update/{id}', function ($id) {
-   return view('Admin_Page/Super_Admin/layouts/RoleAndPermission/role_permission', ['id' => $id]);
-});
+   Route::get('admin/role-permission-update/{id}', function ($id) {
+      return view('Admin_Page/Super_Admin/layouts/RoleAndPermission/role_permission', ['id' => $id]);
+   });
+      
+      
+
    
-   
+   Route::post('/admin/user-routes-save', 'App\Http\Controllers\RoleAndPermissionController@SaveRoleAndPermission');
+   Route::get('/admin/user-routes-check', 'App\Http\Controllers\RoleAndPermissionController@CheckUserRoutes');
+   Route::get('/admin/sub-admin-list', 'App\Http\Controllers\RoleAndPermissionController@SubAdminList');
 
- 
-Route::post('/admin/user-routes-save', 'App\Http\Controllers\RoleAndPermissionController@SaveRoleAndPermission');
-Route::get('/admin/user-routes-check', 'App\Http\Controllers\RoleAndPermissionController@CheckUserRoutes');
-Route::get('/admin/sub-admin-list', 'App\Http\Controllers\RoleAndPermissionController@SubAdminList');
-
-Route::get('/admin/get-subadmin-details', 'App\Http\Controllers\RoleAndPermissionController@SubAdminDataForUpdate');
-
-
-
-
-
-
+   Route::get('/admin/get-subadmin-details', 'App\Http\Controllers\RoleAndPermissionController@SubAdminDataForUpdate');
 
 
 ///////////////////////////// End Super Admin /////////////////////////////
 
 ///////////////////////////// Start Student Management /////////////////////////////
-//Student Management Login 
-Route::post('/student-management-login', 'App\Http\Controllers\AccountLoginController@studentManagement');
-//Student Management Logout 
-Route::post('/student-management-logout', 'App\Http\Controllers\AccountLoginController@StudentManagementLogout');
-//Middleware Student Management
-Route::group(['middleware' => 'studentManagementLogin'], function () {
-   // View Route 
-   Route::view('student-management', 'Admin_Page/Student_Management/layouts/dashboard')->name('student_management');
-   Route::view('student-management/dashboard', 'Admin_Page/Student_Management/layouts/dashboard')->name('school_management_dashboard');
-   Route::view('student-management/student-registration', 'Admin_Page/Student_Management/layouts/student_registration')->name('school_management_student_registration');
-   Route::view('student-management/registration-list', 'Admin_Page/Student_Management/layouts/registration_list')->name('school_management_registration_list');
-   Route::view('student-management/check-fee-stracture', 'Admin_Page/Student_Management/layouts/check-fee-stracture')->name('school_management_check_fee_stracture');
-   Route::view('student-management/student-parents', 'Admin_Page/Student_Management/layouts/student_parents')->name('school_management_student_parents');
-   Route::view('student-management/update-student-details', 'Admin_Page/Student_Management/layouts/update_student_details')->name('school_management_update_student_details');
-   Route::view('student-management/generate-id-card', 'Admin_Page/Student_Management/layouts/generate_id_card')->name('school_management_generate_id_card');
+   //Student Management Login 
+   Route::post('/student-management-login', 'App\Http\Controllers\AccountLoginController@studentManagement');
+   //Student Management Logout 
+   Route::post('/student-management-logout', 'App\Http\Controllers\AccountLoginController@StudentManagementLogout');
+   //Middleware Student Management
+   Route::group(['middleware' => 'studentManagementLogin'], function () {
+      // View Route 
+      Route::view('student-management', 'Admin_Page/Student_Management/layouts/dashboard')->name('student_management');
+      Route::view('student-management/dashboard', 'Admin_Page/Student_Management/layouts/dashboard')->name('school_management_dashboard');
+      Route::view('student-management/student-registration', 'Admin_Page/Student_Management/layouts/student_registration')->name('school_management_student_registration');
+      Route::view('student-management/registration-list', 'Admin_Page/Student_Management/layouts/registration_list')->name('school_management_registration_list');
+      Route::view('student-management/check-fee-stracture', 'Admin_Page/Student_Management/layouts/check-fee-stracture')->name('school_management_check_fee_stracture');
+      Route::view('student-management/student-parents', 'Admin_Page/Student_Management/layouts/student_parents')->name('school_management_student_parents');
+      Route::view('student-management/update-student-details', 'Admin_Page/Student_Management/layouts/update_student_details')->name('school_management_update_student_details');
+      Route::view('student-management/generate-id-card', 'Admin_Page/Student_Management/layouts/generate_id_card')->name('school_management_generate_id_card');
 
-   // Get & Post route 
-   Route::get('/registration-list', 'App\Http\Controllers\StudentController@registration_list');
-});
+      // Get & Post route 
+      Route::get('/registration-list', 'App\Http\Controllers\StudentController@registration_list');
+   });
 ///////////////////////////// End Student Management /////////////////////////////
 
 ///////////////////////////// Start Account Management /////////////////////////////
-//Student Management Login 
-Route::post('/account-management-login', 'App\Http\Controllers\AccountLoginController@AccountManagementLogin');
-//Student Management Logout 
-Route::post('/account-management-logout', 'App\Http\Controllers\AccountLoginController@AccountManagementLogout');
-Route::group(['middleware' => 'AccountManagementLogin'], function () {
-   Route::view('account-management', 'Admin_Page/Account_Management/layouts/dashboard')->name('account_management');
-});
-
+   //Student Management Login 
+   Route::post('/account-management-login', 'App\Http\Controllers\AccountLoginController@AccountManagementLogin');
+   //Student Management Logout 
+   Route::post('/account-management-logout', 'App\Http\Controllers\AccountLoginController@AccountManagementLogout');
+   Route::group(['middleware' => 'AccountManagementLogin'], function () {
+      Route::view('account-management', 'Admin_Page/Account_Management/layouts/dashboard')->name('account_management');
+   });
 ///////////////////////////// End Account Management /////////////////////////////
 
 ///////////////////////////// Start School Management /////////////////////////////
-//Student Management Login 
-Route::post('/school-management-login', 'App\Http\Controllers\AccountLoginController@SchoolManagementLogin');
-//Student Management Logout 
-Route::post('/school-management-logout', 'App\Http\Controllers\AccountLoginController@SchoolManagementLogout');
-Route::group(['middleware' => 'SchoolManagementLogin'], function () {
-   Route::view('school-management', 'Admin_Page/School_Management/layouts/dashboard')->name('school_management');
-});
+   //Student Management Login 
+   Route::post('/school-management-login', 'App\Http\Controllers\AccountLoginController@SchoolManagementLogin');
+   //Student Management Logout 
+   Route::post('/school-management-logout', 'App\Http\Controllers\AccountLoginController@SchoolManagementLogout');
+   Route::group(['middleware' => 'SchoolManagementLogin'], function () {
+      Route::view('school-management', 'Admin_Page/School_Management/layouts/dashboard')->name('school_management');
+   });
 ///////////////////////////// End School Management /////////////////////////////
 
 ///////////////////////////// START PARENT ACCOUNT /////////////////////////////
-Route::post('/parent-login', 'App\Http\Controllers\UserLoginController@ParentLogin');
-Route::post('/parent-logout', 'App\Http\Controllers\UserLoginController@ParentLogout');
+   Route::post('/parent-login', 'App\Http\Controllers\UserLoginController@ParentLogin');
+   Route::post('/parent-logout', 'App\Http\Controllers\UserLoginController@ParentLogout');
 
-Route::group(['middleware' => 'ParentAccountLogin'], function () {
-   Route::view('parent/dashboard', 'Admin_Page/Parent_Account/layouts/ParentDashboard')->name('parent-dashboard');
-   Route::view('parent/monthly-fee', 'Admin_Page/Parent_Account/layouts/MonthlyFee')->name('monthly-fee');
-   Route::view('parent/payment-bill', 'Admin_Page/Parent_Account/layouts/PaymentBill')->name('payment-bill');
+   Route::group(['middleware' => 'ParentAccountLogin'], function () {
+      Route::view('parent/dashboard', 'Admin_Page/Parent_Account/layouts/ParentDashboard')->name('parent-dashboard');
+      Route::view('parent/monthly-fee', 'Admin_Page/Parent_Account/layouts/MonthlyFee')->name('monthly-fee');
+      Route::view('parent/payment-bill', 'Admin_Page/Parent_Account/layouts/PaymentBill')->name('payment-bill');
 
-   Route::get('/get-student', 'App\Http\Controllers\ParentAccount\StudentController@index');
-   Route::get('/parent-payment-monthly', 'App\Http\Controllers\FeePaymenthMondthyController@index');
-});
+      Route::get('/get-student', 'App\Http\Controllers\ParentAccount\StudentController@index');
+      Route::get('/parent-payment-monthly', 'App\Http\Controllers\FeePaymenthMondthyController@index');
+   });
 
 ///////////////////////////// END PARENT ACCOUNT /////////////////////////////
 
@@ -577,10 +603,11 @@ Route::group(['middleware' => 'ParentAccountLogin'], function () {
    Route::post('/student-login', 'App\Http\Controllers\UserLoginController@StudentLogin');
    Route::post('/student-logout', 'App\Http\Controllers\UserLoginController@StudentLogout');
 
-   Route::group(['middleware' => 'StudentAccountLogin'], function () {
-      Route::view('student/dashboard', 'Admin_Page/Student_Account/layouts/StudentDashboard')->name('student-dashboard');
-      Route::get('/get-student-data', 'App\Http\Controllers\StudentAccount\StudentAccountController@index');
-   });
+Route::group(['middleware' => 'StudentAccountLogin'], function () {
+   Route::view('student/dashboard', 'Admin_Page/Student_Account/layouts/StudentDashboard')->name('student-dashboard');
+   Route::get('/get-student-data', 'App\Http\Controllers\StudentAccount\StudentAccountController@index');
+});
+
 ///////////////////////////// END STUDENT ACCOUNT /////////////////////////////
 
 ///////////////////////////// START TEACHER ACCOUNT /////////////////////////////
@@ -602,31 +629,36 @@ Route::group(['middleware' => 'ParentAccountLogin'], function () {
    });
 ///////////////////////////// END STUDENT ACCOUNT /////////////////////////////
 
-// Route::get('/command/seed', function () {
-//   Artisan::call('db:seed');
-// });
+Route::get('/command/storage', function () {
+  Artisan::call('storage:link');
+});
 
-// Route::get('/command/cache', function () {
-//   Artisan::call('cache:clear');
-// });
+Route::get('/command/migrate_fresh', function () {
+  Artisan::call('migrate:fresh');
+});
 
-// Route::get('/command/storage', function () {
-//   Artisan::call('storage:link');
-// });
-
-// Route::get('/command/migrate_fresh', function () {
-//   Artisan::call('migrate:fresh');
-// });
+Route::get('/command/migrate', function () {
+  Artisan::call('migrate');
+});
 
 // Route::get('/command/migrate', function () {
 //   Artisan::call('migrate');
 // });
 
+
 Route::get('/command/migrate_specific', function () {
    Artisan::call('migrate', [
        '--path' => [
            'database/migrations/2024_03_06_041716_create_students_fee_stractures_table.php',
+           'database/migrations/2024_03_10_054154_create_students_fee_months_table.php',
+           'database/migrations/2024_03_17_172859_create_students_fee_paids_table.php',
+           'database/migrations/2024_03_17_172940_create_students_fee_dues_table.php',
+           'database/migrations/2024_03_17_172954_create_students_fee_discs_table.php',
+           'database/migrations/2024_03_19_070225_create_students_fee_paid_histories_table.php',
+           'database/migrations/2024_03_27_104300_create_students_fee_for_resets_table.php',
        ]
    ]);
 });
+ 
+
  

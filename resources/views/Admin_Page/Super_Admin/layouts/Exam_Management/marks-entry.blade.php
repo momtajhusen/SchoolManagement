@@ -23,6 +23,10 @@
     <!-- ajax get all subject  -->
     <script src="{{ asset('../admin_lang/subject/ajax-get-all-subject.js')}}?v={{ time() }}"></script> 
 
+       {{-- Sorting Script  --}}
+   <script src="{{ asset('../admin_lang/common/sorting-script.js')}}?v={{ time() }}"></script>
+ 
+
 @endsection
 
 
@@ -75,20 +79,28 @@
                                 </form>
                         
                                 <form class="table-responsive entry-mark-form">
-                                    <table class="table data-table text-nowrap table-sm">
+                                    <table class="table data-table text-nowrap table-sm sortable-table">
                                         <thead>
                                             <tr>
-                                                <th>SN.</th>
-                                                <th>Roll.</th>
-                                                <th>Name</th>
+                                                <th data-column="0">SN.</th>
+                                                <th data-column="1">st_id.</th>
+                                                <th data-column="2">Name</th>
                                                 {{-- <th>Parent</th> --}}
-                                                <th>Marks Obtained</th>
-                                                <th>Total Marks</th>
-                                                <th>Minimum Marks</th>
-                                                <th>Attendance</th>
+                                                <th data-column="3">Marks Obtained</th>
+                                                <th data-column="4">Total Marks</th>
+                                                <th data-column="5">Minimum Marks</th>
+                                                <th data-column="6">Attendance</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="marks-entry">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center border" colspan="3">
+                                                    <input type="text" id="searchInput" class="form-control" placeholder="Student Search..." style="border-radius: 0%; box-shadow:none;">
+                                                </td>
+                                                <td class="text-center border" colspan="4">Subject: <span id="enter-subject"></span></td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody class="marks-entry sortable-bordy">
                         
                                         </tbody>
                                     </table>

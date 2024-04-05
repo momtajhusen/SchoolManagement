@@ -9,11 +9,6 @@ function get_paymentbill(){
    var classvalue = localStorage.getItem('st_class');
    var student_id = localStorage.getItem('st_id');
 
-   
-
-   var select_year = NepaliFunctions.GetCurrentBsDate().year;
-
-
    if (classvalue != "") 
    {
        if (student_id != "") 
@@ -24,7 +19,7 @@ function get_paymentbill(){
                data: {
                    class: classvalue,
                    student_id: student_id,
-                   year: select_year,
+                   year: current_year,
                },
                // Success
                success: function (response) {

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\HelperController\StudentAccountFee;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Parents;
 use App\Models\StudentsFeeStracture;
+use App\Models\StudentsFeeMonth;
 use App\Models\Student;
+use Illuminate\Support\Facades\Validator;
 use Exception;
 
 
@@ -37,7 +40,6 @@ class ParrentProfile extends Controller
         }
     }
 
-    
     public function StudentsFeeStractures(Request $request)
     {
         $st_id = $request->st_id;
@@ -50,10 +52,14 @@ class ParrentProfile extends Controller
 
         // Organize fee structures by month and fee type
         $organizedFeeStructures = [];
+        $annualfee = 0;
         foreach ($feeStructures as $structure) {
             $month = $structure->month;
             $feeType = $structure->fee_type;
+            $feeId = $structure->id;
             $amount = $structure->amount;
+
+            $annualfee += $amount;
     
             // Add month if not present
             if (!isset($organizedFeeStructures[$month])) {
@@ -62,17 +68,29 @@ class ParrentProfile extends Controller
     
             // Add fee type with fee name and amount under respective month
             $organizedFeeStructures[$month][] = [
+                'amount' => $amount,
                 'fee_name' => $feeType,
-                'amount' => $amount
+                'id' => $feeId,
             ];
         }
 
         $student = [
             'fee_year'=>$year,
-            'st_id'=>$st_id
+            'st_id'=>$st_id,
+            'annualfee'=>$annualfee
+
         ];
+        
+        $monthStatus = StudentAccountFee::singleStudentMonthStatus($year, $st_id);
     
-        return response(array("StudentFeeStracture" => $organizedFeeStructures, 'student'=>$student), 200);
+        $responseData = array(
+            "StudentFeeStructure" => $organizedFeeStructures,
+            'student' => $student,
+            'month_status' => $monthStatus
+        );
+    
+        // Return the response with HTTP status 200
+        return response($responseData, 200);
     }
 
     public function StudentsFeeStracturesSave(Request $request){
@@ -89,15 +107,33 @@ class ParrentProfile extends Controller
                 ->delete();
             
             // Save new fee structures
+            $totalfee = 0;
             foreach ($fees as $fee) {
-                $studentFeeStructure = new StudentsFeeStracture();
-                $studentFeeStructure->st_id = $st_id;
-                $studentFeeStructure->month = $month;
-                $studentFeeStructure->year = $year;
-                $studentFeeStructure->fee_type = $fee['fee_name'];
-                $studentFeeStructure->amount = $fee['amount'];
-                $studentFeeStructure->save();
-            }           
+                    // Record doesn't exist, so proceed to save
+                    $totalfee += $fee['amount'];
+                    $studentFeeStructure = new StudentsFeeStracture();
+                    $studentFeeStructure->st_id = $st_id;
+                    $studentFeeStructure->month = $month;
+                    $studentFeeStructure->year = $year;
+                    $studentFeeStructure->fee_type = $fee['fee_name'];
+                    $studentFeeStructure->amount = $fee['amount'];
+                    $studentFeeStructure->save();
+            }
+            // end new fee structures
+ 
+            // start StudentsFeeMonth add 
+            $all_add = StudentsFeeStracture::where('st_id', $st_id)->where('year', $year)->where('month', $month)->sum('amount');
+            $StudentsFeeMonthdata = StudentsFeeMonth::where('st_id', $st_id)->where('year', $year)->first();
+            if ($StudentsFeeMonthdata) {
+                $columnName = 'month_'.$month-1;
+                $StudentsFeeMonthdata->$columnName = $all_add;
+                $StudentsFeeMonthdata->save();
+            }
+            // end StudentsFeeMonth add 
+
+            //Sum total_fee, total_paid, total_disc, total_dues
+            StudentAccountFee::StudentsFeeMonthsCalculate();
+        
             // Return success response
             return response()->json(['status' => 'Fee structures saved successfully'], 200);
         } catch (Exception $e) {
@@ -109,18 +145,83 @@ class ParrentProfile extends Controller
 
     public function DeleteMonthFee(Request $request){
         try {
+            $fee_id = $request->fee_id;
+
+            $StudentsFeeStracture = StudentsFeeStracture::where('id', $fee_id)->first();
+
+            // Delete the fee structure entry
+            $StudentsFeeStracture->delete();
+            
+            if ($StudentsFeeStracture) {
+                $st_id = $StudentsFeeStracture->st_id;
+                $delete_fee_amount = $StudentsFeeStracture->amount;
+                $fee_year = $StudentsFeeStracture->year;
+                $fee_month = $StudentsFeeStracture->month;
+            
+                // Sum up all fees for the same student, year, and month
+                $all_add = StudentsFeeStracture::where('st_id', $st_id)
+                    ->where('year', $fee_year)
+                    ->where('month', $fee_month)
+                    ->sum('amount');
+
+                
+            
+                // Find or create a record in StudentsFeeMonth table
+                $StudentsFeeMonthdata = StudentsFeeMonth::where('st_id', $st_id)
+                    ->where('year', $fee_year)
+                    ->first();
+            
+                if ($StudentsFeeMonthdata) {
+
+                    // Update the month column with the sum of all fees
+                    $columnName = 'month_'.($fee_month - 1);
+
+                    $StudentsFeeMonthdata->$columnName = $all_add;
+                    $StudentsFeeMonthdata->save();
+
+                    //Sum total_fee, total_paid, total_disc, total_dues
+                    StudentAccountFee::StudentsFeeMonthsCalculate();
+                }
+            
+                return response()->json(['status' => 'delete successfully'], 200);
+            } else {
+                // Handle case where fee structure entry with given ID is not found
+            }            
+        } catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+
+    public function DeleteMonth(Request $request){
+        try {
+          // Assuming $fee_year is defined properly before this code snippet
+
             $st_id = $request->st_id;
             $year = $request->year;
             $month = $request->month;
-            $fee_name = $request->fee_name;
-            
-            StudentsFeeStracture::where('st_id', $st_id)
-            ->where('year', $year)
-            ->where('month', $month)
-            ->where('fee_type', $fee_name)
-            ->delete();
+
+            // Delete records from StudentsFeeStracture table
+            StudentsFeeStracture::where('st_id', $st_id)->where('month', $month)->delete();
+
+            // Find or create a record in StudentsFeeMonth table
+            $StudentsFeeMonthdata = StudentsFeeMonth::where('st_id', $st_id)->where('year', $year)->first();
+
+            // Find or create a record in StudentsFeeMonth table
+            $StudentsFeeMonthdata = StudentsFeeMonth::where('st_id', $st_id)->where('year', $year)->first();
+
+            if ($StudentsFeeMonthdata) {
+                $columnName = 'month_' . ($month - 1); 
+                $StudentsFeeMonthdata->$columnName = 0;
+                $StudentsFeeMonthdata->save();
+            }
+
+            //Sum total_fee, total_paid, total_disc, total_dues
+            StudentAccountFee::StudentsFeeMonthsCalculate();
 
             return response()->json(['status' => 'delete successfully'], 200);
+
         } catch (Exception $e) {
             // Code to handle the exception
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
@@ -138,8 +239,7 @@ class ParrentProfile extends Controller
 
             $feeCheck = StudentsFeeStracture::where('st_id', $st_id)
             ->where('year', $year)
-            ->where('month', $month)
-            ->where('fee_type', $input_fee_name)->first();
+            ->where('month', $month)->first();
 
             if(!$feeCheck){
                 $studentFeeStructure = new StudentsFeeStracture();
@@ -150,10 +250,22 @@ class ParrentProfile extends Controller
                 $studentFeeStructure->amount = $input_fee_amount;
                 if($studentFeeStructure->save())
                 {
+
+                    // Find or create a record in StudentsFeeMonth table
+                    $StudentsFeeMonth = StudentsFeeMonth::updateOrCreate(
+                        ['st_id' => $st_id, 'year' => $year],
+                        [
+                            'month_' . $month-1 => $input_fee_amount,
+                        ]
+                    );
+
+                    //Sum total_fee, total_paid, total_disc, total_dues
+                    StudentAccountFee::StudentsFeeMonthsCalculate();
+
                     return response()->json(['status' => 'add successfully'], 200);
                 }
             }else{
-                return response()->json(['status' => 'fee name already exist'], 200);
+                return response()->json(['status' => 'this month already exist'], 200);
             }
             
         } catch (Exception $e) {
@@ -162,6 +274,89 @@ class ParrentProfile extends Controller
             return response()->json(['status' => $message], 500);
         }
 
+    }
+
+    public function SaveDealFee(Request $request)
+    {
+        try {
+            // Validate the incoming request data
+            $validator = Validator::make($request->all(), [
+            'checkedMonths' => 'required|array',
+            'checkedMonths.*' => 'required|integer|min:1|max:12', // Assuming months range from 1 to 12
+            'checkedfeeType' => 'required|array',
+            'fee_amount' => 'required|numeric|min:0',
+            'st_id' => 'required|integer',
+            'year' => 'required|integer',
+        ]);
+
+        // Check if the validation fails
+        if ($validator->fails()) {
+            // Return the validation errors as a JSON response
+            return response()->json(['errors' => $validator->errors()], 422); // 422 is Unprocessable Entity status code
+        }
+
+          // Access the sent data
+            $checkedMonths = $request->input('checkedMonths');
+            $checkedfeeType = $request->input('checkedfeeType');
+            $fee_amount = $request->input('fee_amount');
+            $st_id =  $request->st_id;
+            $year =  $request->year;
+
+            // Delete existing fee structures for the same st_id, year, and month
+            StudentsFeeStracture::where('st_id', $st_id)->where('year', $year)->whereIn('month', $checkedMonths)->delete();
+
+            // Calculate total number of checked months
+            $totalMonths = count($checkedMonths);
+
+            // Calculate amount per month
+            $amountPerMonth = floor($fee_amount / $totalMonths);
+
+            // Calculate remaining amount
+            $remainingAmount = $fee_amount % $totalMonths;
+
+            // Process each checked month
+            foreach ($checkedMonths as $key => $month) {
+                // Add remaining amount to each month
+                $dividedAmount = $amountPerMonth;
+                if ($remainingAmount > 0) {
+                    $dividedAmount += 1;
+                    $remainingAmount -= 1;
+                }
+
+                // Calculate amount per fee type for this month
+                $amountPerFeeType =  $dividedAmount / count($checkedfeeType);
+
+                // Distribute amount for each fee type
+                foreach ($checkedfeeType as $feeType) {
+                    // Save the data to the database
+                    StudentsFeeStracture::create([
+                        'st_id' => $st_id,
+                        'year' =>  $year, 
+                        'month' => $month,
+                        'fee_type' => $feeType,
+                        'amount' => $amountPerFeeType,
+                        'fee_structure_type' => 'deal', 
+                    ]);
+                }
+
+                // Find or create a record in StudentsFeeMonth table
+                $studentsFeeMonth = StudentsFeeMonth::updateOrCreate(
+                    ['st_id' => $st_id, 'year' => $year],
+                    [
+                        'month_' . ($month - 1) => $dividedAmount,
+                        'total_fee' =>  $fee_amount,
+                        'total_dues' =>  $fee_amount,
+                    ]
+                );
+            }
+
+            // Return a success response
+            return response()->json(['status' => 'Data saved successfully'], 200);
+        } catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
     }
 
     /**

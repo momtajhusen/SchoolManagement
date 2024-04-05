@@ -1,8 +1,7 @@
 
 
 $(document).ready(function(){
-    var date = NepaliFunctions.GetCurrentBsDate();
-    var today = date.year+'-'+date.month+'-'+date.day;
+    var today = current_year+'-'+current_month+'-'+current_day;
 
     $(".expenses_start_date, .expenses_end_date").val(today);
 
@@ -41,10 +40,10 @@ $(document).ready(function(){
                    totalExpense += Number(data.amount);
                    $(".expense-report-table").append(`
                         <tr>
-                        <th>`+sn+`</th>
-                        <td>`+data.expenses_name+`</td>
-                        <td>`+data.amount+`</td>
-                        <td>`+data.expenses_date+`</td>
+                        <th nowrap="nowrap">`+sn+`</th>
+                        <td nowrap="nowrap">`+data.expenses_name+`</td>
+                        <td nowrap="nowrap">`+Number(data.amount)+`</td>
+                        <td nowrap="nowrap">`+data.expenses_date+`</td>
                         </tr>
                    `);
 

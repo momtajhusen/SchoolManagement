@@ -241,9 +241,8 @@ $(document).ready(function () {
 // Selector Month than and Year
 $(document).ready(function () {
     // Select year 10 year below
-    var year = NepaliFunctions.GetCurrentBsDate().year;
     for (let i = 0; i < 10; i++) {
-        var yearOption = year - i;
+        var yearOption = current_year - i;
         $(".select-year").append(`
       <option value="${yearOption}">${yearOption}</option>
     `);
@@ -271,6 +270,5 @@ $(document).ready(function () {
     var select_month =  0;
     $(".start-month").val(select_month).change();
 
-    var select_month = NepaliFunctions.GetCurrentBsDate().month - 1;
-    $(".end-month").val(select_month).change();
+    $(".end-month").val(decremented_current_month).change();
 });

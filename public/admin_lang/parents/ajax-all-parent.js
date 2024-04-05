@@ -102,7 +102,7 @@ function loadParentData(url) {
                     $(".table-body").append(`
                         <tr>
                             <td>${id}</td>
-                            <td class="text-center"><a href="#"><img src="${currentDomainWithProtocol}/storage/${father_image}" style="height:40px; padding:2px;border:1px solid #ccc;" alt="father_img"></a></td>
+                            <td class="text-center"><a href="parent-profile/`+id+`"><img src="${currentDomainWithProtocol}/storage/${father_image}" style="height:40px; padding:2px;border:1px solid #ccc;" alt="father_img"></a></td>
                             <td><a href="#" class="text-dark">${father_name}</a></td>
                             <td>${total_child}</td>
                             <td>${father_mobile}</td>

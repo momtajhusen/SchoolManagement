@@ -4,6 +4,10 @@ $(document).ready(function ()
 {
     $(".monthly_payment").click(function () {
         $(".monthly_payment").addClass('d-none');
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
 
         var payment_date =  $("#payment_date").val();
         if(!NepaliFunctions.ValidateBsDate(payment_date)){
@@ -46,7 +50,6 @@ $(document).ready(function ()
             var roll = $(".roll-select").val();
     
             var select_month =  $("#select_month").val();
-            var select_year = NepaliFunctions.GetCurrentBsDate().year;
             var payment_date =  $("#payment_date").val();
             var student_id = $("#student_id").val();
 
@@ -81,7 +84,7 @@ $(document).ready(function ()
                         comment_discount:comment_discount,
                         class: class_select,
                         roll: roll,
-                        select_year: select_year,
+                        select_year: current_year,
                         payment_date: payment_date,
                         select_month: select_month,
                         feeType: feeType,
@@ -153,6 +156,10 @@ $(document).ready(function ()
 {
     $(".monthly_payment").click(function () {
         $(".monthly_payment").addClass('d-none');
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
 
         if($(".monthly_payment").attr("paymode") == "multi-pay")
         {
@@ -197,7 +204,6 @@ $(document).ready(function ()
             var comment_free_fee = $("#comment_free_fee").val() || "";
             var comment_discount = $("#comment_discount").val() || "";
             var free = $("#free").val() || 0;
-            var select_year = NepaliFunctions.GetCurrentBsDate().year;
             var payment_date =  $("#payment_date").val();
             var student_id = $("#student_id").val();
 
@@ -240,7 +246,7 @@ $(document).ready(function ()
                         free_fee: free,
                         comment_free_fee: comment_free_fee,
                         comment_discount: comment_discount,
-                        year: select_year,
+                        year: current_year,
                         payment_date: payment_date,
                         months: JSON.stringify(MonthsArray),
                         dues: JSON.stringify(DuesFeeArray),
@@ -314,8 +320,6 @@ $(document).ready(function(){
       var dues_year = $(".dues_year").val();
       var student_select = $(".student-select").val();
       var payment_date =  $("#back_year_paid_date").val();
-
-      var current_year = NepaliFunctions.GetCurrentBsDate().year;
  
       if(payment_year > 0)
       {

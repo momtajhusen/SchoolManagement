@@ -117,7 +117,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
       // Select year 10 year below
-  var year = NepaliFunctions.GetCurrentBsDate().year;
+  var year = current_year;
   for (let i = 0; i < 10; i++) 
   {
     var yearOption = year - i;
@@ -127,6 +127,6 @@ $(document).ready(function(){
   }
 
     // Set select_month to 11 and trigger change event
-    var select_month = NepaliFunctions.GetCurrentBsDate().month - 1;
+    var select_month = decremented_current_month;
     $(".select-month").val(select_month).change();
 });

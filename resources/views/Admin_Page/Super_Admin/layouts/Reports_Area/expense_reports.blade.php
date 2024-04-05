@@ -24,6 +24,9 @@
     <!-- Include SheetJS library for .xlsx export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
+    {{-- Sorting Script  --}}
+   <script src="{{ asset('../admin_lang/common/sorting-script.js')}}?v={{ time() }}"></script>
+ 
 
 @endsection
 
@@ -55,7 +58,7 @@
                 </div>
             </div>
 
-                <table class="table table-bordered table-sm exportTable" id="myTable">
+                <table class="table table-bordered table-sm exportTable table-responsive-md sortable-table" id="myTable">
 
                     <div class="d-flex justify-content-between">
                         <div><b>Total Expense: </b><b class="total-expense">0</b></div>
@@ -75,13 +78,13 @@
 
                     <thead>
                       <tr>
-                        <th scope="col">NO.</th>
-                        <th scope="col">Expenditure</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Date</th>
+                        <th nowrap="nowrap"  data-column="0">NO.</th>
+                        <th nowrap="nowrap"  data-column="1">Expenditure</th>
+                        <th nowrap="nowrap"  data-column="2">Amount</th>
+                        <th nowrap="nowrap"  data-column="3">Date</th>
                       </tr>
                     </thead>
-                    <tbody class="expense-report-table">
+                    <tbody class="expense-report-table sortable-bordy">
 
                     </tbody>
                     <tbody class="expense-total-report">

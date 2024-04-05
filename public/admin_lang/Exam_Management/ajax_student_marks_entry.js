@@ -4,6 +4,8 @@ $(document).ready(function(){
       e.preventDefault();
 
       $(".marks-entry").html('');
+      $("#enter-subject").html('');
+      $("#searchInput").val('');
   
       var select_exam = $("#select_exam").val();
       var select_class = $(".class-select").val();
@@ -58,7 +60,7 @@ $(document).ready(function(){
 
 
              var index = 1;
-             $(".marks-entry").append(`<td class="text-center border" colspan="7">Subject : `+select_subject+`</td>`);
+             $("#enter-subject").html(select_subject);
              response.student_data.forEach(function(item, index) {
                 var sn = index + 1;
                 var id = item.id;
@@ -78,9 +80,9 @@ $(document).ready(function(){
 
             
                 $(".marks-entry").append(`
-                <tr id="`+id+`">
+                   <tr id="`+id+`">
+                    <td>`+sn+`</td>
                     <td>`+id+`</td>
-                    <td>`+roll_no+`</td>
                     <td>`+first_name+' '+middle_name+' '+last_name+`</td>
                     <td>
                         <input type="hidden" value="`+id+`" name="st_id[]">

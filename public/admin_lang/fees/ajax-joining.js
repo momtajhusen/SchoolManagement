@@ -114,7 +114,6 @@
 
             var classvalue = $("#class-select").val();
             var student_id = $("#st_id").html();
-            var select_year = NepaliFunctions.GetCurrentBsDate().year;
         
             $.ajaxSetup({
                 headers: {
@@ -128,7 +127,7 @@
                 data: {
                     class: classvalue,
                     student_id: student_id,
-                    year: select_year,
+                    year: current_year,
                     tuitionArray: tuitionArray,
                     transportArray: transportArray,
                     fullhostelArray: fullhostelArray,
@@ -178,7 +177,6 @@
     $("#joining-btn").click(function(){
 
         var student_id = $("#st_id").html();
-        var select_year =  NepaliFunctions.GetCurrentBsDate().year;
 
         $.ajaxSetup({
             headers: {
@@ -191,7 +189,7 @@
             method: "GET",
             data: {
                 student_id: student_id,
-                select_year: select_year,
+                select_year: current_year,
             },
             success: function(response) {
             console.log(response);
@@ -256,8 +254,7 @@
             }
 
                 // check admission month and year for joining month remove
-                var select_year = NepaliFunctions.GetCurrentBsDate().year;
-                if(select_year == admision_year)
+                if(current_year == admision_year)
                 {                                                
                     for (var i = 0; i < admission_month-1; i++) {
                     $(".month_"+i).addClass("d-none");

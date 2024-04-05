@@ -787,10 +787,7 @@ class DuesListController extends Controller
             return response()->json(['status' => $message], 500);
         }
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+ 
     public function duesMessage(Request $request)
     {
         $studentData = $request->input('StudentData');
@@ -806,133 +803,7 @@ class DuesListController extends Controller
             echo "Polar Star School " . "Name : " . $Student . " total Payed " . $payment . " " . "Dues Amount" . $duesAmount . " Next Message ";
         }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    // public function ClassFinance(Request $request)
-    // {
-
-    //     try {
-    //         $class = $request->select_class;
-    //         $months = json_decode($request->input('selectmonth'), true); // decode as array
-    //         $length = count($months);
-
-    //         // date year 
-    //         $dateSetting = DateSetting::first();
-    //         $current_year = ($dateSetting && $dateSetting->using_date != "internet-date") ? $dateSetting->year : ($request->current_year ?? null);
-
-    //         // Retrieve all the rows from the ClassTotalFeePayment table
-    //         $classTotalFeePayment = ClassTotalFeePayment::get();
-
-    //         // Initialize an empty array to store the total payment and discount for each class
-    //         $classArray = array();
-
-
-
-    //         // Loop through each row in the ClassTotalFeePayment table
-    //         foreach ($classTotalFeePayment as $row) {
-    //             // Get the class name and payment for each month
-    //             $class = $row->class;
-
-
-    //             $totalStudent = Student::where("class", $class)->where("class_year", $current_year)->get();
-    //             $totalClassStudent = count($totalStudent);
-
-    //             ////////// Start Total Student Class Fee //////////
-    //             $MonthTotalFee = array();
-    //             for ($i = 0; $i < $length; $i++) {
-    //                 $month = $months[$i];
-    //                 $MonthTotalFee[$month] = FeeStructure::where('class', $class)->sum($month);
-    //             }
-    //             $totalFees = 0;
-    //             $responsestudent = Student::where("class", $class)->get();
-    //             if (count($responsestudent) != "0") {
-
-    //                 foreach ($responsestudent as $data) {
-
-    //                     // Monthly Fee Add in Total 
-    //                     foreach ($MonthTotalFee as $month => $fee) {
-    //                         $totalFees += intval($fee);
-    //                     }
-
-    //                     // Transport Use Check than Add in Total 
-    //                     if ($data->vehicle_root != "No") {
-    //                         $root_id = $data->vehicle_root;
-    //                         $Transport = VehicleRoot::where('id', $root_id)->first();
-    //                         $transportAmount = $Transport->amount;
-    //                         $totalFees += $transportAmount * $length;
-    //                     }
-
-    //                     // Hostel Check than Add in Total 
-    //                     if ($data->hostel_outi == "hostel") 
-    //                     {
-    //                         $HostelFee = HostelFee::where('class', $class)->first();
-    //                         $hostel_fee = $HostelFee->hostel_fee;
-    //                         $totalFees += $hostel_fee * $length;
-    //                     }
-
-    //                     // TuitionFee Check than Add in Total
-    //                     if ($data->tuition == "Yes") {
-    //                         $TuitionFee = TuitionFee::where('class', $class)->first();
-    //                         $tuition_fee = $TuitionFee->tuition_fee;
-    //                         $totalFees += $tuition_fee * $length;
-    //                     }
-    //                 }
-    //             } else {
-    //                 foreach ($MonthTotalFee as $month => $fee) {
-    //                     $totalFees +=  0;
-    //                 }
-    //             }
-    //             ////////// Start Total Student Class Fee //////////
-
-
-    //             $payment = array();
-    //             for ($i = 0; $i < $length; $i++) { // adjust loop
-    //                 $payment[$i] = $row->{$months[$i]}; // use [] operator
-    //             }
-
-    //             // Retrieve the corresponding row from the ClassTotalFeeDiscount table
-    //             $classTotalFeeDiscount = ClassTotalFeeDiscount::where('class', '=', $class)->first();
-
-    //             // Get the discount for each month
-    //             $discount = array();
-    //             if ($classTotalFeeDiscount != null) {
-    //                 for ($i = 0; $i < $length; $i++) { // adjust loop
-    //                     $discount[$i] = $classTotalFeeDiscount->{$months[$i]}; // use [] operator
-    //                 }
-    //             } else {
-    //                 for ($i = 0; $i < $length; $i++) { // adjust loop
-    //                     $discount[$i] = 0;
-    //                 }
-    //             }
-
-    //             // Calculate the total payment and discount for each class
-    //             $totalPayment = array_sum($payment);
-    //             $totalDiscount = array_sum($discount);
-
-    //             // Add the class and total payment and discount to the class array
-    //             $classArray[] = array(
-    //                 'class' => $class,
-    //                 'section' => "A",
-    //                 'TotalPayment' => $totalPayment,
-    //                 'TotalDiscount' => $totalDiscount,
-    //                 'totalClassFee' => $totalFees,
-    //                 '$totalStudent' => $totalClassStudent,
-    //             );
-    //         }
-
-    //         return response(array("totalPayment" => $classArray), 200);
-    //     } catch (Exception $e) {
-    //         // Code to handle the exception
-    //         $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
-    //         return response()->json(['status' => $message], 500);
-    //     }
-    // }
-
-    /**
-     * Display the specified resource.
-     */
+ 
     public function show(string $id)
     {
         //

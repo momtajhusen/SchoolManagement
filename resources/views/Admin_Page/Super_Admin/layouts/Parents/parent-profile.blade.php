@@ -50,6 +50,27 @@
           -webkit-appearance: none;
           margin: 0;
         }
+
+        .checkbox-custom {
+            transform: scale(1.1); /* Adjust the scale factor as needed */
+            margin-right: 10px; /* Optional: Add some spacing between checkbox and label */
+        }
+
+        /* Ensure alignment */
+        .borders {
+            display: inline-flex; /* Ensure the label behaves like a flex container */
+            align-items: center; /* Align items vertically in the center */
+        }
+
+        .bg-paid{
+         background-color: rgb(160, 250, 142) !important;
+      }
+      .bg-dues{
+         background-color: rgb(250, 239, 142) !important;
+      }
+      .bg-feenotset{
+         background-color: rgb(149, 142, 250) !important;
+      }
     </style>
 
 @endsection
@@ -65,6 +86,9 @@
 
     <!-- ajax parent wallet -->
     <script src="{{ asset('../admin_lang/parents/ajax-parent-wallet.js')}}?v={{ time() }}"></script> 
+
+    <!-- ajax deal fee save -->
+    <script src="{{ asset('../admin_lang/parents/ajax-deal-fee-set.js')}}?v={{ time() }}"></script> 
 
     <!-- Date Picker Js -->
     <script src="{{ asset('../admin_template_assets/js/datepicker.min.js')}}"></script>
@@ -179,7 +203,7 @@
 
      <div class="p-3 col-12 col-md-8">
          <div class="row">
-              <div class="col-12 col-md-5 mb-4">
+                <div class="col-12 col-md-5 mb-4">
                 <div style="border:1px solid #ccc;">
                     <div class="p-2 d-flex justify-content-between align-items-center " style="border:1px solid #ddd; height:35px; ">
                       <div class="d-flex">
@@ -210,10 +234,10 @@
                         </div>
                    </div>
                 </div>
-              </div>
+              </div> --}}
               <!-- Button trigger modal -->
 
-            <!-- Modal -->
+            <!--Add Month Modal -->
             <div class="modal fade" id="yearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -253,11 +277,136 @@
                     
                      </div>
 
-
-                    
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary close-model" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary add-month"  st_id="#">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Save Deal Fee Modal -->
+            <div class="modal fade" id="dealModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Fee Deal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                       <div class="row m-0">
+                          <div class="col-6 p-0">
+                             <div class="d-flex flex-column">
+                              <input type="number" placeholder="₹ 000" class="deal-fee p-2" class="mb-3">
+                              <div class="border p-2 d-flex flex-column">
+                               <div>Select Fee Stracture</div>
+                                 <div class="fee-stracture-box" style="height:300px;overflow: auto" >
+                                    <label for="feetype1" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                      <input type="checkbox" checked id="feetype1" value="tuition_fee" class="checkbox-custom border fee-type" style="cursor: pointer">
+                                      <span class="ml-1" style="cursor:pointer;">Tuition Fee</span>
+                                    </label>
+                                    <label for="feetype2" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                      <input type="checkbox" id="feetype2" value="full_hostel_fee" class="checkbox-custom border fee-type" style="cursor: pointer">
+                                      <span class="ml-1" style="cursor:pointer;">Full Hostel Fee</span>
+                                    </label>
+                                    <label for="feetype3" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                      <input type="checkbox" id="feetype3" value="half_hostel_fee" class="checkbox-custom border fee-type" style="cursor: pointer">
+                                      <span class="ml-1" style="cursor:pointer;">Half Hostel Fee</span>
+                                    </label>
+                                    <label for="feetype4" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                      <input type="checkbox" id="feetype4" value="computer_fee" class="checkbox-custom border fee-type" style="cursor: pointer">
+                                      <span class="ml-1" style="cursor:pointer;">Computer Fee</span>
+                                    </label>
+                                    <label for="feetype5" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                      <input type="checkbox" id="feetype5" value="coaching_fee" class="checkbox-custom border fee-type" style="cursor: pointer">
+                                      <span class="ml-1" style="cursor:pointer;">	Coaching Fee</span>
+                                    </label>
+                                    <label for="feetype6" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                      <input type="checkbox" id="feetype6" value="admission_fee" class="checkbox-custom border fee-type" style="cursor: pointer">
+                                      <span class="ml-1" style="cursor:pointer;">Admission Fee</span>
+                                    </label>
+                                    <label for="feetype7" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                      <input type="checkbox" id="feetype7" value="annual_charge" class="checkbox-custom border fee-type" style="cursor: pointer">
+                                      <span class="ml-1" style="cursor:pointer;">Annual Charge</span>
+                                    </label>
+                                    <label for="feetype8" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                      <input type="checkbox" id="feetype8"  value="exam_fee" class="checkbox-custom border fee-type" style="cursor: pointer">
+                                      <span class="ml-1" style="cursor:pointer;">Exam Fee</span>
+                                    </label>
+                                    <label for="feetype9" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                      <input type="checkbox" id="feetype9"  value="saraswati_puja_fee" class="checkbox-custom border fee-type" style="cursor: pointer">
+                                      <span class="ml-1" style="cursor:pointer;">Saraswati Puja</span>
+                                    </label>
+                                 </div>
+                              </div>
+                             </div>
+                          </div>
+                          <div class="col-6 p-0">
+                             <div class="d-flex flex-column border">
+                                <div class="d-flex flex-column">
+                                  <div class="border p-2 d-flex flex-column">
+                                    <div>Select Months</div>
+                                      <div class="fee-stracture-box pr-2" style="height:300px;overflow: auto">
+                                         <label for="month1" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                           <input type="checkbox" checked id="month1" value="1" class="checkbox-custom border month-input" style="cursor: pointer">
+                                           <span class="ml-1" style="cursor:pointer;">Baishakh</span>
+                                         </label>
+                                         <label for="month2" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                           <input type="checkbox" checked id="month2" value="2" class="checkbox-custom border month-input" style="cursor: pointer">
+                                           <span class="ml-1" style="cursor:pointer;">Jestha</span>
+                                         </label>
+                                         <label for="month3" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                           <input type="checkbox" checked id="month3" value="3" class="checkbox-custom border month-input" style="cursor: pointer">
+                                           <span class="ml-1" style="cursor:pointer;">Ashadh</span>
+                                         </label>
+                                         <label for="month4" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                           <input type="checkbox" checked id="month4" value="4" class="checkbox-custom border month-input" style="cursor: pointer">
+                                           <span class="ml-1" style="cursor:pointer;">Shrawan</span>
+                                         </label>
+                                         <label for="month5" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                          <input type="checkbox" checked id="month5" value="5" class="checkbox-custom border month-input" style="cursor: pointer">
+                                          <span class="ml-1" style="cursor:pointer;">Bhadau</span>
+                                        </label>
+                                        <label for="month6" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                          <input type="checkbox" checked id="month6" value="6" class="checkbox-custom border month-input" style="cursor: pointer">
+                                          <span class="ml-1" style="cursor:pointer;">Asoj</span>
+                                        </label>
+                                        <label for="month7" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                          <input type="checkbox" checked id="month7" value="7" class="checkbox-custom border month-input" style="cursor: pointer">
+                                          <span class="ml-1" style="cursor:pointer;">Kartik</span>
+                                        </label>
+                                        <label for="month8" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                          <input type="checkbox" checked id="month8" value="8" class="checkbox-custom border month-input" style="cursor: pointer">
+                                          <span class="ml-1" style="cursor:pointer;">Mangsir</span>
+                                        </label>
+                                        <label for="month9" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                          <input type="checkbox" checked id="month9" value="9" class="checkbox-custom border month-input" style="cursor: pointer">
+                                          <span class="ml-1" style="cursor:pointer;">Poush</span>
+                                        </label>
+                                        <label for="month10" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                          <input type="checkbox" checked id="month10" value="10" class="checkbox-custom border month-input" style="cursor: pointer">
+                                          <span class="ml-1" style="cursor:pointer;">Magh</span>
+                                        </label>
+                                        <label for="month11" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                          <input type="checkbox" checked id="month11" value="11" class="checkbox-custom border month-input" style="cursor: pointer">
+                                          <span class="ml-1" style="cursor:pointer;">Falgun</span>
+                                        </label>
+                                        <label for="month12" class="borders d-flex align-items-center w-100 border py-1 px-3" style="cursor: pointer">
+                                          <input type="checkbox" checked id="month12" value="12" class="checkbox-custom border month-input" style="cursor: pointer">
+                                          <span class="ml-1" style="cursor:pointer;">Chaitra</span>
+                                        </label>
+                                      </div>
+                                   </div>
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                  </div>                   
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary p-3 px-4 close-model" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary save-deal-fee p-3 px-4" st_id='#'>Save</button>
                   </div>
                 </div>
               </div>
@@ -269,7 +418,7 @@
                        <b>Student Fee Stracture</b> 
 
                        <div>
-
+                          <button class="btn material-symbols-outlined border deal-icon" data-toggle="modal" data-target="#dealModal" data-toggle="tooltip" data-placement="bottom" title="Add New Fee">toll</button>
                           <button class="btn material-symbols-outlined border" data-toggle="modal" data-target="#yearModal" data-toggle="tooltip" data-placement="bottom" title="Add New Fee">add</button>
                        </div>
 

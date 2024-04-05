@@ -45,7 +45,6 @@
     {{-- ajax-year-payment-history --}}
     <script src="{{ asset('../admin_lang/fees/ajax-year-payment-history.js')}}?v={{ time() }}"></script> 
 
-
     <!-- ajax  -->
     <script src="{{ asset('../admin_lang/fees/ajax-fee-payment.js')}}?v={{ time() }}"></script>
 
@@ -70,17 +69,13 @@
     <!-- ajax priv month invoice -->
     <script src="{{ asset('../admin_lang/fees/ajax-prev-invoice.js')}}?v={{ time() }}"></script> 
 
-
     <!-- Select 2 Js -->
     <script src="{{ asset('../admin_template_assets/js/select2.min.js')}}"></script>
 
     <!-- Date Picker Js -->
     <script src="{{ asset('../admin_template_assets/js/datepicker.min.js')}}"></script>
 
- 
- 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 @endsection
 
 @section('contents')

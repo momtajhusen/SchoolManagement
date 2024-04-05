@@ -63,7 +63,7 @@ $(document).ready(function(){
           var KickOutMonth = YearMonth[1];
           KickOutMonth = Number(KickOutMonth)-1;
 
-          KickOutMonth = NepaliFunctions.GetBsMonth(KickOutMonth);
+          KickOutMonth = NepaliFunctions.GetBsMonths(KickOutMonth);
 
  
           var currentDomainWithProtocol = window.location.protocol + "//" + window.location.host;

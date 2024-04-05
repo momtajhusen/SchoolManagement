@@ -12,9 +12,6 @@ $(document).ready(function(){
         var select_class = $(".class-select").val();
         var select_section = $(".section-select").val();
 
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
-
-
         $.ajax({
             url:  "/get-exam-tabulation",
             method: 'GET',

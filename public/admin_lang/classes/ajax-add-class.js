@@ -11,11 +11,8 @@ $(document).ready(function(){
             }
         });
 
-      var year = NepaliFunctions.GetCurrentBsDate().year;
-
-
         var formData = new FormData(this);
-        formData.append('year', year);
+        formData.append('year', current_year);
 
         if($("#check_action").val() != "update")
         {

@@ -7,7 +7,6 @@ $(document).ready(function(){
         var class_select = $(".class-select").val();
         var student_id = $(this).attr("student_id");
         var history_id = $(this).attr("history_id");
-        var select_year = NepaliFunctions.GetCurrentBsDate().year;
 
         Swal.fire({
             title: 'Are You Sure Reset Last Payment ?',
@@ -34,7 +33,7 @@ $(document).ready(function(){
                     method: "POST",
                     data: {
                         class_select: class_select,
-                        year: select_year,
+                        year: current_year,
                         student_id: student_id,
                         history_id: history_id,
                     },
@@ -79,7 +78,6 @@ $(document).ready(function(){
 $(document).ready(function(){
     $("#all_reset").click(function(){
       var st_id = $(this).attr("st_id");
-      var select_year = NepaliFunctions.GetCurrentBsDate().year;
   
           $.ajaxSetup({
             headers: {
@@ -103,7 +101,7 @@ $(document).ready(function(){
               method: "POST",
               data: {
                 st_id: st_id,
-                year: select_year,
+                year: current_year,
               },
               success: function(response) {
                 console.log(response);

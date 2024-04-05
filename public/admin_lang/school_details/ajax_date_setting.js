@@ -15,8 +15,8 @@ $(document).ready(function () {
         {
 
             var using_date =  $(".use_date").val(); 
-            var select_year = NepaliFunctions.GetCurrentBsDate().year;
-            var select_month = NepaliFunctions.GetCurrentBsDate().month; 
+            var select_year = current_year;
+            var select_month = current_month; 
         }
         else{
             var using_date =  $(".use_date").val();
@@ -113,15 +113,12 @@ $(document).ready(function () {
 
             if(response.data[0].using_date == "internet-date")
             {
-                var select_year = NepaliFunctions.GetCurrentBsDate().year;
-                var current_month = NepaliFunctions.GetCurrentBsDate().month;
-
                 $(".use_date option").filter(function (){
                     return $(this).val() == response.data[0].using_date;
                 }).prop("selected", true);
        
                 $(".year option").filter(function (){
-                   return $(this).val() == select_year;
+                   return $(this).val() == current_year;
                }).prop("selected", true);
        
                $(".months option").filter(function (){

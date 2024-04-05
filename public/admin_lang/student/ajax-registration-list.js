@@ -28,6 +28,7 @@
               var increase = count++
               var sn = index++;
               var id = data.id;
+              var pr_id = data.parents_id;
               var student_image = data.student_image;
               var first_name = data.first_name;
               var middle_name = data.middle_name;
@@ -57,6 +58,8 @@
 
               $(".table-body").append(`  
               <tr>
+                <td class="text-center">`+id+`</td>
+                <td class="text-center">`+pr_id+`</td>
                 <td class="text-center"><a href="student-details/`+id+`"><img src="`+studentImageWithCacheBust+`" alt="student" style="height:40px;padding:2px;border:1px solid  #ccc;"></a></td>
                 <td><a  href="student-details/`+id+`" class="text-dark">`+first_name+` `+middle_name+` `+last_name+`</a></td>
                 <td>`+gender+`</td>

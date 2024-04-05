@@ -12,15 +12,6 @@ $(document).ready(function(){
       var select_class = $(".class-select").val();
       var select_section = $(".section-select").val();
 
-
-
-      var current_year = NepaliFunctions.GetCurrentBsDate().year;
-      
-      var month = NepaliFunctions.GetCurrentBsDate().month;
-      var day = NepaliFunctions.GetCurrentBsDate().day;
-      
-      
-
       $.ajax({
           url:  "/get-exam-tabulation",
           method: 'GET',
@@ -317,7 +308,7 @@ $(document).ready(function(){
 
                             <!-- Signature  -->
                             <div style="width:100%; padding-left:20px;  display:flex; justify-content:space-between; position:absolute; left:0px; bottom:3px; "> 
-                                 <div>Date of Issue: `+current_year+`-`+month+`-`+day+`</div>
+                                 <div>Date of Issue: `+current_year+`-`+current_month+`-`+current_day+`</div>
                                  <div style="width:100px; text-align:center; border-top:1px solid #888; padding-top:5px; padding-bottom:5px;">Class Teacher</div>
                                  <div style="width:100px; text-align:center; border-top:1px solid #888; padding-top:5px; padding-bottom:5px; margin-right:55px;">Principal</div>
                             </div>

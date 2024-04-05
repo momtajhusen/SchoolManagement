@@ -78,7 +78,6 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(".class-select").change(function () {
         var classvalue = $(this).val();
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
 
         $.ajax({
             url: "/teacher/class-section",

@@ -246,9 +246,7 @@ $(document).ready(function(){
 
         const DisExcFeeType = [];
         const DisExcPerce = [];
-
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
-
+ 
 
         $(".fee_type_checkbox").each(function(){
  

@@ -85,8 +85,6 @@ $(document).ready(function () {
         var selectedOption = $(this).children("option:selected").val();
         localStorage.setItem('fee_class_check', selectedOption);
 
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
-
         if (selectedOption != "") {
             $.ajax({
                 url: "/retrive-fees-stracture",

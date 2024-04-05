@@ -30,6 +30,8 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/style.css')}}">
 
+    {{-- <link rel="stylesheet" href="{{ asset('../admin_template_assets/custom.css')}}"> --}}
+
     <!-- Google fa fa icon  -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
@@ -108,6 +110,8 @@
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 
 
+
+
     @yield('style')
 
     <style>
@@ -139,15 +143,14 @@
         /* Start Scroll Designe  */
             /* For vertical scrollbar */
             ::-webkit-scrollbar-thumb:vertical {
-                background: rgb(44,0,120);
-                background: linear-gradient(90deg, rgba(44,0,120,1) 16%, rgba(4,41,84,1) 72%);
-                box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+                      background-color: #b2bff8d3;
+                box-shadow: inset 0 0 10px rgba(63, 63, 63, 0.5);
             }
 
             /* For horizontal scrollbar */
             ::-webkit-scrollbar-thumb:horizontal {
-                background: rgb(44,0,120);
-                background: linear-gradient(90deg, rgba(44,0,120,1) 16%, rgba(4,41,84,1) 72%);
+                background-color: #b2bff8d3;
+                box-shadow: inset 0 0 10px rgba(63, 63, 63, 0.5);
             }
 
             /* Set the width, height, and background color for both scrollbars */
@@ -200,7 +203,15 @@
     .demo-visitor-form-box input{
         cursor: pointer;
     }
-
+ 
+    .sortable-table thead th{
+        cursor: pointer;
+    }
+    .sortable-table thead th{
+        padding: 10px;
+        user-select: none;
+    }
+ 
     </style>
 
 </head>
@@ -325,7 +336,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item sidebar-nav-item">
+                        <li class="nav-item sidebar-nav-item" id="old-account-menu">
                             <a href="#" class="nav-link d-flex" id="account-btn">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">account_balance</span>
                                 <span>Acconunt Management</span>
@@ -369,6 +380,32 @@
                                     <a href="{{route('manage_free_student')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
                                         <span>Fee & Disc Exceptions</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item sidebar-nav-item d-none" id="new-account-menu">
+                            <a href="#" class="nav-link d-flex" id="new-account-btn">
+                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">account_balance</span>
+                                <span>Acconunt Management</span>
+                            </a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item">
+                                    <a href="{{route('student-fee-payment')}}" class="nav-link">
+                                       <i class="fas fa-angle-right"></i>
+                                       <span>Student Fee Payment</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('student-deus-fee-list')}}" class="nav-link">
+                                       <i class="fas fa-angle-right"></i>
+                                        <span>Dues Fee List</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('add-expenses')}}" class="nav-link"><i class="fas fa-angle-right"></i>
+                                        <span>Add New Expenses</span>
                                     </a>
                                 </li>
                             </ul>
@@ -874,7 +911,7 @@
         <!-- Page Area End Here -->
 
         {{-- start tool box  --}}
-          <div class="tool-box">
+          <div class="tool-box d-none">
                <b class="px-1 text-center tool-text" style="font-size:13px;">Tools</b>
                <div class="d-flex justify-content-center">
                   <span class="material-symbols-outlined" id='calculator-icon' style="font-size:35px;cursor:pointer;"> calculate</span>
@@ -948,10 +985,12 @@
     <!-- Custom Js -->
     <script src="{{ asset('../admin_template_assets/js/main.js')}}"></script>
 
+    
+    <script src="{{ asset('../admin_lang/common/nepali_date/nepali.datepicker.js')}}" type="text/javascript"></script>
+
     <!--flaticon -->
     @yield('script')
 
-  <script src="{{ asset('../admin_lang/common/nepali_date/nepali.datepicker.js')}}" type="text/javascript"></script>
 
 
     <!-- Start Date Piceker Clander -->
@@ -967,10 +1006,18 @@
      {{-- ajax-check-menu-sub-menu.js --}}
     <script src="{{ asset('../admin_lang/RoleAndPermission/ajax-check-menu-sub-menu.js')}}?v={{ time() }}"></script>
 
+    <!-- new-account-skip-school  -->
+    <script src="{{ asset('../admin_lang/developer/new-account-skip-school.js')}}?v={{ time() }}"></script>
+
+
     <!-- Calculator js -->
     <script src="{{ asset('../admin_template_assets/calculator/script.js')}}?v={{ time() }}"></script>
 
+{{-- Helper Date js  --}}
+<script src="{{ asset('admin_lang/HelperScript/date.js')}}?v={{ time() }}"></script>
+
 <script type="text/javascript">
+ 
 
     jQuery(document).ready(function () {
         $('.date-picker').nepaliDatePicker();
@@ -993,17 +1040,13 @@
     $(document).ready(function(){
         $(".today-btn").click(function(){
         
-            var today =   $(this).parent().parent().find(".today-date");
-
-                var year = NepaliFunctions.GetCurrentBsDate().year;
-                var momth = NepaliFunctions.GetCurrentBsDate().month;
-                var day = NepaliFunctions.GetCurrentBsDate().day;
+                var today =   $(this).parent().parent().find(".today-date");
                 
                 for (var i = 0; i < today.length; i++) {
                 // Set the value of the current input element
-                var dayString = day.toString().padStart(2, '0');
+                var dayString = current_day.toString().padStart(2, '0');
 
-                var today =  today[i].value = year+"-"+momth+"-"+dayString;
+                var today =  today[i].value = current_year+"-"+current_month+"-"+dayString;
 
                 // $(this).parent().parent().find("input").val(today[i].value = dayString+"/"+momth+"/"+year);
 
@@ -1051,11 +1094,9 @@ $(document).ready(function() {
 
 // Current Nepal Date
 $(document).ready(function(){
-    var year = NepaliFunctions.GetCurrentBsDate().year;
-    var month = NepaliFunctions.GetCurrentBsDate().month;
-    var day = NepaliFunctions.GetCurrentBsDate().day;
-    var current_date = year + "-" + month + "-" + day;
-    var current_satrt = year + "-" + month + "-1";
+
+    var current_date = current_year + "-" + current_month + "-" + current_day;
+    var current_satrt = current_year + "-" + current_month + "-1";
 
     $(".currentDate").val(current_date);
     $(".currentSatrtDate").val(current_satrt);
