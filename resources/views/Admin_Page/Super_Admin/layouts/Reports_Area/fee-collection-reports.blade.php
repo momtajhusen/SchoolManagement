@@ -147,7 +147,7 @@ input{
               <!-- Body  -->
               <div class="border" style="height:400px; overflow-y: scroll;">
 
-                    <table class="table table-dark table-hover table-sm table-responsive-md sortable-table" id="payment-history-table">
+                    <table class="table table-dark table-bordered table-hover table-sm table-responsive-md sortable-table" id="payment-history-table">
                         <thead>
                         <tr>
                             <th nowrap="nowrap" data-column="0">SN.</th>
@@ -201,7 +201,7 @@ input{
 
               <!-- Body  -->
               <div class="border" style="height:375px; overflow-y: scroll;">
-                <table class="table table-dark table-hover table-sm table-responsive-md sortable-table" id="payment-history-date">
+                <table class="table table-dark table-bordered table-hover table-sm table-responsive-md sortable-table" id="payment-history-date">
                     <thead>
                     <tr>
                         <th nowrap="nowrap" data-column="0">SN.</th>
@@ -244,7 +244,7 @@ input{
               <!-- Body  -->
               <div class="border" style="height:375px; overflow-y: scroll;">
 
-                    <table class="table table-dark table-hover table-sm table-responsive-md sortable-table" id="payment-history-date">
+                    <table class="table table-dark table-bordered table-hover table-sm table-responsive-md sortable-table" id="payment-history-date">
                         <thead>
                         <tr>
                         <th>SN.</th>

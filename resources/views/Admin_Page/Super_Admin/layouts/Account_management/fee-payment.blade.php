@@ -1660,7 +1660,7 @@
             </div>
             <div>
                 <div class="w-100" style="overflow-x:scroll;">
-                  <table class="table table-dark table-hover table-sm">
+                  <table class="table table-dark table-bordered text-center table-hover table-sm">
                     <thead>
                         <tr style="background-color: #000">
                             <th scope="col">SN:</th>
@@ -1668,7 +1668,6 @@
                             <th scope="col">Total</th>
                             <th scope="col">Paid</th>
                             <th scope="col">Disc.</th>
-                            {{-- <th class="d-none" scope="col">Free</th> --}}
                             <th scope="col">Dues</th>
                             <th scope="col">Status</th>
                             <th scope="col">Single Pay</th>
