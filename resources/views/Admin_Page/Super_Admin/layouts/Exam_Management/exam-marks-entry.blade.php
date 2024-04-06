@@ -12,7 +12,7 @@
 @section('script')
 
     <!-- ajax Marks Entry -->
-    <script src="{{ asset('../admin_lang/Exam_Management/ajax_student_marks_entry.js')}}?v={{ time() }}"></script> 
+    <script src="{{ asset('../admin_lang/Exam_Management/ajax_exam_marks_entry.js')}}?v={{ time() }}"></script> 
 
     <!-- ajax Get All Exam Term -->
     <script src="{{ asset('../admin_lang/Exam_Management/ajax_get_exam_term.js')}}?v={{ time() }}"></script> 
@@ -100,7 +100,7 @@
                                                 <td class="text-center border" colspan="4">Subject: <span id="enter-subject"></span></td>
                                             </tr>
                                         </tbody>
-                                        <tbody class="marks-entry sortable-bordy">
+                                        <tbody class=" sortable-bordy">
                         
                                         </tbody>
                                     </table>
@@ -112,7 +112,7 @@
                                 <div class="container">
                                     <div class="row">
                                       <div class="col">
-                                        <table class="table table-bordered text-center">
+                                        <table class="table table-bordered text-center text-nowrap table-responsive-md">
                                           <thead>
                                             <tr>
                                               <th rowspan="2">S.N</th>
@@ -120,9 +120,6 @@
                                               <th colspan="2" class="text-center">Total Marks</th>
                                               <th colspan="2" class="text-center">Pass Marks</th>
                                               <th colspan="2" class="text-center">Obtained Marks</th>
-                                              <th rowspan="2">Grade</th>
-                                              <th rowspan="2">GPA</th>
-                                              <th rowspan="2">Remarks</th>
                                             </tr>
                                             <tr>
                                               <th class="text-center">
@@ -153,7 +150,7 @@
                                               <th class="text-center">Pr</th>
                                             </tr>
                                           </thead>
-                                          <tbody>
+                                          <tbody class="marks-entry">
                                             <tr>
                                               <td class="font-weight-bold">1</td>
                                               <td class="text-center">Momtaj Husen</td>
@@ -161,11 +158,12 @@
                                               <td class="text-center">40%</td>
                                               <td class="text-center">40%</td>
                                               <td class="text-center">40%</td>
-                                              <td class="text-center">40%</td>
-                                              <td class="text-center">40%</td>
-                                              <td class="text-center">40%</td>
-                                              <td class="text-center">40%</td>
-                                              <td class="text-center">40%</td>
+                                              <td class="text-center">
+                                                <input type="text" class="text-center" style="width:50px;">
+                                              </td>
+                                              <td class="text-center">
+                                                <input type="text" class="text-center" style="width:50px;">
+                                              </td>
                                             </tr>
                                           </tbody>
                                         </table>

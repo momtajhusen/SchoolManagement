@@ -21,6 +21,17 @@ return new class extends Migration
             $table->string('marks_obtained', 10)->nullable();
             $table->string('total_marks', 10)->nullable();
             $table->string('minimum_marks', 10)->nullable();
+            $table->decimal('total_th', 10, 2)->default(0);
+            $table->decimal('total_pr', 10, 2)->default(0);
+            $table->decimal('pass_th', 10, 2)->default(0);
+            $table->decimal('pass_pr', 10, 2)->default(0);
+            $table->decimal('obt_th_mark', 10, 2)->default(0);
+            $table->decimal('obt_pr_mark', 10, 2)->default(0);
+            $table->string('obt_th_grade', 10)->default(0);
+            $table->string('obt_pr_grade', 10)->default(0);
+            $table->decimal('f_g_point', 10, 2)->default(0);
+            $table->string('f_grade', 10)->default(0);
+            $table->string('remark', 10)->default('');
             $table->string('attendance', 10)->nullable();
             $table->string('exam_year', 40)->nullable();
             $table->timestamps();
