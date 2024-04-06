@@ -635,9 +635,7 @@ class StudentsFeePayment extends Controller
             $monthLength = count($months);
             $current_year = $request->current_year;
     
-            $students = Student::where('class', $class)
-                               ->where('section', $section)
-                               ->get();
+            $students = Student::where('class', $class)->where('section', $section)->get();
     
             if ($students->isNotEmpty()) {
                 $response_data = array();
@@ -652,12 +650,8 @@ class StudentsFeePayment extends Controller
                         'section' => $student->section,
                     );
     
-                    // Call StudentFeeMonthParticular function for each student
-                    // $fee_details_response = $this->StudentFeeMonthParticular($months, $pr_id, $current_year);
-
                      $fee_details_response = StudentAccountFee::StudentFeeMonthParticular($months, $pr_id, $current_year);
 
-    
                     // Add student details to the response data
                     $response_data[] = array(
                         'student_details' => $student_details,
