@@ -594,7 +594,15 @@
                                         <i class="fas fa-angle-right"></i>
                                         <span>Marks Entry</span>
                                     </a>
-                                </li>  
+                                </li> 
+                                
+                                <li class="nav-item">
+                                    <a href="{{route('student-marks-entry')}}" class="nav-link">
+                                        <i class="fas fa-angle-right"></i>
+                                        <span>student-marks-entry</span>
+                                    </a>
+                                </li>
+  
                                 <li class="nav-item">
                                     <a href="{{route('tabulation-sheet')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>

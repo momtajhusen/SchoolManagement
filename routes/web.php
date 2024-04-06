@@ -451,6 +451,8 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    Route::view('admin/exam-term', 'Admin_Page/Super_Admin/layouts/Exam_Management/exam-term')->name('exam-term');
    Route::view('admin/exam-timetable', 'Admin_Page/Super_Admin/layouts/Exam_Management/exam-timetable')->name('exam-timetable');
    Route::view('admin/marks-entry', 'Admin_Page/Super_Admin/layouts/Exam_Management/marks-entry')->name('marks-entry');
+   Route::view('admin/student-marks-entry', 'Admin_Page/Super_Admin/layouts/Exam_Management/exam-marks-entry')->name('student-marks-entry');
+
    Route::view('admin/exam-grade', 'Admin_Page/Super_Admin/layouts/Exam_Management/exam-grade')->name('exam-grade');
    Route::view('admin/tabulation-sheet', 'Admin_Page/Super_Admin/layouts/Exam_Management/tabulation-sheet')->name('tabulation-sheet');
    Route::view('admin/position-holder', 'Admin_Page/Super_Admin/layouts/Exam_Management/position-holder')->name('position-holder');

@@ -640,6 +640,7 @@ class StudentsFeePayment extends Controller
             if ($students->isNotEmpty()) {
                 $response_data = array();
                 $grouped_students = array();
+
                 foreach ($students as $student) {
                     $pr_id = $student->parents_id;
     
@@ -649,17 +650,13 @@ class StudentsFeePayment extends Controller
                         'class' => $student->class,
                         'section' => $student->section,
                     );
-    
-                     $fee_details_response = StudentAccountFee::StudentFeeMonthParticular($months, $pr_id, $current_year);
 
-                    // Add student details to the response data
-                    $response_data[] = array(
-                        'student_details' => $student_details,
-                        'fee_details' => $fee_details_response->getData(), // Extracting JSON response data
-                    );
+                    $fee_details_month = StudentsFeeStracture::where('st_id', $student->id)->where('year', $current_year)->where('month', $months)->get();
+ 
                 }
-    
-                return response()->json($response_data, 200);
+
+                return response()->json(['status' => 'success', 'data' => $student_details], 200);
+
             } else {
                 return response()->json(['message' => 'No students found'], 404);
             }

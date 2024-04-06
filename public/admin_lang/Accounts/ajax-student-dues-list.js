@@ -89,29 +89,8 @@ $(document).ready(function(){
 
                             console.log(response);
 
-
                             $('.student-dues-table').append('');
-                            response.forEach(element => {
-                              $('.student-dues-table').append(`
-                                 <tr>
-                                   <td>1</td>
-                                   <td>
-                                     <img src='../storage/`+element.student_details.student_image+`' style='width:40px;'>
-                                   </td>
-                                   <td>`+element.student_details.student_name+`</td>
-                                   <td>`+element.student_details.class+`</td>
-                                   <td>`+element.student_details.id+`</td>
-                                   <td>`+element.fee_details.fee_month_amount+`</td>
-                                   <td>`+element.fee_details.dues_amount+`</td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                 </tr>
-                              `);
-                                 
-                            });
-                         
+      
                            
                         },
                         error: function (xhr, status, error) 
