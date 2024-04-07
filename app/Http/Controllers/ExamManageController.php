@@ -436,7 +436,7 @@ class ExamManageController extends Controller
             $select_exam = $request->select_exam;
     
             // Retrieve student data and exam marks
-            $students = Student::select('id', 'class', 'section', 'first_name', 'last_name', 'student_image')
+            $students = Student::select('id', 'roll_no', 'class', 'section', 'first_name', 'middle_name', 'last_name', 'student_image')
                 ->orderBy('class')
                 ->orderBy('roll_no')
                 ->where("class", $select_class)

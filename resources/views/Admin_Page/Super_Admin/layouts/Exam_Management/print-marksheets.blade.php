@@ -83,7 +83,9 @@
                             <div  style="display: flex; justify-content: space-between; padding:25px; padding-bottom:15px;">
                     
                      
-                                <img id="school_logo" src="`+currentDomainWithProtocol+`/storage/`+school_logo+`" style="height:70px; padding:4px; border:2px solid #ddd; position:absolute; left: 20px;">
+                                <img id="school_logo" src="https://img.lovepik.com/element/45006/8218.png_860.png" style="height:70px; padding:4px; border:2px solid #ddd; position:absolute; left: 20px;">
+
+
                      
                                 <div style="line-height: 1.5; width: 100%;">
                                     <div style="width:100%; display: flex; justify-content:center;">
@@ -135,6 +137,7 @@
                     
                             <!-- Result Table  -->
                             <div>
+
                               <table class="text-center" style="border-collapse: collapse; width: 100%;">
                                 <thead>
                                     <tr>
@@ -166,6 +169,7 @@
                                 <tbody>
 
 
+
                                     <tr>
                                         <td colspan="2" style="border: 1px solid black; padding: 3px; text-align: center;">Momtaj Husen</td>
                                         <td style="border: 1px solid black; padding: 3px; text-align: center;">100</td>
@@ -183,6 +187,8 @@
  
                                 </tbody>
                               </table>
+
+                              
 
                               <div style="margin-top:15px;margin-left:10px;">
                                  <p>• <b>Final Result :</b> Pass</p>

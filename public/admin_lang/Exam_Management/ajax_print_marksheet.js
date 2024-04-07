@@ -273,7 +273,7 @@ $(document).ready(function(){
                               </table>
 
                               <div style="padding:10px;">
-                                 <span>Class Position: ${final_position_rank}</span>
+                                 <span>Position: ${final_position_rank}</span>
                               </div>
  
                             </div>
@@ -347,6 +347,8 @@ $(document).ready(function(){
                                  <div style="width:100px; text-align:center; border-top:1px solid #888; padding-top:5px; padding-bottom:5px; margin-right:55px;">Principal</div>
                             </div>
             
+                            <img id="school_logo" src="/storage/upload_assets/school/school_logo.png" style="opacity: 0.1;width:400px; z-index:-1; height:auto; position:absolute; left: 15%; top:35%;">
+
                         </div> 
                       </div> 
                      `);
