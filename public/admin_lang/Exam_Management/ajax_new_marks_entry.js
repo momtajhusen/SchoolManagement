@@ -292,5 +292,20 @@ $(document).ready(function(){
     });
 });
 
+// Select Input Number on click 
+$(document).ready(function(){
+    $(".marks-entry").on("click", ".obt_th_mark,.obt_pr_mark", function(){   
+        $(this).select();
+    });
+
+    $(".marks-entry").on("click", "#total_th,#total_pr", function(){   
+        $(this).select();
+    });
+
+    $('#total_th,#total_pr,#pass_th,#pass_pr').on('click', function() {
+        $(this).select();
+    });
+});
+
  
  
