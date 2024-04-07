@@ -398,7 +398,6 @@ class ExamManageController extends Controller
                     'class' => $class_select,
                     'section' => $section_select,
                     'subject' => $select_subject,
-                    'total_subject_mark' => $total_subject_mark, 
                     'exam_year' => $current_year,
                     'total_th' => $total_th,
                     'total_pr' => $total_pr,
@@ -720,8 +719,6 @@ class ExamManageController extends Controller
                         // Calculate total subject marks for the student
                         $totalSubjectMarks = $marks->sum('marks_obtained');
             
-                        // Add total subject marks to the student's data
-                        $this->data->total_subject_marks = $totalSubjectMarks;
             
                         // Add the student's data to the allData array
                         array_push($this->allData, $this->data);
@@ -739,20 +736,20 @@ class ExamManageController extends Controller
                     }
             
               // Sort students by position rank within each class and section
-foreach ($studentsByClassAndSection as $class => $sections) {
-    foreach ($sections as $section => $students) {
-        // Sort students by total_subject_marks in descending order
-        usort($students, function ($a, $b) {
-            return $b->total_subject_marks - $a->total_subject_marks;
-        });
+                foreach ($studentsByClassAndSection as $class => $sections) {
+                    foreach ($sections as $section => $students) {
+                        // Sort students by total_subject_marks in descending order
+                        usort($students, function ($a, $b) {
+                            return $b->total_subject_marks - $a->total_subject_marks;
+                        });
 
-        // Limit to the top 5 students with the highest total_subject_marks
-        $top5Students = array_slice($students, 0, $position_no);
+                        // Limit to the top 5 students with the highest total_subject_marks
+                        $top5Students = array_slice($students, 0, $position_no);
 
-        // Update the sorted students in the $studentsByClassAndSection array
-        $studentsByClassAndSection[$class][$section] = $top5Students;
-    }
-}
+                        // Update the sorted students in the $studentsByClassAndSection array
+                        $studentsByClassAndSection[$class][$section] = $top5Students;
+                    }
+                }
 
         // Reindex the $studentsByClassAndSection array by numerical indices
         $studentsByClassAndSection = array_values($studentsByClassAndSection);

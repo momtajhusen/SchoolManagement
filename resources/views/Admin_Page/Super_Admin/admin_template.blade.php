@@ -599,7 +599,7 @@
                                 <li class="nav-item">
                                     <a href="{{route('student-marks-entry')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>student-marks-entry</span>
+                                        <span>Marks Entry</span>
                                     </a>
                                 </li>
   
@@ -615,12 +615,12 @@
                                         <span>Print Marksheets</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{route('result-announcement')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
                                         <span>Result Announcement </span>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a href="{{route('print-admit-cards')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>

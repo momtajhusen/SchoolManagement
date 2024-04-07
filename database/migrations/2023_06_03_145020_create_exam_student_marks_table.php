@@ -30,7 +30,7 @@ return new class extends Migration
             $table->decimal('obt_pr_mark', 10, 2)->default(0);
             $table->string('obt_th_grade', 10)->default(0);
             $table->string('obt_pr_grade', 10)->default(0);
-            $table->decimal('grade_point', 10, 2)->default(0);
+            $table->decimal('grade_point', 5, 1)->default(0);
             $table->string('grade_name', 10)->default(0);
             $table->string('remark', 10)->default('');
             $table->string('attendance', 10)->nullable();

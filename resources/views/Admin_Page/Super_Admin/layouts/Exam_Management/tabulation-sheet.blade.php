@@ -52,7 +52,7 @@
                                     </div>
                                 </div>
 
-                                <form class="mg-b-20 exam-tabulation-form">
+                                {{-- <form class="mg-b-20 exam-tabulation-form d-none">
                                     <div class="row gutters-8">
                                         <div class="col-lg-3 col-12 form-group">
                                             <label>Exam *</label>
@@ -78,7 +78,7 @@
                                     </div>
                                 </form>
                         
-                                <div class="table-responsive"  id="print-section">
+                                <div class="table-responsive d-none"  id="print-section">
                                     <table class="table display text-nowrap table-sm exportTable" id="myTable">
                                         <thead class="exam-tabulation-title">
                      
@@ -87,7 +87,42 @@
  
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> --}}
+
+                                {{-- Export Table  --}}
+                                <table class="table table-sm text-nowrap table-bordered text-center table-responsive-md ">
+                                  <thead>
+                                    <tr>
+                                      <th rowspan="2" scope="col">#</th>
+                                      <th rowspan="2" scope="col">Student ↓ | Subject →</th>
+                                        <th colspan="2" scope="col">
+                                            Nepali
+                                        </th>
+                                        <th colspan="2" scope="col">
+                                          Nepali
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                      <td>TH</td>
+                                      <td>PR</td>
+
+                                      <td>TH</td>
+                                      <td>PR</td>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">1</th>
+                                      <td>Mark</td>
+                                      <td>
+                                        <span></span>
+                                        <span>56</span>
+                                        <span>34.5</span>
+                                      </td>
+                                      <td>@mdo</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
 
 
                                 <div class="d-flex align-items-end mt-2">
