@@ -324,7 +324,12 @@ class ExamManageController extends Controller
 
                // Start Theory and Practical Grade 
                     $th_percentage = number_format(($obt_th_mark[$key] / $total_th) * 100, 2);
-                    $pr_percentage = number_format(($obt_pr_mark[$key] / $total_pr) * 100, 2);
+                    
+                    if ($total_pr != 0) {
+                        $pr_percentage = number_format(($obt_pr_mark[$key] / $total_pr) * 100, 2);
+                    } else {
+                        $pr_percentage = 0;
+                    }
 
                     $obt_th_grade =  '';
                     $obt_pr_grade =  '';
