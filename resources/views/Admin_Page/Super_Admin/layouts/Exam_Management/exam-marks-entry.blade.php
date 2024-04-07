@@ -145,7 +145,7 @@
                                               <th class="text-center">
                                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                                     <span style="font-size: 12px;">PR</span>
-                                                    <input class="text-center p-1" required min='1' step="0.01" id="total_pr" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
+                                                    <input class="text-center p-1" min='1' step="0.01" id="total_pr" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
                                                 </div>
                                               </th>
                                               <th class="text-center">
@@ -157,7 +157,7 @@
                                               <th class="text-center">
                                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                                     <span style="font-size: 12px;">PR</span>
-                                                    <input class="text-center p-1" required min='1' id="pass_pr" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
+                                                    <input class="text-center p-1"  min='1' id="pass_pr" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
                                                 </div>
                                               </th>
                                               <th class="text-center">Th</th>
