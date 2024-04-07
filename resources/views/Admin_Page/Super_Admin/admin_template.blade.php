@@ -589,12 +589,12 @@
                             </a>
                             <ul class="nav sub-group-menu">
            
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{route('marks-entry')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
                                         <span>Marks Entry</span>
                                     </a>
-                                </li> 
+                                </li>  --}}
                                 
                                 <li class="nav-item">
                                     <a href="{{route('student-marks-entry')}}" class="nav-link">

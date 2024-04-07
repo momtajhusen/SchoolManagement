@@ -129,25 +129,23 @@
                                               <th rowspan="2">S.N</th>
                                               <th rowspan="2">
                                                 <span>Students</span>
-                                                <input type="text" id="searchInput" class="form-control" placeholder="Student Search..." style="border-radius: 0%; box-shadow:none;">
+                                                <input type="text" id="searchInput" class="form-control" placeholder="Student Search..." style="border-radius: 0%; box-shadow:none;height:30px;font-size:14px;">
                                               </th>
                                               <th colspan="2" class="text-center">Total Marks</th>
                                               <th colspan="2" class="text-center">Pass Marks</th>
                                               <th colspan="2" class="text-center">Obtained Marks</th>
-                                              <th rowspan="2">Grade</th>
-                                              <th rowspan="2">Remarks</th>
                                             </tr>
                                             <tr>
                                               <th class="text-center">
                                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                                     <span style="font-size: 12px;">TH</span>
-                                                    <input class="text-center p-1" required min="1" id="total_th" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
+                                                    <input class="text-center p-1" required min="1" step="0.01" id="total_th" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
                                                 </div>
                                               </th>
                                               <th class="text-center">
                                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                                     <span style="font-size: 12px;">PR</span>
-                                                    <input class="text-center p-1" required min='1' id="total_pr" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
+                                                    <input class="text-center p-1" required min='1' step="0.01" id="total_pr" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
                                                 </div>
                                               </th>
                                               <th class="text-center">
@@ -167,20 +165,7 @@
                                             </tr>
                                           </thead>
                                           <tbody class="marks-entry sortable-bordy">
-                                            <tr>
-                                              <td class="font-weight-bold">1</td>
-                                              <td class="text-center">Momtaj Husen</td>
-                                              <td class="text-center">89</td>
-                                              <td class="text-center">40%</td>
-                                              <td class="text-center">40%</td>
-                                              <td class="text-center">40%</td>
-                                              <td class="text-center">
-                                                <input type="text" class="text-center" style="width:50px;">
-                                              </td>
-                                              <td class="text-center">
-                                                <input type="text" class="text-center" style="width:50px;">
-                                              </td>
-                                            </tr>
+ 
                                           </tbody>
                                         </table>
                                       </div>

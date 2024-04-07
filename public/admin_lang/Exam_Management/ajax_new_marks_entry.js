@@ -89,30 +89,27 @@ $(document).ready(function(){
                  var NameTotalMark = (index === 0) ? 'name="total_marks"' : '';
                  var NameMinimumMark = (index === 0) ? 'name="minimum_marks"' : '';
 
-                 $('#total_th').val(total_th);
-                 $('#total_pr').val(total_pr);
-                 $('#pass_th').val(pass_th);
-                 $('#pass_pr').val(pass_pr);
+                 $('#total_th').val(removeTrailingZeros(total_th));
+                 $('#total_pr').val(removeTrailingZeros(total_pr));
+                 $('#pass_th').val(removeTrailingZeros(pass_th));
+                 $('#pass_pr').val(removeTrailingZeros(pass_pr));
  
              
                  $(".marks-entry").append(`
                     <tr>
                         <td class="font-weight-bold">`+sn+`</td>
                         <td class="text-center">`+first_name+' '+middle_name+' '+last_name+`</td>
-                        <td class="text-center">`+total_th+`</td>
-                        <td class="text-center">`+total_pr+`</td>
-                        <td class="text-center">`+pass_th+`</td>
-                        <td class="text-center">`+pass_pr+`</td>
+                        <td class="text-center">`+removeTrailingZeros(total_th)+`</td>
+                        <td class="text-center">`+removeTrailingZeros(total_pr)+`</td>
+                        <td class="text-center">`+removeTrailingZeros(pass_th)+`</td>
+                        <td class="text-center">`+removeTrailingZeros(pass_pr)+`</td>
                         <td class="text-center">
                            <input type="hidden" value="`+id+`" name="st_id[]">
-                           <input type="number" class="text-center obt_th_mark" name="obt_th_mark[]" value='`+obt_th_mark+`' style="width:50px;">
+                           <input type="number" step="0.01" oninput="limitDecimalPlaces(this)" class="text-center obt_th_mark" name="obt_th_mark[]" value='`+removeTrailingZeros(obt_th_mark)+`' style="width:50px;">
                         </td>
                         <td class="text-center">
-                           <input type="number" class="text-center obt_pr_mark" name="obt_pr_mark[]" value='`+obt_pr_mark+`' style="width:50px;">
+                           <input type="number" step="0.01" oninput="limitDecimalPlaces(this)" class="text-center obt_pr_mark" name="obt_pr_mark[]" value='`+removeTrailingZeros(obt_pr_mark)+`' style="width:50px;">
                         </td>
-                        <td class="text-center">`+grade_name+`</td>
-                        <td class="text-center">`+remark+`</td>
-
                     </tr>
                  `);
              });
@@ -231,6 +228,16 @@ $(document).ready(function(){
         $("#search-btn").click();
      });
  });
+
+ function removeTrailingZeros(number) {
+    return parseFloat(number).toFixed(2).replace(/\.?0+$/, '');
+  }
+
+  function limitDecimalPlaces(input) {
+    if (input.value.includes('.') && input.value.split('.')[1].length > 2) {
+        input.value = parseFloat(input.value).toFixed(2);
+    }
+}
 
 // Total  Mark Enter Conditions 
 $(document).ready(function(){

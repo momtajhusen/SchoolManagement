@@ -142,8 +142,8 @@
                                         <th colspan="2" class="text-center" style="font-size: 12px; border: 1px solid black;">Total Marks</th>
                                         <th colspan="2" class="text-center" style="font-size: 12px; border: 1px solid black;">Pass Marks</th>
                                         <th colspan="2" class="text-center" style="font-size: 12px; border: 1px solid black; padding:3px;">Obtained Marks</th>
-                                        <th rowspan="2" style="font-size: 12px; border: 1px solid black;">Grade</th>
-                                        <th rowspan="2" style="font-size: 12px; border: 1px solid black;">Remarks</th>
+                                        <th rowspan="2" style="font-size: 12px; border: 1px solid black;">Final Grade</th>
+                                        <th rowspan="2" style="font-size: 12px; border: 1px solid black;">Grade Point</th>
                                     </tr>
                                     <tr style="font-size: 12px;border: 1px solid black;">
                                         <th class="text-center" style="border: 1px solid black;">

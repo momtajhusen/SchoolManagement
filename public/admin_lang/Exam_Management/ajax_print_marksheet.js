@@ -64,7 +64,11 @@ $(document).ready(function(){
                       var st_name = item.first_name + " " + item.middle_name + " " + item.last_name;
                       var student_image = item.student_image;
 
-  
+                      var final_grade_point = item.final_grade_point;
+                      var final_grade_name = item.final_grade_name;
+                      var final_position_rank = item.position_rank;
+
+
                       // alert(response.data[index].exam_marks[index]);
 
                       // Total Subject Grade 
@@ -128,26 +132,28 @@ $(document).ready(function(){
                         ${removeTrailingZeros(marks.obt_pr_mark) !== '0' ? removeTrailingZeros(marks.obt_pr_mark) : ''}
                       </td>
                       <td style="border: 1px solid black; padding: 5px; text-align: center;">${marks.grade_name}</td>
-                      <td style="border: 1px solid black; padding: 5px; text-align: center;">${marks.remark}</td>
+                      <td style="border: 1px solid black; padding: 5px; text-align: center;">${marks.grade_point}</td>
                   </tr>`;
                   
 
                       });
 
-                      marks_row += `<tr>
-                      <th colspan="2" style="border: 1px solid black; padding: 5px; text-align: center;">Total : </th>
-                      <th style="border: 1px solid black; padding: 5px; text-align: center;">${removeTrailingZeros(sum_total_th)}</th>
-                      <th style="border: 1px solid black; padding: 5px; text-align: center;">
+                      marks_row += `<tr style="background-color:#fafafa;">
+                      <th colspan="2" style="border: 1px solid black; padding: 10px; text-align: center;">Total : </th>
+                      <th style="border: 1px solid black; padding: 10px; text-align: center;">${removeTrailingZeros(sum_total_th)}</th>
+                      <th style="border: 1px solid black; padding: 10px; text-align: center;">
                         ${removeTrailingZeros(sum_total_pr) !== '0' ? removeTrailingZeros(sum_total_pr) : ''}
                       </th>
-                      <th style="border: 1px solid black; padding: 5px; text-align: center;">${removeTrailingZeros(sum_pass_th)}</th>
-                      <th style="border: 1px solid black; padding: 5px; text-align: center;">
+                      <th style="border: 1px solid black; padding: 10px; text-align: center;">${removeTrailingZeros(sum_pass_th)}</th>
+                      <th style="border: 1px solid black; padding: 10px; text-align: center;">
                         ${removeTrailingZeros(sum_pass_pr) !== '0' ? removeTrailingZeros(sum_pass_pr) : ''}
                       </th>
-                      <th style="border: 1px solid black; padding: 5px; text-align: center;">${removeTrailingZeros(sum_obt_th)}</th>
-                      <th style="border: 1px solid black; padding: 5px; text-align: center;">
+                      <th style="border: 1px solid black; padding: 10px; text-align: center;">${removeTrailingZeros(sum_obt_th)}</th>
+                      <th style="border: 1px solid black; padding: 10px; text-align: center;">
                         ${removeTrailingZeros(sum_obt_pr) !== '0' ? removeTrailingZeros(sum_obt_pr) : ''}
                       </th>
+                      <td style="border: 1px solid black; padding: 10px; text-align: center;">${final_grade_name}</td>
+                      <td style="border: 1px solid black; padding: 10px; text-align: center;">${final_grade_point}</td>
                      </tr>`;
                   
 
@@ -178,11 +184,11 @@ $(document).ready(function(){
                             <div  style="display: flex; justify-content: space-between; padding:25px; padding-bottom:15px;">
                     
                      
-                                <img id="school_logo" src="#" style="height:70px; padding:4px; border:2px solid #ddd; position:absolute; left: 20px;">
+                                <img id="school_logo" src="/storage/upload_assets/school/school_logo.png" style="height:50px; padding:4px; border:2px solid #ddd; position:absolute; left: 20px;">
                      
                                 <div style="line-height: 1.5; width: 100%;">
-                                    <div style="width:100%; display: flex; justify-content:center;">
-                                      <center id="school_name" style="border:0px solid black; width:70%; text-align: center; font-size: 20px;margin: 0px; ">
+                                    <div style="width:100%; display: flex; justify-content:end;">
+                                      <center id="school_name" style="border:0px solid black; margin-left:20px; width:90%; text-align: center; font-size: 18px;margin: 0px; ">
                                         <b style="font-family: Helvetica, Arial, sans-serif; ">`+school_name+`</b>
                                       </center>
                                     </div>
@@ -231,14 +237,14 @@ $(document).ready(function(){
                             <!-- Result Table  -->
                             <div>
                               <table style="border-collapse: collapse; width: 100%;">
-                              <thead>
+                              <thead style="background-color:#fafafa;">
                               <tr style="font-size: 15px;border: 1px solid black;">
                                   <th colspan="2" rowspan="2" class="text-center" style="padding:5px; border: 1px solid black;">Subjects</th>
                                   <th colspan="2" class="text-center" style="padding:5px; border: 1px solid black;">Total Marks</th>
                                   <th colspan="2" class="text-center" style="padding:5px; border: 1px solid black;">Pass Marks</th>
                                   <th colspan="2" class="text-center" style="padding:5px; border: 1px solid black; padding:3px;">Obtained Marks</th>
-                                  <th rowspan="2" style="padding:5px; border: 1px solid black;">Grade</th>
-                                  <th rowspan="2" style="padding:5px; border: 1px solid black;">Remarks</th>
+                                  <th rowspan="2" style="padding:5px; border: 1px solid black;">Final Grade</th>
+                                  <th rowspan="2" style="padding:5px; border: 1px solid black;">Grade Point</th>
                               </tr>
                               <tr style="font-size: 13px;border: 1px solid black;">
                                   <th class="text-center" style="border: 1px solid black; padding:5px;">
@@ -266,6 +272,9 @@ $(document).ready(function(){
                                 </tbody>
                               </table>
 
+                              <div style="padding:10px;">
+                                 <span>Class Position: ${final_position_rank}</span>
+                              </div>
  
                             </div>
 
