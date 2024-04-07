@@ -324,7 +324,7 @@ class ExamManageController extends Controller
 
                // Start Theory and Practical Grade 
                     $th_percentage = number_format(($obt_th_mark[$key] / $total_th) * 100, 2);
-                    
+
                     if ($total_pr != 0) {
                         $pr_percentage = number_format(($obt_pr_mark[$key] / $total_pr) * 100, 2);
                     } else {
@@ -337,11 +337,12 @@ class ExamManageController extends Controller
                     if ($th_percentage > 0) {
                             if ($th_percentage >= 89 && $th_percentage <= 100) {
                                 $obt_th_grade = 'A+';
-                            } else {
+                            }if($th_percentage >= 79 && $th_percentage <= 89){
+                                $obt_th_grade = 'A';
+                            }
+                             else {
                                 // Fetch the matching grade from the grades table based on the subject percentage
-                                $grade = ExamGrade::where('from', '<=', $th_percentage)
-                                    ->where('to', '>=', $th_percentage)
-                                    ->first();
+                                $grade = ExamGrade::where('from', '<=', $th_percentage)->where('to', '>=', $th_percentage)->first();
                                 if ($grade) {
                                     $obt_th_grade = $grade->grade_name;
                                 }
@@ -351,7 +352,9 @@ class ExamManageController extends Controller
                     if ($pr_percentage > 0) {
                         if ($pr_percentage >= 89 && $pr_percentage <= 100) {
                             $obt_pr_grade = 'A+';
-                        } else {
+                        }if($th_percentage >= 79 && $th_percentage <= 89){
+                            $obt_th_grade = 'A';
+                        }else {
                             // Fetch the matching grade from the grades table based on the subject percentage
                             $grade = ExamGrade::where('from', '<=', $pr_percentage)
                                 ->where('to', '>=', $pr_percentage)
@@ -382,6 +385,10 @@ class ExamManageController extends Controller
                                 $final_grade_point = 4.0;
                                 $final_grade_name = 'A+';
                                 $final_remarks = 'Outstanding';
+                            }if ($total_obt_percentage >= 79 && $total_obt_percentage <= 89) {
+                                $final_grade_point = 3.6;
+                                $final_grade_name = 'A';
+                                $final_remarks = 'Excellent';
                             } else {
                                 // Fetch the matching grade from the grades table based on the subject percentage
                                 $grade = ExamGrade::where('from', '<=', $total_obt_percentage)
@@ -502,6 +509,10 @@ class ExamManageController extends Controller
                                 $student->final_grade_point = 4.0;
                                 $student->final_grade_name = 'A+';
                                 $student->final_remarks = 'Outstanding';
+                            } if ($total_obt_percentage >= 79 && $total_obt_percentage <= 89) {
+                                $student->final_grade_point = 3.6;
+                                $student->final_grade_name = 'A';
+                                $student->final_remarks = 'Excellent';
                             } else {
                                 // Fetch the matching grade from the grades table based on the subject percentage
                                 $grade = ExamGrade::where('from', '<=', $total_obt_percentage)
