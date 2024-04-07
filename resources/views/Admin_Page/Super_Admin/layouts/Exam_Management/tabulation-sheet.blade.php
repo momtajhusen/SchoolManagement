@@ -34,6 +34,8 @@
   <!-- Include SheetJS library for .xlsx export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
+<!-- use version 0.20.2 -->
+<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
 
 @endsection
 
@@ -52,7 +54,7 @@
                                     </div>
                                 </div>
 
-                                {{-- <form class="mg-b-20 exam-tabulation-form d-none">
+                                <form class="mg-b-20 exam-tabulation-form">
                                     <div class="row gutters-8">
                                         <div class="col-lg-3 col-12 form-group">
                                             <label>Exam *</label>
@@ -77,7 +79,7 @@
                                         </div>
                                     </div>
                                 </form>
-                        
+                        {{-- 
                                 <div class="table-responsive d-none"  id="print-section">
                                     <table class="table display text-nowrap table-sm exportTable" id="myTable">
                                         <thead class="exam-tabulation-title">
@@ -90,45 +92,21 @@
                                 </div> --}}
 
                                 {{-- Export Table  --}}
-                                <table class="table table-sm text-nowrap table-bordered text-center table-responsive-md ">
-                                  <thead>
-                                    <tr>
-                                      <th rowspan="2" scope="col">#</th>
-                                      <th rowspan="2" scope="col">Student ↓ | Subject →</th>
-                                        <th colspan="2" scope="col">
-                                            Nepali
-                                        </th>
-                                        <th colspan="2" scope="col">
-                                          Nepali
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                      <td>TH</td>
-                                      <td>PR</td>
+                                <div class="table-responsive"  id="print-section">
+                                <table class="table table-sm text-nowrap table-bordered text-center table-responsive-md exportTable" id="myTable">
+                                  <thead class="exam-tabulation-thead">
 
-                                      <td>TH</td>
-                                      <td>PR</td>
-                                    </tr>
                                   </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>Mark</td>
-                                      <td>
-                                        <span></span>
-                                        <span>56</span>
-                                        <span>34.5</span>
-                                      </td>
-                                      <td>@mdo</td>
-                                    </tr>
+                                  <tbody class="exam-tabulation-body">
+ 
                                   </tbody>
                                 </table>
+                              </div>
 
 
                                 <div class="d-flex align-items-end mt-2">
                                     <button id="btn-download" class="fw-btn-fill btn-gradient-yellow py-2 w-25" visitorbtn="btn" btnName="Print Tabulation Sheet">Print Tabulation Sheet</button>
                                     <button  id="export-button" class="fw-btn-fill btn-gradient-yellow py-2 w-25 mx-2" visitorbtn="btn" btnName="Export Excell">Export Excell</button>
-                                    <button  id="btnCsvExport" class="fw-btn-fill btn-gradient-yellow py-2 w-25 mx-2" visitorbtn="btn" btnName="Export CSV">Export CSV</button>
                                 </div>
 
   
@@ -160,59 +138,65 @@ document.getElementById("btn-download").addEventListener("click", function() {
 
     // Create a new window to display the image
     var printWindow = window.open("", "", "width=800, height=600");
-    printWindow.document.open();
-    printWindow.document.write("<img src='" + img.src + "' />");
-    printWindow.document.close();
+    printWindow.document.body.appendChild(img); // Append the image to the body of the new window
 
     element.style.width = default_width;
 
-    // Wait for the image to load before triggering the print dialog
-    img.onload = function() {
+    // Wait for the image to load before triggering the print dialog after a delay of 3 seconds
+    setTimeout(function() {
       printWindow.print();
       printWindow.close();
-    };
+    }, 3000); // 3000 milliseconds = 3 seconds
 
   });
 });
 
 
 $(document).ready(function() {
-    // Function to handle the export
-    function exportToExcel() {
-      var class_name = $("#class-select").val();
-      var class_section = $(".section-select").val();
+        // Function to handle the export
+        function exportToExcel() {
+            var class_name = $("#class-select").val();
+            var class_section = $(".section-select").val();
 
-      // Clone the table to preserve the original data
-      let clonedTable = $("#myTable").clone();
+            // Select the table
+            var table = document.getElementById("myTable");
 
-      // Remove the "Photo" column (second column) from the cloned table
-      clonedTable.find("tr").each(function() {
-        $(this).find("td:nth-child(2), th:nth-child(2)").remove();
-      });
+            // Convert table to worksheet
+            var ws = XLSX.utils.table_to_sheet(table);
 
-      // Check if jquery.table2excel.js is available
-      if ($.fn.table2excel) {
-        // If available, use the plugin to export the table to .xls
-        clonedTable.table2excel({
-          filename: "exported_table.xls" // Name of the exported file
+            // Create a new workbook
+            var wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sheet1"); // Add worksheet to workbook
+
+            // Convert the workbook to an Excel file
+            var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+            // Convert the binary string to a Blob
+            var blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
+
+            // Trigger file download
+            saveAs(blob, class_name + "_" + class_section + "_ExamTabulation.xlsx");
+        }
+
+        // Bind the export function to the button click event
+        $("#export-button").on("click", function() {
+            var class_name = $("#class-select").val();
+            if (class_name === "") {
+                alert("Please select a class");
+                return false;
+            }
+            exportToExcel();
         });
-      } else {
-        // If jquery.table2excel.js is not available, use Blob.js and FileSaver.js
-        let html = clonedTable[0].outerHTML;
-        let blob = new Blob([html], { type: "application/vnd.ms-excel" });
-        saveAs(blob, class_name+"_"+class_section+"_ExamTabulation"+".xlsx");
-      }
-    }
 
-    // Bind the export function to the button click event
-    $("#export-button").on("click", function() {
-      var class_name = $("#class-select").val();
-      if (class_name === "") {
-        alert("select_class");
-        return false;
-      }
-      exportToExcel();
+        // Function to convert string to ArrayBuffer
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
     });
-  });
+
+
 </script>
 @endsection

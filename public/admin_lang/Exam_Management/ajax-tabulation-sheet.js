@@ -44,43 +44,44 @@ $(document).ready(function(){
 
                 if(response.message != "Marks not Entry"){
                     var subject_th = "";
+                    var subject_marks_items = "";
+
 
             
                     
                     response.data[0].exam_marks.forEach(function(item) {
-                        subject_th += "<th class='border text-ceneter'>" + item.subject + " <span class='material-symbols-outlined' id='subject-delete' subject="+ item.subject+" exam_year="+ item.exam_year+" class="+ item.class+" exam="+ item.exam+" style='font-size:14px;cursor:pointer;'>delete</span></th>";
+                        subject_th += " <th colspan='2' scope='col'>" + item.subject + "</th>";
+                        subject_marks_items += "<td>TH</td><td>PR</td>";
                     });
-    
-                    $(".exam-tabulation-title").html('');
-                    $(".exam-tabulation-title").append(`
+
+                    $(".exam-tabulation-thead").html();
+                    $(".exam-tabulation-thead").append(`
                         <tr>
-                            <th>SN.</th>
-                            <th></th>
-                            <th class="d-flex align-items-center">Student ↓ | Subject →</th>
-                            ` + subject_th + `
-                            <th>Total</th>
-                            <th>Rank</th>
-                            <th>percent</th>
-                            <th>G.Point</th>
-                            <th>Grade</th>
-    
+                            <th rowspan="2" scope="col">#</th>
+                            <th rowspan="2" scope="col">Student ↓ | Subject →</th>
+                             `+subject_th+`
+                        </tr>
+                        <tr>
+                            `+subject_marks_items+`
                         </tr>
                     `);
     
                     var students = response.data;
-                    students.sort(function(a, b) {
-                        var totalMarksA = 0;
-                        var totalMarksB = 0;
-                        a.exam_marks.forEach(function(marks) {
-                            totalMarksA += parseInt(marks.marks_obtained);
-                        });
-                        b.exam_marks.forEach(function(marks) {
-                            totalMarksB += parseInt(marks.marks_obtained);
-                        });
-                        return totalMarksB - totalMarksA;
-                    });
+
+                    // students.sort(function(a, b) {
+                    //     var totalMarksA = 0;
+                    //     var totalMarksB = 0;
+                    //     a.exam_marks.forEach(function(marks) {
+                    //         totalMarksA += parseInt(marks.marks_obtained);
+                    //     });
+                    //     b.exam_marks.forEach(function(marks) {
+                    //         totalMarksB += parseInt(marks.marks_obtained);
+                    //     });
+                    //     return totalMarksB - totalMarksA;
+                    // });
     
                     $(".exam-tabulation-table").html('');
+                    $(".exam-tabulation-body").html();
                     students.forEach(function(item, index) {
                         var sn = index++;
                         var id = item.id;
@@ -97,22 +98,16 @@ $(document).ready(function(){
      
                         var marks_row = '';
                         item.exam_marks.forEach(function(marks) {
-                            marks_row += `<td class='text-ceneter'>
-                               0
-                            </td>`;
+                            marks_row += `
+                            <td class='text-ceneter'>${removeTrailingZeros(marks.obt_th_mark)}</td>
+                            <td class='text-ceneter'>${removeTrailingZeros(marks.obt_pr_mark)}</td>`;
                         });
     
-                        $(".exam-tabulation-table").append(`
+                        $(".exam-tabulation-body").append(`
                             <tr>
                                <td class="text-ceneter">${sn}.</td>
-                                <td></td>
                                 <td class="text-ceneter">${st_name}</td>
                                 ${marks_row}
-                                <td class="text-ceneter">0</td>
-                                <td class="text-ceneter">0</td>
-                                <td class="text-ceneter">0</td>
-                                <td class="text-ceneter">0</td>
-                                <td class="text-ceneter">0</td>
                             </tr>
                         `);
                     });
@@ -133,6 +128,10 @@ $(document).ready(function(){
 
     });
 });
+
+function removeTrailingZeros(number) {
+    return parseFloat(number).toFixed(2).replace(/\.?0+$/, '');
+  }
 
 // Delete Subject 
 $(document).ready(function(){
