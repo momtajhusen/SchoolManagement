@@ -44,19 +44,19 @@ $(document).ready(function(){
                       return totalMarksB - totalMarksA;
                   });
 
-                  var school_name = response.school_details[0].school_name;
-                  var school_logo = response.school_details[0].logo_img;
-                  var school_phone = response.school_details[0].phone;
-                  var school_address = response.school_details[0].address;
-                  var school_email = response.school_details[0].email;
-                  var school_website = response.school_details[0].website;
+                  var school_name = response.school_details.school_name;
+                  var school_logo = response.school_details.logo_img;
+                  var school_phone = response.school_details.phone;
+                  var school_address = response.school_details.address;
+                  var school_email = response.school_details.email;
+                  var school_website = response.school_details.website;
 
                   var exam_name = response.data[0].exam_marks[0].exam;
                   var exam_year = response.data[0].exam_marks[0].exam_year;
 
 
       
-                  var index = 1;
+                  var index = 0;
                   students.forEach(function(item) {
                       var sn = index++;
                       var id = item.id;
@@ -64,71 +64,105 @@ $(document).ready(function(){
                       var st_name = item.first_name + " " + item.middle_name + " " + item.last_name;
                       var student_image = item.student_image;
 
-                      var father_name = item.parent_data.father_name;
   
+                      // alert(response.data[index].exam_marks[index]);
+
                       // Total Subject Grade 
-                      var obtained_marks = item.exam_grade.obtained_marks;
-                      var percentage = item.exam_grade.percentage;
-                      var grade_name = item.exam_grade.grade_name;
-                      var remarks = item.exam_grade.remarks;
-                      var total_subject_mark = 0;
-                      var total_minimum_mark = 0;
+                      var sum_total_th  = 0;
+                      var sum_total_pr  = 0;
+                      var sum_pass_th = 0;
+                      var sum_pass_pr = 0;
+                      var sum_obt_th  = 0;
+                      var sum_obt_pr  = 0;
+
+
 
 
                       var marks_row = '';
                       item.exam_marks.forEach(function(marks) {
 
-                        total_subject_mark += Number(marks.total_marks);
-                        total_minimum_mark += Number(marks.minimum_marks);
+                        sum_total_th += Number(marks.total_th);
+                        sum_total_pr += Number(marks.total_pr);
+                        sum_pass_th += Number(marks.pass_th);
+                        sum_pass_pr += Number(marks.pass_pr);
+                        sum_obt_th += Number(marks.obt_th_mark);
+                        sum_obt_pr += Number(marks.obt_pr_mark);
 
-                        if (Number(marks.marks_obtained) < Number(marks.minimum_marks))
-                        {
-                          var check_pass = "Fail";
-                        }
-                        else{
-                          var check_pass = "Pass";
-                        }
-                        
-                        if(marks.remarks == "Very Insufficient")
-                        {
-                         marks.remarks = "V. Insufi.";   
-                        }
-                        
-                      if(marks.remarks == "Partly Acceptable")
-                        {
-                         marks.remarks = "P. Accep.";  
-                        }
-                        
-                      if(marks.remarks == "Very Good")
-                        {
-                         marks.remarks = "V. Good";  
-                        }
 
-                          marks_row +=  `<tr>
-                          <td style="border: 1px solid black; padding: 3px; text-align: center;">`+marks.subject+`</td>
-                          <td style="border: 1px solid black; padding: 3px; text-align: center;">`+marks.marks_obtained+`</td>
-                          <td style="border: 1px solid black; padding: 3px; text-align: center;">`+marks.total_marks+`</td>
-                          <td style="border: 1px solid black; padding: 3px; text-align: center;">`+marks.minimum_marks+`</td>
-                          <td style="border: 1px solid black; padding: 3px; text-align: center;">`+marks.grade_name+`</td>
-                          <td style="border: 1px solid black; padding: 3px; text-align: center;">`+marks.grade_point+`</td>
-                          <td style="border: 1px solid black; padding: 3px; text-align: center;">`+check_pass+`</td>
-                          <td style="border: 1px solid black; padding: 3px; text-align: center;">`+marks.remarks+`</td>
-                          <td style="display:none; border: 1px solid black; padding: 3px; text-align: center;">`+marks.attendance+`</td>
-                        </tr>`;
+
+
+                      //   if (Number(marks.marks_obtained) < Number(marks.minimum_marks))
+                      //   {
+                      //     var check_pass = "Fail";
+                      //   }
+                      //   else{
+                      //     var check_pass = "Pass";
+                      //   }
+                        
+                      //   if(marks.remarks == "Very Insufficient")
+                      //   {
+                      //    marks.remarks = "V. Insufi.";   
+                      //   }
+                        
+                      // if(marks.remarks == "Partly Acceptable")
+                      //   {
+                      //    marks.remarks = "P. Accep.";  
+                      //   }
+                        
+                      // if(marks.remarks == "Very Good")
+                      //   {
+                      //    marks.remarks = "V. Good";  
+                      //   }
+                      marks_row += `<tr>
+                      <td colspan="2" style="border: 1px solid black; padding: 5px; text-align: center;">${marks.subject}</td>
+                      <td style="border: 1px solid black; padding: 5px; text-align: center;">${removeTrailingZeros(marks.total_th)}</td>
+                      <td style="border: 1px solid black; padding: 5px; text-align: center;">
+                        ${removeTrailingZeros(marks.total_pr) !== '0' ? removeTrailingZeros(marks.total_pr) : ''}
+                      </td>
+                      <td style="border: 1px solid black; padding: 5px; text-align: center;">${removeTrailingZeros(marks.pass_th)}</td>
+                      <td style="border: 1px solid black; padding: 5px; text-align: center;">
+                        ${removeTrailingZeros(marks.pass_pr) !== '0' ? removeTrailingZeros(marks.pass_pr) : ''}
+                      </td>
+                      <td style="border: 1px solid black; padding: 5px; text-align: center;">${removeTrailingZeros(marks.obt_th_mark)}</td>
+                      <td style="border: 1px solid black; padding: 5px; text-align: center;">
+                        ${removeTrailingZeros(marks.obt_pr_mark) !== '0' ? removeTrailingZeros(marks.obt_pr_mark) : ''}
+                      </td>
+                      <td style="border: 1px solid black; padding: 5px; text-align: center;">${marks.grade_name}</td>
+                      <td style="border: 1px solid black; padding: 5px; text-align: center;">${marks.remark}</td>
+                  </tr>`;
+                  
+
                       });
+
+                      marks_row += `<tr>
+                      <th colspan="2" style="border: 1px solid black; padding: 5px; text-align: center;">Total : </th>
+                      <th style="border: 1px solid black; padding: 5px; text-align: center;">${removeTrailingZeros(sum_total_th)}</th>
+                      <th style="border: 1px solid black; padding: 5px; text-align: center;">
+                        ${removeTrailingZeros(sum_total_pr) !== '0' ? removeTrailingZeros(sum_total_pr) : ''}
+                      </th>
+                      <th style="border: 1px solid black; padding: 5px; text-align: center;">${removeTrailingZeros(sum_pass_th)}</th>
+                      <th style="border: 1px solid black; padding: 5px; text-align: center;">
+                        ${removeTrailingZeros(sum_pass_pr) !== '0' ? removeTrailingZeros(sum_pass_pr) : ''}
+                      </th>
+                      <th style="border: 1px solid black; padding: 5px; text-align: center;">${removeTrailingZeros(sum_obt_th)}</th>
+                      <th style="border: 1px solid black; padding: 5px; text-align: center;">
+                        ${removeTrailingZeros(sum_obt_pr) !== '0' ? removeTrailingZeros(sum_obt_pr) : ''}
+                      </th>
+                     </tr>`;
+                  
 
 
 
                       var currentDomainWithProtocol = window.location.protocol + "//" + window.location.host;
 
 
-                      if(obtained_marks < total_minimum_mark)
-                      {
-                        var total_check_pass = "Fail";
-                      }
-                      else{
-                        var total_check_pass = "Pass";
-                      }
+                      // if(obtained_marks < total_minimum_mark)
+                      // {
+                      //   var total_check_pass = "Fail";
+                      // }
+                      // else{
+                      //   var total_check_pass = "Pass";
+                      // }
 
 
                   //   var SchoolLogo = currentDomainWithProtocol+`/storage/`+school_logo + "?timestamp=" + new Date().getTime();
@@ -144,7 +178,7 @@ $(document).ready(function(){
                             <div  style="display: flex; justify-content: space-between; padding:25px; padding-bottom:15px;">
                     
                      
-                                <img id="school_logo" src="`+currentDomainWithProtocol+`/storage/`+school_logo+`" style="height:70px; padding:4px; border:2px solid #ddd; position:absolute; left: 20px;">
+                                <img id="school_logo" src="#" style="height:70px; padding:4px; border:2px solid #ddd; position:absolute; left: 20px;">
                      
                                 <div style="line-height: 1.5; width: 100%;">
                                     <div style="width:100%; display: flex; justify-content:center;">
@@ -162,7 +196,7 @@ $(document).ready(function(){
                             </div>
                     
                        <div style=" display: flex; width: 100%; border-top: 1px solid #000; margin-top: 0px; padding-left: 25px;">
-                                <img style="display:none; height:50px; padding:2px; margin:5px; border:1px solid  #ccc;" src="`+currentDomainWithProtocol+`/storage/`+student_image+`">
+                                <img style="display:none; height:50px; padding:2px; margin:5px; border:1px solid  #ccc;" src="#">
                                  <div class="bg-inf" style=" position: relative; width: 100%; line-height: 1.5; display: flex; justify-content:space-between;">
                                     
                                     <div style="display: flex; margin-left:5px; flex-direction: column; justify-content: center; ">
@@ -197,51 +231,42 @@ $(document).ready(function(){
                             <!-- Result Table  -->
                             <div>
                               <table style="border-collapse: collapse; width: 100%;">
-                                <thead>
-                                    <b style="width:100%;  display: flex; justify-content: center; margin-bottom:8px;">Result Overview</b>
-                                  <tr style="background-color: #ebeaea; font-size:15">
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Subject</th>
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Obt. <br> Marks</th>
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Total<br> Marks</th>
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Min.<br> Marks</th>
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Final<br> Grade</th>
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Grade<br> Point</th>
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Result</th>
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Remarks</th>
-                                    <th style="display: none; border: 1px solid black; padding: 5px; text-align: center;">Attendance</th>
-                                  </tr>
-                                </thead>
+                              <thead>
+                              <tr style="font-size: 15px;border: 1px solid black;">
+                                  <th colspan="2" rowspan="2" class="text-center" style="padding:5px; border: 1px solid black;">Subjects</th>
+                                  <th colspan="2" class="text-center" style="padding:5px; border: 1px solid black;">Total Marks</th>
+                                  <th colspan="2" class="text-center" style="padding:5px; border: 1px solid black;">Pass Marks</th>
+                                  <th colspan="2" class="text-center" style="padding:5px; border: 1px solid black; padding:3px;">Obtained Marks</th>
+                                  <th rowspan="2" style="padding:5px; border: 1px solid black;">Grade</th>
+                                  <th rowspan="2" style="padding:5px; border: 1px solid black;">Remarks</th>
+                              </tr>
+                              <tr style="font-size: 13px;border: 1px solid black;">
+                                  <th class="text-center" style="border: 1px solid black; padding:5px;">
+                                          TH
+                                  </th>
+                                  <th class="text-center" style="border: 1px solid black; padding:5px;">
+                                          PR
+                                  </th>
+                                  <th class="text-center" style="border: 1px solid black; padding:5px;">
+                                          TH
+                                  </th>
+                                  <th class="text-center" style="border: 1px solid black; padding:5px;">
+                                          PR
+                                  </th>
+                                  <th class="text-center" style="border: 1px solid black; padding:5px;">TH</th>
+                                  <th class="text-center" style="border: 1px solid black; padding:5px;">PR</th>
+                              </tr>
+                          </thead>
                                 <tbody>
 
 
                                    `+marks_row+`
                                    
-                                  <!-- Total  -->
-                                  <tr style="background-color: #ebeaea; font-size:15px">
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Obtained <br> Marks</th>
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Total Marks</th>
-                                    <th style="border: 1px solid black; padding: 5px; text-align: center;">Percent.</th>
-                                    <th colspan="2" style="border: 1px solid black; padding: 5px; text-align: center;">Position in Class</th>
-                                    <th colspan="1" style="border: 1px solid black; padding: 5px; text-align: center;">Grade</th>
-                                    <th colspan="2" style="border: 1px solid black; padding: 5px; text-align: center;">Status</th>
-                                    <th colspan="2" style="display:none; border: 1px solid black; padding: 5px; text-align: center;">Final Result</th>
-                                  </tr>
-                                  <tr style="font-size:14px">
-                                    <td style="border: 1px solid black; padding: 5px; text-align: center;">`+obtained_marks+`</td>
-                                    <td style="border: 1px solid black; padding: 5px; text-align: center;">`+total_subject_mark+`</td>
-                                    <td style="border: 1px solid black; padding: 5px; text-align: center;">`+percentage+' '+`%</td>
-                                    <td colspan="2" style="border: 1px solid black; padding: 5px; text-align: center;">`+item.position_rank+`</td>
-                                    <td colspan="1" style="border: 1px solid black; padding: 5px; text-align: center;">`+grade_name+`</td>
-                                    <td colspan="2" style="border: 1px solid black; padding: 5px; text-align: center;">`+remarks+`</td>
-                                    <td colspan="2" style="display:none; border: 1px solid black; padding: 5px; text-align: center;">`+total_check_pass+`</td>
-                                  </tr>
+ 
                                 </tbody>
                               </table>
 
-                              <div style="margin-top:15px;margin-left:10px;">
-                                 <p>• <b>Final Result :</b> `+total_check_pass+`</p>
-                                 <p class="d-none" style="display:none;">• Attendance : </p>
-                              </div>
+ 
                             </div>
 
 
@@ -341,6 +366,10 @@ $(document).ready(function(){
   });
 });
 
+function removeTrailingZeros(number) {
+  return parseFloat(number).toFixed(2).replace(/\.?0+$/, '');
+}
+
 
 function print_marksheet(){
   var content = '';
@@ -360,5 +389,5 @@ function print_marksheet(){
       printWindow.print();
       printWindow.close();
       $("#bill-modal-cancle").click();
-  }, 500);
+  }, 1000); // Delay for 1 second (1000 milliseconds)
 }

@@ -74,7 +74,7 @@ $(document).ready(function () {
                     );
 
                     $(".select-exam-term").append(`
-                       <option class="exam-option" value="`+exam_name+`" exam_id="`+id+`">`+exam_name+`</option>
+                       <option class="exam-option" value="`+exam_name+`" exam_id="`+id+`">`+exam_name+' '+year+`</option>
                   `);
 
 
@@ -124,9 +124,11 @@ $(document).ready(function () {
                     var increase = count++;
                     var id = response.processTerm[increase].id;
                     var exam_name = response.processTerm[increase].exam_name;
+                    var year = response.processTerm[increase].year;
+
 
                   $(".select-process-term").append(`
-                   <option class="exam-option" value="`+exam_name+`" exam_id="`+id+`">`+exam_name+`</option>
+                   <option class="exam-option" value="`+exam_name+`" exam_id="`+id+`">`+exam_name+' '+year+`</option>
                 `);
 
                 });

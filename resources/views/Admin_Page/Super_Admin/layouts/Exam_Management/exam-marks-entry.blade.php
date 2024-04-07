@@ -5,6 +5,16 @@
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/select2.min.css')}}">
     <!-- Date Picker CSS -->
     <link rel="stylesheet" href="{{ asset('../admin_template_assets/css/datepicker.min.css')}}">
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+        input[type=number] {
+        -moz-appearance: textfield; /* Firefox */
+        }
+    </style>
 @endsection
 
 
@@ -12,7 +22,7 @@
 @section('script')
 
     <!-- ajax Marks Entry -->
-    <script src="{{ asset('../admin_lang/Exam_Management/ajax_exam_marks_entry.js')}}?v={{ time() }}"></script> 
+    <script src="{{ asset('../admin_lang/Exam_Management/ajax_new_marks_entry.js')}}?v={{ time() }}"></script> 
 
     <!-- ajax Get All Exam Term -->
     <script src="{{ asset('../admin_lang/Exam_Management/ajax_get_exam_term.js')}}?v={{ time() }}"></script> 
@@ -78,7 +88,7 @@
                                     </div>
                                 </form>
                         
-                                <form class="table-responsive entry-mark-form">
+                                <form class="table-responsive entry-mark-form d-none">
                                     <table class="table data-table text-nowrap table-sm sortable-table">
                                         <thead>
                                             <tr>
@@ -109,48 +119,54 @@
                                     </div>
                                 </form>
 
+                                <form class="table-responsive entry-mark-form">
                                 <div class="container">
                                     <div class="row">
                                       <div class="col">
-                                        <table class="table table-bordered text-center text-nowrap table-responsive-md">
+                                        <table class="table table-bordered text-center text-nowrap table-responsive-md sortable-table">
                                           <thead>
                                             <tr>
                                               <th rowspan="2">S.N</th>
-                                              <th rowspan="2">Students</th>
+                                              <th rowspan="2">
+                                                <span>Students</span>
+                                                <input type="text" id="searchInput" class="form-control" placeholder="Student Search..." style="border-radius: 0%; box-shadow:none;">
+                                              </th>
                                               <th colspan="2" class="text-center">Total Marks</th>
                                               <th colspan="2" class="text-center">Pass Marks</th>
                                               <th colspan="2" class="text-center">Obtained Marks</th>
+                                              <th rowspan="2">Grade</th>
+                                              <th rowspan="2">Remarks</th>
                                             </tr>
                                             <tr>
                                               <th class="text-center">
                                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                                     <span style="font-size: 12px;">TH</span>
-                                                    <input class="text-center p-1" type="text" style="width:40px;height:20px;">
+                                                    <input class="text-center p-1" required min="1" id="total_th" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
                                                 </div>
                                               </th>
                                               <th class="text-center">
                                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                                     <span style="font-size: 12px;">PR</span>
-                                                    <input class="text-center p-1" type="text" style="width:40px;height:20px;">
+                                                    <input class="text-center p-1" required min='1' id="total_pr" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
                                                 </div>
                                               </th>
                                               <th class="text-center">
                                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                                     <span style="font-size: 12px;">TH</span>
-                                                    <input class="text-center p-1" type="text" style="width:40px;height:20px;">
+                                                    <input class="text-center p-1" required min='1' id="pass_th" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
                                                 </div>
                                               </th>
                                               <th class="text-center">
                                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                                     <span style="font-size: 12px;">PR</span>
-                                                    <input class="text-center p-1" type="text" style="width:40px;height:20px;">
+                                                    <input class="text-center p-1" required min='1' id="pass_pr" type="number" style="width:40px;height:25px;font-size:12px;outline:none;">
                                                 </div>
                                               </th>
                                               <th class="text-center">Th</th>
                                               <th class="text-center">Pr</th>
                                             </tr>
                                           </thead>
-                                          <tbody class="marks-entry">
+                                          <tbody class="marks-entry sortable-bordy">
                                             <tr>
                                               <td class="font-weight-bold">1</td>
                                               <td class="text-center">Momtaj Husen</td>
@@ -170,6 +186,11 @@
                                       </div>
                                     </div>
                                   </div>
+                                  <div class="col-lg-2 col-12 form-group d-flex align-items-end">
+                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow py-2" visitorbtn="btn" btnName="Save Result">Save Result</button>
+                                  </div>
+                                </form>
+                                
 
                 
                             </div>

@@ -247,12 +247,31 @@ class ExamManageController extends Controller
                     $student->minimum_marks = '';
                     $student->attendance = '';
 
+                    $student->total_th = 0;
+                    $student->total_pr = 0;
+                    $student->pass_th = 0;
+                    $student->pass_pr = 0;
+                    $student->obt_th_mark = 0;
+                    $student->obt_pr_mark = 0;
+                    $student->grade_name =  '';
+                    $student->remark =   '';
+
+
                     foreach ($this->student_marks as $marks) {
                         if ($student->id == $marks->st_id) {
                             $student->marks_obtained = $marks->marks_obtained ?? ''; // Assign 0 if marks_obtained is null
                             $student->total_marks = $marks->total_marks ?? ''; // Assign 0 if marks_obtained is null
                             $student->minimum_marks = $marks->minimum_marks ?? ''; // Assign 0 if marks_obtained is null
                             $student->attendance = $marks->attendance ?? '';
+                            $student->total_th = $marks->total_th ?? 0;
+                            $student->total_pr = $marks->total_pr ?? 0;
+                            $student->pass_th = $marks->pass_th ?? 0;
+                            $student->pass_pr = $marks->pass_pr ?? 0;
+                            $student->obt_th_mark = $marks->obt_th_mark ?? 0;
+                            $student->obt_pr_mark = $marks->obt_pr_mark ?? 0;
+                            $student->grade_name =  $marks->grade;
+                            $student->remark =  $marks->remark;
+
 
                             break; // Match found, exit inner loop
                         }
@@ -276,68 +295,132 @@ class ExamManageController extends Controller
     public function entry_mark(Request $request)
     {
         try {
-
             $current_year = $request->current_year;
             $select_exam = $request->select_exam;
             $class_select = $request->class_select;
             $section_select = $request->section_select;
             $select_subject = $request->select_subject;
-
+    
             $st_id = $request->input('st_id');
-            $marksObtained = $request->input('marks_obtained') ?? "";
-            $totalMarks = $request->input('total_marks') ?? "0";
-            $minimumMarks = $request->input('minimum_marks') ?? "0";
-            $attendance = $request->input('attendance') ?? "";
+            $obt_th_mark = $request->input('obt_th_mark');
+            $obt_pr_mark = $request->input('obt_pr_mark');
 
-            $ExamMarks = ExamStudentMarks::where("class", $class_select)
+            $total_th = $request->input('total_th');
+            $total_pr = $request->input('total_pr');
+            $pass_th = $request->input('pass_th');
+            $pass_pr = $request->input('pass_pr');
+    
+            // Delete existing marks for the specified criteria
+            $deletedRows = ExamStudentMarks::where("class", $class_select)
                 ->where("section", $section_select)
                 ->where("subject", $select_subject)
                 ->where("exam", $select_exam)
-                ->where("exam_year", $current_year);
+                ->where("exam_year", $current_year)
+                ->delete();
+    
+            // Insert new marks
+            foreach ($obt_th_mark as $key => $value) {
 
 
-            if ($ExamMarks->exists()) {
-                if ($ExamMarks->delete()) {
-                    foreach ($marksObtained as $key => $value) {
-                        ExamStudentMarks::create([
-                            'st_id' => $st_id[$key],
-                            'exam' => $select_exam,
-                            'class' => $class_select,
-                            'section' => $section_select,
-                            'subject' => $select_subject,
-                            'marks_obtained' => $value,
-                            'total_marks' => $totalMarks,
-                            'minimum_marks' => $minimumMarks,
-                            'attendance' => $attendance[$key],
-                            'exam_year' => $current_year
-                        ]);
+               // Start Theory and Practical Grade 
+                    $th_percentage = number_format(($obt_th_mark[$key] / $total_th) * 100, 2);
+                    $pr_percentage = number_format(($obt_pr_mark[$key] / $total_pr) * 100, 2);
+
+                    $obt_th_grade =  '';
+                    $obt_pr_grade =  '';
+
+                    if ($th_percentage > 0) {
+                            if ($th_percentage >= 89 && $th_percentage <= 100) {
+                                $obt_th_grade = 'A+';
+                            } else {
+                                // Fetch the matching grade from the grades table based on the subject percentage
+                                $grade = ExamGrade::where('from', '<=', $th_percentage)
+                                    ->where('to', '>=', $th_percentage)
+                                    ->first();
+                                if ($grade) {
+                                    $obt_th_grade = $grade->grade_name;
+                                }
+                            }
                     }
-                    return response()->json(['status' => 'Marks stored successfully!']);
-                }
-            } else {
-                foreach ($marksObtained as $key => $value) {
-                    ExamStudentMarks::create([
-                        'st_id' => $st_id[$key],
-                        'exam' => $select_exam,
-                        'class' => $class_select,
-                        'section' => $section_select,
-                        'subject' => $select_subject,
-                        'marks_obtained' => $value,
-                        'total_marks' => $totalMarks,
-                        'minimum_marks' => $minimumMarks,
-                        'attendance' => $attendance[$key],
-                        'exam_year' => $current_year
-                    ]);
-                }
 
-                return response()->json(['status' => 'Marks stored successfully!']);
+                    if ($pr_percentage > 0) {
+                        if ($pr_percentage >= 89 && $pr_percentage <= 100) {
+                            $obt_pr_grade = 'A+';
+                        } else {
+                            // Fetch the matching grade from the grades table based on the subject percentage
+                            $grade = ExamGrade::where('from', '<=', $pr_percentage)
+                                ->where('to', '>=', $pr_percentage)
+                                ->first();
+                            if ($grade) {
+                                $obt_pr_grade = $grade->grade_name;
+                            }
+                        }
+                    }
+               // End Theory and Practical Grade 
+
+
+
+                // Start Total Grade
+                    $total_subject_mark = $total_th + $total_pr;
+                    $obtained_marks = $obt_th_mark[$key] + $obt_pr_mark[$key];
+
+                    $total_obt_percentage = number_format(($obtained_marks / $total_subject_mark) * 100, 2);
+ 
+                        $final_grade_point =  0;
+                        $final_grade_name =  '';
+                        $final_remarks =  '';
+
+                        if ($total_obt_percentage > 0) {
+ 
+                            // Check if the subject percentage is within the range of 90 to 100
+                            if ($total_obt_percentage >= 89 && $total_obt_percentage <= 100) {
+                                $final_grade_point = 4.0;
+                                $final_grade_name = 'A+';
+                                $final_remarks = 'Outstanding';
+                            } else {
+                                // Fetch the matching grade from the grades table based on the subject percentage
+                                $grade = ExamGrade::where('from', '<=', $total_obt_percentage)
+                                    ->where('to', '>=', $total_obt_percentage)
+                                    ->first();
+                                if ($grade) {
+                                    $final_grade_point = $grade->grade_point;
+                                    $final_grade_name = $grade->grade_name;
+                                    $final_remarks = $grade->remarks;
+                                }
+                            }
+                        }
+                // End Total Grade Get
+
+
+                ExamStudentMarks::create([
+                    'st_id' => $st_id[$key],
+                    'exam' => $select_exam,
+                    'class' => $class_select,
+                    'section' => $section_select,
+                    'subject' => $select_subject,
+                    'total_subject_mark' => $total_subject_mark, 
+                    'exam_year' => $current_year,
+                    'total_th' => $total_th,
+                    'total_pr' => $total_pr,
+                    'pass_th' => $pass_th,
+                    'pass_pr' => $pass_pr,
+                    'obt_th_mark' => $obt_th_mark[$key] ?? 0,
+                    'obt_pr_mark' => $obt_pr_mark[$key] ?? 0,
+                    'obt_th_grade' =>  $obt_th_grade,
+                    'obt_pr_grade' =>  $obt_pr_grade,
+                    'grade_point' => $final_grade_point,
+                    'grade_name' => $final_grade_name,
+                    'remark' => $final_remarks,
+                ]);
             }
+    
+            return response()->json(['status' => 'Marks stored successfully!']);
         } catch (Exception $e) {
-            // Code to handle the exception
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);
         }
     }
+    
 
 
     public $response;
@@ -353,7 +436,7 @@ class ExamManageController extends Controller
             $select_section = $request->select_section;
             $select_exam = $request->select_exam;
 
-            $this->response = Student::orderBy('class')->orderBy('roll_no')->where("class", $select_class)->where("section", $select_section)->where("admission_status","admit")->get();
+            $this->response = Student::select('id', 'class', 'section', 'first_name', 'last_name', 'student_image')->orderBy('class')->orderBy('roll_no')->where("class", $select_class)->where("section", $select_section)->where("admission_status","admit")->get();
             $this->student_marks = ExamStudentMarks::where("class", $select_class)->where("section", $select_section)->where("exam", $select_exam)->where("exam_year", $current_year)->get();
 
             if (count($this->student_marks) != 0) {
@@ -384,88 +467,7 @@ class ExamManageController extends Controller
 
                         $this->data->exam_marks = $marks;
 
-                        $obtained_marks = 0;
-                        $total_marks = 0;
-                        $subject_count = count($marks);
-
-                        foreach ($marks as $mark) {
-                            $obtained_marks += $mark->marks_obtained;
-                            $total_marks += $mark->total_marks;
-
-                            // Calculate percentage for each subject
-                            $mark->percentage = ($mark->marks_obtained / $mark->total_marks) * 100;
-
-                            // Check grades for each subject
-                            $mark->grade_point = null;
-                            $mark->grade_name = null;
-                            $mark->remarks = null;
-
-                            if ($mark->total_marks > 0) {
-                                $subject_percentage = $mark->percentage;
-
-                                // Check if the subject percentage is within the range of 90 to 100
-                                if ($subject_percentage >= 89 && $subject_percentage <= 100) {
-                                    $mark->grade_point = 4.0;
-                                    $mark->grade_name = 'A+';
-                                    $mark->remarks = 'Outstanding';
-                                } else {
-                                    // Fetch the matching grade from the grades table based on the subject percentage
-                                    $grade = ExamGrade::where('from', '<=', $subject_percentage)
-                                        ->where('to', '>=', $subject_percentage)
-                                        ->first();
-
-                                    if ($grade) {
-                                        $mark->grade_point = $grade->grade_point;
-                                        $mark->grade_name = $grade->grade_name;
-                                        $mark->remarks = $grade->remarks;
-                                    }
-                                }
-                            }
-                        }
-
-                        $percentage = 0;
-                        $grade_point = null;
-                        $grade_name = null;
-                        $remarks = null;
-                        if ($total_marks != 0) {
-                            $percentage = number_format(($obtained_marks / $total_marks) * 100, 2);
-
-                            // Check if the overall percentage is within the range of 90 to 100
-                            if ($percentage >= 89 && $percentage <= 100) 
-                            {
-                                $grade_point = 4.0;
-                                $grade_name = 'A+';
-                                $remarks = 'Outstanding';
-                            }
-                             else {
-                                // Fetch the matching grade from the grades table based on the overall percentage
-                                $grade = ExamGrade::where('from', '<=', $percentage)
-                                    ->where('to', '>=', $percentage)
-                                    ->first();
-
-                                if ($grade) {
-                                    $grade_point = $grade->grade_point;
-                                    $grade_name = $grade->grade_name;
-                                    $remarks = $grade->remarks;
-                                }
-                            }
-                        }
-
-                        $ExamGrade = ExamGrade::get();
-
-                        $examGrade = [
-                            'obtained_marks' => $obtained_marks,
-                            'total_marks' => $total_marks,
-                            'percentage' => $percentage,
-                            'grade_point' => $grade_point,
-                            'grade_name' => $grade_name,
-                            'remarks' => $remarks,
-                        ];
-
-                        $this->data->exam_grade = $examGrade;
-
-                        // Add obtained marks to each student's data
-                        $this->data->obtained_marks = $obtained_marks;
+                        
 
                         array_push($this->allData, $this->data);
                     }
@@ -480,21 +482,10 @@ class ExamManageController extends Controller
                         $student->position_rank = $rank + 1;
                     }
 
-                    // Parents
-                    $this->parent_response = Parents::whereIn('id', $this->response->pluck('parents_id'))->get();
-                    $parentData = $this->parent_response->toArray();
-
-                    $this->response_school = SchoolDetails::get();
-
-                    foreach ($this->allData as &$student) {
-                        $parentId = $student->parents_id;
-                        $parent = collect($parentData)->firstWhere('id', $parentId);
-                        $student->parent_data = $parent ?: (object) []; // Assign empty object if parent not found
-                    }
-
+    
                     $responseData = [
                         "data" => $this->allData,
-                        "school_details" => $this->response_school,
+                        "school_details" =>  SchoolDetails::first(),
                     ];
 
                     return response($responseData, 200);

@@ -73,26 +73,46 @@ $(document).ready(function(){
                  var marks_obtained = item.marks_obtained;
                  var minimum_marks = item.minimum_marks;
                  var attendance = item.attendance;
+
+                 var total_th = item.total_th;
+                 var total_pr = item.total_pr;
+                 var pass_th = item.pass_th;
+                 var pass_pr = item.pass_pr;
+                 var obt_th_mark = item.obt_th_mark;
+                 var obt_pr_mark = item.obt_pr_mark;
+                 var grade_name = item.grade_name;
+                 var remark = item.remark;
+
+
              
                  var Required = (index === 0) ? 'required' : '';
                  var NameTotalMark = (index === 0) ? 'name="total_marks"' : '';
                  var NameMinimumMark = (index === 0) ? 'name="minimum_marks"' : '';
+
+                 $('#total_th').val(total_th);
+                 $('#total_pr').val(total_pr);
+                 $('#pass_th').val(pass_th);
+                 $('#pass_pr').val(pass_pr);
  
              
                  $(".marks-entry").append(`
                     <tr>
-                        <td class="font-weight-bold">1</td>
+                        <td class="font-weight-bold">`+sn+`</td>
                         <td class="text-center">`+first_name+' '+middle_name+' '+last_name+`</td>
-                        <td class="text-center">89</td>
-                        <td class="text-center">40%</td>
-                        <td class="text-center">40%</td>
-                        <td class="text-center">40%</td>
+                        <td class="text-center">`+total_th+`</td>
+                        <td class="text-center">`+total_pr+`</td>
+                        <td class="text-center">`+pass_th+`</td>
+                        <td class="text-center">`+pass_pr+`</td>
                         <td class="text-center">
-                        <input type="text" class="text-center" style="width:50px;">
+                           <input type="hidden" value="`+id+`" name="st_id[]">
+                           <input type="number" class="text-center obt_th_mark" name="obt_th_mark[]" value='`+obt_th_mark+`' style="width:50px;">
                         </td>
                         <td class="text-center">
-                        <input type="text" class="text-center" style="width:50px;">
+                           <input type="number" class="text-center obt_pr_mark" name="obt_pr_mark[]" value='`+obt_pr_mark+`' style="width:50px;">
                         </td>
+                        <td class="text-center">`+grade_name+`</td>
+                        <td class="text-center">`+remark+`</td>
+
                     </tr>
                  `);
              });
@@ -134,6 +154,12 @@ $(document).ready(function(){
         var class_select = $(".class-select").val();
         var section_select = $(".section-select").val();
         var select_subject= $(".select-subject").val();
+
+        var total_th = $("#total_th").val();
+        var total_pr = $("#total_pr").val();
+        var pass_th = $("#pass_th").val();
+        var pass_pr = $("#pass_pr").val();
+
  
         var current_year = NepaliFunctions.GetCurrentBsDate().year;
  
@@ -144,6 +170,12 @@ $(document).ready(function(){
          formData.append("class_select", class_select);
          formData.append("section_select", section_select);
          formData.append("select_subject", select_subject);
+
+         formData.append("total_th", total_th);
+         formData.append("total_pr", total_pr);
+         formData.append("pass_th", pass_th);
+         formData.append("pass_pr", pass_pr);
+ 
  
          $.ajax({
              url: "/entry-mark",
@@ -199,8 +231,59 @@ $(document).ready(function(){
         $("#search-btn").click();
      });
  });
- 
- 
-  
+
+// Total  Mark Enter Conditions 
+$(document).ready(function(){
+    // Update the values of total_th and total_pr when they change
+    $('#total_th').on('input', function() {
+        total_th = parseFloat($(this).val());
+    });
+
+    $('#total_pr').on('input', function() {
+        total_pr = parseFloat($(this).val());
+    });
+
+    // Event handler for pass_th input
+    $('#pass_th').on('input', function(){
+        var pass_th = parseFloat($(this).val()); // Get the current value of pass_th
+
+        // Check if pass_th is greater than or equal to total_th
+        if (pass_th >= total_th) {
+            $(this).val(total_th); // Set pass_th to total_th
+        }
+    });
+
+    // Event handler for pass_pr input
+    $('#pass_pr').on('input', function(){
+        var pass_pr = parseFloat($(this).val()); // Get the current value of pass_pr
+
+        // Check if pass_pr is greater than or equal to total_pr
+        if (pass_pr >= total_pr) {
+            $(this).val(total_pr); // Set pass_pr to total_pr
+        }
+    });
+});
+
+// Obtained Mark Condition 
+$(document).ready(function(){
+    $(".marks-entry").on("input", ".obt_th_mark", function(){  
+        var obt_th_mark = parseFloat($(this).val()); 
+        var total_th = parseFloat($('#total_th').val()); // Update total_th inside event handler
+
+        if (obt_th_mark >= total_th) {
+            $(this).val(total_th); 
+        }
+    });
+
+    $(".marks-entry").on("input", ".obt_pr_mark", function(){  
+        var obt_pr_mark = parseFloat($(this).val()); 
+        var total_pr = parseFloat($('#total_pr').val()); // Update total_pr inside event handler
+
+        if (obt_pr_mark >= total_pr) {
+            $(this).val(total_pr); 
+        }
+    });
+});
+
  
  

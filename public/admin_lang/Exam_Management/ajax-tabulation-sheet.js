@@ -80,23 +80,26 @@ $(document).ready(function(){
                         return totalMarksB - totalMarksA;
                     });
     
-                    var index = 1;
                     $(".exam-tabulation-table").html('');
-                    students.forEach(function(item) {
+                    students.forEach(function(item, index) {
                         var sn = index++;
                         var id = item.id;
                         var st_name = item.first_name + " " + item.middle_name + " " + item.last_name;
-                        var father_name = item.parent_data.father_name;
+ 
     
-                        var obtained_marks = item.exam_grade.obtained_marks;
-                        var percentage = item.exam_grade.percentage;
-                        var grade_name = item.exam_grade.grade_name;
-                        var grade_point = item.exam_grade.grade_point;
+                        // var obtained_marks = item.exam_marks[index].obtained_marks;s
+
+ 
+                        // var percentage = item.exam_grade.percentage;
+                        // var grade_name = item.exam_grade.grade_name;
+                        // var grade_point = item.exam_grade.grade_point;
     
      
                         var marks_row = '';
                         item.exam_marks.forEach(function(marks) {
-                            marks_row += "<td class='text-ceneter'>" + marks.marks_obtained + "</td>";
+                            marks_row += `<td class='text-ceneter'>
+                               0
+                            </td>`;
                         });
     
                         $(".exam-tabulation-table").append(`
@@ -105,11 +108,11 @@ $(document).ready(function(){
                                 <td></td>
                                 <td class="text-ceneter">${st_name}</td>
                                 ${marks_row}
-                                <td class="text-ceneter">`+obtained_marks+`</td>
-                                <td class="text-ceneter">${sn}</td>
-                                <td class="text-ceneter">`+percentage+' '+`%</td>
-                                <td class="text-ceneter">`+grade_point+`</td>
-                                <td class="text-ceneter">`+grade_name+`</td>
+                                <td class="text-ceneter">0</td>
+                                <td class="text-ceneter">0</td>
+                                <td class="text-ceneter">0</td>
+                                <td class="text-ceneter">0</td>
+                                <td class="text-ceneter">0</td>
                             </tr>
                         `);
                     });
