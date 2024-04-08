@@ -1,5 +1,4 @@
  
-///////// Custom Date /////////
 var subdomain = window.location.hostname.split('.')[0];
 let current_year, current_month, current_day, MonthsArray;
 
