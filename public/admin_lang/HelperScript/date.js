@@ -1,6 +1,6 @@
  
         const current_year = 2080;
-        const current_month = 12;
+        const current_month = 11;
         const current_day = 29;
  
 //    const current_year = NepaliFunctions.GetCurrentBsDate().year;
