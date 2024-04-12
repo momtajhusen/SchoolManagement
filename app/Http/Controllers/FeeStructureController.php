@@ -154,7 +154,11 @@ class FeeStructureController extends Controller
         $TotalsClassPayment = [];
 
         // Initialize total amounts for all classes to 0
-        $classes = Classes::pluck('class')->toArray(); // Get all class names
+        $classes = Classes::pluck('class')->map(function ($className) {
+            return trim($className);
+        })->toArray(); // Get all class names and trim whitespace
+        
+        // Initialize total amounts for all classes to 0
         foreach ($classes as $class) {
             $TotalsClassPayment[$class] = 0;
         }

@@ -35,9 +35,10 @@ class SuperAdminDashboardController extends Controller
             $Total_Parents = Parents::count();
             $Total_Teacher = Employee::where("department_role", "Teacher")->count();
 
+        
+            $TotalExpenses = Expenses::whereRaw("YEAR(STR_TO_DATE(expenses_date, '%Y-%m-%d')) = ?", [$currentYear])->sum('amount');
+            $ExpensesHistory = count(Expenses::whereRaw("YEAR(STR_TO_DATE(expenses_date, '%Y-%m-%d')) = ?", [$currentYear])->get());
             
-            $TotalExpenses = Expenses::sum('amount');
-            $ExpensesHistory = count(Expenses::get());
 
             $TotalHostelDepositeAmount = PrWalletLoadHis::where("load_for", "hostel_deposite")->sum('load_amount');
             $TotalAdvancePaymentAmount = PrWalletLoadHis::where("load_for", "advance_payment")->sum('load_amount');

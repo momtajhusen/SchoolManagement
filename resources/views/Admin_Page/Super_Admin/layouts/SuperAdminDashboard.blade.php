@@ -134,26 +134,9 @@
                             </div>
                         </div>
                     </div>
+ 
 
                     <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="dashboard-summery-one mg-b-20">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <div class="item-icon bg-light-blue">
-                                        <i class="flaticon-multiple-users-silhouette text-blue"></i>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="item-content">
-                                        <div class="item-title">New Teachers</div>
-                                        <div class="item-number"><span class="techer-count number-icon">0</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-6 col-sm-6 col-12">
                         <div class="dashboard-summery-one mg-b-20" style="overflow: hidden;">
                             <div class="row align-items-center">
                                 <div class="col-6">
@@ -170,24 +153,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="dashboard-summery-one mg-b-20">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <div class="item-icon bg-light-blue">
-                                        <i class="flaticon-multiple-users-silhouette text-blue"></i>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="item-content">
-                                        <div class="item-title">Notification</div>
-                                        <div class="item-number"><span class="techer-count number-icon">0</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+ 
 
                     <div class="col-xl-3 col-sm-6 col-12">
                         <div class="dashboard-summery-one mg-b-20">
@@ -200,7 +166,7 @@
                                 <div class="col-6">
                                     <div class="item-content">
                                         <div class="item-title">Login Devices</div>
-                                        <div class="item-number"><span class="techer-count number-icon">0</span></div>
+                                        <div class="item-number"><span class="login-count number-icon">0</span></div>
                                     </div>
                                 </div>
                             </div>
