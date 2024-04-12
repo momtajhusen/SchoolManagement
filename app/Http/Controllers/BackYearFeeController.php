@@ -75,7 +75,7 @@ class BackYearFeeController extends Controller
             }
         }
 
-        $Student = Student::where('id', $student_id)->where('class_year', $year)->get();
+        $Student = Student::where('id', $student_id)->get();
 
         $SchoolDetails = SchoolDetails::get();
 

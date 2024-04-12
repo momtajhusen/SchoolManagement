@@ -89,7 +89,7 @@ $(document).ready(function () {
             {
                 console.log(response);
             
-                if(response.status == "Add Successfully")
+                if(response.status == "Add Successfull")
                 {
                     Swal.fire({
                         title: "Registration Success !",
