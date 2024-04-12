@@ -11,14 +11,15 @@ $(document).ready(function(){
       var select_class = $(".class-select").val();
       var select_section = $(".section-select").val();
       var select_subject = $(".select-subject").val();
-
-      var current_year = NepaliFunctions.GetCurrentBsDate().year;
+ 
 
       $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    alert(current_year);
 
     $.ajax({
         url:  "/get-studen-mark-entry",
@@ -142,9 +143,7 @@ $(document).ready(function(){
        var section_select = $(".section-select").val();
        var select_subject= $(".select-subject").val();
 
-       var current_year = NepaliFunctions.GetCurrentBsDate().year;
-
-
+ 
         var formData = new FormData(this);
         formData.append("current_year", current_year);
         formData.append("select_exam", select_exam);

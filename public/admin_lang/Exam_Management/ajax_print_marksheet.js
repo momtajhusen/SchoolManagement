@@ -67,6 +67,9 @@ $(document).ready(function(){
                       var final_grade_point = item.final_grade_point;
                       var final_grade_name = item.final_grade_name;
                       var final_position_rank = item.position_rank;
+                      var final_remark = item.final_remarks;
+                      var final_percentage = item.final_percentage
+
 
 
                       // alert(response.data[index].exam_marks[index]);
@@ -156,12 +159,6 @@ $(document).ready(function(){
                       <td style="border: 1px solid black; padding: 10px; text-align: center;">${final_grade_point}</td>
                      </tr>`;
                   
-
-
-
-                      var currentDomainWithProtocol = window.location.protocol + "//" + window.location.host;
-
-
                       // if(obtained_marks < total_minimum_mark)
                       // {
                       //   var total_check_pass = "Fail";
@@ -273,7 +270,10 @@ $(document).ready(function(){
                               </table>
 
                               <div style="padding:10px;">
+                                 <span>Final Percentage: ${final_percentage}</span><br>
+                                 <span>Final Remark: ${final_remark}</span><br>
                                  <span>Position: ${final_position_rank}</span>
+
                               </div>
  
                             </div>

@@ -522,6 +522,7 @@ class ExamManageController extends Controller
                                     $student->final_grade_point = $grade->grade_point;
                                     $student->final_grade_name = $grade->grade_name;
                                     $student->final_remarks = $grade->remarks;
+                                    $student->final_percentage = $total_obt_percentage;
                                 }
                             }
                         }

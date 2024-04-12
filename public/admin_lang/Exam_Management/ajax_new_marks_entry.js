@@ -12,7 +12,6 @@ $(document).ready(function(){
        var select_section = $(".section-select").val();
        var select_subject = $(".select-subject").val();
  
-       var current_year = NepaliFunctions.GetCurrentBsDate().year;
  
        $.ajaxSetup({
          headers: {
@@ -156,9 +155,6 @@ $(document).ready(function(){
         var total_pr = $("#total_pr").val();
         var pass_th = $("#pass_th").val();
         var pass_pr = $("#pass_pr").val();
-
- 
-        var current_year = NepaliFunctions.GetCurrentBsDate().year;
  
  
          var formData = new FormData(this);
