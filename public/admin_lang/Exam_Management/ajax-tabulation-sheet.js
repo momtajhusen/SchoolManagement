@@ -2,13 +2,18 @@ $(document).ready(function(){
     $(".exam-tabulation-form").submit(function(e){
         e.preventDefault();
 
+        $(".exam-tabulation-thead").html('');
+        $(".exam-tabulation-body").html('');
+
+
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        var select_exam = $("#select_exam").val();
+       var exam_id = $("#select_exam option:selected").attr('exam_id');
         var select_class = $(".class-select").val();
         var select_section = $(".section-select").val();
 
@@ -16,7 +21,7 @@ $(document).ready(function(){
             url:  "/get-exam-tabulation",
             method: 'GET',
             data:{
-                select_exam:select_exam,
+                exam_id:exam_id,
                 select_class : select_class,
                 select_section : select_section,
                 current_year:current_year,
@@ -54,7 +59,7 @@ $(document).ready(function(){
                         subject_marks_items += "<td>TH</td><td>PR</td>";
                     });
 
-                    $(".exam-tabulation-thead").html();
+                    $(".exam-tabulation-thead").html('');
                     $(".exam-tabulation-thead").append(`
                         <tr>
                             <th rowspan="2" scope="col">#</th>
@@ -81,7 +86,7 @@ $(document).ready(function(){
                     // });
     
                     $(".exam-tabulation-table").html('');
-                    $(".exam-tabulation-body").html();
+                    $(".exam-tabulation-body").html('');
                     students.forEach(function(item, index) {
                         var sn = index++;
                         var id = item.id;
@@ -142,6 +147,8 @@ $(document).ready(function(){
        var exam_year = $(this).attr('exam_year');
        var exam = $("#select_exam").val();
        var classes = $(".class-select").val();
+       var exam_id = $("#select_exam option:selected").attr('exam_id');
+
 
        
        $.ajaxSetup({

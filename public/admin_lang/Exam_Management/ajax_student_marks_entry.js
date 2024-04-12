@@ -1,5 +1,6 @@
 // Student Retrive 
 $(document).ready(function(){
+
    $(".search-student").submit(function(e){
       e.preventDefault();
 
@@ -11,6 +12,7 @@ $(document).ready(function(){
       var select_class = $(".class-select").val();
       var select_section = $(".section-select").val();
       var select_subject = $(".select-subject").val();
+
  
 
       $.ajaxSetup({
@@ -19,7 +21,6 @@ $(document).ready(function(){
         }
     });
 
-    alert(current_year);
 
     $.ajax({
         url:  "/get-studen-mark-entry",

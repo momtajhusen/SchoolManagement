@@ -6,12 +6,11 @@ $(document).ready(function(){
        $(".marks-entry").html('');
        $("#enter-subject").html('');
        $("#searchInput").val('');
-   
-       var select_exam = $("#select_exam").val();
+ 
+       var exam_id = $("#select_exam option:selected").attr('exam_id');
        var select_class = $(".class-select").val();
        var select_section = $(".section-select").val();
        var select_subject = $(".select-subject").val();
- 
  
        $.ajaxSetup({
          headers: {
@@ -19,13 +18,13 @@ $(document).ready(function(){
          }
      });
  
+ 
      $.ajax({
          url:  "/get-studen-mark-entry",
          method: 'GET',
          data:{
-             select_exam:select_exam,
+             exam_id:exam_id,
              select_subject:select_subject,
-             current_year:current_year,
              select_class : select_class,
              select_section : select_section,
          },
@@ -150,6 +149,8 @@ $(document).ready(function(){
         var class_select = $(".class-select").val();
         var section_select = $(".section-select").val();
         var select_subject= $(".select-subject").val();
+       var exam_id = $("#select_exam option:selected").attr('exam_id');
+
 
         var total_th = $("#total_th").val();
         var total_pr = $("#total_pr").val();
@@ -158,6 +159,7 @@ $(document).ready(function(){
  
  
          var formData = new FormData(this);
+         formData.append("exam_id", exam_id);
          formData.append("current_year", current_year);
          formData.append("select_exam", select_exam);
          formData.append("class_select", class_select);

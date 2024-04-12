@@ -230,16 +230,22 @@ class ExamManageController extends Controller
     {
         try {
 
-            $current_year = $request->current_year;
             $select_class = $request->select_class;
             $select_section = $request->select_section;
             $select_subject = $request->select_subject;
-            $select_exam = $request->select_exam;
+            $exam_id = $request->exam_id;
+ 
+            $ExamTerm = ExamTerm::find($exam_id); 
+
+
+            $select_exam = $ExamTerm->exam_name;
+            $exam_year = $ExamTerm->year;
+
 
             $this->student_response = Student::orderBy('class')->orderBy('roll_no')->where("class", $select_class)->where("section", $select_section)->where("admission_status","admit")->get();
 
             if (count($this->student_response) != 0) {
-                $this->student_marks = ExamStudentMarks::orderBy('class')->where("class", $select_class)->where("section", $select_section)->where("subject", $select_subject)->where("exam", $select_exam)->where("exam_year", $current_year)->get();
+                $this->student_marks = ExamStudentMarks::orderBy('class')->where("class", $select_class)->where("section", $select_section)->where("subject", $select_subject)->where("exam", $select_exam)->where("exam_year", $exam_year)->get();
 
                 foreach ($this->student_response as $student) {
                     $student->marks_obtained = '';
@@ -250,6 +256,7 @@ class ExamManageController extends Controller
                     $student->total_th = 0;
                     $student->total_pr = 0;
                     $student->pass_th = 0;
+
                     $student->pass_pr = 0;
                     $student->obt_th_mark = 0;
                     $student->obt_pr_mark = 0;
@@ -295,11 +302,14 @@ class ExamManageController extends Controller
     public function entry_mark(Request $request)
     {
         try {
-            $current_year = $request->current_year;
-            $select_exam = $request->select_exam;
             $class_select = $request->class_select;
             $section_select = $request->section_select;
             $select_subject = $request->select_subject;
+            $exam_id = $request->exam_id;
+ 
+            $ExamTerm = ExamTerm::find($exam_id); 
+            $select_exam = $ExamTerm->exam_name;
+            $exam_year = $ExamTerm->year;
     
             $st_id = $request->input('st_id');
             $obt_th_mark = $request->input('obt_th_mark');
@@ -315,7 +325,7 @@ class ExamManageController extends Controller
                 ->where("section", $section_select)
                 ->where("subject", $select_subject)
                 ->where("exam", $select_exam)
-                ->where("exam_year", $current_year)
+                ->where("exam_year", $exam_year)
                 ->delete();
     
             // Insert new marks
@@ -410,7 +420,7 @@ class ExamManageController extends Controller
                     'class' => $class_select,
                     'section' => $section_select,
                     'subject' => $select_subject,
-                    'exam_year' => $current_year,
+                    'exam_year' => $exam_year,
                     'total_th' => $total_th,
                     'total_pr' => $total_pr,
                     'pass_th' => $pass_th,
@@ -442,10 +452,14 @@ class ExamManageController extends Controller
     {
         try {
             // Extract request parameters
-            $current_year = $request->current_year;
+            $exam_id = $request->exam_id;
             $select_class = $request->select_class;
             $select_section = $request->select_section;
             $select_exam = $request->select_exam;
+
+            $ExamTerm = ExamTerm::find($exam_id); 
+            $select_exam = $ExamTerm->exam_name;
+            $exam_year = $ExamTerm->year;
     
             // Retrieve student data and exam marks
             $students = Student::select('id', 'roll_no', 'class', 'section', 'first_name', 'middle_name', 'last_name', 'student_image')
@@ -459,7 +473,7 @@ class ExamManageController extends Controller
             $exam_marks = ExamStudentMarks::where("class", $select_class)
                 ->where("section", $select_section)
                 ->where("exam", $select_exam)
-                ->where("exam_year", $current_year)
+                ->where("exam_year", $exam_year)
                 ->get();
     
             // Check if exam marks are found

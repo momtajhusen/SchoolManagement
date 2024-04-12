@@ -8,18 +8,18 @@ $(document).ready(function(){
           }
       });
 
-      var select_exam = $("#select_exam").val();
       var select_class = $(".class-select").val();
       var select_section = $(".section-select").val();
+      var exam_id = $("#select_exam option:selected").attr('exam_id');
+
 
       $.ajax({
           url:  "/get-exam-tabulation",
           method: 'GET',
           data:{
-              select_exam:select_exam,
+              exam_id:exam_id,
               select_class : select_class,
               select_section : select_section,
-              current_year:current_year,
           },
            // Success 
            success:function(response)
