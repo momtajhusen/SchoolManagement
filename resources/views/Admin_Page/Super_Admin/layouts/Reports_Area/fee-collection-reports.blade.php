@@ -137,7 +137,7 @@ input{
                     <span class="material-symbols-outlined text-light p-1 text-light">file_save</span>
                     <span class="text-light" style="font-size: 8px;">xls</span>
                   </div>
-                  <div class="d-flex flex-column align-items-center bg-dark ml-1" style="cursor:pointer;font-size: 17px; float: left">
+                  <div class="d-flex flex-column align-items-center bg-dark ml-1" id="btnCsvExport" style="cursor:pointer;font-size: 17px; float: left">
                     <span class="material-symbols-outlined text-light p-1 text-light">file_save</span>
                     <span class="text-light" style="font-size: 8px;">csv</span>
                   </div>

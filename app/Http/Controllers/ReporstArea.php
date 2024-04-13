@@ -90,20 +90,22 @@ class ReporstArea extends Controller
         // End GenerateFee All Months
 
         // Start PaymentAmount All Months
-                $PaymentMounthsAmount = FeePayment::where("class_year", $year)->selectRaw('
-                SUM(month_0) AS month_1,
-                SUM(month_1) AS month_2,
-                SUM(month_2) AS month_3,
-                SUM(month_3) AS month_4,
-                SUM(month_4) AS month_5,
-                SUM(month_5) AS month_6,
-                SUM(month_6) AS month_7,
-                SUM(month_7) AS month_8,
-                SUM(month_8) AS month_9,
-                SUM(month_9) AS month_10,
-                SUM(month_10) AS month_11,
-                SUM(month_11) AS month_12
-           ')->first();    
+            $PaymentMounthsAmount = FeePayment::where("class_year", $year)
+            ->selectRaw('
+                COALESCE(SUM(month_0), 0) AS month_1,
+                COALESCE(SUM(month_1), 0) AS month_2,
+                COALESCE(SUM(month_2), 0) AS month_3,
+                COALESCE(SUM(month_3), 0) AS month_4,
+                COALESCE(SUM(month_4), 0) AS month_5,
+                COALESCE(SUM(month_5), 0) AS month_6,
+                COALESCE(SUM(month_6), 0) AS month_7,
+                COALESCE(SUM(month_7), 0) AS month_8,
+                COALESCE(SUM(month_8), 0) AS month_9,
+                COALESCE(SUM(month_9), 0) AS month_10,
+                COALESCE(SUM(month_10), 0) AS month_11,
+                COALESCE(SUM(month_11), 0) AS month_12
+            ')
+            ->first();
         // End PaymentAmount All Months
 
 
@@ -297,7 +299,7 @@ class ReporstArea extends Controller
 
     public function MonthlyFeeGenerate(Request $request)
     {
-       echo "Hello";
+    //    echo "Hello";
     }
 
     // public function CollectionMonths(Request $request)

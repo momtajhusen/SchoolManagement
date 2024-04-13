@@ -642,3 +642,9 @@ $(document).ready(function(){
     });
 });
  
+ $(document).ready(function(){
+    $('#home-tab, #datewize-tab, #studentwize-tab').click(function(){
+        $('.payment-history').html('');
+    });
+ })
+
