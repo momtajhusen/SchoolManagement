@@ -913,7 +913,7 @@
                     </div>
                 </div>
 
-                <div style="height:80vh;overflow: auto;">
+                <div class="content-box" style="height:80vh;overflow: auto;">
  
                    @yield('contents')
 
@@ -1104,11 +1104,11 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     // Check if there's a stored scroll position in localStorage
-    var storedScrollPosition = localStorage.getItem("sidebar_scroll_position");
-
+    var SidebarstoredScrollPosition = localStorage.getItem("sidebar_scroll_position");
+ 
     // If there's a stored scroll position, restore it
-    if (storedScrollPosition) {
-        $(".sidebar-menu-content").scrollTop(storedScrollPosition);
+    if (SidebarstoredScrollPosition) {
+        $(".sidebar-menu-content").scrollTop(SidebarstoredScrollPosition);
     }
 
     // Listen for scroll events on the .sidebar-main element
@@ -1116,6 +1116,7 @@ $(document).ready(function() {
         // Store the current scroll position in localStorage
         localStorage.setItem("sidebar_scroll_position", $(this).scrollTop());
     });
+ 
 });
 
 

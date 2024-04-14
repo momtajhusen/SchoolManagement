@@ -85,7 +85,7 @@
                 </table>
             </div>
 
-            <div class="w-100 d-none justify-content-between ">
+            <div class="w-100 d-flex justify-content-between ">
                 <button class="fw-btn-fill btn btn-gradient-yellow text-center mt-3" id="promotion-btn" style="width:200px;">Promotion</button>
                 <button class="fw-btn-fill btn btn-gradient-yellow text-center mt-3" id="passout-btn" style="width:200px;">Pass Out</button>
             </div>
