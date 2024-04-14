@@ -2936,11 +2936,11 @@ ul {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  padding: 0 30px;
+  padding: 10px 30px 30px 20px;
 }
 @media only screen and (max-width: 767px) {
   .dashboard-content-one {
-    padding: 0 15px;
+    padding: 20px 0px 0px 0px;
   }
 }
 .dashboard-summery-one {

@@ -148,7 +148,7 @@
             /* For vertical scrollbar */
             ::-webkit-scrollbar-thumb:vertical {
                       background-color: #b2bff8d3;
-                box-shadow: inset 0 0 10px rgba(63, 63, 63, 0.5);
+                box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.5);
             }
 
             /* For horizontal scrollbar */
@@ -220,7 +220,7 @@
 
 </head>
 
-<body class="position-relative">
+<body class="position-relative" style="height:100vh;overflow: hidden;">
     <!-- Preloader Start Here -->
     <div id="preloader"></div>
     <!-- Preloader End Here -->
@@ -288,13 +288,13 @@
         <div style="height:65px;">ds</div>
         <div class="dashboard-page-one">
             <!-- Sidebar Area Start Here -->
-            <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color" style="overflow-y: scroll;">
+            <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color">
                <div class="mobile-sidebar-header d-md-none">
                     <div class="header-logo">
                         <a href="index.html"><img src="{{ asset('../admin_template_assets/img/logo1.png')}}" alt="logo"></a>
                     </div>
                </div>
-                <div class="sidebar-menu-content" style="height: 100vh;">
+                <div class="sidebar-menu-content" style="height: 100vh; overflow-y: scroll;padding-bottom:100px;">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                         <li class="nav-item sidebar-nav-item">
                             <a href="{{route('dashboard')}}" class="nav-link d-flex">
@@ -376,7 +376,7 @@
                                 <li class="nav-item">
                                     <a href="{{route('manage-stracture')}}" class="nav-link">
                                       <i class="fas fa-angle-right"></i>
-                                      <span>Fee Structure</span>
+                                      <span class="menu-name">Fee Structure</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -884,7 +884,7 @@
                 </div>
             </div>
             <!-- Sidebar Area End Here -->
-            <div class="dashboard-content-one py-4">
+            <div class="dashboard-content-one border">
 
                 <div class="demo-visitor-main d-none">
                     <div class="demo-visitor-box d-flex justify-content-center">
@@ -912,8 +912,13 @@
                         </form>
                     </div>
                 </div>
+
+                <div style="height:80vh;overflow: auto;">
+ 
+                   @yield('contents')
+
+                </div>
                 
-               @yield('contents')
 
                {{-- <button onclick="swal('Hello world!')">Click me</button> --}}
 
@@ -1081,6 +1086,8 @@ $(document).ready(function() {
     // Color and click last btn Click Menu 
     $(".menu-name").each(function() {
         var content = $(this).html();
+        
+
         if (content == localStorage.getItem("current_menu")) {
             $(this).parent().css("background-color", "#042954");
             $(this).parent().parent().parent().parent().find('.nav-link').click();
@@ -1094,6 +1101,26 @@ $(document).ready(function() {
     });
     
 });
+
+$(document).ready(function() {
+    // Check if there's a stored scroll position in localStorage
+    var storedScrollPosition = localStorage.getItem("sidebar_scroll_position");
+
+    // If there's a stored scroll position, restore it
+    if (storedScrollPosition) {
+        $(".sidebar-menu-content").scrollTop(storedScrollPosition);
+    }
+
+    // Listen for scroll events on the .sidebar-main element
+    $(".sidebar-menu-content").scroll(function() {
+        // Store the current scroll position in localStorage
+        localStorage.setItem("sidebar_scroll_position", $(this).scrollTop());
+    });
+});
+
+
+
+
 
 
 // Current Nepal Date
