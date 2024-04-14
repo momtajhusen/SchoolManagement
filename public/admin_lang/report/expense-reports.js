@@ -5,6 +5,7 @@ $(document).ready(function(){
 
     $(".expenses_start_date, .expenses_end_date").val(today);
 
+
     $("#search-btn").click(function(){
 
         $.ajaxSetup({
@@ -62,7 +63,7 @@ $(document).ready(function(){
     });
 
 
-
+    $("#search-btn").click();
 });
 
  

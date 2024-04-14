@@ -284,7 +284,6 @@
         <!-- Header Menu Area End Here -->
 
 
-
         <!-- Page Area Start Here -->
         <div style="height:65px;">ds</div>
         <div class="dashboard-page-one">
@@ -300,41 +299,41 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="{{route('dashboard')}}" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">dashboard</span>
-                                <span>Dashboard</span>
+                                <span class="menu-name">Dashboard</span>
                             </a>
                         </li>
 
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">pie_chart</span>
-                                <span>Finance Analysis</span>
+                                <span class="menu-name">Finance Analysis</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('financial-overview')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Financial Overview</span>
+                                        <span class="menu-name">Financial Overview</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('fee-collection-reports')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Fee Collections</span>
+                                        <span class="menu-name">Fee Collections</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('salary-report')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                    <span>Salary</span>
+                                    <span class="menu-name">Salary</span>
                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('class-finance')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                    <span>Financial Class</span>
+                                    <span class="menu-name">Financial Class</span>
                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('expense-reports')}}"  class="nav-link"><i class="fas fa-angle-right"></i>
-                                    <span>Expenses</span>
+                                    <span class="menu-name">Expenses</span>
                                    </a>
                                 </li>  
                             </ul>
@@ -343,7 +342,7 @@
                         <li class="nav-item sidebar-nav-item" id="old-account-menu">
                             <a href="#" class="nav-link d-flex" id="account-btn">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">account_balance</span>
-                                <span>Acconunt Management</span>
+                                <span class="menu-name">Acconunt Management</span>
                             </a>
                             <ul class="nav sub-group-menu">
                             {{-- <li class="nav-item">
@@ -353,25 +352,25 @@
                                 <li class="nav-item d-none">
                                     <a href="{{route('fee-payment')}}" class="nav-link">
                                        <i class="fas fa-angle-right"></i>
-                                       <span>Fee Payment</span>
+                                       <span class="menu-name">Fee Payment</span>
                                     </a>
                                 </li>
                                 {{-- <li class="nav-item deve-use">
                                     <a href="{{route('set-fees')}}" class="nav-link">
                                     <i class="fas fa-angle-right"></i>
-                                      <span>Set Fee Structure</span>
+                                      <span class="menu-name">Set Fee Structure</span>
                                     </a>
                                 </li> --}}
                                 <li class="nav-item">
                                     <a href="{{route('dues-list')}}" class="nav-link">
                                        <i class="fas fa-angle-right"></i>
-                                        <span>Dues Fee</span>
+                                        <span class="menu-name">Dues Fee</span>
                                     </a>
                                 </li>
                                 
                                 <li class="nav-item">
                                     <a href="{{route('add-expenses')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>Add Expenses</span>
+                                        <span class="menu-name">Add Expenses</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -383,7 +382,7 @@
                                 <li class="nav-item">
                                     <a href="{{route('manage_free_student')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Fee & Disc Exceptions</span>
+                                        <span class="menu-name">Fee & Disc Exceptions</span>
                                     </a>
                                 </li>
                             </ul>
@@ -392,24 +391,24 @@
                         <li class="nav-item sidebar-nav-item d-none" id="new-account-menu">
                             <a href="#" class="nav-link d-flex" id="new-account-btn">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">account_balance</span>
-                                <span>Acconunt Management</span>
+                                <span class="menu-name">Acconunt Management</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('student-fee-payment')}}" class="nav-link">
                                        <i class="fas fa-angle-right"></i>
-                                       <span>Student Fee Payment</span>
+                                       <span class="menu-name">Student Fee Payment</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('student-deus-fee-list')}}" class="nav-link">
                                        <i class="fas fa-angle-right"></i>
-                                        <span>Dues Fee List</span>
+                                        <span class="menu-name">Dues Fee List</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('add-expenses')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>Add New Expenses</span>
+                                        <span class="menu-name">Add New Expenses</span>
                                     </a>
                                 </li>
                             </ul>
@@ -418,37 +417,37 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">receipt_long</span>
-                                <span>Teacher/Staff Salary</span>
+                                <span class="menu-name">Teacher/Staff Salary</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('salary-payment')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Salary Payment</span>
+                                        <span class="menu-name">Salary Payment</span>
                                     </a>
                                 </li>
                                 <li class="nav-item deve-use">
                                     <a href="{{route('salary-payment-history')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Salary Payment History</span>
+                                        <span class="menu-name">Salary Payment History</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('salary-generate')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Check Salary Generate</span>
+                                        <span class="menu-name">Check Salary Generate</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('salary-set')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Set Salary</span>
+                                        <span class="menu-name">Set Salary</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('bonus-ssf-setting')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Bonus & SSF Setting</span>
+                                        <span class="menu-name">Bonus & SSF Setting</span>
                                     </a>
                                 </li>
                             </ul>
@@ -458,27 +457,27 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">demography</span>
-                                <span>Attendan Management</span>
+                                <span class="menu-name">Attendan Management</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('teachers-attendance')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>Teachers Attendance</span>
+                                        <span class="menu-name">Teachers Attendance</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('staff-attendance')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>Staff Attendance</span>
+                                        <span class="menu-name">Staff Attendance</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('teachers-attendance-report')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>Attendance Reports</span>
+                                        <span class="menu-name">Attendance Reports</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('set-teachers-periods')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>Set Teachers Periods</span>
+                                        <span class="menu-name">Set Teachers Periods</span>
                                     </a>
                                 </li>
                             </ul>
@@ -487,32 +486,32 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">group</span>
-                                <span>Students Management</span>
+                                <span class="menu-name">Students Management</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                <li class="nav-item">
                                     <a href="{{route('add-students')}}" class="nav-link"><i
                                             class="fas fa-angle-right"></i>
-                                            <span>Student Registration</span>
+                                            <span class="menu-name">Student Registration</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('registration-list')}}" class="nav-link"><i
                                             class="fas fa-angle-right"></i>
-                                            <span>Registration List</span>
+                                            <span class="menu-name">Registration List</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a href="{{route('all-student')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>All Students</span>
+                                        <span class="menu-name">All Students</span>
                                     </a>
                                 </li>
                                 
                                 <li class="nav-item">
                                     <a href="{{route('admin_student_parents')}}" class="nav-link"><i
                                             class="fas fa-angle-right"></i>
-                                            <span>All Parents</span>
+                                            <span class="menu-name">All Parents</span>
                                     </a>
                                 </li>
 
@@ -526,21 +525,21 @@
                                 <li class="nav-item">
                                     <a href="{{route('passout-student')}}" class="nav-link"><i
                                             class="fas fa-angle-right"></i>
-                                            <span>Passout Student</span>
+                                            <span class="menu-name">Passout Student</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a href="{{route('kick_out')}}" class="nav-link"><i
                                             class="fas fa-angle-right"></i>
-                                            <span>Kick Out Students</span>
+                                            <span class="menu-name">Kick Out Students</span>
                                     </a>
                                 </li>
                              
                                 <li class="nav-item">
                                     <a href="{{route('student-identification')}}" class="nav-link"><i
                                             class="fas fa-angle-right"></i>
-                                            <span>Generate Id Card</span>
+                                            <span class="menu-name">Generate Id Card</span>
                                     </a>
                                 </li>
                             </ul>
@@ -550,13 +549,13 @@
                         <li class="nav-item sidebar-nav-item deve-use">
                             <a href="#" class="nav-link d-flex">  
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">night_shelter</span>
-                                <span>Hostel Management</span>
+                                <span class="menu-name">Hostel Management</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                <li class="nav-item d-none">
                                     <a href="{{route('hostel-students')}}" class="nav-link"><i
                                             class="fas fa-angle-right"></i>
-                                            <span>Hostel Students</span>
+                                            <span class="menu-name">Hostel Students</span>
                                     </a>
                                 </li>
                             </ul>
@@ -565,18 +564,18 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">person_apron</span>
-                                <span>Employee Management</span>
+                                <span class="menu-name">Employee Management</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('teacher-staff-details')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Teacher/Staff Details</span>
+                                        <span class="menu-name">Teacher/Staff Details</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('add-new-employee')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>Add New Employee</span>
+                                        <span class="menu-name">Add New Employee</span>
                                     </a>
                                 </li>              
                             </ul>
@@ -585,7 +584,7 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">edit_square</span>
-                                <span>Exam Management</span>
+                                <span class="menu-name">Exam Management</span>
                             </a>
                             <ul class="nav sub-group-menu">
            
@@ -599,20 +598,20 @@
                                 <li class="nav-item">
                                     <a href="{{route('student-marks-entry')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Marks Entry</span>
+                                        <span class="menu-name">Marks Entry</span>
                                     </a>
                                 </li>
   
                                 <li class="nav-item">
                                     <a href="{{route('tabulation-sheet')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Tabulation Sheet</span>
+                                        <span class="menu-name">Tabulation Sheet</span>
                                     </a>
                                 </li> 
                                 <li class="nav-item">
                                     <a href="{{route('print-marksheets')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Print Marksheets</span>
+                                        <span class="menu-name">Print Marksheets</span>
                                     </a>
                                 </li>
                                 {{-- <li class="nav-item">
@@ -624,25 +623,25 @@
                                 <li class="nav-item">
                                     <a href="{{route('print-admit-cards')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Print Admit Cards</span>
+                                        <span class="menu-name">Print Admit Cards</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('exam-timetable')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Exam Timetable</span>
+                                        <span class="menu-name">Exam Timetable</span>
                                     </a>
                                 </li>  
                                 <li class="nav-item">
                                     <a href="{{route('exam-term')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Exam Term</span>
+                                        <span class="menu-name">Exam Term</span>
                                     </a>
                                 </li> 
                                 <li class="nav-item">
                                     <a href="{{route('exam-grade')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Exam Grade</span>
+                                        <span class="menu-name">Exam Grade</span>
                                     </a>
                                 </li> 
                                 <!-- <li class="nav-item">
@@ -656,37 +655,37 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">store</span>
-                                <span>Inventory Management</span>
+                                <span class="menu-name">Inventory Management</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('sell-items')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Sell Items</span>
+                                        <span class="menu-name">Sell Items</span>
                                     </a>
                                 </li>  
                                 <li class="nav-item">
                                     <a href="{{route('sell-items')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Sales History</span>
+                                        <span class="menu-name">Sales History</span>
                                     </a>
                                 </li> 
                                 <li class="nav-item">
                                     <a href="{{route('items-in-stock')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Add Items In Stock</span>
+                                        <span class="menu-name">Add Items In Stock</span>
                                     </a>
                                 </li> 
                                 <li class="nav-item">
                                     <a href="{{route('items-price')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Add Items & Price</span>
+                                        <span class="menu-name">Add Items & Price</span>
                                     </a>
                                 </li>  
                                 <li class="nav-item">
                                     <a href="{{route('items-category')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Add Items Category</span>
+                                        <span class="menu-name">Add Items Category</span>
                                     </a>
                                 </li> 
                             </ul>
@@ -696,19 +695,19 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">manage_accounts</span>
-                                <span>Role & Permission</span>
+                                <span class="menu-name">Role & Permission</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('sub_admin_list')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>SubAdmin List</span>
+                                        <span class="menu-name">SubAdmin List</span>
                                     </a>
                                 </li> 
                                 <li class="nav-item">
                                     <a href="{{route('role_permission')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Add New SubAdmin</span>
+                                        <span class="menu-name">Add New SubAdmin</span>
                                     </a>
                                 </li> 
                             </ul>
@@ -718,23 +717,23 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">school</span>
-                                <span>Academy</span>
+                                <span class="menu-name">Academy</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('add-classes')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>Class</span>
+                                        <span class="menu-name">Class</span>
                                     </a>
                                 </li>  
                                 <li class="nav-item">
                                     <a href="{{route('add-subjects')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Subject</span>
+                                        <span class="menu-name">Subject</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('teacher-subjects')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                      <span>Teacher Subjects</span>
+                                      <span class="menu-name">Teacher Subjects</span>
                                     </a>
                                 </li>            
                             </ul>
@@ -743,29 +742,29 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">schedule</span>
-                                <span>Time Table</span>
+                                <span class="menu-name">Time Table</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('class-period')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Class Period</span>
+                                        <span class="menu-name">Class Period</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('class-subject')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                        <span>Set Class Subject</span>
+                                        <span class="menu-name">Set Class Subject</span>
                                     </a>
                                 </li>  
                                 <li class="nav-item">
                                     <a href="{{route('print-timetable')}}"  class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                          <span>Class Time Table</span>
+                                          <span class="menu-name">Class Time Table</span>
                                         </a>
                                 </li>    
                                 <li class="nav-item">
                                     <a href="{{route('teacher-timetable')}}" class="nav-link"><i class="fas fa-angle-right"></i>
-                                      <span>Teacher TimeTable</span>
+                                      <span class="menu-name">Teacher TimeTable</span>
                                     </a>
                                 </li>               
                             </ul>
@@ -774,31 +773,31 @@
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex" id="transport-btn">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">airport_shuttle</span>
-                                <span>Transport</span>
+                                <span class="menu-name">Transport</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 {{-- <li class="nav-item">
                                     <a href="{{route('add-driver')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Add Driver</span>
+                                        <span class="menu-name">Add Driver</span>
                                     </a>
                                 </li> --}}
                                 <li class="nav-item">
                                     <a href="{{route('add-vehicle')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Add Vehicle</span>
+                                        <span class="menu-name">Add Vehicle</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('vehicle-root')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Set Vehicle Root</span>
+                                        <span class="menu-name">Set Vehicle Root</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('transport-student')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Transport Student</span>
+                                        <span class="menu-name">Transport Student</span>
                                     </a>
                                 </li>
                  
@@ -811,7 +810,7 @@
                             <ul class="nav sub-group-menu">
                               <li class="nav-item d-none">
                                     <a href="{{route('add-teacher')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add
-                                        <span>Teacher</span>
+                                        <span class="menu-name">Teacher</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -824,27 +823,27 @@
 
                         <li class="nav-item sidebar-nav-item">
                             <a href="{{route('message')}}" class="nav-link d-flex">
-                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">mail</span>
-                                 <span>Message</span>
+                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">mail</span>
+                                 <span class="menu-name">Message</span>
                             </a>
                         </li>
                         
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">settings</span>
-                                <span>School Setting</span>
+                                <span class="menu-name">School Setting</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('school-details')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>School Details</span>
+                                        <span class="menu-name">School Details</span>
                                     </a>
                                 </li>   
                                 {{-- <li class="nav-item deve-use">
                                     <a href="{{route('active-device')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Active Device</span>
+                                        <span class="menu-name">Active Device</span>
                                     </a>
                                 </li> --}}
                             </ul>
@@ -852,19 +851,19 @@
                         {{-- <li class="nav-item sidebar-nav-item" id="activity-menu">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">browse_activity</span>
-                                <span>Visitor Activity</span>
+                                <span class="menu-name">Visitor Activity</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
                                     <a href="{{route('visitor-page-activity')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Page Activity</span>
+                                        <span class="menu-name">Page Activity</span>
                                     </a>
                                 </li>   
                                 <li class="nav-item">
                                     <a href="{{route('visitor-button-activity')}}" class="nav-link">
                                         <i class="fas fa-angle-right"></i>
-                                        <span>Button Activity</span>
+                                        <span class="menu-name">Button Activity</span>
                                     </a>
                                 </li>                     
                             </ul>
@@ -872,13 +871,13 @@
                         {{-- <li class="nav-item">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">description</span>
-                               <span>Forms Download</span>
+                                <span class="menu-name">Forms Download</span>
                             </a>
                         </li> --}}
                         <!-- <li class="nav-item" id="fullscreen-button">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" id="screen-icon" style="font-size:20px;color:#ff9d37">fullscreen</span>
-                               <span id="screen-text">Fullscreen</span>
+                               <span id="screen-text" class="menu-name">Fullscreen</span>
                             </a>
                         </li> -->
                     </ul>
@@ -1080,21 +1079,20 @@ fullscreenButton.click(function() {
 
 $(document).ready(function() {
     // Color and click last btn Click Menu 
-    $(".nav-link").each(function() {
+    $(".menu-name").each(function() {
         var content = $(this).html();
-        var modifiedContent = $("<div>").append(content).find("i").remove().end().html();
-        if (modifiedContent.trim() == localStorage.getItem("current_menu").trim()) {
+        if (content == localStorage.getItem("current_menu")) {
             $(this).parent().css("background-color", "#042954");
-            $(this).closest(".sidebar-nav-item").find("a").click();
+            $(this).parent().parent().parent().parent().find('.nav-link').click();
         }
     });
 
     // last click btn store localStorage for page loade click 
     $(".nav-link").click(function() {
-        var content = $(this).html();
-        var modifiedContent = $("<div>").append(content).find("i").remove().end().html();
-        localStorage.setItem("current_menu", modifiedContent.trim());
+        var content = $(this).find('.menu-name').html();
+        localStorage.setItem("current_menu", content);
     });
+    
 });
 
 

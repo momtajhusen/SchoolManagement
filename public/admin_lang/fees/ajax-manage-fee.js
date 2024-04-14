@@ -76,8 +76,6 @@
                             // start disable input payments class
                                 var totalsClassPayment = response.TotalsClassPayment;
                                 var totalPaymentForClass = totalsClassPayment[classes];
-
-                                alert(classes+' '+totalPaymentForClass);
                                 if(totalPaymentForClass != 0)
                                 {
                                     $("."+classes).css("background-color", "#ccc");
