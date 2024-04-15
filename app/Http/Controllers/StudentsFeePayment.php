@@ -21,8 +21,6 @@ use App\Models\StudentsFeePaidHistory;
 use App\Models\StudentsFeeForReset;
 
 
-
-
 class StudentsFeePayment extends Controller
 {
     /**
@@ -93,11 +91,6 @@ class StudentsFeePayment extends Controller
                 }
                 
                 
-             
-
-             
-
-
                 //Sum total_fee, total_paid, total_disc, total_dues
                 StudentAccountFee::StudentsFeeMonthsCalculate();
 
