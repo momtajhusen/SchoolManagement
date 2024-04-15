@@ -66,6 +66,7 @@ $(document).ready(function(){
                             <th rowspan="2" scope="col">Student ↓ | Subject →</th>
                              `+subject_th+`
                             <th rowspan="2" scope="col">Percentage</th>
+                            <th rowspan="2" scope="col">Rank</th>
                         </tr>
                         <tr>
                             `+subject_marks_items+`
@@ -115,6 +116,7 @@ $(document).ready(function(){
                                 <td class="text-ceneter">${st_name}</td>
                                 ${marks_row}
                                 <td class="text-ceneter">${item.final_percentage}</td>
+                                <td class="text-ceneter">${item.position_rank}</td>
                             </tr>
                         `);
                     });
