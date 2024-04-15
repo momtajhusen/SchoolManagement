@@ -35,6 +35,8 @@ $(document).ready(function(){
         method: "GET",  
         data: {
             st_id: st_id,
+            current_year: current_year,
+
         },
         success: function (response) {
             console.log(response);

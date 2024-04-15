@@ -234,7 +234,7 @@
                         </div>
                    </div>
                 </div>
-              </div> --}}
+              </div>  
               <!-- Button trigger modal -->
 
             <!--Add Month Modal -->

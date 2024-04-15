@@ -121,30 +121,38 @@ class StudentsFeePayment extends Controller
         try {
             $month_array = $request->month_array;
             $pr_id = $request->pr_id;
+            $st_id_array = $request->st_id_array;
             $fee_year = $request->fee_year;
             $fee_details = [];
             $common_fee_details = []; 
             $total_common_amount = 0; 
+            $last_month_amount = 0; 
+
     
-            $students = Student::where('parents_id', $pr_id)->get();
-    
-            // Iterate over each student
-            foreach ($students as $student) {
+
+ 
+            foreach ($st_id_array as $st_d) {
                 // Fetch student details
-                $student_id = $student->id;
+                $student_id = $st_d;
+
+               $student = Student::where('id', $st_d)->first();
+
     
                 $student_details = [
                     'id' => $student->id,
                     'student_name' => $student->first_name . ' ' . $student->last_name,
                     'class' => $student->class,
                     'section' => $student->section,
+                    'student_image' => $student->student_image,
                 ];
+
     
                 // Initialize an array to store the total amount and months for each fee type
                 $total_fee_details = [];
     
                 // Iterate over each month
-                foreach ($month_array as $month) {
+                foreach ($month_array as $key => $month) {
+
                     // Query to fetch fee details for the student for the particular month
                     $fee_details_month = StudentsFeeStracture::where('st_id', $student_id)
                         ->where('year', $fee_year)
@@ -186,8 +194,18 @@ class StudentsFeePayment extends Controller
                             'month' => 1, // Initialize month count
                         ];
                     }
+
+                    // Query to fetch the amount from the last month for the current student
+               
+                    if ($key === count($month_array) - 1) {
+                        $last_month_amount += StudentsFeeMonth::where('st_id', $student_id)
+                            ->where('year', $fee_year)
+                            ->value('month_'.($month - 1), 'month_'.($month - 1)) ?? 0;
+                    }
+
+          
                 }
-    
+
                 // Include common fee types in the common_fee_details array and calculate total common amount
                 foreach ($total_fee_details as $fee_type => $details) {
                     // Add amount to total_common_amount
@@ -204,6 +222,8 @@ class StudentsFeePayment extends Controller
                         ];
                     }
                 }
+
+      
     
                 // Sum up the total amount for this student
                 $total_amount = array_sum(array_column($total_fee_details, 'amount'));
@@ -223,7 +243,8 @@ class StudentsFeePayment extends Controller
                 'data' => $fee_details,
                 'common_fee_details' => $common_fee_details,
                 'total_common_amount' => $total_common_amount,
-                'school_details' => $school_details
+                'last_month_amount' => $last_month_amount,
+                'school_details' => $school_details,
             ]);
         } catch (Exception $e) {
             // Handle exceptions
@@ -269,9 +290,6 @@ class StudentsFeePayment extends Controller
                 $data_fee_particular = $request->data_fee_particular;
                 $pr_id = $request->pr_id;
 
-
-
-           
 
                 ////////////////////// Start History Save //////////////////////
                     $StudentsFeePaidHistory = new StudentsFeePaidHistory(); 
@@ -372,9 +390,11 @@ class StudentsFeePayment extends Controller
                                 }
                                 $student_dues_record->save();
                             }
+
+                            $last_month_index = count($pay_month_array) - 1;
                     
                             // Disc & Dues Save 
-                            foreach ($pay_month_array as $pay_month) {
+                            foreach ($pay_month_array as $key => $pay_month) {
 
                                 $per_mon_paid = $per_st_paid / count($pay_month_array);
                                 $per_mon_disc = $per_st_disc / count($pay_month_array);
@@ -383,7 +403,12 @@ class StudentsFeePayment extends Controller
                                 $discount = $per_mon_disc + $student_disc_record->$pay_month;
 
                                 $student_disc_record->$pay_month  = $discount;
-                                $student_dues_record->$pay_month = $per_mon_dues;
+                                // $student_dues_record->$pay_month = $per_mon_dues;
+
+                                 // Check if it's the last month
+                                if ($key === $last_month_index) {
+                                    $student_dues_record->$pay_month = $per_st_dues;
+                                }
                             }
                             $student_disc_record->save();
                             $student_dues_record->save();
@@ -398,7 +423,12 @@ class StudentsFeePayment extends Controller
                                 $disc_dues = $disc + $dues;
                                 $payment = $fee - $disc_dues;
 
-                                $student_paid_record->$pay_month  = $payment;
+
+                                if ($key === $last_month_index) {
+                                    $student_paid_record->$pay_month  = $payment; 
+                                }else{
+                                    $student_paid_record->$pay_month  = $fee + $student_paid_record->$pay_month;
+                                }
                             }
                             $student_paid_record->save();
 

@@ -244,7 +244,7 @@
                            </div>
 
                             <input type="number" readonly value="0" id="fee_input" name="fee_dues" placeholder="Fee Dues" class="form-control" style="background:#ccc;padding-left:22px;">
-                            <input type="hidden" id="last_month" value="0">
+                            <input type="number" id="last_month" value="0">
                         </div>
                         <div class="w-100 form-group m-1 d-flex">
                              <div class="w-50 position-relative">
@@ -580,6 +580,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
+
+// Print 
 $(document).ready(function(){
   $('.invoice-print').click(function(){
     try {
@@ -746,12 +748,6 @@ $(document).ready(function(){
     }
   });
 });
-
-
-
-
-
-
 
 
 

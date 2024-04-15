@@ -43,7 +43,7 @@ class ParrentProfile extends Controller
     public function StudentsFeeStractures(Request $request)
     {
         $st_id = $request->st_id;
-        $year = 2080; // Assuming you want data for the year 2080
+        $year =  $request->current_year; // Assuming you want data for the year 2080
     
         // Fetch fee structures for the given year and student
         $feeStructures = StudentsFeeStracture::where('year', $year)

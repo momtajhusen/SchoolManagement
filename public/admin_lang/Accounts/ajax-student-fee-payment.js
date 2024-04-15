@@ -422,10 +422,18 @@ $(document).ready(function(){
                 console.log(response);
 
  
+                $('#last_month').val(0);
                 if (response.status === 'success') {
-                    var data = response.data;
-                    // Iterate over each student
 
+
+                    
+                    $('.school-name').html(response.school_details.school_name);
+                    $('.school-address').html(response.school_details.address);
+                    $('.school-logo').attr('src', '../storage/'+response.school_details.logo_img);
+
+                    $('#last_month').val(response.last_month_amount);
+
+                    var data = response.data;
                     var student_tr = '';
                     var common_fee_particular_tr = '';
                     $.each(data, function (studentId, studentData) {
@@ -436,7 +444,7 @@ $(document).ready(function(){
             
 
                         var st_id = studentDetails.id;
-                        var student_name = studentDetails.first_name+' '+ studentDetails.last_name;
+                        var student_name = studentDetails.student_name;
                         var classes = studentDetails.class+' '+studentDetails.section;
                         var student_img = studentDetails.student_image;
 
@@ -501,16 +509,7 @@ $(document).ready(function(){
 
                       
                     });
-
-                    // $.each(response.common_fee_details, function (index, feeDetail) {
-                    //     alert(feeDetail.fee_type);
-                    // });
-
-                    $('.school-name').html(response.school_details.school_name);
-                    $('.school-address').html(response.school_details.address);
-                    $('.school-logo').attr('src', '../storage/'+response.school_details.logo_img);
  
-
                     $('.modale-table').html(`
                     <table class="table table-bordered my-1 table-sm text-light" style="font-size:12px;">
                     <thead>
@@ -562,6 +561,7 @@ $(document).ready(function(){
         var dues_amount =  $('#dues_input').val();
         var comment_disc = $('#comment_disc').val();
         var pay_date = $('#pay_date').val();
+        var last_month_amount = $("#last_month").val();
 
         var all_st_id = $(this).attr('all_st_id');
         var st_id_array = all_st_id.split(',');
@@ -569,6 +569,12 @@ $(document).ready(function(){
  
         var pr_id = $(this).attr('pr_id');
         var dataFeeParticular =  $('.paid_btn').attr('data-fee-particular');
+
+        if(dues_amount > last_month_amount){
+            alert('Unselect last Month');
+            return false;
+        }
+        
 
 
         $('.month-check-input:checked').each(function() {
