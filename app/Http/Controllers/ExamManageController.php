@@ -517,18 +517,7 @@ class ExamManageController extends Controller
 
                         $total_obt_percentage = number_format(($total_obt_marks / $total_exam_marks) * 100, 2);
                         if ($total_obt_percentage > 0) {
- 
-                            // Check if the subject percentage is within the range of 90 to 100
-                            if ($total_obt_percentage >= 89 && $total_obt_percentage <= 100) {
-                                $student->final_grade_point = 4.0;
-                                $student->final_grade_name = 'A+';
-                                $student->final_remarks = 'Outstanding';
-                            } if ($total_obt_percentage >= 79 && $total_obt_percentage <= 89) {
-                                $student->final_grade_point = 3.6;
-                                $student->final_grade_name = 'A';
-                                $student->final_remarks = 'Excellent';
-                            } else {
-                                // Fetch the matching grade from the grades table based on the subject percentage
+                            
                                 $grade = ExamGrade::where('from', '<=', $total_obt_percentage)
                                     ->where('to', '>=', $total_obt_percentage)
                                     ->first();
@@ -538,7 +527,7 @@ class ExamManageController extends Controller
                                     $student->final_remarks = $grade->remarks;
                                     $student->final_percentage = $total_obt_percentage;
                                 }
-                            }
+                           
                         }
     
                         // Append obtained marks and total marks to student data
