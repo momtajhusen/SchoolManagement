@@ -62,6 +62,9 @@ $(document).ready(function(){
                     $(".exam-tabulation-thead").html('');
                     $(".exam-tabulation-thead").append(`
                         <tr>
+                          <th colspan='16'>Class: ${select_class+' '+select_section}</th>
+                        </tr>
+                        <tr>
                             <th rowspan="2" scope="col">#</th>
                             <th rowspan="2" scope="col">Student ↓ | Subject →</th>
                              `+subject_th+`
