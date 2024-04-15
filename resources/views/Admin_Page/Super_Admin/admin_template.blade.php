@@ -148,7 +148,7 @@
             /* For vertical scrollbar */
             ::-webkit-scrollbar-thumb:vertical {
                       background-color: #b2bff8d3;
-                box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.5);
+                      box-shadow: inset 0 0 10px rgba(63, 63, 63, 0.5);
             }
 
             /* For horizontal scrollbar */
