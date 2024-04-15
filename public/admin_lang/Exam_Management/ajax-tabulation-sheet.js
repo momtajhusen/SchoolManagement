@@ -66,7 +66,7 @@ $(document).ready(function(){
                         </tr>
                         <tr>
                             <th rowspan="2" scope="col">#</th>
-                            <th rowspan="2" scope="col">Student ↓ | Subject →</th>
+                            <th rowspan="2" scope="col">Students ↓ | Subjects →</th>
                              `+subject_th+`
                             <th rowspan="2" scope="col">Percentage</th>
                             <th rowspan="2" scope="col">Rank</th>

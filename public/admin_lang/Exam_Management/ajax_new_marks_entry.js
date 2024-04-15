@@ -216,7 +216,7 @@ $(document).ready(function(){
  });
  
  $(document).ready(function(){
-     $("#select_exam, .subject-class, .section-select, .select-subject").on("change", function(){
+     $("#select_exam, .subject-class, .section-select, .select-subject, .class-select").on("change", function(){
          $(".marks-entry").html('');
      });
  });
