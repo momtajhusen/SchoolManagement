@@ -309,8 +309,9 @@ $(document).ready(function(){
     $(".yearly_payment").click(function(){
       var actual_dues_year =   $("#actual_dues_year").val();
       var payment_year =    $("#payment_year").val();
+      var previus_discount =    $("#previus_discount").val();
       var dues_year = $(".dues_year").val();
-      var student_select = $(".student-select").val();
+      var student_select = $("#student_id").val();
       var payment_date =  $("#back_year_paid_date").val();
  
       if(payment_year > 0)
@@ -328,6 +329,7 @@ $(document).ready(function(){
                 student_select:student_select,
                 actual_dues_year: actual_dues_year,
                 payment_year:payment_year,
+                previus_discount:previus_discount,
                 dues_year:dues_year,
                 current_year:current_year,
                 payment_date:payment_date,
@@ -338,7 +340,7 @@ $(document).ready(function(){
                 console.log(response);
  
                 $("#backYearModal").click();
-                $(".search-btn").click();
+                // $(".search-btn").click();
                 $("#history-btn").click();
 
                 Swal.fire({
@@ -362,6 +364,8 @@ $(document).ready(function(){
 
                 $("#actual_dues_year").val("0");
                 $("#payment_year").val("0");
+                $(".search-btn").click();
+
 
              },error: function (xhr, status, error) 
              {
@@ -378,6 +382,33 @@ $(document).ready(function(){
 
     });
 });
+
+// Back yearly discount
+$(document).ready(function(){
+    $('#previus_discount').click(function(){
+        $(this).select();
+    });
+
+    $('#previus_discount').on('input', function(){
+        var actual_dues_year = parseFloat($('#actual_dues_year').val());
+        var discount = parseFloat($(this).val());
+
+        if(isNaN(discount) || discount < 0) {
+            $(this).val(0);
+            discount = 0;
+        }
+
+        if(discount > actual_dues_year) {
+            $(this).val(actual_dues_year);
+            discount = actual_dues_year;
+        }
+
+        var discount_payment = actual_dues_year - discount;
+
+        $('#payment_year').val(discount_payment);
+    });
+});
+
 
 // class on change 
 $(document).ready(function (){

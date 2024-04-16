@@ -445,6 +445,7 @@ class FeePaymentController extends Controller
   public function LastYearFeeCollect(Request $request)
   {
     try {
+
       if(Student::where('id', $request->student_select)->where("admission_status", "admit")->first())
       {
           $Student = Student::where('id', $request->student_select)->where("admission_status", "admit")->first();
@@ -456,10 +457,10 @@ class FeePaymentController extends Controller
           $payment_year = $request->payment_year;
           $payment_date = $request->payment_date;
           $dues_year = $request->dues_year;
-
-          // date year 
-          $dateSetting = DateSetting::first();
-          $current_year = ($dateSetting && $dateSetting->using_date != "internet-date") ? $dateSetting->year : ($request->current_year ?? null);
+          $previus_discount = $request->previus_discount;
+ 
+          $current_dues = $actual_dues_year - (int)$payment_year - (int)$previus_discount;
+          $current_year = $request->current_year;
 
 
 
@@ -469,30 +470,36 @@ class FeePaymentController extends Controller
 
 
           // Start LastPaymentStore For ReSet 
-          $paymentconditions = ['class_year' => $dues_year, 'st_id' => $student_id];
-          $last_payment = FeePayment::where($paymentconditions)->first();
+            $paymentconditions = ['class_year' => $dues_year, 'st_id' => $student_id];
+            $last_payment = FeePayment::where($paymentconditions)->first();
 
-          $resetconditions = ['st_id' => $student_id];
-          $last_payment_save = LastPaymentForReset::where($resetconditions)->first();
+            $resetconditions = ['st_id' => $student_id];
+            $last_payment_save = LastPaymentForReset::where($resetconditions)->first();
 
 
-          for ($i = 0; $i <= 11; $i++) {
-            $last_payment_save->{"month_$i"} = $last_payment->{"month_$i"};
-          }
-          $last_payment_save->class = $dues_class;
-          $last_payment_save->class_year = $dues_year;
-          $last_payment_save->total_payment = $last_payment->total_payment;
-          $last_payment_save->total_fee = $last_payment->total_fee;
-          $last_payment_save->total_discount = $last_payment->total_discount;
-          $last_payment_save->save();
+            for ($i = 0; $i <= 11; $i++) {
+              $last_payment_save->{"month_$i"} = $last_payment->{"month_$i"};
+            }
+            $last_payment_save->class = $dues_class;
+            $last_payment_save->class_year = $dues_year;
+            $last_payment_save->total_payment = $last_payment->total_payment;
+            $last_payment_save->total_fee = $last_payment->total_fee;
+            $last_payment_save->total_discount = $last_payment->total_discount;
+            $last_payment_save->save();
 
           // End LastPaymentStore For ReSet 
 
 
           $feePayment = FeePayment::where('st_id', $student_id)->where('class_year', $dues_year)->first();
           $total_pay = $feePayment->total_payment + $payment_year;
+          $total_disc = $feePayment->total_discount + $previus_discount;
+
+          $paid_disc = $total_pay + $total_disc;
+
           $feePayment->total_payment = $total_pay;
-          $feePayment->total_dues =  $feePayment->total_fee - $total_pay;
+          $feePayment->total_discount = $total_disc;
+          $feePayment->total_dues =  $feePayment->total_fee - $paid_disc;
+          
 
           $feePayment->save();
 
@@ -511,8 +518,8 @@ class FeePaymentController extends Controller
             'particular' =>  "Previus Year",
             'pay_month' =>  "Previus Year",
             'payment' => $payment_year,
-            'discount' =>  0,
-            'dues' => $actual_dues_year - $payment_year,
+            'discount' =>  $previus_discount,
+            'dues' => $current_dues,
             'pay_with' => 'cash counter',
             'pay_date' => $payment_date,
           ]);

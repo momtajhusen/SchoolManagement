@@ -223,6 +223,10 @@
                         <label class="text-light">Payment</label>
                         <input type="number" name="payment" id="payment_year" placeholder="Payment" class="form-control payment">
                     </div>
+                    <div class="w-100 form-group m-1">
+                        <label class="text-light">Discount</label>
+                        <input type="number" min="0" value='0' name="discount" id="previus_discount" placeholder="Discount" class="form-control discount">
+                    </div>
 
                     <input type="hidden" class="dues_year">
 

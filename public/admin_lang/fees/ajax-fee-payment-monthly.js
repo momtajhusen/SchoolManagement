@@ -633,6 +633,8 @@ $("body").on("click", ".last-year-payment", function(){
     $("#payment_year").val(dues_fee);
     $(".dues_year").val(dues_year);
 
+    $("#previus_discount").val('0');
+
 });
 });
 
