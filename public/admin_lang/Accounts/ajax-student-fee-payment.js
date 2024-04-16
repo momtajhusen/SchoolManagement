@@ -569,11 +569,13 @@ $(document).ready(function(){
  
         var pr_id = $(this).attr('pr_id');
         var dataFeeParticular =  $('.paid_btn').attr('data-fee-particular');
+        
 
-        if(dues_amount > last_month_amount){
+        if (last_month_amount  < dues_amount) {
             alert('Unselect last Month');
             return false;
         }
+        
         
 
 
@@ -1004,6 +1006,17 @@ $(document).ready(function(){
             }
         });
 
+    Swal.fire({
+        title: 'Are You Sure Reset History?',
+        text: " Please note that reset deleting this student will permanently remove this paid hsitory data.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, reset it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
         $.ajax({
             url: "/student-single-fee-reset",
             method: "POST", 
@@ -1014,6 +1027,15 @@ $(document).ready(function(){
 
                 console.log(response);
                 if(response.status == 'success'){
+
+                    Swal.fire({
+                        title: 'Reset Success!',
+                        text: "Paid History Reset",
+                        icon: 'success',
+                        confirmButtonColor: '#00032e',
+                        confirmButtonText: 'OK',
+                    });
+
                     $("#search-btn").click();
                     $('.history-btn').click();
                 }
@@ -1022,6 +1044,9 @@ $(document).ready(function(){
                 // Error callback function
                 console.log(xhr.responseText); // Log the error response in the console
             },
+        });
+
+            }
         });
 
     });  
