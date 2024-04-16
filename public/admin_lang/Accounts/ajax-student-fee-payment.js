@@ -571,14 +571,11 @@ $(document).ready(function(){
         var dataFeeParticular =  $('.paid_btn').attr('data-fee-particular');
         
 
-        if (last_month_amount  < dues_amount) {
-            alert('Unselect last Month');
+        if (Number(dues_amount) > Number(last_month_amount)) {
+            alert('Dues are higher than last month. Unselect last month.');
             return false;
         }
         
-        
-
-
         $('.month-check-input:checked').each(function() {
             payMonthArray.push($(this).val());
         });

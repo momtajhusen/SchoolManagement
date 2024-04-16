@@ -244,7 +244,7 @@
                            </div>
 
                             <input type="number" readonly value="0" id="fee_input" name="fee_dues" placeholder="Fee Dues" class="form-control" style="background:#ccc;padding-left:22px;">
-                            <input type="number" id="last_month" value="0">
+                            <input type="hidden" id="last_month" value="0">
                         </div>
                         <div class="w-100 form-group m-1 d-flex">
                              <div class="w-50 position-relative">
