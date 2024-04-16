@@ -408,22 +408,23 @@ class StudentsFeePayment extends Controller
  
                             // Paid Save 
                             foreach ($pay_month_array as $pay_month) {
-
                                 $fee = $fee_details->$pay_month;
                                 $disc = $student_disc_record->$pay_month;
                                 $dues = $student_dues_record->$pay_month;
-
+                            
                                 $disc_dues = $disc + $dues;
                                 $payment = $fee - $disc_dues;
-
-
-                                if ($key === $last_month_index) {
-                                    $student_paid_record->$pay_month  = $payment; 
-                                }else{
-                                    $student_paid_record->$pay_month  = $fee + $student_paid_record->$pay_month;
-                                }
+                            
+                                $student_paid_record->$pay_month  = $fee + $student_paid_record->$pay_month;
                             }
+                            
+                            // Apply the condition only once after the loop completes
+                            if ($key === $last_month_index) {
+                                $student_paid_record->$pay_month  = $payment; 
+                            }
+                            
                             $student_paid_record->save();
+                            
 
 
                         }
