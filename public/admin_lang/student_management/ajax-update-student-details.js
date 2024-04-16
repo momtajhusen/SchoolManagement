@@ -273,8 +273,6 @@ $(document).ready(function () {
     $(".student-update-form").submit(function (e) {
         e.preventDefault();
 
-        alert();
-
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
