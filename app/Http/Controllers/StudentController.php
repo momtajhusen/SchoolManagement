@@ -134,6 +134,10 @@ class StudentController extends Controller
             $father_image_name = $request->input("father_image_name");
             $mother_image_name = $request->input("mother_image_name");
 
+            $vehicle_root = $request->input("vehicle_root") ?? 'No'; 
+            $transport_use = $request->input("transport_use") ?? 'No';
+            $coaching_use = $request->input("coaching_use") ?? 'No';
+
             $class = $request->input("class");
 
 
@@ -318,6 +322,10 @@ class StudentController extends Controller
             $document_image_name = $request->input("document_image_name");
             $father_image_name = $request->input("father_image_name");
             $mother_image_name = $request->input("mother_image_name");
+
+            $vehicle_root = $request->input("vehicle_root") ?? 'No'; 
+            $transport_use = $request->input("transport_use") ?? 'No';
+            $coaching_use = $request->input("coaching_use") ?? 'No';
 
             $class = $request->input("class") ?? '1ST';
  
