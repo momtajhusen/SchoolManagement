@@ -162,9 +162,9 @@ class StudentController extends Controller
             $student->roll_no  = $request->input("roll_no");
             $student->hostel_outi  = $request->input("hostel_outi");
             $student->hostel_deposite  = $request->input("hostel_deposite");
-            $student->transport_use  = $request->input("transport_use")  ?? "No";
-            $student->vehicle_root  = $request->input("vehicle_root")  ?? "No";
-            $student->coaching  = $request->input("coaching_use")  ?? "No";
+            $student->transport_use  = $transport_use;
+            $student->vehicle_root  = $vehicle_root;
+            $student->coaching  = $coaching_use;
             $student->district  = $request->input("district");
             $student->municipality  = $request->input("municipality");
             $student->village  = $request->input("village");
@@ -359,8 +359,8 @@ class StudentController extends Controller
             $student->roll_no  = $request->input("roll_no") ?? '1';
             $student->hostel_outi  = $request->input("hostel_outi") ?? 'outi';
             $student->hostel_deposite  = $request->input("hostel_deposite");
-            $student->transport_use  = $request->input("transport_use")  ?? "No";
-            $student->vehicle_root  = $request->input("vehicle_root")  ?? "No";
+            $student->transport_use  = $transport_use;
+            $student->vehicle_root  = $vehicle_root;
             $student->coaching  = $request->input("coaching")  ?? "No";
             $student->district  = $request->input("district") ?? "";
             $student->municipality  = $request->input("municipality") ?? "";
@@ -827,6 +827,10 @@ class StudentController extends Controller
             $current_year = $request->current_year;
             $year = $request->current_year;
 
+           $vehicle_root = $request->input("vehicle_root") ?? 'No'; 
+           $transport_use = $request->input("transport_use") ?? 'No';
+           $coaching_use = $request->input("coaching_use") ?? 'No';
+
 
 
             $student_image_crope = $request->input("student_image_name");
@@ -870,10 +874,10 @@ class StudentController extends Controller
                 'municipality' => $request->input("municipality"),
                 'village' => $request->input("village"),
                 'ward_no' => $request->input("ward_no"),
-                'coaching' => $request->input("coaching_use"),
+                'coaching' => $coaching_use,
                 'hostel_outi' => $request->input("hostel_outi"),
-                'transport_use' => $request->input("transport_use") ?? "No",
-                'vehicle_root' => $request->input("vehicle_root") ?? "No",
+                'transport_use' => $transport_use,
+                'vehicle_root' => $vehicle_root,
             ]);
 
                             
@@ -929,15 +933,16 @@ class StudentController extends Controller
                     $joinLeaveEntry->admission_start = $serializedStartAdmissionArray;
                     $joinLeaveEntry->tuition_fee = $serializedStartAdmissionArray;
                     
-                    $joinLeaveEntry->transport_fee = ($request->input("vehicle_root") == "No") ? '["0","0","0","0","0","0","0","0","0","0","0","0"]' : $JoinleaveDates->transport_fee;
+                    $joinLeaveEntry->transport_fee = ($vehicle_root == "No") ? '["0","0","0","0","0","0","0","0","0","0","0","0"]' : $JoinleaveDates->transport_fee;
                     $joinLeaveEntry->full_hostel_fee = ($request->input("hostel_outi") != "full-hostel") ? '["0","0","0","0","0","0","0","0","0","0","0","0"]' : $JoinleaveDates->full_hostel_fee;
                     $joinLeaveEntry->half_hostel_fee = ($request->input("hostel_outi") != "half-hostel") ? '["0","0","0","0","0","0","0","0","0","0","0","0"]' : $JoinleaveDates->half_hostel_fee;
-                    $joinLeaveEntry->coaching_fee = ($request->input("coaching_use") != "Yes") ? '["0","0","0","0","0","0","0","0","0","0","0","0"]' : $JoinleaveDates->coaching_fee;
+                    $joinLeaveEntry->coaching_fee = ($coaching_use != "Yes") ? '["0","0","0","0","0","0","0","0","0","0","0","0"]' : $JoinleaveDates->coaching_fee;
                        
-                    $joinLeaveEntry->computer_fee  =  $JoinleaveDates->computer_fee;
-                    $joinLeaveEntry->admission_fee  =  ($current_year == $admission_year) ? $serializedAdmissionArray : $JoinleaveDates->admission_fee;
-                    $joinLeaveEntry->annual_charge  =  $JoinleaveDates->annual_charge;
-                    $joinLeaveEntry->saraswati_puja  =  $JoinleaveDates->saraswati_puja;
+                    $joinLeaveEntry->computer_fee  =  '["0","0","0","0","0","0","0","0","0","0","0","0"]';
+                    $joinLeaveEntry->admission_fee = ($current_year == $admission_year) ? $serializedAdmissionArray : ($JoinleaveDates->admission_fee ?? '["0","0","0","0","0","0","0","0","0","0","0","0"]');
+                    $joinLeaveEntry->annual_charge = $JoinleaveDates->annual_charge ?? '["1","0","0","0","0","0","0","0","0","0","0","0"]';
+                    $joinLeaveEntry->saraswati_puja = $JoinleaveDates->saraswati_puja ?? '["0","0","0","0","0","0","0","0","0","1","0","0"]';
+                    
                     $joinLeaveEntry->exam_fee = $exam_json;
                     $joinLeaveEntry->save();
                 /////// End JoininhData Set  /////////////
@@ -945,9 +950,10 @@ class StudentController extends Controller
                 $TotalFee = 0;
                 ///////////////////// Start Total Feee Retrive ///////////////////////////
                     $student = Student::where('class', $request->input("class"))->where('id', $st_id)->where('class_year', $current_year)->first();
-                    $FeestractureMonthly = FeestractureMonthly::where('class', $student->class)->first();
-                    $FeestractureOnetime = FeestractureOnetime::where('class', $student->class)->first();
-                    $FeestractureQuarterly = FeestractureQuarterly::where('class', $student->class)->first();
+
+                    $FeestractureMonthly = FeestractureMonthly::where('class', $request->input("class"))->first();
+                    $FeestractureOnetime = FeestractureOnetime::where('class', $request->input("class"))->first();
+                    $FeestractureQuarterly = FeestractureQuarterly::where('class', $request->input("class"))->first();
 
                     $joining_months = JoinleaveDates::where('st_id', $st_id)->first();
                     $StudentsFreeFee = ManageFreeStudents::where('st_id', $st_id)->first();

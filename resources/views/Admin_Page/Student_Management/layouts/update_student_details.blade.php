@@ -173,7 +173,7 @@
                                     </div>
 
                                     <div class="col-xl-3 col-lg-6 col-12 form-group d-flex flex-column align-items-center justify-content-center">
-                                        <label>Upload ID Proof *</label>
+                                        <label>Upload ID Proof</label>
                                         <div class="h-100 position-relative" style="height:80px; width:100px;">
                                             <img  src="#" class="h-100 w-100 imagepreview proofimage" style="position:absolute;">
                                             <input type="file" name="student_id_image" class="form-control-file imageinput" style="height:100px; width:100px;opacity: 0;">
