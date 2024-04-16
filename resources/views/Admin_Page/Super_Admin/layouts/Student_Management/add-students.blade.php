@@ -522,7 +522,7 @@
                             </div>
 
                             <div class="col-lg-3 col-6 form-group d-flex flex-column align-items-center justify-content-center">
-                                <label>Mother Image</label>
+                                <label>Mother Image </label>
                                 <div class="h-100 position-relative" style="height:60px; width:100px;border:5px ridge black; box-shadow: -8px 7px 7px -3px rgba(0,0,0,0.43);">
                                     <img src="http://bit.ly/3IUenmf" id="mother_img_preview" class="h-100 w-100" style="position:absolute;">
                                     <input type="file" id="mother_img_input" name="mother_image" class="form-control-file" style="height:100px; width:100px;opacity: 0;">

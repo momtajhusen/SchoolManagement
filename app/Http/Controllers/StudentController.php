@@ -537,10 +537,10 @@ class StudentController extends Controller
                 $father_image = 'public/' . $parents->father_image;
                 $mother_image = 'public/' . $parents->mother_image;
 
-                if (Storage::exists($father_image)) {
+                if (($parents->father_image != "CommonImg/father.jpg")) {
                     Storage::delete($father_image);
                 }
-                if (Storage::exists($mother_image)) {
+                if ($parents->mother_image != "CommonImg/mother.jpg") {
                     Storage::delete($mother_image);
                 }
             }
@@ -638,18 +638,76 @@ class StudentController extends Controller
 
     public function AllRegistrationDelete(Request $request){
         try {     
- 
-            if(Student::where('admission_status', 'new')->delete()){
-                return response()->json(['message' => 'delete sucess']); 
+            // Fetch all students with admission status 'new'
+            $students = Student::where('admission_status', 'new')->get();
+    
+            // Loop through each student and delete their records and associated images/documents
+            foreach ($students as $student) {
+                // Delete the student's image and document if they exist
+                if ($student->student_image) {
+                    $student_image = 'public/' . $student->student_image;
+                    $id_image = 'public/' . $student->id_image;
+    
+                    if ($student->student_image != "CommonImg/boy.jpg" && $student->student_image != "CommonImg/girl.jpg" && Storage::exists($student->student_image)) {
+                        Storage::delete($student->student_image);
+                    }
+                    
+                    if (Storage::exists($id_image)) {
+                        Storage::delete($id_image);
+                    }
+                }
+    
+                // Check if the student's parents' images exist and delete them if they do
+
+                $parents = Parents::find($student->id);
+
+                if ($parents) {
+                    if ($parents->father_image && $parents->father_image != "CommonImg/father.jpg") {
+                        $father_image = 'public/' . $parents->father_image;
+                        Storage::delete($father_image);
+                    }
+                    if ($parents->mother_image && $parents->mother_image != "CommonImg/mother.jpg") {
+                        $mother_image = 'public/' . $parents->mother_image;
+                        Storage::delete($mother_image);
+                    }
+                    
+                    // Check if there are other students associated with the same parent
+                    $studentsWithSameParentCount = Student::where('parents_id', $parents->id)->count();
+                    if ($studentsWithSameParentCount <= 1) {
+                        // If there's only one student with this parent, delete the parent too
+                        $parents->delete();
+                    }
+                }
+    
+                // Delete other related records
+                $relatedModels = [
+                    FeePayment::class,
+                    DuesAmount::class,
+                    FeeDiscount::class,
+                    FeeFree::class,
+                    LastPaymentForReset::class,
+                    LastDuesForReset::class,
+                    LastDiscountsForReset::class,
+                    LastFreeFeeForReset::class,
+                ];
+                
+                foreach ($relatedModels as $model) {
+                    $model::where('st_id', $student->id)->delete();
+                }
+                
+                // Finally, delete the student record
+                $student->delete();
             }
-
-
-           } catch (Exception $e) {
+    
+            // Return success message
+            return response()->json(['message' => 'delete success']); 
+        } catch (Exception $e) {
             // Code to handle the exception
             $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
             return response()->json(['status' => $message], 500);
         }
     }
+    
 
     public function class_section(Request $request)
     {

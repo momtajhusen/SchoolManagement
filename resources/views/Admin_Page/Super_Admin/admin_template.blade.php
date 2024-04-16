@@ -407,6 +407,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{route('manage-stracture')}}" class="nav-link">
+                                      <i class="fas fa-angle-right"></i>
+                                      <span class="menu-name">Student Fee Structure</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{route('add-expenses')}}" class="nav-link"><i class="fas fa-angle-right"></i>
                                         <span class="menu-name">Add New Expenses</span>
                                     </a>

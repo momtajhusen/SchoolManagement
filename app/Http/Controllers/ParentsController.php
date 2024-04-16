@@ -181,13 +181,15 @@ class ParentsController extends Controller
                     if ($parents->father_image) {
                         $father_image = 'public/' . $parents->father_image;
                         $mother_image = 'public/' . $parents->mother_image;
-            
-                        if (Storage::exists($father_image)) {
+
+                        if (($parents->father_image != "CommonImg/father.jpg")) {
                             Storage::delete($father_image);
                         }
-                        if (Storage::exists($mother_image)) {
+
+                        if ($parents->mother_image != "CommonImg/mother.jpg") {
                             Storage::delete($mother_image);
                         }
+
                     }
 
                     if($parents->delete()){
