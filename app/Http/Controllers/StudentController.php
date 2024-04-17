@@ -349,6 +349,10 @@ class StudentController extends Controller
             if($request->input("gender") == "Female"){
                 $student->student_image = "CommonImg/girl.jpg";
             }
+            if($request->input("gender") == ""){
+                $student->student_image = "CommonImg/boy.jpg";
+            }
+
             $student->first_name  = $request->input("first_name");
             $student->middle_name  = $request->input("middle_name") ?? "";
             $student->last_name  = $request->input("last_name");
@@ -377,32 +381,56 @@ class StudentController extends Controller
             $student->login_password  = Str::random(10);
             $student->admission_status  =  "new";
 
+            $ledger_no = $request->input("ledger_no");
+            $previus_year_dues = $request->input("previus_year_dues");
+
+
             $dymamic_email_student = strtolower(str_replace(" ", "", $request->input("first_name"))) . "_" . Student::where('class', $request->input("class"))->count() + 1;
             $student->login_email  = $request->input("email") ?? $dymamic_email_student . "@gmail.com";
  
             // Parent Data Save 
-            $parent = new Parents;
-            $parent->father_image  =  'CommonImg/father.jpg';
-            $parent->father_name  = $request->input("father_name");
-            $parent->father_mobile  = $request->input("father_phone") ?? "";
-            $parent->father_education  = $request->input("father_education") ?? "";
-            $parent->mother_image  = 'CommonImg/mother.jpg';
-            $parent->mother_name  = $request->input("mother_name") ?? "";
-            $parent->mother_mobile  = $request->input("mother_phone") ?? "";
-            $parent->mother_education  = $request->input("mother_education") ?? "";
-            $parent->login_password  = Str::random(10);
+            $parent_check = Parents::where('id', $ledger_no)->first();
 
-            $dymamic_email_father = strtolower(str_replace(" ", "", $request->input("father_name"))) . "_" .  Student::where('class', $request->input("class"))->count() + 1;
-            $parent->login_email  = $request->input("father_email") ?? $dymamic_email_father . "@gmail.com";
 
-            if ($parent->save()) {
-                $parentId = $parent->id;
-                // Associate the parent with the student
-                $student->parents_id = $parentId;
+            if (!$parent_check) {
+                // Check for an available ledger number
+                if($ledger_no == ''){
+                    $available_ledger_no = Parents::min('id');
+                }
+ 
+                // Parent doesn't exist, create a new one
+                $parent = new Parents;
+                $parent->id  =  $ledger_no;
+                $parent->father_image  =  'CommonImg/father.jpg';
+                $parent->father_name  = $request->input("father_name");
+                $parent->father_mobile  = $request->input("father_phone") ?? "";
+                $parent->father_education  = $request->input("father_education") ?? "";
+                $parent->mother_image  = 'CommonImg/mother.jpg';
+                $parent->mother_name  = $request->input("mother_name") ?? "";
+                $parent->mother_mobile  = $request->input("mother_phone") ?? "";
+                $parent->mother_education  = $request->input("mother_education") ?? "";
+                $parent->login_password  = Str::random(10);
+            
+                // Generating dynamic email for father
+                $dynamic_email_father = strtolower(str_replace(" ", "", $request->input("father_name"))) . "_" .  (Student::where('class', $request->input("class"))->count() + 1);
+                $parent->login_email  = $request->input("father_email") ?? $dynamic_email_father . "@gmail.com";
+            
+                if ($parent->save()) {
+                    $parentId = $parent->id;
+            
+                    $student->parents_id = $parentId;
+                    $student->save();
+                } else {
+                    return response()->json(['status' => "Failed Something Error"]);
+                }
+            } else { 
+                // Parent already exists, link its ID with the student
+                $student->parents_id = $parent_check->id;
                 $student->save();
-            } else {
-                return response()->json(['status' => "Failed Something Error"]);
             }
+            
+            
+
 
             // Start Admission date
                 $admission_date = Carbon::parse($request->input("admission_date"));
@@ -416,12 +444,37 @@ class StudentController extends Controller
                 else{
                 $start_month = $admission_month-1;
                 } 
-            // End Admission date
-            $st_id = $student->id;
+                // End Admission date
+                $st_id = $student->id;
             
             
             ///////////////// Start New Account Student Fee Set ////////////
                 StudentAccountFee::setStudentFees($class, $start_month, $class_year, $admission_year, $request, $st_id);
+
+                $FeestractureOnetime = FeestractureOnetime::where('class', $class)->first();
+
+                if($previus_year_dues != ''){
+                    $studentFeeStructure = new StudentsFeeStracture();
+                    $studentFeeStructure->st_id = $st_id;
+                    $studentFeeStructure->year = $class_year;
+                    $studentFeeStructure->month = 1;
+                    $studentFeeStructure->fee_type = 'Previus Year Dues';
+                    $studentFeeStructure->amount = $previus_year_dues;
+                    $studentFeeStructure->fee_stracture_type = 'prev_year';
+                    $studentFeeStructure->save();
+                }
+
+                $studentFeeStructure = new StudentsFeeStracture();
+                $studentFeeStructure->st_id = $st_id;
+                $studentFeeStructure->year = $class_year;
+                $studentFeeStructure->month = 1;
+                $studentFeeStructure->fee_type = 'Annual Charge';
+                $studentFeeStructure->amount = $FeestractureOnetime->annual_charge;
+                $studentFeeStructure->fee_stracture_type = 'prev_year';
+                $studentFeeStructure->save();
+
+                $StudentsFeeStracture = StudentsFeeStracture::where('st_id', $st_id)->where('year', $class_year)->where('fee_type', 'admission_fee')->delete();
+
             ///////////////// End New Account Student Fee Set ////////////
 
             ///////////////// Start Old Account Student Fee Set ////////////

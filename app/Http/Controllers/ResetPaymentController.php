@@ -48,7 +48,8 @@ class ResetPaymentController extends Controller
             $reset_class =  $reset_student->class;
 
             // Back Year Payment Reset 
-            if ($current_year != $reset_year) { 
+            if ($current_year != $reset_year) 
+            { 
                 // LastPaymentStore For ReSet 
                 $last_payment = FeePayment::where(['class_year' => $reset_year, 'st_id' => $student_id])->first();
 
