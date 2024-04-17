@@ -296,8 +296,6 @@ class StudentAccountFee extends Controller
             'transport_fee' => 0,
             'computer_fee' => 0,
             'coaching_fee' => 0,
-
-
         ];
     
         // Include computer_fee if its value is greater than 0
@@ -369,6 +367,7 @@ class StudentAccountFee extends Controller
                 $studentFeeStructure->month = $i + 1;
                 $studentFeeStructure->fee_type = $fee_type;
                 $studentFeeStructure->amount = $amount;
+                $studentFeeStructure->fee_stracture_type = 'default';
                 $studentFeeStructure->save();
             }
     
