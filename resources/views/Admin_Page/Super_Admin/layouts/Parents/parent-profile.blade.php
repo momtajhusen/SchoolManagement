@@ -40,7 +40,7 @@
           border:none;
         }
         .input_fee_amount{
-          width: 60px;
+          width: 80px;
           text-align: center;
           font-weight: bold;
           outline: none;

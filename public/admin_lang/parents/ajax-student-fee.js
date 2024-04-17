@@ -74,7 +74,7 @@ $(document).ready(function(){
                             <div class="border d-flex align-items-center fee_stracture">
                                 <input class="px-2 input_fee_name" required name='fee[`+month+`]' value="${fee.fee_name}">
                                 <span class="pr-3">₹</span>
-                                <input type="number" min="0" required name='amount[`+month+`]' class="input_fee_amount" value="${fee.amount}">
+                                <input type="number" min="0" required name='amount[`+month+`]' class="input_fee_amount" value="${removeTrailingZeros(fee.amount)}">
                                 <span class="`+PaidBlock+` material-symbols-outlined p-1 border delete_fee" fee_id="${fee.id}"  data-toggle="tooltip" data-placement="bottom" title="Delete This Fee" style="cursor: pointer;">delete</span>
                             </div>`;
                     });
@@ -89,7 +89,7 @@ $(document).ready(function(){
                             <div class="collapse_btn w-100 border p-1 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#collapse`+month+`" aria-expanded="false" aria-controls="collapseExample">
                                 <div>
                                     <span>`+NepaliFunctions.GetBsMonths()[month-1]+` ₹</span>
-                                    <span>`+monthfee+`</span> 
+                                    <span>`+removeTrailingZeros(monthfee)+`</span> 
                                 </div>
                             </div>
                             <div class="d-flex p-1 `+StatusColor+`"></div>
@@ -345,7 +345,9 @@ $(document).ready(function(){
  });
 
 
-
+ function removeTrailingZeros(number) {
+    return parseFloat(number).toFixed(2).replace(/\.?0+$/, '');
+  }
 
 
 
