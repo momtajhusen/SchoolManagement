@@ -233,7 +233,7 @@
                             </div>
                             <div class="col-2-xxxl col-xl-1 col-lg-2 col-12 form-group p-0 pr-1">
                                     <br>
-                                    <button class="fw-btn-fill btn-gradient-yellow btn search-btn" id="search-btn" style="height:50px">Search</button>
+                                    <button class="fw-btn-fill btn-gradient-yellow btn search-btn enter-click" id="search-btn" style="height:50px">Search</button>
                                 </div>
                         </div>
 

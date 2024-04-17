@@ -147,7 +147,7 @@
                             
 
                             <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                                <div class="fw-btn-fill btn-gradient-yellow text-center w-100 search-student d-flex justify-content-center align-items-center " style="height:100%;">SEARCH</div>
+                                <div class="fw-btn-fill btn-gradient-yellow text-center w-100 search-student d-flex justify-content-center align-items-center search-btn" style="height:100%;">SEARCH</div>
                             </div>
 
                             <div class="pl-1">
