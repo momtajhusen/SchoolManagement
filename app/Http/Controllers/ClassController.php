@@ -80,8 +80,6 @@ class ClassController extends Controller
                 $class->section  = $request->input("section") ?? "";
                 $class->class_teacher  = $request->input("class_teacher") ?? "";
                 $class->capacity  = $request->input("capacity") ?? "";
-                $class->start_date  = $request->input("start_date") ?? "";
-                $class->end_date  = $request->input("end_date") ?? "";
                 $class->year  = $year;
                 $class->location  = $request->input("location") ?? "";
 

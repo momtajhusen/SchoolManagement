@@ -101,13 +101,13 @@
                                     <input type="number" name="capacity" placeholder="" class="form-control">
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Class Starting on *</label>
-                                    <input type="text" required name="start_date" placeholder="yyyy-mm-dd" class="form-control  nepali-datepicker">
+                                    <label>Class Starting on </label>
+                                    <input type="text"  name="start_date" placeholder="yyyy-mm-dd" class="form-control  nepali-datepicker">
                                     <i class="far fa-calendar-alt" style="position:absolute;top:55px;right:30px;"></i>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Class Ending on *</label>
-                                    <input type="text" required name="end_date" placeholder="yyyy-mm-dd" class="form-control  nepali-datepicker">
+                                    <label>Class Ending on </label>
+                                    <input type="text"  name="end_date" placeholder="yyyy-mm-dd" class="form-control  nepali-datepicker">
                                     <i class="far fa-calendar-alt" style="position:absolute;top:55px;right:30px;"></i>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
