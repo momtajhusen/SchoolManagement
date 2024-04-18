@@ -46,6 +46,7 @@ class StudentsFeePayment extends Controller
                 {
                     // Loop through each student
                     foreach ($student_data as $student) {
+                        $st_id = $student->id;
                         $total_fee = 0;
                         $total_paid = 0;
                         $total_dues = 0;
@@ -68,6 +69,8 @@ class StudentsFeePayment extends Controller
                         // $dues_amount_sum = (int) ltrim((string) ($total_paid + $total_disc - $total_fee), '-');
                         $student->total_dues =  $total_fee - $paid_disc;
 
+                    //Sum total_fee, total_paid, total_disc, total_dues
+                       StudentAccountFee::StudentsFeeMonthsCalculate($st_id);
                     }    
                 } else {
                     // If $selectedMonth is not provided or empty, initialize totals to zero
@@ -89,8 +92,7 @@ class StudentsFeePayment extends Controller
                         $StudentMonthFeeStracture[] = $studentFeeStructure;
                     }
                 }
-                //Sum total_fee, total_paid, total_disc, total_dues
-                StudentAccountFee::StudentsFeeMonthsCalculate();
+
 
                 // After fetching $student_data
                 $monthStatus = StudentAccountFee::feePaidMonthStatus($year, $student_data);
@@ -425,11 +427,13 @@ class StudentsFeePayment extends Controller
 
 
                         }
+
+                                
+                        //Sum total_fee, total_paid, total_disc, total_dues
+                        StudentAccountFee::StudentsFeeMonthsCalculate($st_id);
                     }
                 ////////////////////// End StudentsFeePaid //////////////////////
 
-                //Sum total_fee, total_paid, total_disc, total_dues
-                StudentAccountFee::StudentsFeeMonthsCalculate();
 
                 return response()->json(['status' =>  'success'], 200);
 
@@ -550,13 +554,15 @@ class StudentsFeePayment extends Controller
 
                 // Delete records from StudentsFeeForReset table
                 StudentsFeeForReset::where('year', $year)->where('st_id', $st_id)->delete(); 
+
+               //Sum total_fee, total_paid, total_disc, total_dues
+               StudentAccountFee::StudentsFeeMonthsCalculate($st_id);
             }
     
             // Delete records from StudentsFeePaidHistory table
             StudentsFeePaidHistory::where('fee_year', $year)->where('pr_id', $pr_id)->delete();
 
-            //Sum total_fee, total_paid, total_disc, total_dues
-            StudentAccountFee::StudentsFeeMonthsCalculate();
+
     
             return response()->json(['status' => 'success'], 200);
         } catch (Exception $e) {
@@ -633,12 +639,13 @@ class StudentsFeePayment extends Controller
                 $StudentsFeeDues->save();
                 $DuesResetData->delete();
 
+               //Sum total_fee, total_paid, total_disc, total_dues
+               StudentAccountFee::StudentsFeeMonthsCalculate($st_id);
             }
 
             StudentsFeePaidHistory::where('id', $invoice_id)->delete();
 
-            //Sum total_fee, total_paid, total_disc, total_dues
-            StudentAccountFee::StudentsFeeMonthsCalculate();
+;
 
             return response()->json(['status'=>'success'], 200);
         } catch (Exception $e) {

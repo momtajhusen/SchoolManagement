@@ -38,35 +38,33 @@ use Carbon\Carbon;
 class StudentAccountFee extends Controller
 {
 
-    public static function StudentsFeeMonthsCalculate()
+    public static function StudentsFeeMonthsCalculate($st_id)
     {
 
 
-        $studentsFeeMonths = StudentsFeeMonth::get();
+        $studentsFeeMonths = StudentsFeeMonth::where('st_id', $st_id)->get();
         foreach ($studentsFeeMonths as $studentFeeMonth) 
         {
-           $st_id = $studentFeeMonth->st_id;
+    
            $year = $studentFeeMonth->year;
 
         //////////////// Start Particular Month //////////////////////
 
-        for ($j = 0; $j <= 11; $j++) {
-            
-            $month_fs = $j + 1;
-            $particularMonthAmount = StudentsFeeStracture::where('st_id', $st_id)
-                                                    ->where('year', $year)
-                                                    ->where('month', $month_fs)
-                                                    ->sum('amount');
+            for ($j = 0; $j <= 11; $j++) {
+                
+                $month_fs = $j + 1;
+                $particularMonthAmount = StudentsFeeStracture::where('st_id', $st_id)
+                                                        ->where('year', $year)
+                                                        ->where('month', $month_fs)
+                                                        ->sum('amount');
 
-           $month_fm = 'month_'.$j;
-           $FeeMonths = StudentsFeeMonth::where('st_id', $st_id)->where('year', $year)->first();
-           $FeeMonths->$month_fm = $particularMonthAmount;
-           $FeeMonths->save();
-
-                                               
-        }
+            $month_fm = 'month_'.$j;
+            $FeeMonths = StudentsFeeMonth::where('st_id', $st_id)->where('year', $year)->first();
+            $FeeMonths->$month_fm = $particularMonthAmount;
+            $FeeMonths->save();
+                                    
+            }
         
-    
         //////////////// End Particular Month //////////////////////
 
 
