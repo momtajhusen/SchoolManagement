@@ -259,7 +259,6 @@ $(document).ready(function(){
     });
 });
 
-
 // Delete Fee 
  $(document).ready(function(){
     $("#month_feestracture").on("click", ".delete_fee", function(){
@@ -299,7 +298,6 @@ $(document).ready(function(){
 
     });
  });
-
 
  // Delete Month 
  $(document).ready(function(){
@@ -344,10 +342,10 @@ $(document).ready(function(){
     });
  });
 
-
  function removeTrailingZeros(number) {
     return parseFloat(number).toFixed(2).replace(/\.?0+$/, '');
   }
 
 
 
+  

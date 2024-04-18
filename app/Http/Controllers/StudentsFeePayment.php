@@ -97,7 +97,6 @@ class StudentsFeePayment extends Controller
                 // After fetching $student_data
                 $monthStatus = StudentAccountFee::feePaidMonthStatus($year, $student_data);
 
-
     
                 return response()->json(['status' => 'success', 'parent_details' => $parent_data, 'student_details' => $student_data, 'month_status' => $monthStatus, 'StudentMonthFeeStracture'=>$StudentMonthFeeStracture], 200);
             } else {
@@ -660,30 +659,32 @@ class StudentsFeePayment extends Controller
             $current_year = $request->current_year;
     
             $students = Student::where('class', $class)->where('section', $section)->get();
-    
-            if ($students->isNotEmpty()) {
-                $response_data = array();
-                $grouped_students = array();
 
-                foreach ($students as $student) {
-                    $pr_id = $student->parents_id;
+            echo $class;
     
-                    $student_details = array(
-                        'id' => $student->id,
-                        'student_name' => $student->first_name.' '.$student->last_name,
-                        'class' => $student->class,
-                        'section' => $student->section,
-                    );
+            // if ($students->isNotEmpty()) {
+            //     $response_data = array();
+            //     $grouped_students = array();
 
-                    $fee_details_month = StudentsFeeStracture::where('st_id', $student->id)->where('year', $current_year)->where('month', $months)->get();
+            //     foreach ($students as $student) {
+            //         $pr_id = $student->parents_id;
+    
+            //         $student_details = array(
+            //             'id' => $student->id,
+            //             'student_name' => $student->first_name.' '.$student->last_name,
+            //             'class' => $student->class,
+            //             'section' => $student->section,
+            //         );
+
+            //         $fee_details_month = StudentsFeeStracture::where('st_id', $student->id)->where('year', $current_year)->where('month', $months)->get();
  
-                }
+            //     }
 
-                return response()->json(['status' => 'success', 'data' => $student_details], 200);
+            //     return response()->json(['status' => 'success', 'data' => $student_details], 200);
 
-            } else {
-                return response()->json(['message' => 'No students found'], 404);
-            }
+            // } else {
+            //     return response()->json(['message' => 'No students found'], 404);
+            // }
     
         } catch (Exception $e) {
             // Handle exceptions
