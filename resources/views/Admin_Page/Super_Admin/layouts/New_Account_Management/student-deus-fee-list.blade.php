@@ -43,8 +43,8 @@
 
 @section('contents')
 
-<div class="row">
-  <div class="col-8-xxxl col-12">
+<div class="row d-flex justify-content-center">
+  <div class="col-10-xxxl col-12">
       <div class="card height-auto">
           <div class="card-body">
 
@@ -63,62 +63,62 @@
                   <div class="position-absolute month-option-box bg-dark text-light p-3 flex-column" style="z-index:100;left:0px;bottom:-450px;height:450px;width:100%;display:none">
                       <div class="my-font position-absolute">
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box bg-danger" id="checkbox1" value="month_0">
+                              <input type="checkbox" class="check-box bg-danger" id="checkbox1" value="1">
                               <label for="checkbox1"></label>
                               <span style="margin-left:20px;">Baishakh</span>
                           </div>
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox2" value="month_1">
+                              <input type="checkbox" class="check-box" id="checkbox2" value="2">
                               <label for="checkbox2"></label>
                               <span style="margin-left:20px;">Jestha</span>
                           </div> 
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox3" value="month_2">
+                              <input type="checkbox" class="check-box" id="checkbox3" value="3">
                               <label for="checkbox3"></label>
                               <span style="margin-left:20px;">Ashadh</span>
                           </div>
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox4" value="month_3">
+                              <input type="checkbox" class="check-box" id="checkbox4" value="4">
                               <label for="checkbox4"></label>
                               <span style="margin-left:20px;">Shrawan</span>
                           </div>
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox5" value="month_4">
+                              <input type="checkbox" class="check-box" id="checkbox5" value="5">
                               <label for="checkbox5"></label>
                               <span style="margin-left:20px;">Bhadau</span>
                           </div>
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox6" value="month_5">
+                              <input type="checkbox" class="check-box" id="checkbox6" value="6">
                               <label for="checkbox6"></label>
                               <span style="margin-left:20px;">Asoj</span>
                           </div>
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox7" value="month_6">
+                              <input type="checkbox" class="check-box" id="checkbox7" value="7">
                               <label for="checkbox7"></label>
                               <span style="margin-left:20px;">Kartik</span>
                           </div>
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox8" value="month_7">
+                              <input type="checkbox" class="check-box" id="checkbox8" value="8">
                               <label for="checkbox8"></label>
                               <span style="margin-left:20px;">Mangsir</span>
                           </div>
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox9" value="month_8">
+                              <input type="checkbox" class="check-box" id="checkbox9" value="9">
                               <label for="checkbox9"></label>
                               <span style="margin-left:20px;">Poush</span>
                           </div>
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox10" value="month_9">
+                              <input type="checkbox" class="check-box" id="checkbox10" value="10">
                               <label for="checkbox10"></label>
                               <span style="margin-left:20px;">Magh</span>
                           </div>
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox11" value="month_10">
+                              <input type="checkbox" class="check-box" id="checkbox11" value="11">
                               <label for="checkbox11"></label>
                               <span style="margin-left:20px;">Falgun</span>
                           </div>
                           <div class="checkbox d-flex mb-2">
-                              <input type="checkbox" class="check-box" id="checkbox12" value="month_11">
+                              <input type="checkbox" class="check-box" id="checkbox12" value="12">
                               <label for="checkbox12"></label>
                               <span style="margin-left:20px;">Chaitra</span>
                           </div>
@@ -155,30 +155,33 @@
     <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="border-radius: 0%; box-shadow:none;">
   </div>
   <div class="table-responsive">
-    <table class="table display data-table table-bordered text-nowrap table-sm sortable-table" id="myTable">
+    <table class="table display data-table table-bordered text-nowrap table-sm sortable-table text-center" id="myTable">
+        <thead>
+            <tr>
+              <th class='tabel-header-show' colspan="7">Students Dues 2080 Baishakh to Jestha</th>
+            </tr>
+        </thead>
     <thead>
         <tr>
-        <th  data-column="0">SN.</th>
-        <th  data-column="1">Photo</th>
-        <th  data-column="2">Student Name</th>
-        <th  data-column="3">Class</th>
-        <th  data-column="4">st_id</th>
-        <th  data-column="5">Total Fee</th>
-        <th  data-column="8">Dues Pay</th>
-        <th  data-column="9">Parents Contact</th>
-        <th  data-column="10">Phone</th>
+        <th  data-column="0">Pr_Id</th>
+        <th  data-column="1">Parent Name</th>
+        <th  data-column="2">Students</th>
+        <th  data-column="3">Prev. Year</th>
+        <th  data-column="4">Total Dues</th>
+        <th  data-column="5">Parents Contact</th>
+        <th  data-column="6">Phone</th>
         </tr>
     </thead>
     <tbody class="student-dues-table sortable-bordy">
-
+         
     </tbody>
     <tbody class="total-row d-none">
         <tr>
-        <th colspan="5"><center>Total</center></th>
-        <th class="totalfee">0</th>
-        <th class="prevBlanc">0</th>
-        <th class="preYear">0</th>
-        <th class="netPay">0</th>
+            <th colspan="5"><center>Total</center></th>
+            <th class="totalfee">0</th>
+            <th class="prevBlanc">0</th>
+            <th class="preYear">0</th>
+            <th class="netPay">0</th>
         </tr>
     </tbody>
     </table>

@@ -34,13 +34,14 @@ class StudentsFeePayment extends Controller
             $year = $request->current_year;
     
             $parent_data = Parents::where("id", $pr_id)->first();
-            if ($parent_data) {
+            if ($parent_data) 
+            {
                 $student_data = Student::select('id', 'class', 'section', 'first_name', 'last_name', 'student_image', 'village')->where("parents_id", $pr_id)->get();
     
                 // Initialize MonthFeePaidStatus array
                 $MonthFeePaidStatus = [];
 
-    
+
                 // Check if $selectedMonth is null or empty
                 if (is_array($selectedMonth) && count($selectedMonth) > 0) 
                 {
@@ -119,8 +120,7 @@ class StudentsFeePayment extends Controller
             $common_fee_details = []; 
             $total_common_amount = 0; 
             $last_month_amount = 0; 
-
-    
+ 
 
  
             foreach ($st_id_array as $st_d) {
@@ -145,6 +145,7 @@ class StudentsFeePayment extends Controller
                 // Iterate over each month
                 foreach ($month_array as $key => $month) {
 
+       
                     // Query to fetch fee details for the student for the particular month
                     $fee_details_month = StudentsFeeStracture::where('st_id', $student_id)
                         ->where('year', $fee_year)
@@ -645,8 +646,6 @@ class StudentsFeePayment extends Controller
 
             StudentsFeePaidHistory::where('id', $invoice_id)->delete();
 
-;
-
             return response()->json(['status'=>'success'], 200);
         } catch (Exception $e) {
             // Handle exceptions
@@ -655,46 +654,66 @@ class StudentsFeePayment extends Controller
         }
     }
 
-    public function StudentFeeDuesList(Request $request){
-        try {
-            $class = $request->select_class;
-            $section = $request->select_section;
-            $months = json_decode($request->input('selectmonth'));
-            $monthLength = count($months);
-            $current_year = $request->current_year;
-    
-            $students = Student::where('class', $class)->where('section', $section)->get();
-    
-            if ($students->isNotEmpty()) {
-                $response_data = array();
-                $grouped_students = array();
+public function StudentFeeDuesList(Request $request){
+    try {
+        $class = $request->select_class;
+        $section = $request->select_section;
+        $months = json_decode($request->input('selectmonth'));
+        $monthLength = count($months);
+        $current_year = $request->current_year;
 
-                foreach ($students as $student) {
-                    $pr_id = $student->parents_id;
-    
-                    $student_details = array(
-                        'id' => $student->id,
-                        'student_name' => $student->first_name.' '.$student->last_name,
-                        'class' => $student->class,
-                        'section' => $student->section,
-                    );
+        $fee_year = $request->current_year;
+        $month_array = json_decode($request->input('selectmonth'));
 
-                    $fee_details_month = StudentsFeeStracture::where('st_id', $student->id)->where('year', $current_year)->where('month', $months)->get();
+
+        $students = Student::get();
+
+        if ($students->isNotEmpty()) {
+            $response_data = array();
+            $unique_parent_ids = array(); // Array to store unique parent IDs
  
+            foreach ($students as $student) {
+                $pr_id = $student->parents_id;
+
+
+                $st_id_array = [$student->id];
+                // Retrieve student fee details using StudentAccountFee class method
+                $fee_details = StudentAccountFee::StudentDuesParticular($st_id_array, $pr_id, $month_array, $fee_year);
+
+                
+                // Check if parent ID already exists in the list
+                if (!in_array($pr_id, $unique_parent_ids)) {
+                    $parents = Parents::where('id', $pr_id)->first();
+            
+                    $parent_details = [
+                        'id' => $parents->id,
+                        'parent_name' => $parents->father_name,
+                        'parent_contact' => $parents->father_mobile,
+                        'fee_details' => $fee_details,
+                    ];
+            
+                    // Push parent details into response data array
+                    $response_data[] = $parent_details;
+            
+                    // Add the parent ID to the list of unique parent IDs
+                    $unique_parent_ids[] = $pr_id;
                 }
-
-                return response()->json(['status' => 'success', 'data' => $student_details], 200);
-
-            } else {
-                return response()->json(['message' => 'No students found'], 404);
             }
-    
-        } catch (Exception $e) {
-            // Handle exceptions
-            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
-            return response()->json(['status' => $message], 500);
+
+            return response()->json(['status' => 'success', 'data' => $response_data], 200);
+
+        } else {
+            return response()->json(['message' => 'No students found'], 404);
         }
+
+    } catch (Exception $e) {
+        // Handle exceptions
+        $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+        return response()->json(['status' => $message], 500);
     }
+}
+
+    
     
     
 

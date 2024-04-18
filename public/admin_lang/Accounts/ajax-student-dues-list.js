@@ -16,18 +16,18 @@ $(document).ready(function(){
             {
                 ///////// Start Select Month Set ////////
                     var MonthArry = {
-                        "month_0": "Baishakh",
-                        "month_1": "Jestha",
-                        "month_2": "Ashadh",
-                        "month_3": "Shrawan",
-                        "month_4": "Bhadau",
-                        "month_5": "Asoj",
-                        "month_6": "Kartik",
-                        "month_7": "Mangsir",
-                        "month_8": "Poush",
-                        "month_9": "Magh",
-                        "month_10": "Falgun",
-                        "month_11": "Chaitra"
+                        "1": "Baishakh",
+                        "2": "Jestha",
+                        "3": "Ashadh",
+                        "4": "Shrawan",
+                        "5": "Bhadau",
+                        "6": "Asoj",
+                        "7": "Kartik",
+                        "8": "Mangsir",
+                        "9": "Poush",
+                        "10": "Magh",
+                        "11": "Falgun",
+                        "12": "Chaitra"
                     };
                     
                     var checkedValues = [];
@@ -46,6 +46,8 @@ $(document).ready(function(){
 
                         var SelectedMonth = firstCheckedMonth + " To " + lastCheckedMonth;
                         $("#selected-month").html(SelectedMonth);
+
+                        $('.tabel-header-show').html('Students Dues '+current_year+' '+SelectedMonth);
                     }
                 ///////// End Select Month Set ////////
 
@@ -57,7 +59,7 @@ $(document).ready(function(){
                             SelectMonth.push($(this).val());
                         } 
                       });
-    
+ 
                       $.ajax({
                         url: "/student-fee-dues-list",
                         method: 'GET',
@@ -84,12 +86,64 @@ $(document).ready(function(){
                             `);
 
                         },
+                        beforeSend: function() 
+                        {
+                            $('.student-dues-table').html('');
+                            $('.student-dues-table').append(`
+                            <tr>
+                                <td colspan='7' class='p-3'>
+                                   <div class='d-flex flex-column'>
+                                        <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+                                        <span>Loading</span>
+                                   </div>
+                                </td>
+                            </tr>
+                        `);
+
+                        },
                         success:function(response)
                         {
 
                             console.log(response);
 
-                            $('.student-dues-table').append('');
+                            $('.student-dues-table').html('');
+                            response.data.forEach(element => {
+                                var child = Object.keys(element.fee_details.original.data).length;
+                                var total_dues = element.fee_details.original.total_common_amount;
+                                var common_back_year_dues = element.fee_details.original.common_back_year_dues;
+
+                            
+                                var students = '';
+                                for (let key in element.fee_details.original.data) {
+                                    // Access each key using key variable
+                                    // console.log(key);
+                                    // Access student_name property from student_details object
+                                    var student_name = element.fee_details.original.data[key].student_details.student_name;
+
+                                    students += student_name+`</br>`;
+
+
+                                }
+                            
+                                $('.student-dues-table').append(`
+                                    <tr>
+                                        <td>${element.id}</td>
+                                        <td>${element.parent_name}</td>
+                                        <td>${students}</td>
+                                        <td>₹ ${common_back_year_dues}</td>
+                                        <td>₹ ${total_dues}</td>
+                                        <td>${element.parent_contact}</td>
+                                        <td class="d-flex flex-column align-items-center">
+                                            <span onclick="window.open('tel:`+element.parent_contact+`');" visitorbtn="btn" btnName="Call Now" class="material-symbols-outlined ml-3 border p-2 animate__animated animate__swing animate__slow animate__delay-1s animate__repeat-2" style="font-size:17px;border-radius:100px;cursor:pointer;">call</span>
+                                            <span style="font-size:8px;">Call Now</span>
+                                        </td>
+                                    </tr>
+                                `);
+
+                                students = '';
+
+                            });
+                            
       
                            
                         },
@@ -187,7 +241,7 @@ $(document).ready(function(){
 $(document).ready(function() {
  
     for (var i = 0; i <= current_month; i++) {
-         $('input[value="month_' + i + '"]').click();
+         $('input[value="'+i+'"]').click();
     }
 
     $('.check-box').on('click', function() {

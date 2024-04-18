@@ -398,6 +398,7 @@ $(document).ready(function(){
 
         var UptoMonth = MonthsArray[month_array.length -1 ];
 
+
         $('.up-to-month').html('Up to '+UptoMonth);
 
 
