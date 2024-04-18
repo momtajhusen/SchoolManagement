@@ -40,14 +40,37 @@ class StudentAccountFee extends Controller
 
     public static function StudentsFeeMonthsCalculate()
     {
-        $studentsFeeMonths = StudentsFeeMonth::get();
 
+
+        $studentsFeeMonths = StudentsFeeMonth::get();
         foreach ($studentsFeeMonths as $studentFeeMonth) 
         {
+           $st_id = $studentFeeMonth->st_id;
+           $year = $studentFeeMonth->year;
 
-        $st_id = $studentFeeMonth->st_id;
+        //////////////// Start Particular Month //////////////////////
 
-        // StudentsFeeMonth
+        for ($j = 0; $j <= 11; $j++) {
+            
+            $month_fs = $j + 1;
+            $particularMonthAmount = StudentsFeeStracture::where('st_id', $st_id)
+                                                    ->where('year', $year)
+                                                    ->where('month', $month_fs)
+                                                    ->sum('amount');
+
+           $month_fm = 'month_'.$j;
+           $FeeMonths = StudentsFeeMonth::where('st_id', $st_id)->where('year', $year)->first();
+           $FeeMonths->$month_fm = $particularMonthAmount;
+           $FeeMonths->save();
+
+                                               
+        }
+        
+    
+        //////////////// End Particular Month //////////////////////
+
+
+          // StudentsFeeMonth
             $totalmonthFee = 0;
             for ($i = 0; $i <= 11; $i++) {
                 $totalmonthFee += $studentFeeMonth->{"month_$i"};

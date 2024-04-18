@@ -89,8 +89,6 @@ class StudentsFeePayment extends Controller
                         $StudentMonthFeeStracture[] = $studentFeeStructure;
                     }
                 }
-                
-                
                 //Sum total_fee, total_paid, total_disc, total_dues
                 StudentAccountFee::StudentsFeeMonthsCalculate();
 
@@ -659,32 +657,30 @@ class StudentsFeePayment extends Controller
             $current_year = $request->current_year;
     
             $students = Student::where('class', $class)->where('section', $section)->get();
-
-            echo $class;
     
-            // if ($students->isNotEmpty()) {
-            //     $response_data = array();
-            //     $grouped_students = array();
+            if ($students->isNotEmpty()) {
+                $response_data = array();
+                $grouped_students = array();
 
-            //     foreach ($students as $student) {
-            //         $pr_id = $student->parents_id;
+                foreach ($students as $student) {
+                    $pr_id = $student->parents_id;
     
-            //         $student_details = array(
-            //             'id' => $student->id,
-            //             'student_name' => $student->first_name.' '.$student->last_name,
-            //             'class' => $student->class,
-            //             'section' => $student->section,
-            //         );
+                    $student_details = array(
+                        'id' => $student->id,
+                        'student_name' => $student->first_name.' '.$student->last_name,
+                        'class' => $student->class,
+                        'section' => $student->section,
+                    );
 
-            //         $fee_details_month = StudentsFeeStracture::where('st_id', $student->id)->where('year', $current_year)->where('month', $months)->get();
+                    $fee_details_month = StudentsFeeStracture::where('st_id', $student->id)->where('year', $current_year)->where('month', $months)->get();
  
-            //     }
+                }
 
-            //     return response()->json(['status' => 'success', 'data' => $student_details], 200);
+                return response()->json(['status' => 'success', 'data' => $student_details], 200);
 
-            // } else {
-            //     return response()->json(['message' => 'No students found'], 404);
-            // }
+            } else {
+                return response()->json(['message' => 'No students found'], 404);
+            }
     
         } catch (Exception $e) {
             // Handle exceptions

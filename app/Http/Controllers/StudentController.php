@@ -466,7 +466,7 @@ class StudentController extends Controller
                 $studentFeeStructure->st_id = $st_id;
                 $studentFeeStructure->year = $class_year;
                 $studentFeeStructure->month = 1;
-                $studentFeeStructure->fee_type = 'Annual Charge';
+                $studentFeeStructure->fee_type = 'annual charge';
                 $studentFeeStructure->amount = $FeestractureOnetime->annual_charge;
                 $studentFeeStructure->fee_stracture_type = 'prev_year';
                 $studentFeeStructure->save();
@@ -474,6 +474,9 @@ class StudentController extends Controller
                 $StudentsFeeStracture = StudentsFeeStracture::where('st_id', $st_id)->where('year', $class_year)->where('fee_type', 'admission_fee')->delete();
 
             ///////////////// End New Account Student Fee Set ////////////
+
+            //Sum total_fee, total_paid, total_disc, total_dues
+            StudentAccountFee::StudentsFeeMonthsCalculate();
 
             ///////////////// Start Old Account Student Fee Set ////////////
                 StudentAccountFee::setJoiningData($student, $class_year, $admission_month, $request);
