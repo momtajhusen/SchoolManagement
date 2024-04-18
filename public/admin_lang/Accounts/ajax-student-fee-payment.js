@@ -517,7 +517,7 @@ $(document).ready(function(){
                           <td colspan="5">
                              <div class="d-flex justify-content-between text-light" style="font-size:13px;">
                                 <span>Billing : Up to `+UptoMonth+`</span>
-                                <span>Date : 2080-06-01</span>
+                                <span>Date :  `+current_date+`</span>
                              </div>
                           </td>
                        </tr>
@@ -602,12 +602,17 @@ $(document).ready(function(){
                 st_id_array: st_id_array,
                 pr_id: pr_id,
             },
+            beforeSend: function () {
+                // setting a timeout
+                $(".paid_btn").addClass("d-none");
+            },
             success: function (response) {
 
                 console.log(response);
                if(response.status == 'success'){
-              
 
+                $(".paid_btn").removeClass("d-none");
+              
                 Swal.fire({
                     title: 'Payment Success!',
                     text: "Do you want to print the bill?",
