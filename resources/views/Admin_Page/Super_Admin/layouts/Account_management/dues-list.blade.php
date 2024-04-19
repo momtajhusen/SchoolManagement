@@ -312,68 +312,68 @@
  
 
       
-      <script>
-$(document).ready(function() {
-    $('#printBtn').click(function() {
-        var content = '';
-        $('.bill-box').each(function(){
-            content += $(this).html();
+    <script>
+        $(document).ready(function() {
+            $('#printBtn').click(function() {
+                var content = '';
+                $('.bill-box').each(function(){
+                    content += $(this).html();
+                });
+                var printWindow = window.open('', '', 'height=800,width=800');
+                var left = (screen.width / 2) - (800 / 2);
+                var top = (screen.height / 2) - (800 / 2);
+                printWindow.moveTo(left, top);
+                printWindow.document.write('<html><head><title>Print</title></head><body>');
+                printWindow.document.write(content);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+
+                setTimeout(function() {
+                    printWindow.print();
+                    printWindow.close();
+                    $("#bill-modal-cancle").click();
+                }, 500);
+            });
         });
-        var printWindow = window.open('', '', 'height=800,width=800');
-        var left = (screen.width / 2) - (800 / 2);
-        var top = (screen.height / 2) - (800 / 2);
-        printWindow.moveTo(left, top);
-        printWindow.document.write('<html><head><title>Print</title></head><body>');
-        printWindow.document.write(content);
-        printWindow.document.write('</body></html>');
-        printWindow.document.close();
 
-        setTimeout(function() {
-            printWindow.print();
-            printWindow.close();
-            $("#bill-modal-cancle").click();
-        }, 500);
-    });
-});
+        $(document).ready(function() {
+            // Function to handle the export
+            function exportToExcel() {
+            var class_name = $("#class-select").val();
 
-  $(document).ready(function() {
-    // Function to handle the export
-    function exportToExcel() {
-      var class_name = $("#class-select").val();
+            // Clone the table to preserve the original data
+            let clonedTable = $("#myTable").clone();
 
-      // Clone the table to preserve the original data
-      let clonedTable = $("#myTable").clone();
+            // Remove the "Photo" column (second column) from the cloned table
+            clonedTable.find("tr").each(function() {
+                $(this).find("td:nth-child(2), th:nth-child(2)").remove();
+            });
 
-      // Remove the "Photo" column (second column) from the cloned table
-      clonedTable.find("tr").each(function() {
-        $(this).find("td:nth-child(2), th:nth-child(2)").remove();
-      });
+            // Check if jquery.table2excel.js is available
+            if ($.fn.table2excel) {
+                // If available, use the plugin to export the table to .xls
+                clonedTable.table2excel({
+                filename: "exported_table.xls" // Name of the exported file
+                });
+            } else {
+                // If jquery.table2excel.js is not available, use Blob.js and FileSaver.js
+                let html = clonedTable[0].outerHTML;
+                let blob = new Blob([html], { type: "application/vnd.ms-excel" });
+                saveAs(blob, class_name+"_Cls_Dues_List"+".xls");
+            }
+            }
 
-      // Check if jquery.table2excel.js is available
-      if ($.fn.table2excel) {
-        // If available, use the plugin to export the table to .xls
-        clonedTable.table2excel({
-          filename: "exported_table.xls" // Name of the exported file
+            // Bind the export function to the button click event
+            $("#export-button").on("click", function() {
+            var class_name = $("#class-select").val();
+            if (class_name === "") {
+                alert("select_class");
+                return false;
+            }
+            exportToExcel();
+            });
         });
-      } else {
-        // If jquery.table2excel.js is not available, use Blob.js and FileSaver.js
-        let html = clonedTable[0].outerHTML;
-        let blob = new Blob([html], { type: "application/vnd.ms-excel" });
-        saveAs(blob, class_name+"_Cls_Dues_List"+".xls");
-      }
-    }
-
-    // Bind the export function to the button click event
-    $("#export-button").on("click", function() {
-      var class_name = $("#class-select").val();
-      if (class_name === "") {
-        alert("select_class");
-        return false;
-      }
-      exportToExcel();
-    });
-  });
-</script>
+    </script>
  
 
 @endsection

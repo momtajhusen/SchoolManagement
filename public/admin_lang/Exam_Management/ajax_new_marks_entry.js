@@ -226,11 +226,7 @@ $(document).ready(function(){
         $("#search-btn").click();
      });
  });
-
- function removeTrailingZeros(number) {
-    return parseFloat(number).toFixed(2).replace(/\.?0+$/, '');
-  }
-
+ 
   function limitDecimalPlaces(input) {
     if (input.value.includes('.') && input.value.split('.')[1].length > 2) {
         input.value = parseFloat(input.value).toFixed(2);

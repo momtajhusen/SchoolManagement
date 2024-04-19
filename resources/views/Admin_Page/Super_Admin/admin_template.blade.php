@@ -14,6 +14,8 @@
     <script src="{{ asset('../admin_lang/common/nepali_date/nepali.datepicker.js')}}" defer></script>
     <script src="{{ asset('admin_lang/HelperScript/date.js')}}?v={{ time() }}" defer></script>
     <script src="{{ asset('admin_lang/HelperScript/KeyEvent.js')}}?v={{ time() }}" defer></script>
+    <script src="{{ asset('admin_lang/HelperScript/ReuseScript.js')}}?v={{ time() }}" defer></script>
+
 
 
     <!-- Favicon -->
