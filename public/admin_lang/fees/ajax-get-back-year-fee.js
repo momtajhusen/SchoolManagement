@@ -59,10 +59,10 @@ $(document).ready(function(){
                         <td>`+st_id+`</td>
                         <td>`+class_year+`</td>
                         <td>`+classes+`</td>
-                        <td>`+total_fee+`</td>
-                        <td>`+total_payment+`</td>
-                        <td>`+total_discount+`</td>
-                        <td>`+dues+`</td>
+                        <td>`+removeTrailingZeros(total_fee)+`</td>
+                        <td>`+removeTrailingZeros(total_payment)+`</td>
+                        <td>`+removeTrailingZeros(total_discount)+`</td>
+                        <td>`+removeTrailingZeros(dues)+`</td>
                         <td>
                           <span class=" bg-none border-0 text-light rounded px-4">`+pay_texts+`</span>
                          </td>
@@ -103,3 +103,10 @@ $(document).ready(function(){
 $('#YearDetailscloseBtn').click(function() {
     $('#lastyearfeedetails').click();
   });
+
+
+  
+function removeTrailingZeros(number) {
+    return parseFloat(number).toFixed(2).replace(/\.?0+$/, '');
+  }
+  

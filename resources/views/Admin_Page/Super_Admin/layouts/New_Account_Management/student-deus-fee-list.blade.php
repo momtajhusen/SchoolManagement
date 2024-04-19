@@ -158,7 +158,7 @@
     <table class="table display data-table table-bordered text-nowrap table-sm sortable-table text-center" id="myTable">
         <thead>
             <tr>
-              <th class='tabel-header-show' colspan="7">Students Dues 2080 Baishakh to Jestha</th>
+              <th class='tabel-header-show' colspan="7"></th>
             </tr>
         </thead>
     <thead>

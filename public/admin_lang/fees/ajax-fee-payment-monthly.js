@@ -342,10 +342,10 @@ $(document).ready(function(){
                           lastYearTr += `<tr class="`+disp+`">
                           <td scope="row" style="width:10px;">0</td>
                           <td scope="row" style="width:10px;">`+class_year+`</td>
-                          <td scope="row" style="width:10px;">`+total_fee+`</td>
-                          <td scope="row" style="width:10px;">`+total_payment+`</td>
-                          <td scope="row" style="width:10px;">`+total_discount+`</td>
-                          <td scope="row" style="width:10px;">`+total_dues+`</td>
+                          <td scope="row" style="width:10px;">`+removeTrailingZeros(total_fee)+`</td>
+                          <td scope="row" style="width:10px;">`+removeTrailingZeros(total_payment)+`</td>
+                          <td scope="row" style="width:10px;">`+removeTrailingZeros(total_discount)+`</td>
+                          <td scope="row" style="width:10px;">`+removeTrailingZeros(total_dues)+`</td>
                           <td scope="row" style="width:10px;"><button class="bg-danger border-0 text-light rounded px-4">unpad</button></td>
                           <td scope="row" colspan="2" style="width:10px;">
                             <button class="bg-info last-year-payment border-0 text-light rounded btn p-2 px-4"  dues_year="`+class_year+`" dues_fee="`+total_dues+`" data-bs-toggle="modal" data-bs-target="#backYearModal" style="cursor:pointer">Payment Last years</button>
@@ -820,3 +820,8 @@ $("body").on("click", "#feetype_checkbox", function() {
   $("#payment").val(checkedamount);
 });
 });
+
+
+function removeTrailingZeros(number) {
+  return parseFloat(number).toFixed(2).replace(/\.?0+$/, '');
+}

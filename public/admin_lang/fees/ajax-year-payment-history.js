@@ -1,7 +1,9 @@
 // Year Fee Payment  History 
 $(document).ready(function(){
-    $("body").on("click", "#year-fee-history", function(){
+    $("body").on("click", "#year-fee-details", function(){
 
+
+        alert();
  
         var year =  $(this).attr("year");
         var st_id =  $(this).attr("st_id");
