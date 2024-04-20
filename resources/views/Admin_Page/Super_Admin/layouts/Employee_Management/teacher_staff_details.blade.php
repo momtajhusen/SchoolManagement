@@ -18,6 +18,10 @@
         <!-- ajax-delete-employee.js-->
         <script src="{{ asset('../admin_lang/Employee_Management/ajax-delete-employee.js')}}?v={{ time() }}"></script> 
 
+        <!-- ajax-admit-status.js-->
+        <script src="{{ asset('../admin_lang/Employee_Management/ajax-admit-status.js')}}?v={{ time() }}"></script> 
+
+
         <!-- Select 2 Js -->
         <script src="{{ asset('../admin_lang/teacher/ajax-add-teacher.js')}}"></script> 
 

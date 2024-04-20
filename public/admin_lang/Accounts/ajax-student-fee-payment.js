@@ -613,14 +613,26 @@ $(document).ready(function(){
                if(response.status == 'success'){
 
                 $(".paid_btn").removeClass("d-none");
-              
-                Swal.fire({
+ 
+                  Swal.fire({
                     title: 'Payment Success!',
-                    text: "Do you want to print the bill?",
+                    text: "Do you want to print the bill?",  
                     icon: 'success',
+                    showCancelButton: true,
                     confirmButtonColor: '#00032e',
-                    confirmButtonText: 'OK',
+                    cancelButtonColor: '#00032e',
+                    confirmButtonText: 'Bill View !',
+                    cancelButtonText: 'No Bill View !',
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        bill_view(response.invoice_id);
+                        $("#feeInvoiceModal").modal('show');
+
+                    } 
                   });
+
+
                }
 
                $('.payment-model-colose').click();
@@ -708,7 +720,7 @@ $(document).ready(function(){
                                 <td nowrap="nowrap">₹ `+element.dues+`</td>
                                 <td nowrap="nowrap">`+element.pay_date+`</td>
                                 <td>
-                                <button invoice_id=`+element.id+` class='btn btn-block invoice-print-btn border border-primary d-flex align-items-center justify-content-center' data-toggle="modal" data-target="#feeInvoiceModal" >
+                                <button invoice_id=`+element.id+` id='invoice-btn' class='btn btn-block invoice-print-btn border border-primary d-flex align-items-center justify-content-center'>
                                     <span class="material-symbols-outlined" style='font-size:10px;'>description</span> View
                                 </button>
                                 </td>
@@ -755,184 +767,191 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(".paid-history-table").on("click", ".invoice-print-btn", function()
     {  
-
         var invoice_id = $(this).attr('invoice_id');
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            url: "/student-invoice-data",
-            method: "GET", 
-            data: {
-                invoice_id: invoice_id,
-            },
-            success: function (response) {
-
-                console.log(response);
- 
-
-                if(response.status == 'success'){
-
-                    var commonFeeDetails = response.particular_data;
-
-                    var fee = response.total_fee.fee;
-                    var paid = response.total_fee.paid;
-                    var disc = response.total_fee.disc;
-                    var dues = response.total_fee.dues;
-                    var pay_date = response.total_fee.pay_date;
-
-                    var monthsString = response.total_fee.pay_month.substring(1, response.total_fee.pay_month.length - 1);
-                    // Splitting the string into an array using comma as the delimiter
-                    var monthsArray = monthsString.split(',');
-
-                    // Accessing the first and last elements
-                    var firstMonthString = monthsArray[0]; // Accessing the first element
-                    var lastMonthString = monthsArray[monthsArray.length - 1]; // Accessing the last element
-
-                    // Extracting the number part
-                    var firstMonthNumber = parseInt(firstMonthString.match(/\d+/)[0]);
-                    var lastMonthNumber = parseInt(lastMonthString.match(/\d+/)[0]);
-
-                    var UptoFirstMonth = MonthsArray[firstMonthNumber].substring(0, 3);
-                    var UptoLastMonth = MonthsArray[lastMonthNumber].substring(0, 3);
-
-                
-                    var student_tr = '';
-                    var fee_particular_tr = '';
-
-                    response.students.forEach(element => {
-                        var st_id = element.id;
-                        var student_name = element.first_name+' '+ element.last_name;
-                        var classes = element.class+' '+element.section;
-                        var student_img = element.student_image;
-                        student_tr += `
-                        <div class="d-flex justify-content-between p-2 border">
-                           <div>
-                             <img src="../storage/`+student_img+`" class="border p-1" alt="" style="width:40px;height:40px;">
-                             <span class='ml-2'>`+student_name+`</span>
-                           </div>
-                           <div class='d-flex flex-column' style='font-size:11px;'>
-                             <span>Class: `+classes+`</span>
-                             <span>ST_ID: `+st_id+`</span>
-                           </div>
-                        </div>
-                    
-                        `;
-                        
-                    });
-
-                    var commonFeeDetails = response.particular_data;
-                    var index = 1;
-                    var fee_particular_tr = ''; // Initialize the variable to store HTML markup
-
-                    for (var feeType in commonFeeDetails) {
-                        if (commonFeeDetails.hasOwnProperty(feeType)) {
-                            var amount = commonFeeDetails[feeType].amount;
-                            var monthCount = commonFeeDetails[feeType].month;
-                            fee_particular_tr += `
-                                <tr>
-                                    <th scope="row">${index}</th>
-                                    <td>${feeType}</td>
-                                    <td>${monthCount}</td>
-                                    <td>${amount}</td>
-                                </tr>
-                            `;
-                            index++;
-                        }
-                    }
-
-                    var disc_display = disc <= 0 ? 'd-none' : '';
-
-                    // Append total fee row
-                    fee_particular_tr += `
-                        <tr>
-                            <th scope="row">#</th>
-                            <td colspan='2'>
-                             <div class='w-100 d-flex justify-content-end'>Total Fee: </div>
-                            </td>
-                            <td>`+fee+`</td>
-                        </tr>
-                        <tr class='`+disc_display+`'>
-                            <th scope="row">#</th>
-                            <td colspan='2' class='text-start'>
-                             <div class='w-100 d-flex justify-content-end'>Disc: </div>
-                            </td>
-                            <td>`+disc+`</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">#</th>
-                            <td colspan='2' class='text-start'>
-                             <div class='w-100 d-flex justify-content-end'>Paid: </div>
-                            </td>
-                            <td>`+paid+`</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">#</th>
-                            <td colspan='2' class='text-start'>
-                             <div class='w-100 d-flex justify-content-end'>Dues: </div>
-                            </td>
-                            <td>`+dues+`</td>
-                        </tr>
-                    `;
-
-
-                    $('.school-name').html(response.school_details.school_name);
-                    $('.school-address').html(response.school_details.address);
-                    // $('.school-email').html(response.school_details.email);
-                    $('.school-phone').html('Contact: '+response.school_details.phone);
-                    $('.school-logo').attr('src', '../storage/'+response.school_details.logo_img);
-                    $('.school-logo-watermark').attr('src', '../storage/'+response.school_details.logo_img);
-
-                    $('.invoice-students').html(student_tr);
-
-                    $('.invoice-particular-table').html(`
-                        <table class="table table-bordered table-border-dark my-1 table-sm">
-                        <thead>
-                        <tr>
-                            <td colspan="5">
-                                <div class="d-flex justify-content-between px-2 py-3">
-                                    <span>Billing :  `+UptoFirstMonth+` to  `+UptoLastMonth+`</span>
-                                    <span>Date :  `+pay_date+`</span>
-                                </div>
-                            </td>
-                        </tr>
-                     
-                        <tr class="text-center">
-                        <th scope="col">SN.</th>
-                        <th scope="col">Particulars</th>
-                        <th scope="col">Months</th>
-                        <th scope="col">Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            `+fee_particular_tr+`
-                        </tbody>
-                    </table>
-                    `);
-             
-                    for (var i = 0; i < 200; i++) {
-                        $('.background-water-mark').append(`
-                            <div>`+response.school_details.school_name.substring(0, 17)+`</div>
-                        `);
-                    }
-
-   
-                }
-
-            },
-            
-            error: function (xhr, status, error) {
-                // Error callback function
-                console.log(xhr.responseText); // Log the error response in the console
-            },
-        });
-
+        bill_view(invoice_id);
+        $("#feeInvoiceModal").modal('show');
     });
 });
+
+
+function bill_view(invoice_id){
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: "/student-invoice-data",
+        method: "GET", 
+        data: {
+            invoice_id: invoice_id,
+        },
+        success: function (response) {
+
+            console.log(response);
+
+
+            if(response.status == 'success'){
+
+                $('.payment-reset').attr('invoice_id', invoice_id);
+
+                var commonFeeDetails = response.particular_data;
+
+                var fee = response.total_fee.fee;
+                var paid = response.total_fee.paid;
+                var disc = response.total_fee.disc;
+                var dues = response.total_fee.dues;
+                var pay_date = response.total_fee.pay_date;
+
+                var monthsString = response.total_fee.pay_month.substring(1, response.total_fee.pay_month.length - 1);
+                // Splitting the string into an array using comma as the delimiter
+                var monthsArray = monthsString.split(',');
+
+                // Accessing the first and last elements
+                var firstMonthString = monthsArray[0]; // Accessing the first element
+                var lastMonthString = monthsArray[monthsArray.length - 1]; // Accessing the last element
+
+                // Extracting the number part
+                var firstMonthNumber = parseInt(firstMonthString.match(/\d+/)[0]);
+                var lastMonthNumber = parseInt(lastMonthString.match(/\d+/)[0]);
+
+                var UptoFirstMonth = MonthsArray[firstMonthNumber].substring(0, 3);
+                var UptoLastMonth = MonthsArray[lastMonthNumber].substring(0, 3);
+
+            
+                var student_tr = '';
+                var fee_particular_tr = '';
+
+                response.students.forEach(element => {
+                    var st_id = element.id;
+                    var student_name = element.first_name+' '+ element.last_name;
+                    var classes = element.class+' '+element.section;
+                    var student_img = element.student_image;
+                    student_tr += `
+                    <div class="d-flex justify-content-between p-2 border">
+                       <div>
+                         <img src="../storage/`+student_img+`" class="border p-1" alt="" style="width:40px;height:40px;">
+                         <span class='ml-2'>`+student_name+`</span>
+                       </div>
+                       <div class='d-flex flex-column' style='font-size:11px;'>
+                         <span>Class: `+classes+`</span>
+                         <span>ST_ID: `+st_id+`</span>
+                       </div>
+                    </div>
+                
+                    `;
+                    
+                });
+
+                var commonFeeDetails = response.particular_data;
+                var index = 1;
+                var fee_particular_tr = ''; // Initialize the variable to store HTML markup
+
+                for (var feeType in commonFeeDetails) {
+                    if (commonFeeDetails.hasOwnProperty(feeType)) {
+                        var amount = commonFeeDetails[feeType].amount;
+                        var monthCount = commonFeeDetails[feeType].month;
+                        fee_particular_tr += `
+                            <tr>
+                                <th scope="row">${index}</th>
+                                <td>${feeType}</td>
+                                <td>${monthCount}</td>
+                                <td>${amount}</td>
+                            </tr>
+                        `;
+                        index++;
+                    }
+                }
+
+                var disc_display = disc <= 0 ? 'd-none' : '';
+
+                // Append total fee row
+                fee_particular_tr += `
+                    <tr>
+                        <th scope="row">#</th>
+                        <td colspan='2'>
+                         <div class='w-100 d-flex justify-content-end'>Total Fee: </div>
+                        </td>
+                        <td>`+fee+`</td>
+                    </tr>
+                    <tr class='`+disc_display+`'>
+                        <th scope="row">#</th>
+                        <td colspan='2' class='text-start'>
+                         <div class='w-100 d-flex justify-content-end'>Disc: </div>
+                        </td>
+                        <td>`+disc+`</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#</th>
+                        <td colspan='2' class='text-start'>
+                         <div class='w-100 d-flex justify-content-end'>Paid: </div>
+                        </td>
+                        <td>`+paid+`</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#</th>
+                        <td colspan='2' class='text-start'>
+                         <div class='w-100 d-flex justify-content-end'>Dues: </div>
+                        </td>
+                        <td>`+dues+`</td>
+                    </tr>
+                `;
+
+
+                $('.school-name').html(response.school_details.school_name);
+                $('.school-address').html(response.school_details.address);
+                // $('.school-email').html(response.school_details.email);
+                $('.school-phone').html('Contact: '+response.school_details.phone);
+                $('.school-logo').attr('src', '../storage/'+response.school_details.logo_img);
+                $('.school-logo-watermark').attr('src', '../storage/'+response.school_details.logo_img);
+
+                $('.invoice-students').html(student_tr);
+
+                $('.invoice-particular-table').html(`
+                    <table class="table table-bordered table-border-dark my-1 table-sm">
+                    <thead>
+                    <tr>
+                        <td colspan="5">
+                            <div class="d-flex justify-content-between px-2 py-3">
+                                <span>Billing :  `+UptoFirstMonth+` to  `+UptoLastMonth+`</span>
+                                <span>Date :  `+pay_date+`</span>
+                            </div>
+                        </td>
+                    </tr>
+                 
+                    <tr class="text-center">
+                    <th scope="col">SN.</th>
+                    <th scope="col">Particulars</th>
+                    <th scope="col">Months</th>
+                    <th scope="col">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        `+fee_particular_tr+`
+                    </tbody>
+                </table>
+                `);
+         
+                for (var i = 0; i < 200; i++) {
+                    $('.background-water-mark').append(`
+                        <div>`+response.school_details.school_name.substring(0, 17)+`</div>
+                    `);
+                }
+
+
+            }
+
+        },
+        
+        error: function (xhr, status, error) {
+            // Error callback function
+            console.log(xhr.responseText); // Log the error response in the console
+        },
+    }); 
+}
 
 // All Reset 
 $(document).ready(function(){
@@ -1002,58 +1021,68 @@ $(document).ready(function(){
     $(".paid-history-table").on("click", ".reset-single-btn", function()
     {  
         var invoice_id =  $(this).attr('invoice_id');
+        bill_reset(invoice_id);
+    });
+    
+    $(".payment-reset").click(function()
+    {  
+        var invoice_id =  $(this).attr('invoice_id');
+        bill_reset(invoice_id);
+    });
+}); 
 
+
+   function bill_reset(invoice_id){
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-    Swal.fire({
-        title: 'Are You Sure Reset History?',
-        text: " Please note that reset deleting this student will permanently remove this paid hsitory data.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, reset it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
+        Swal.fire({
+            title: 'Are You Sure Reset History?',
+            text: " Please note that reset deleting this student will permanently remove this paid hsitory data.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, reset it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-        $.ajax({
-            url: "/student-single-fee-reset",
-            method: "POST", 
-            data: {
-                invoice_id: invoice_id,
-            },
-            success: function (response) {
+            $.ajax({
+                url: "/student-single-fee-reset",
+                method: "POST", 
+                data: {
+                    invoice_id: invoice_id,
+                },
+                success: function (response) {
 
-                console.log(response);
-                if(response.status == 'success'){
+                    console.log(response);
+                    if(response.status == 'success'){
 
-                    Swal.fire({
-                        title: 'Reset Success!',
-                        text: "Paid History Reset",
-                        icon: 'success',
-                        confirmButtonColor: '#00032e',
-                        confirmButtonText: 'OK',
-                    });
+                        Swal.fire({
+                            title: 'Reset Success!',
+                            text: "Paid History Reset",
+                            icon: 'success',
+                            confirmButtonColor: '#00032e',
+                            confirmButtonText: 'OK',
+                        });
 
-                    $("#search-btn").click();
-                    $('.history-btn').click();
+                        $("#search-btn").click();
+                        $('.history-btn').click();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Error callback function
+                    console.log(xhr.responseText); // Log the error response in the console
+                },
+            });
+
                 }
-            },
-            error: function (xhr, status, error) {
-                // Error callback function
-                console.log(xhr.responseText); // Log the error response in the console
-            },
         });
 
-            }
-        });
-
-    });  
-}); 
+   }
 
 
 // Paid Oninput Condition  

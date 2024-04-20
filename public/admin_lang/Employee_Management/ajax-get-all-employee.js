@@ -104,6 +104,10 @@ $(document).ready(function () {
                                       <a class="dropdown-item" href="/update_employee/`+id+`"><i class="fas fa-cogs text-dark-pastel-green"></i>Update</a>
                                       <a class="dropdown-item" id="delete_employee" emp_id="`+id+`" href="#"><i class="fas fa-trash text-orange-peel"></i>Delete</a>
                                       <a class="dropdown-item d-flex" href="teacher-profile/`+id+`"><span class="material-symbols-outlined pr-4">person</span>Profile</a>
+                                      <a emp_id="`+id+`" id="leaved-employee" target="_blank" class="dropdown-item d-flex align-items-center" style="cursor:pointer;">
+                                        <span class="material-symbols-outlined pr-2">output</span>
+                                        leaved 
+                                      </a>
                                   </div>
                               </div>
                           </td>

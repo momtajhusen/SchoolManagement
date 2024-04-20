@@ -321,11 +321,12 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    Route::post('/update-teacher', 'App\Http\Controllers\TeacherController@update');
    Route::get('/get-all-teacher', 'App\Http\Controllers\TeacherController@index');
    Route::get('/get-search-teacher', 'App\Http\Controllers\TeacherController@searchTeacher');
+   Route::get('/get-search-teacher', 'App\Http\Controllers\TeacherController@searchTeacher');
+
 
    Route::get('get-single-teacher/{id}', 'App\Http\Controllers\TeacherController@show');
    Route::post('assign-teacher-subject', 'App\Http\Controllers\TeacherController@assignTeacherSubject');
    Route::get('/get-teacher-subject', 'App\Http\Controllers\TeacherController@getTeacherSubject');
-   Route::post('/delete-teacher-subject', 'App\Http\Controllers\TeacherController@deleteTeacherSubject');
 
    Route::get('/get-teacher-timetable', 'App\Http\Controllers\TeacherController@getTeacherTimetable');
 
@@ -522,6 +523,8 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
 
    Route::post('admin/add_new_employee', 'App\Http\Controllers\EmployeeController@AddEmployee');
    Route::get('/get-all-employee', 'App\Http\Controllers\EmployeeController@GetAllemployee');
+   Route::post('/employee-leaved', 'App\Http\Controllers\EmployeeController@EmployeeLeaved');
+
 
 
    // Role & Permission

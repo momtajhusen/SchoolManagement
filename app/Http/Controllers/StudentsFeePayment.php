@@ -298,7 +298,9 @@ class StudentsFeePayment extends Controller
                     $StudentsFeePaidHistory->comment_disc = $comment_disc;
                     $StudentsFeePaidHistory->pay_with = 'Cash';
                     $StudentsFeePaidHistory->pay_date = $pay_date;
-                    $StudentsFeePaidHistory->save();                        
+                    $StudentsFeePaidHistory->save();  
+                    
+                    $invoice_id = $StudentsFeePaidHistory->id;
                 ////////////////////// End History Save ////////////////////// 
 
                 /////////////////////// Start Fee Data Save For Reset ///////////////
@@ -436,7 +438,7 @@ class StudentsFeePayment extends Controller
                 ////////////////////// End StudentsFeePaid //////////////////////
 
 
-                return response()->json(['status' =>  'success'], 200);
+                return response()->json(['status' =>  'success', 'invoice_id'=> $invoice_id], 200);
 
             } catch (Exception $e) {
                 // Handle exceptions

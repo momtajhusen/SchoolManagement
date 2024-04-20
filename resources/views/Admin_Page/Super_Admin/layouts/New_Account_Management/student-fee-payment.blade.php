@@ -295,6 +295,7 @@
             </div>
             <div class="modal-footer">
                <button type="button" class="btn btn-secondary p-3 px-5 payment-model-colose" data-dismiss="modal">Cancle</button>
+
             </div>
          </div>
          </div>
@@ -349,6 +350,7 @@
              </div>
          </div>
          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary p-3 px-5 payment-reset">Reset</button>
             <button type="button" class="btn btn-secondary p-3 px-5 payment-model-colose" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-secondary">
                <span class="material-symbols-outlined invoice-download">download</span>
@@ -427,12 +429,12 @@
       <div class="col-12 col-md-8 py-3 border bg-light">
          <nav>
             <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Payment</a>
+              <a class="nav-item nav-link active" id="nav-payment-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Payment</a>
               <a class="nav-item nav-link history-btn" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">History</a>
             </div>
           </nav>
           <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-payment-tab">
                <table class="table table-bordered table-sm table-hover table-responsive-md sortable-table">
                   <thead>
                     <tr class="bg-dark text-light text-center">

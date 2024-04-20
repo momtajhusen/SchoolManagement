@@ -55,7 +55,7 @@ $(document).ready(function(){
             
                     
                     response.data[0].exam_marks.forEach(function(item) {
-                        subject_th += " <th colspan='2' scope='col'>" + item.subject + "</th>";
+                        subject_th += " <th colspan='2' scope='col'>" + item.subject + "<span class='material-symbols-outlined' id='subject-delete' subject='"+item.subject+"' exam_year='"+item.exam_year+"' style='font-size:13px;cursor:pointer;'>delete</span></th>";
                         subject_marks_items += "<td>TH</td><td>PR</td>";
                     });
 
@@ -148,7 +148,7 @@ function removeTrailingZeros(number) {
 // Delete Subject 
 $(document).ready(function(){
  
-    $(".exam-tabulation-title").on("click", "#subject-delete", function(){
+    $(".exam-tabulation-thead").on("click", "#subject-delete", function(){
 
        var subject = $(this).attr('subject');
        var exam_year = $(this).attr('exam_year');

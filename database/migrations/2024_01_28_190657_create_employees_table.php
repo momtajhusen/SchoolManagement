@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('password', 100)->nullable();
             $table->string('otp', 10)->nullable();
+            $table->string('admit_status', 10)->default('admit');
+
             $table->timestamps();
         });        
     }

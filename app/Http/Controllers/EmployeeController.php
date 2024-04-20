@@ -114,9 +114,9 @@ class EmployeeController extends Controller
     public function GetAllemployee(Request $request)
     {
         
-        $Teachers = Employee::where('department_role', 'Teacher')->orderBy('first_name')->get();
-        $Staffs = Employee::whereNotIn('department_role', ['Teacher'])->get();
-        $AllEmployee = Employee::get();
+        $Teachers = Employee::where('department_role', 'Teacher')->orderBy('first_name')->where('admit_status', 'admit')->get();
+        $Staffs = Employee::whereNotIn('department_role', ['Teacher'])->where('admit_status', 'admit')->get();
+        $AllEmployee = Employee::where('admit_status', 'admit')->get();
 
         return response(['Teachers' => $Teachers,'Staffs' => $Staffs,'AllEmployee' => $AllEmployee], 200);
     }
@@ -178,35 +178,35 @@ class EmployeeController extends Controller
         // End Check if it already teacher than telete period and attendance 
 
        
-// Update employee image
-$employee_image = $request->file("image");
-$employee_image_path = $Employee->image;
-$employee_image_name = basename($employee_image_path);
+        // Update employee image
+        $employee_image = $request->file("image");
+        $employee_image_path = $Employee->image;
+        $employee_image_name = basename($employee_image_path);
 
-if (!empty($employee_image)) {
-    // Generate a unique name if the current image name is default ("employee.jpg")
-    if ($employee_image_name == "employee.jpg") {
-        $employee_image_name = time() . ".jpg";
-    }
+        if (!empty($employee_image)) {
+            // Generate a unique name if the current image name is default ("employee.jpg")
+            if ($employee_image_name == "employee.jpg") {
+                $employee_image_name = time() . ".jpg";
+            }
 
-    // Store the new employee image
-    // $employee_image->storeAs('public/upload_assets/employee',  $employee_image_name);
+        // Store the new employee image
+        // $employee_image->storeAs('public/upload_assets/employee',  $employee_image_name);
 
-    // Define paths for cropping and destination
-    $EmployeeCropImgPath = 'storage/CropingImage/SudentsAdmission/' . $employee_image_crope . '.jpg';
-    $destinationPath = 'storage/upload_assets/employee/' . $employee_image_crope. '.jpg';
+        // Define paths for cropping and destination
+        $EmployeeCropImgPath = 'storage/CropingImage/SudentsAdmission/' . $employee_image_crope . '.jpg';
+        $destinationPath = 'storage/upload_assets/employee/' . $employee_image_crope. '.jpg';
 
-    // Create the destination directory if it doesn't exist
-    if (!File::exists(dirname($destinationPath))) {
-        File::makeDirectory(dirname($destinationPath), 0755, true);
-    }
+        // Create the destination directory if it doesn't exist
+        if (!File::exists(dirname($destinationPath))) {
+            File::makeDirectory(dirname($destinationPath), 0755, true);
+        }
 
-    // Update the employee's image path
-    $Employee->image =  'upload_assets/employee/' . $employee_image_crope. '.jpg';
+        // Update the employee's image path
+        $Employee->image =  'upload_assets/employee/' . $employee_image_crope. '.jpg';
 
-    // Move the cropped image to the destination
-    File::move($EmployeeCropImgPath, $destinationPath);
-}
+        // Move the cropped image to the destination
+        File::move($EmployeeCropImgPath, $destinationPath);
+     }
 
 
 
@@ -279,5 +279,23 @@ if (!empty($employee_image)) {
  
         return response()->json(['message' => 'Employee deleted successfully']);
 
+    }
+
+    public function EmployeeLeaved(Request $request)
+    {
+        try {
+            $emp_id = $request->emp_id;
+
+            $employee = Employee::where('id', $emp_id)->first();
+            $employee->admit_status = 'leaved';
+            if($employee->save())
+            {
+                return response()->json(['message' => 'leaved success']); 
+            }
+        } catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
     }
 }

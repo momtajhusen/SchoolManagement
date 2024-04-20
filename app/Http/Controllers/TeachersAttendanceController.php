@@ -30,7 +30,7 @@ class TeachersAttendanceController extends Controller
     {
         try {
 
-           $Teacher = Employee::where('department_role', 'Teacher')->orderBy('first_name')->get();
+           $Teacher = Employee::where('department_role', 'Teacher')->orderBy('first_name')->where('admit_status', 'admit')->get();
            $ClassPeriods = ClassPeriod::get();
 
            $TeachersPeriods = TeachersPeriods::orderBy('teacher_name')->get();
@@ -92,14 +92,16 @@ class TeachersAttendanceController extends Controller
                 $response = [];
             
                 foreach ($TeachersPeriods as $teacher) {
-                    $TeacherData = Employee::where("id", $teacher->tch_id)->first();
+                    $TeacherData = Employee::where("id", $teacher->tch_id)->where('admit_status', 'admit')->first();
+                     if($TeacherData){
+                        $first_name = $TeacherData->first_name;
+                        $gender = $TeacherData->gender;
+                        $teacher_image = $TeacherData->image;
+                        $id = $TeacherData->id;
+                     }
+                   
 
-                    // $TeacherData = Employee::where('department_role', 'Teacher')->orderBy('first_name')->get();
 
-                    $first_name = $TeacherData->first_name;
-                    $gender = $TeacherData->gender;
-                    $teacher_image = $TeacherData->image;
-                    $id = $TeacherData->id;
 
                     $TeachersAttendance = TeachersAttendance::where("tr_id", $id)->where("date", $date)->first();
 
@@ -338,7 +340,7 @@ class TeachersAttendanceController extends Controller
                 $emp_id = $teacherAttendance->emp_id;
                 
                 // Retrieve the teacher information
-                $Teacher = Employee::where("id", $emp_id)->first();
+                $Teacher = Employee::where("id", $emp_id)->where('admit_status', 'admit')->first();
                 // $Teachers = Employee::where('department_role', 'Teacher')->orderBy('first_name')->get();
                 
                 // Check if the teacher is found before trying to access properties
