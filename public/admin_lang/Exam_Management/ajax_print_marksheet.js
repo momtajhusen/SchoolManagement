@@ -63,6 +63,9 @@ $(document).ready(function(){
 
                       var st_name = item.first_name + " " + item.middle_name + " " + item.last_name;
                       var student_image = item.student_image;
+                      var classes = '';
+                      var section = '';
+
 
                       var final_grade_point = item.final_grade_point;
                       var final_grade_name = item.final_grade_name;
@@ -94,6 +97,10 @@ $(document).ready(function(){
                         sum_pass_pr += Number(marks.pass_pr);
                         sum_obt_th += Number(marks.obt_th_mark);
                         sum_obt_pr += Number(marks.obt_pr_mark);
+
+                        classes = marks.class;
+                        section = marks.section;
+
 
 
 
@@ -210,7 +217,7 @@ $(document).ready(function(){
                                       
                                       <div>
                                         <span>Class :</span>
-                                        <span>`+item.class+`</span>
+                                        <span>`+classes+`</span>
                                       </div>
              
                    
@@ -224,7 +231,7 @@ $(document).ready(function(){
                                  
                                       <div>
                                         <span>Section :</span>
-                                        <span>`+item.section+`</span>
+                                        <span>`+section+`</span>
                                       </div>
                                     </div>
                     
