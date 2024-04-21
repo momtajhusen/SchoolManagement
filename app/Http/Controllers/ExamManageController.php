@@ -241,6 +241,8 @@ class ExamManageController extends Controller
             $select_exam = $ExamTerm->exam_name;
             $exam_year = $ExamTerm->year;
 
+            // echo $exam_year;
+
 
             $this->student_response = Student::orderBy('class')->orderBy('roll_no')->where("class", $select_class)->where("section", $select_section)->where("admission_status","admit")->get();
 

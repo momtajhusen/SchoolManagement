@@ -299,26 +299,27 @@ class StudentPromotionController extends Controller
                             $FeePayment->save();
                         }
 
-                        $LastPaymentForReset = LastPaymentForReset::where('st_id', $PromotedStudentData->id)->first();
+                        $LastPaymentForReset = LastPaymentForReset::firstOrNew(['st_id' => $PromotedStudentData->id]);
                         $LastPaymentForReset->class = $promote_class;
                         $LastPaymentForReset->class_year = $current_year;
                         $LastPaymentForReset->save();
-
-                        $LastPaymentForReset = LastDiscountsForReset::where('st_id', $PromotedStudentData->id)->first();
-                        $LastPaymentForReset->class = $promote_class;
-                        $LastPaymentForReset->roll_no = $PromotedStudentData->roll_no;
-                        $LastPaymentForReset->class_year = $current_year;
-                        $LastPaymentForReset->save();
-
-                        $LastPaymentForReset = LastDuesForReset::where('st_id', $PromotedStudentData->id)->first();
-                        $LastPaymentForReset->class = $promote_class;
-                        $LastPaymentForReset->class_year = $current_year;
-                        $LastPaymentForReset->save();
-
-                        $LastFreeFeeForReset = LastFreeFeeForReset::where('st_id', $PromotedStudentData->id)->first();
+                        
+                        $LastDiscountsForReset = LastDiscountsForReset::firstOrNew(['st_id' => $PromotedStudentData->id]);
+                        $LastDiscountsForReset->class = $promote_class;
+                        $LastDiscountsForReset->roll_no = $PromotedStudentData->roll_no;
+                        $LastDiscountsForReset->class_year = $current_year;
+                        $LastDiscountsForReset->save();
+                        
+                        $LastDuesForReset = LastDuesForReset::firstOrNew(['st_id' => $PromotedStudentData->id]);
+                        $LastDuesForReset->class = $promote_class;
+                        $LastDuesForReset->class_year = $current_year;
+                        $LastDuesForReset->save();
+                        
+                        $LastFreeFeeForReset = LastFreeFeeForReset::firstOrNew(['st_id' => $PromotedStudentData->id]);
                         $LastFreeFeeForReset->class = $promote_class;
                         $LastFreeFeeForReset->class_year = $current_year;
                         $LastFreeFeeForReset->save();
+                        
 
                         $first_name = $PromotedStudentData->first_name . " " . $PromotedStudentData->middle_name . " " . $PromotedStudentData->last_name;
                         array_push($ArrayPromotedStudent, $first_name);
@@ -409,29 +410,30 @@ class StudentPromotionController extends Controller
                         $FeeDiscount->save();
                     }
 
-                    $LastPaymentForReset = LastPaymentForReset::where('st_id', $DemotionStudentData->id)->first();
+                    $LastPaymentForReset = LastPaymentForReset::firstOrNew(['st_id' => $DemotionStudentData->id]);
                     $LastPaymentForReset->class = $from_class;
                     // $LastPaymentForReset->roll_no = $DemotionStudentData->roll_no;
                     $LastPaymentForReset->class_year = $current_year;
                     $LastPaymentForReset->save();
-
-                    $LastPaymentForReset = LastDiscountsForReset::where('st_id', $DemotionStudentData->id)->first();
-                    $LastPaymentForReset->class = $from_class;
-                    // $LastPaymentForReset->roll_no = $DemotionStudentData->roll_no;
-                    $LastPaymentForReset->class_year = $current_year;
-                    $LastPaymentForReset->save();
-
-                    $LastPaymentForReset = LastDuesForReset::where('st_id', $DemotionStudentData->id)->first();
-                    $LastPaymentForReset->class = $from_class;
-                    // $LastPaymentForReset->roll_no = $DemotionStudentData->roll_no;
-                    $LastPaymentForReset->class_year = $current_year;
-                    $LastPaymentForReset->save();
-
-                    $LastFreeFeeForReset = LastFreeFeeForReset::where('st_id', $DemotionStudentData->id)->first();
+                    
+                    $LastDiscountsForReset = LastDiscountsForReset::firstOrNew(['st_id' => $DemotionStudentData->id]);
+                    $LastDiscountsForReset->class = $from_class;
+                    // $LastDiscountsForReset->roll_no = $DemotionStudentData->roll_no;
+                    $LastDiscountsForReset->class_year = $current_year;
+                    $LastDiscountsForReset->save();
+                    
+                    $LastDuesForReset = LastDuesForReset::firstOrNew(['st_id' => $DemotionStudentData->id]);
+                    $LastDuesForReset->class = $from_class;
+                    // $LastDuesForReset->roll_no = $DemotionStudentData->roll_no;
+                    $LastDuesForReset->class_year = $current_year;
+                    $LastDuesForReset->save();
+                    
+                    $LastFreeFeeForReset = LastFreeFeeForReset::firstOrNew(['st_id' => $DemotionStudentData->id]);
                     $LastFreeFeeForReset->class = $from_class;
                     // $LastFreeFeeForReset->roll_no = $DemotionStudentData->roll_no;
                     $LastFreeFeeForReset->class_year = $current_year;
                     $LastFreeFeeForReset->save();
+                    
                 }
             }
             ////// End Demotion Student //////

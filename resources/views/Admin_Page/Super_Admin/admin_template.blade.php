@@ -63,7 +63,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Ajax CDN -->
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
     
 
     <!-- Modernize js -->
@@ -311,6 +311,42 @@
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">pie_chart</span>
                                 <span class="menu-name">Finance Analysis</span>
+                            </a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item">
+                                    <a href="{{route('financial-overview')}}" class="nav-link">
+                                        <i class="fas fa-angle-right"></i>
+                                        <span class="menu-name">Financial Overview</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('fee-collection-reports')}}" class="nav-link">
+                                        <i class="fas fa-angle-right"></i>
+                                        <span class="menu-name">Fee Collections</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('salary-report')}}" class="nav-link"><i class="fas fa-angle-right"></i>
+                                    <span class="menu-name">Salary</span>
+                                   </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('class-finance')}}" class="nav-link"><i class="fas fa-angle-right"></i>
+                                    <span class="menu-name">Financial Class</span>
+                                   </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('expense-reports')}}"  class="nav-link"><i class="fas fa-angle-right"></i>
+                                    <span class="menu-name">Expenses</span>
+                                   </a>
+                                </li>  
+                            </ul>
+                        </li>
+
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link d-flex">
+                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">pie_chart</span>
+                                <span class="menu-name">New Finance Analysis</span>
                             </a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
