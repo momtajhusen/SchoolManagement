@@ -124,7 +124,7 @@ class DeveloperController extends Controller
  
     
      
-                    $start_month = 0;
+                    $start_month = 1;
     
                 // End Admission date
                 $st_id = $student->id;
