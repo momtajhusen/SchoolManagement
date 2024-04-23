@@ -690,11 +690,6 @@
                                         <span class="menu-name">Exam Grade</span>
                                     </a>
                                 </li> 
-                                <!-- <li class="nav-item">
-                                    <a href="{{route('position-holder')}}" class="nav-link">
-                                        <i class="fas fa-angle-right"></i>School Position Holders
-                                    </a>
-                                </li> -->
                             </ul>
                         </li>
 
@@ -885,47 +880,10 @@
                                         <i class="fas fa-angle-right"></i>
                                         <span class="menu-name">School Details</span>
                                     </a>
-                                </li>   
-                                {{-- <li class="nav-item deve-use">
-                                    <a href="{{route('active-device')}}" class="nav-link">
-                                        <i class="fas fa-angle-right"></i>
-                                        <span class="menu-name">Active Device</span>
-                                    </a>
-                                </li> --}}
+                                </li> 
                             </ul>
                         </li>
-                        {{-- <li class="nav-item sidebar-nav-item" id="activity-menu">
-                            <a href="#" class="nav-link d-flex">
-                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">browse_activity</span>
-                                <span class="menu-name">Visitor Activity</span>
-                            </a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="{{route('visitor-page-activity')}}" class="nav-link">
-                                        <i class="fas fa-angle-right"></i>
-                                        <span class="menu-name">Page Activity</span>
-                                    </a>
-                                </li>   
-                                <li class="nav-item">
-                                    <a href="{{route('visitor-button-activity')}}" class="nav-link">
-                                        <i class="fas fa-angle-right"></i>
-                                        <span class="menu-name">Button Activity</span>
-                                    </a>
-                                </li>                     
-                            </ul>
-                        </li> --}}
-                        {{-- <li class="nav-item">
-                            <a href="#" class="nav-link d-flex">
-                                <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">description</span>
-                                <span class="menu-name">Forms Download</span>
-                            </a>
-                        </li> --}}
-                        <!-- <li class="nav-item" id="fullscreen-button">
-                            <a href="#" class="nav-link d-flex">
-                                <span class="material-symbols-outlined mr-3" id="screen-icon" style="font-size:20px;color:#ff9d37">fullscreen</span>
-                               <span id="screen-text" class="menu-name">Fullscreen</span>
-                            </a>
-                        </li> -->
+   
                     </ul>
                 </div>
             </div>

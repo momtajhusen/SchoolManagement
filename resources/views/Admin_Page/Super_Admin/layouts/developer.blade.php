@@ -12,4 +12,8 @@
   <button class="set-student-fee">Set Student Fee</button>
 
 
+  <button class="set-new-account-student-fee">Set New Account Student Fee</button>
+
+
+
 @endsection

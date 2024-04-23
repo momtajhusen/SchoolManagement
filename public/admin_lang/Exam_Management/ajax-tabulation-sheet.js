@@ -46,8 +46,8 @@ $(document).ready(function(){
              success:function(response)
              {
                 console.log(response);
-
-                if(response.message != "Marks not Entry"){
+ 
+                if(response.data){
                     var subject_th = "";
                     var subject_marks_items = "";
 
@@ -78,17 +78,6 @@ $(document).ready(function(){
     
                     var students = response.data;
 
-                    // students.sort(function(a, b) {
-                    //     var totalMarksA = 0;
-                    //     var totalMarksB = 0;
-                    //     a.exam_marks.forEach(function(marks) {
-                    //         totalMarksA += parseInt(marks.marks_obtained);
-                    //     });
-                    //     b.exam_marks.forEach(function(marks) {
-                    //         totalMarksB += parseInt(marks.marks_obtained);
-                    //     });
-                    //     return totalMarksB - totalMarksA;
-                    // });
     
                     $(".exam-tabulation-table").html('');
                     $(".exam-tabulation-body").html('');
@@ -126,7 +115,7 @@ $(document).ready(function(){
                 }
                 else{
                     $(".exam-tabulation-table").html('');
-                    alert("Marks Not Entry for this");
+                    alert('Mark not entry this class');
                 }
   
 

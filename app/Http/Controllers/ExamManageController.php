@@ -563,7 +563,7 @@ class ExamManageController extends Controller
                 }
             } else {
                 // No exam marks found
-                return response()->json(['message' => 'Exam marks not found'], 404);
+                return response()->json(['message' => 'Exam marks not found']);
             }
         } catch (Exception $e) {
             // Handle exceptions

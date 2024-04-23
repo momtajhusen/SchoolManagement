@@ -277,8 +277,6 @@ class StudentController extends Controller
                 $student->save();
             }
 
-
-
                 // Start Admission date
                     $admission_date = Carbon::parse($request->input("admission_date"));
                     $admission_year = $admission_date->year;

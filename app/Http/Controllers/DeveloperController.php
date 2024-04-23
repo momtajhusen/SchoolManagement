@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\HelperController\StudentAccountFee;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Student;
 use App\Models\FeePayment;
 use App\Models\StudentsFeeStracture;
+use Carbon\Carbon;
+
 
 use App\Models\JoinleaveDates;
 use App\Models\FeestractureMonthly;
 use App\Models\FeestractureOnetime;
 use App\Models\FeestractureQuarterly;
 
-
  
-
 
 class DeveloperController extends Controller
 {
@@ -104,51 +105,56 @@ class DeveloperController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    public function NewAccountStudentFeeSet(Request $request){
+        $studentsQuery = Student::query();
+        $pageSize = 100; // Number of records to process per batch
+    
+        $totalStudents = $studentsQuery->count();
+        $totalPages = ceil($totalStudents / $pageSize);
+    
+        for ($page = 1; $page <= $totalPages; $page++) {
+            $studentsdata = $studentsQuery->forPage($page, $pageSize)->get();
+    
+            foreach ($studentsdata as $student) {
+                // Start Admission date
+                $class_year = 2081;
+                $class = $student->class;
+    
+                $admission_year =  '2081';
+ 
+    
+     
+                    $start_month = 0;
+    
+                // End Admission date
+                $st_id = $student->id;
+    
+                if (!StudentsFeeStracture::where('st_id', $st_id)->where('year', '2081')->first()) {
+                    ///////////////// Start New Account Student Fee Set ////////////
+                        StudentAccountFee::setStudentFees($class, $start_month, $class_year, $admission_year, $request, $st_id);
+                    ///////////////// End New Account Student Fee Set ////////////
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        //
-    }
+                    $FeestractureOnetime = FeestractureOnetime::where('class', $class)->first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+                    $studentFeeStructure = new StudentsFeeStracture();
+                    $studentFeeStructure->st_id = $st_id;
+                    $studentFeeStructure->year = $class_year;
+                    $studentFeeStructure->month = 1;
+                    $studentFeeStructure->fee_type = 'annual charge';
+                    $studentFeeStructure->amount = $FeestractureOnetime->annual_charge;
+                    $studentFeeStructure->fee_stracture_type = 'prev_year';
+                    $studentFeeStructure->save();
+                    $StudentsFeeStracture = StudentsFeeStracture::where('st_id', $st_id)->where('year', $class_year)->where('fee_type', 'admission_fee')->delete();
+    
+                    echo 'fee set success';
+                } else {
+                    echo 'already set';
+                }
+            }
+        }
     }
+    
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id): RedirectResponse
-    {
-        //
-    }
+ 
 }
