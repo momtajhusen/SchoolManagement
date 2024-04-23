@@ -343,7 +343,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item sidebar-nav-item d-none">
+                        {{-- <li class="nav-item sidebar-nav-item d-none">
                             <a href="#" class="nav-link d-flex">
                                 <span class="material-symbols-outlined mr-3" style="font-size:20px;color:#ff9d37">pie_chart</span>
                                 <span class="menu-name">New Finance Analysis</span>
@@ -377,7 +377,7 @@
                                    </a>
                                 </li>  
                             </ul>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item sidebar-nav-item" id="old-account-menu">
                             <a href="#" class="nav-link d-flex" id="account-btn">
