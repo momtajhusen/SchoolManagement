@@ -63,6 +63,8 @@ function GetCategoryData(){
 
     $(".select-category").html(`<option value="">Select Categories</option>`);
     $(".category-table").html('');
+
+    
     $.ajax({
         url: "/get-items-all-category",
         method: "GET",

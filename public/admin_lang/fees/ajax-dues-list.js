@@ -234,28 +234,34 @@ $(document).ready(function(){
 
 
                                     if (feeType && Object.keys(feeType).length > 0) {
-                                      var FeeType = "";
-                                      var FeeIndex = 1;
-                                      
-                                      Object.keys(feeType).forEach(function(key) {
-                                        var sn = FeeIndex++;
-                                        var feeAmount = feeType[key] || 0;
-
-                                        var parts = feeAmount.split(",");
-                                        var fee = parseInt(parts[0], 10);
-                                        var month = parseInt(parts[1], 10);
-
-                                        FeeType += `
-                                          <tr style="border: 0px solid #000000;text-align: left;padding: 15px;">
-                                            <td style="border: 1px solid #000000; font-size:13px; padding:5px; padding-left:10px;">`+sn+`</td>
-                                            <td style="border: 1px solid #000000; font-size:13px; padding:5px; padding-left:10px;">`+key+`</td>
-                                            <td style="border: 1px solid #000000; font-size:13px; padding:5px; padding-left:10px;">`+month+`</td>
-                                            <th style="border: 1px solid #000000;text-align: center;padding: 5px;padding-left: 15px;font-size:13px;" id="bill-totalfee">`+fee+`</th>
-                                          </tr>
-                                        `;
-                                      });
+                                        var FeeType = "";
+                                        var FeeIndex = 1;
+            
+                                        Object.keys(feeType).forEach(function(key) {
+                                            var sn = FeeIndex++;
+                                            var feeAmount = feeType[key] || 0;
+            
+                                            // Check if feeAmount is a string before splitting
+                                            if (typeof feeAmount === 'string') {
+                                                var parts = feeAmount.split(",");
+                                                var fee = parseInt(parts[0], 10);
+                                                var month = parseInt(parts[1], 10);
+                                            } else {
+                                                // If feeAmount is not a string, set fee and month to 0
+                                                var fee = feeAmount;
+                                                var month = '';
+                                            }
+            
+                                            FeeType += `
+                                                <tr style="border: 0px solid #000000;text-align: left;padding: 15px;">
+                                                    <td style="border: 1px solid #000000; font-size:13px; padding:5px; padding-left:10px;">`+sn+`</td>
+                                                    <td style="border: 1px solid #000000; font-size:13px; padding:5px; padding-left:10px;">`+key+`</td>
+                                                    <td style="border: 1px solid #000000; font-size:13px; padding:5px; padding-left:10px;">`+month+`</td>
+                                                    <th style="border: 1px solid #000000;text-align: center;padding: 5px;padding-left: 15px;font-size:13px;" id="bill-totalfee">`+fee+`</th>
+                                                </tr>
+                                            `;
+                                        });
                                     }
-                                    
                                     
                                     if(prevBlanc == "0") {
                                         var preve_tr = "display:none;";

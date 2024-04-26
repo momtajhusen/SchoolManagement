@@ -58,6 +58,11 @@ $(document).ready(function()
                 year: current_year,
                 months: JSON.stringify(monthsArray),
             },
+            beforeSend: function () {
+                $(".fee_stracture").html(`<tr><td colspan='2' class='text-center'>
+                    <span class="material-symbols-outlined">clock_loader_10</span>
+                </td></tr>`);
+              },
             success: function (response) {
                 console.log(response);
                 $(".fee_stracture").html("");

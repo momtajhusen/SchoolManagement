@@ -1021,6 +1021,25 @@ class StudentAccountFee extends Controller
             $joinLeaveEntry->exam_fee  =  $exam_json;
             $joinLeaveEntry->save();
         }
+
+        public static function updateOrCreateFeeGenerated($request, $st_id, $student, $i, $MonthFeeGenerate) {
+            $feeGenerated = FeeGenerated::where("class_year", $request->year)->where('st_id', $st_id)->first();
+        
+            if ($feeGenerated) {
+                $feeGenerated->{'month_'.$i} = $MonthFeeGenerate;
+                $feeGenerated->save();
+            } else {
+                $newRecord = new FeeGenerated();
+                $newRecord->st_id = $st_id;
+                $newRecord->class = $student->class;
+                $newRecord->class_year = $request->year; 
+                $newRecord->{'month_'.$i} = $MonthFeeGenerate; 
+                $newRecord->save();
+            }
+        }
+        
+
+
     /////////////////////////////// End Old Account Fee Set /////////////////////////
  
 

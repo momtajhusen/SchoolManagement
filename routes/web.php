@@ -495,6 +495,15 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
    Route::get('/get-items-category-change', 'App\Http\Controllers\StockStoreController@GetItemsCategoryChange');
    Route::post('/admin/delete-item', 'App\Http\Controllers\StockStoreController@DeleteItem');
 
+   Route::post('/admin/sell-items', 'App\Http\Controllers\StockStoreController@SellItems');
+
+   Route::get('/get-inventory-purchase-history', 'App\Http\Controllers\StockStoreController@purchaseHistory');
+
+   Route::post('/purchase-history-reset', 'App\Http\Controllers\StockStoreController@purchaseHistoryReset');
+
+
+
+
    Route::post('/admin/add-items-in-stock', 'App\Http\Controllers\StockStoreController@AddItemsInStock');
    Route::get('/admin/get-items-in-stock', 'App\Http\Controllers\StockStoreController@GetItemsInStock');
 
@@ -661,6 +670,7 @@ Route::get('/command/migrate_specific', function () {
            'database/migrations/2024_03_17_172954_create_students_fee_discs_table.php',
            'database/migrations/2024_03_19_070225_create_students_fee_paid_histories_table.php',
            'database/migrations/2024_03_27_104300_create_students_fee_for_resets_table.php',
+           'database/migrations/2024_04_24_062816_create_items_sell_histories_table.php',
        ]
    ]);
 });

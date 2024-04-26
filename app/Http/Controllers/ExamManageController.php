@@ -517,7 +517,12 @@ class ExamManageController extends Controller
 
                         }
 
-                        $total_obt_percentage = number_format(($total_obt_marks / $total_exam_marks) * 100, 2);
+                        if ($total_exam_marks != 0) {
+                            $total_obt_percentage = number_format(($total_obt_marks / $total_exam_marks) * 100, 2);
+                        } else {
+                            $total_obt_percentage = 0; 
+                        }
+                        
                         if ($total_obt_percentage > 0) {
                             
                                 $grade = ExamGrade::where('from', '<=', $total_obt_percentage)

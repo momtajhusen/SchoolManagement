@@ -81,6 +81,7 @@
        .bill-box{
           background-color: #631a1a;
        }
+
     </style>
 @endsection
 
@@ -116,7 +117,7 @@
 
     <!-- All Subjects Area Start Here -->
     <div class="row">
-        <div class="col-8-xxxl col-12">
+        <div class="col-12">
             <div class="card height-auto">
                 <div class="card-body">
                     <div class="heading-layout1 row d-flex justify-content-between align-items-center">
@@ -204,19 +205,19 @@
                     </div>
             
                         <div class="row">
-                            <div class="col-lg-4 col-12 form-group p-0 pr-1">
+                            <div class="col-lg-3 col-12 form-group p-0 pr-1">
                                 <label>Class *</label>
                                 <select name="class" required class="select2 class-select" id="class-select" style="height:50px;width:100%;">
     
                                 </select>
                             </div>
-                            <div class="col-xl-4 col-lg-6 col-12 form-group p-0 pr-1">
+                            <div class="col-lg-3 col-12 form-group p-0 pr-1">
                                 <label>Section *</label>
                                 <select class="select2 section-select" required name="section">
                                     <option value="">Please Select Section *</option>
                                 </select>
                             </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group p-0 pr-1">
+                            <div class="col-lg-3 col-12 form-group p-0 pr-1">
                                 <label>OrderBy</label>
                                 <select class="select2" id="order_by" required name="section">
                                      <option value="NetPay_b_a">Net Pay High to Low</option>
@@ -231,7 +232,7 @@
                                      <option value="id_a_b">st_id Low to High</option>
                                 </select>
                             </div>
-                            <div class="col-2-xxxl col-xl-1 col-lg-2 col-12 form-group p-0 pr-1">
+                            <div class="col-lg-2 col-12 form-group p-0 pr-1">
                                     <br>
                                     <button class="fw-btn-fill btn-gradient-yellow btn search-btn enter-click" id="search-btn" style="height:50px">Search</button>
                                 </div>
@@ -240,9 +241,9 @@
                         <div class="d-flex">
                             <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="border-radius: 0%; box-shadow:none;">
                         </div>
-                        <div class="table-responsive">
+                        <div>
                             <table class="table data-table text-nowrap table-sm table-bordered sortable-table" id="myTable">
-                            <thead>
+                            <thead class="sticky">
                                 <tr>
                                 <th  data-column="0">SN.</th>
                                 <th  data-column="1">Photo</th>

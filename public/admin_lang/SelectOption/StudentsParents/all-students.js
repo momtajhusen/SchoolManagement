@@ -13,7 +13,7 @@ $(document).ready(function(){
             
             response.studentsData.forEach(function(student) {
                 $(".admit-students-select").append(`
-                    <option value="${student.parent_id}">${'id: '+student.student_id+' '+'name: '+student.student_name}</option>
+                    <option st_id='${student.student_id}' value="${student.parent_id}">${'id: '+student.student_id+' '+'name: '+student.student_name}</option>
                 `);
             });
             

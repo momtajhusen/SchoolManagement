@@ -18,6 +18,9 @@ use App\Models\EmployeesSalariesPaymentHistories;
 
 use App\Models\TeacherMonthsAttendance;
 use App\Models\StaffAttendance;
+
+use App\Models\ItemsSellHistories;
+
  
 
 class ReporstArea extends Controller
@@ -71,6 +74,7 @@ class ReporstArea extends Controller
                                                                     ->whereRaw("MONTH(date) = ?", [$month])
                                                                     ->sum('load_amount');
         }
+        
         
         // Start GenerateFee All Months
             $generateMonthsAmount = FeeGenerated::where("class_year", $year)->selectRaw('

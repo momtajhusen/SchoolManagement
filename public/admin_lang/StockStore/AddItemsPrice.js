@@ -74,6 +74,10 @@ function GetAllItems(){
 
             if (response.Data.length > 0) {
 
+
+                $(".select-items").append(`
+                   <option class="class-option"price='0' value="">Select Items</option>
+                 `);
                 for (var i = 0; i < response.Data.length; i++) {
                     var item = response.Data[i]; 
                     $(".items-table").append(`
@@ -97,7 +101,7 @@ function GetAllItems(){
                     `);
 
                     $(".select-items").append(`
-                      <option class="class-option" value="`+item.items+`">`+item.items+`</option>
+                      <option class="class-option" price='${item.price}' value="`+item.id+`">`+item.items+`</option>
                     `);
                 }
             } else {

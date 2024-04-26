@@ -172,7 +172,7 @@
                                     </div>
                                   </div>
                                   <div class="col-lg-2 col-12 form-group d-flex align-items-end">
-                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow py-2" visitorbtn="btn" btnName="Save Result">Save Result</button>
+                                    <button type="submit" class="fw-btn-fill btn-gradient-yellow py-2 save-btn d-none" visitorbtn="btn" btnName="Save Result">Save Result</button>
                                   </div>
                                 </form>
                                 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('class',10)->nullable();
             $table->string('fee_name',10)->nullable();
-            $table->integer('amount',10)->nullable();
+            $table->decimal('amount', 10, 2)->default(0);
             $table->string('fee_type',10)->nullable();
             $table->timestamps();
         });

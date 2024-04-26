@@ -30,9 +30,6 @@ $(document).ready(function(){
          },
          beforeSend: function() 
          {
-          // setting a timeout
-         //   $(".loading-th").removeClass("d-none");
- 
            $(".marks-entry").html(`
            <th colspan="10" class="border loading-th">
                  <center class="d-flex justify-content-center">
@@ -53,6 +50,8 @@ $(document).ready(function(){
              $(".loading-th").addClass("d-none");
  
              if(response.message != "data not found"){
+                
+                $('.save-btn').removeClass('d-none');
  
                  var select_subject = $(".select-subject").val();
  
@@ -218,6 +217,7 @@ $(document).ready(function(){
  $(document).ready(function(){
      $("#select_exam, .subject-class, .section-select, .select-subject, .class-select").on("change", function(){
          $(".marks-entry").html('');
+         $('.save-btn').addClass('d-none');
      });
  });
  

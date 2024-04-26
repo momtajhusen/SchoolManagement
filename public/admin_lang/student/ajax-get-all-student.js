@@ -22,6 +22,9 @@ function AllStudent(url){
     var student_search_select =  $(".student-search-select").val();
     var student_input_search = $(".student-input-search").val();
 
+    var from_admission_date = $('#from-admission-date').val();
+    var to_admission_date = $('#to-admission-date').val();
+
 
     $.ajax({
         url: url,
@@ -29,6 +32,8 @@ function AllStudent(url){
         data:{
             student_search_select : student_search_select,
             student_input_search : student_input_search,
+            from_admission_date:from_admission_date,
+            to_admission_date:to_admission_date,
         },
         beforeSend: function() 
         {
@@ -119,6 +124,8 @@ function AllStudent(url){
               var classes = response.data.data[increase].class;
               var section = response.data.data[increase].section;
               var roll_no = response.data.data[increase].roll_no;
+              var admission_date = response.data.data[increase].admission_date;
+
 
 
  
@@ -142,10 +149,10 @@ function AllStudent(url){
               <td>`+classes+`</td>
               <td>`+roll_no+`</td>
               <td>`+section+`</td>
+              <td>`+admission_date+`</td>
               <td>`+parent_id+`</td>
               <td>`+father_name+`</td>
               <td>`+village+` `+ward_no+`, `+municipality+`, `+district+` </td>
-              <td>`+dob+`</td>
               <td>`+phone+`</td>
                <td>
                   <div class="dropdown">
@@ -234,6 +241,9 @@ $(document).ready(function() {
         // remove hostel select 
         $("#hostel-select").removeClass("student-input-search");
         $("#select-hostel-col").addClass("d-none");
+
+        $(".admission-class-col").addClass('d-none');
+
       }
 
       if(selectedOption == "hostel_outi")
@@ -250,6 +260,9 @@ $(document).ready(function() {
         // remove class select 
         $("#class-select").removeClass("student-input-search");
         $("#select-class-col").addClass("d-none");
+
+        $(".admission-class-col").addClass('d-none');
+
       }
 
       else if(selectedOption == "first_name"){
@@ -266,6 +279,9 @@ $(document).ready(function() {
         // remove hostel select 
         $("#hostel-select").removeClass("student-input-search");
         $("#select-hostel-col").addClass("d-none");
+
+        $(".admission-class-col").addClass('d-none');
+
       }
 
       else if(selectedOption == "village"){
@@ -282,6 +298,9 @@ $(document).ready(function() {
            // remove hostel select 
            $("#hostel-select").removeClass("student-input-search");
            $("#select-hostel-col").addClass("d-none");
+
+        $(".admission-class-col").addClass('d-none');
+
       }
       else if(selectedOption == "phone"){
         $("#student-input").attr("placeholder", "Enter Student Mobile Number");
@@ -294,6 +313,9 @@ $(document).ready(function() {
 
         $("#hostel-select").removeClass("student-input-search");
         $("#select-hostel-col").addClass("d-none");
+
+        $(".admission-class-col").addClass('d-none');
+
       }
       else if(selectedOption == "email"){
         $("#student-input").attr("placeholder", "Enter Student Email");
@@ -306,6 +328,9 @@ $(document).ready(function() {
 
         $("#hostel-select").removeClass("student-input-search");
         $("#select-hostel-col").addClass("d-none");
+
+        $(".admission-class-col").addClass('d-none');
+
       }
       else if(selectedOption == "id"){
         $("#student-input").attr("placeholder", "Enter Student Id");
@@ -318,6 +343,9 @@ $(document).ready(function() {
 
         $("#hostel-select").removeClass("student-input-search");
         $("#select-hostel-col").addClass("d-none");
+
+        $(".admission-class-col").addClass('d-none');
+
       }
 
       else if(selectedOption == "parents_id"){
@@ -331,6 +359,24 @@ $(document).ready(function() {
 
         $("#hostel-select").removeClass("student-input-search");
         $("#select-hostel-col").addClass("d-none");
+
+        $(".admission-class-col").addClass('d-none');
+
+      }
+
+     
+      else if(selectedOption == "admission_date"){
+    
+        $("#input-class-col").addClass("d-none");
+ 
+        $("#select-class-col").addClass("d-none");
+ 
+        $("#select-hostel-col").addClass("d-none");
+
+        $(".admission-class-col").removeClass('d-none');
+ 
+        $('.search-btn').click();
+ 
       }
 
  

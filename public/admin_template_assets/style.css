@@ -4413,3 +4413,12 @@ ul {
 .text-orange-red {
   color: #ff0000;
 }
+
+
+.sticky {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0; /* Stick to the top */
+  z-index: 1000; /* Optional: Adjust z-index as needed */
+  background-color: white; /* Optional: Add background color */
+}

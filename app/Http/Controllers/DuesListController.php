@@ -30,6 +30,8 @@ use App\Models\Classes;
 use App\Models\ClassTotalFeePayment;
 use App\Models\ClassTotalFeeDiscount;
 use App\Models\DuesAmount;
+use App\Models\ItemsSellHistories;
+
 
 
 class DuesListController extends Controller
@@ -147,10 +149,72 @@ class DuesListController extends Controller
                     $StudentsFreeFee = ManageFreeStudents::where('st_id', $data->id)->first();
 
                     $duesAmount = DuesAmount::where("st_id", $data->id)->where("class_year", $current_year)->first();
+                    $FeeTypeWithAmount = [];
+
+
+                ///////////////////// Start Inventory Particular ///////////////////////////
+                for ($i = 0; $i < $length; $i++) 
+                {
+
+                    $numerMonth = (int) str_replace("month_", "", $months[$i]);
+
+                    $ItemsSellHistories = ItemsSellHistories::where('st_id', $data->id)->where('month', $numerMonth)->where('status', 'Dues')->get();
+
+                    if(!$ItemsSellHistories->isEmpty()) {
+
+                        $total_inventry_amount = 0;
+                        foreach($ItemsSellHistories as $ItemsHistory) {
+
+                            $HistoryMonth = $ItemsHistory->month;
+                            $HistoryFeeYear = $ItemsHistory->fee_year;
+
+                            $PurchaseArray = json_decode($ItemsHistory->particulars_data);
+
+
+                            $column = 'month_'.$HistoryMonth; 
+                           $DuesAmount = DuesAmount::where("st_id",$data->id)->where("class_year", $HistoryFeeYear)->first();
+                           if($DuesAmount){
+                            if($duesAmount->$column == null){
+                                if ($ItemsHistory->paid == 0) {
+                                    foreach ($PurchaseArray as $Purchase) {
+                                        $itemName = $Purchase->itemName;
+                                        $amount = $Purchase->amount;
+                                        $quantity = $Purchase->quantity;
+
+                                        $total_inventry_amount += $amount;
+                                
+                                        // Check if the item already exists in the array, if yes, add the amount
+                                        if (isset($FeeTypeWithAmount[$itemName])) {
+                                            $FeeTypeWithAmount[$itemName] += $amount;
+                                        } else {
+                                            $FeeTypeWithAmount[$itemName] = $amount;
+                                        }
+                                    }
+                                } else {
+                                    // Use a separate variable to accumulate item names
+                                    $itemNames = '';
+                                    foreach ($PurchaseArray as $Purchase) {
+                                        $itemNames .= $Purchase->itemName.', '; // Concatenate item names
+                                    }
+                                
+                                    // Assign concatenated item names as key and dues as value in FeeTypeWithAmount array
+                                    $FeeTypeWithAmount[$itemNames] = $ItemsHistory->dues;
+
+                                    $total_inventry_amount += $ItemsHistory->dues;
+
+                                }
+                             } 
+                           }
+                       
+                        }
+
+                        $totalFeesForStudent += $total_inventry_amount;
+                    }
+                }
+            ///////////////////// End Inventory Particular ///////////////////////////
 
  
                     /////////// Start Check Admission Fee ///////////
-                           $FeeTypeWithAmount = [];
                             $admissionAmount = $FeestractureOnetime->admission_fee ?? 0;
 
                             // Start admission joining month check than add month

@@ -70,6 +70,11 @@ class StudentController extends Controller
             $student_search_select = $request->student_search_select;
             $student_input_search = $request->student_input_search;
 
+            $from_admission_date = $request->from_admission_date;
+            $to_admission_date = $request->to_admission_date;
+
+
+
             if ($student_input_search != "") {
                 if ($student_search_select == "phone" || $student_search_select == "email" || $student_search_select == "id" || $student_search_select == "parents_id") 
                 {
@@ -97,7 +102,24 @@ class StudentController extends Controller
                         $student['parent_data'] = $parent;
                     }
                 }
-            } else {
+            } 
+            if($student_search_select == 'admission_date'){
+
+                $this->student_response = Student:: whereRaw("STR_TO_DATE(admission_date, '%Y-%m-%d') BETWEEN ? AND ?", [$from_admission_date, $to_admission_date])->where("admission_status", "admit")->paginate(100);
+
+
+                // Parents
+                $this->parent_response = Parents::whereIn('id', $this->student_response->pluck('parents_id'))->get();
+                $data = $this->student_response->toArray();
+                $parentData = $this->parent_response->toArray();
+                foreach ($data['data'] as &$student) {
+                    $parentId = $student['parents_id'];
+                    $parent = collect($parentData)->firstWhere('id', $parentId);
+                    $student['parent_data'] = $parent;
+                }
+            }
+            else {
+ 
                 $this->student_response = Student::orderByRaw("FIELD(class, 'PG', 'NURSERY', 'LKG', 'UKG', '1ST', '2ND', '3RD'), roll_no")->where("admission_status", "admit")->paginate(10);
 
                 // Parents

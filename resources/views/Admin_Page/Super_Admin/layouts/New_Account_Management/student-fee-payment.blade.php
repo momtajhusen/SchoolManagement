@@ -201,7 +201,7 @@
 
 
 @section('contents')
-   <div><h5>Student Fee Payment</h5></div>
+   <div><h5>Puchase  Items</h5></div>
 
    <!-- Start Fee Payment  Modal -->
       <div class="modal fade" id="feePaymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

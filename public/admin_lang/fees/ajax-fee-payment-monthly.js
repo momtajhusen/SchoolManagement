@@ -531,7 +531,6 @@ $(document).ready(function(){
   $(".payment-table").on("click", ".take-pay", function () 
   {
 
-
     // unchecked if any checkbox checked
     $(".form-check-input").each(function()
     {
@@ -574,15 +573,19 @@ $(document).ready(function(){
           year: current_year,
           select_month : select_month,
       },
+      beforeSend: function () {
+        $(".fee_stracture").html(`<tr><td colspan='2' class='text-center'>
+            <span class="material-symbols-outlined">clock_loader_10</span>
+        </td></tr>`);
+      },
       success: function (response) {
          console.log(response);
 
-
+         $(".fee_stracture").html("");
         //  return false;
           //  $("#actual_dues").val(response.DuesAmount);
           //  $("#payment").val(dues_fee);
 
-          $(".fee_stracture").html("");
           var feeTypeWithAmount = response.FeeTypeWithAmount;
           var feeTypeMonth = [];
 
@@ -821,3 +824,4 @@ $("body").on("click", "#feetype_checkbox", function() {
 });
 });
  
+
