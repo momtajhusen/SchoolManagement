@@ -325,11 +325,16 @@
 
                 setTimeout(function() {
                     printWindow.print();
-                    printWindow.close();
-                    $("#bill-modal-cancle").click();
+                    // Move the printWindow.close() inside a callback function
+                    // This function will execute after printing or if the user cancels the print dialog
+                    printWindow.onafterprint = function() {
+                        printWindow.close();
+                        $("#bill-modal-cancle").click();
+                    };
                 }, 500);
             });
         });
+
 
         $(document).ready(function() {
             // Function to handle the export

@@ -207,7 +207,7 @@ $(document).ready(function(){
                                               <img id="school_logo" src="`+currentDomainWithProtocol+`/storage/`+logo_img+`" style="height:50px; margin: 15px;border:1px solid #f0f1f3;">
                                             </div>
                                             <div style="width:50%; height: 100%; display:flex; justify-content:center; align-items:center; ">
-                                                <h3 style="margin-top: 20px; font-weight: bolder;">INVOICE</h3>
+                                                <h3 style="margin-top: 20px; font-weight: bolder;">DUES INVOICE</h3>
                                             </div>
                                         </div>
                                        
@@ -353,20 +353,24 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('#printInvoice').click(function() {
-      var content = $('#invoice-box').html();
-      var printWindow = window.open('', '', 'height=800,width=800');
-      var left = (screen.width / 2) - (800 / 2);
-      var top = (screen.height / 2) - (800 / 2);
-      printWindow.moveTo(left, top);
-      printWindow.document.write('<html><head><title>Print</title></head><body>');
-      printWindow.document.write(content);
-      printWindow.document.write('</body></html>');
-      printWindow.document.close();
-  
-      setTimeout(function() {
-        printWindow.print();
-        printWindow.close();
-        $("#bill-modal-cancle").click();
-      }, 500); // Delay of 0.5 second (1000 ms)
+        var content = $('#invoice-box').html();
+        var printWindow = window.open('', '', 'height=800,width=800');
+        var left = (screen.width / 2) - (800 / 2);
+        var top = (screen.height / 2) - (800 / 2);
+        printWindow.moveTo(left, top);
+        printWindow.document.write('<html><head><title>Print</title></head><body>');
+        printWindow.document.write(content);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+
+        setTimeout(function() {
+            printWindow.print();
+            // Move the printWindow.close() inside a callback function
+            // This function will execute after printing or if the user cancels the print dialog
+            printWindow.onafterprint = function() {
+                printWindow.close();
+                $("#bill-modal-cancle").click();
+            };
+        }, 500);
     });
-  });
+});

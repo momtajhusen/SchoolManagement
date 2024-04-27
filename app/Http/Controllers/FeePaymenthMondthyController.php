@@ -145,13 +145,9 @@ class FeePaymenthMondthyController extends Controller
                         
                             $month = 'month_'.$SellMonth;
                         
-                            $duesAmount = DuesAmount::where("st_id", $student_id)->where("class_year", $SellYear)->first();
                         
-                            if ($duesAmount) {
-                                if ($duesAmount->$month === null) { // Checking if the property exists and then its value
                                     $feeMonthly[$month] += $SellDues;
-                                }
-                            } 
+                        
                         }
                     ///////////////////// End Inventory Check ///////////////////////////
 
