@@ -47,6 +47,7 @@ class DuesListController extends Controller
         try {
             $class = $request->select_class;
             $section = $request->select_section;
+            $select_student = $request->select_student;
 
             $months = json_decode($request->input('selectmonth'));
             $lastIndex = count($months);
@@ -58,11 +59,36 @@ class DuesListController extends Controller
  
 
             if ($class == 'all_class' && $section == 'all_section') {
-                $response = Student::where("class_year", $current_year)->where("admission_status", "admit")->get();
+                if($select_student == 'current_student'){
+                    $response = Student::where("class_year", $current_year)->where("admission_status", "admit")->get();
+                }else if($select_student == 'kick_out_student'){
+                    $response = Student::where("admission_status", "kick-out")->get();
+                    
+                }else if($select_student == 'pass_out_student'){
+                    $response = Student::where("admission_status", "pass-out")->get();
+                    
+                }
             } elseif ($class != 'all_class' && $section == 'all_section') {
-                $response = Student::where("class", $class)->where("class_year", $current_year)->where("admission_status", "admit")->get();
+                if($select_student == 'current_student'){
+                    $response = Student::where("class", $class)->where("class_year", $current_year)->where("admission_status", "admit")->get();
+                }else if($select_student == 'kick_out_student'){
+                    $response = Student::where("class", $class)->where("admission_status", "kick-out")->get();
+
+                }else if($select_student == 'pass_out_student'){
+                    $response = Student::where("class", $class)->where("admission_status", "pass-out")->get();
+                    
+                }
             } else {
-                $response = Student::where("class", $class)->where('section', $section)->where("class_year", $current_year)->where("admission_status", "admit")->get();
+                if($select_student == 'current_student'){
+                  $response = Student::where("class", $class)->where('section', $section)->where("class_year", $current_year)->where("admission_status", "admit")->get();   
+                }
+                if($select_student == 'kick_out_student'){
+                  $response = Student::where("class", $class)->where('section', $section)->where("admission_status", "kick-out")->get();   
+                    
+                }
+                if($select_student == 'pass_out_student'){
+                    $response = Student::where("class", $class)->where('section', $section)->where("admission_status", "pass-out")->get();     
+                }
             }
             
 
@@ -122,7 +148,15 @@ class DuesListController extends Controller
                     // Fetch FeeFree
 
                     //////////// Start Prev Year Dues  /////////// 
+
+                    if ($data->admission_status == 'admit') {
+                        // For currently admitted students, fetch fee payment records from previous years
                         $YearFeeResponse = FeePayment::where('class_year', '<>', $current_year)->where('st_id', $data->id)->get();
+                    } else {
+                        // For kick-out or pass-out students, fetch fee payment records for the current year
+                        $YearFeeResponse = FeePayment::where('st_id', $data->id)->get();
+                    }
+
                         $TotalFee = 0;
                         $TotalPayment = 0;
                         $TotalDis= 0;
@@ -152,7 +186,7 @@ class DuesListController extends Controller
                     $FeeTypeWithAmount = [];
 
 
-                ///////////////////// Start Inventory Particular ///////////////////////////
+            ///////////////////// Start Inventory Particular ///////////////////////////
                 for ($i = 0; $i < $length; $i++) 
                 {
 

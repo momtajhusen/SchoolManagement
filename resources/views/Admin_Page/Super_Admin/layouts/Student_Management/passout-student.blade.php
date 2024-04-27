@@ -34,7 +34,7 @@
 
     <!-- All Payment Table -->
     <div class="row">
-        <div class="col-4-xxxl col-12">
+        <div class="col-12">
             <div class="card height-auto">
                 <div class="card-body">
                     <div class="heading-layout1">
@@ -44,27 +44,27 @@
                     </div>
     
                         <div class="row">
-                            <div class="col-12-xxxl col-lg-2 col-12 form-group">
+                            <div class=" col-lg-3 col-12 form-group">
                                 <label>Passout Year *</label>
                                 <select name="class" class="select2 select-year" id="select-year">
     
                                 </select>
                             </div>
-                        <div class="col-12-xxxl col-lg-4 col-12 form-group">
+                        <div class=" col-lg-3 col-12 form-group">
                                 <label>Class *</label>
                                 <select name="class" class="select2 class-select" id="class-select" style="height:50px;width:100%; padding:10px;background:#f0f1f3;border:0px;">
                                     <option value="">Passout Class :</option>
                                 </select>
                             </div>
     
-                            <div class="col-12-xxxl roll-box col-lg-4 col-12 form-group animate__animated">
+                            <div class="roll-box col-lg-3 col-12 form-group animate__animated">
                                 <label>Select Student *</label>
                                 <select name="period" class="select2 student-select">
                                     <option value="">Passout Student :</option>
                                 </select>
                             </div>
                             <input type="hidden" id="student_id" value="0">
-                            <div class="col-2-xxxl col-xl-2 col-lg-2 col-12 form-group" >
+                            <div class="col-lg-3 col-12 form-group" >
                                 <br>
                                 <button class="fw-btn-fill btn-gradient-yellow btn search-btn form-group animate__animated" style="height:50px">SEARCH</button>
                             </div>

@@ -218,18 +218,12 @@
                                 </select>
                             </div>
                             <div class="col-lg-3 col-12 form-group p-0 pr-1">
-                                <label>OrderBy</label>
-                                <select class="select2" id="order_by" required name="section">
-                                     <option value="NetPay_b_a">Net Pay High to Low</option>
-                                     <option value="NetPay_a_b">Net Pay Low to High</option>
-                                     <option value="BackYearFee_b_a">Prev Year High to Low</option>
-                                     <option value="BackYearFee_a_b">Prev Year Low to High</option>
-                                     <option value="PreviusBlance_b_a">Prev Bal High to Low</option>
-                                     <option value="PreviusBlance_a_b">Prev Bal Low to High</option>
-                                     <option value="totalFeesForStudent_b_a">Total Fee High to Low</option>
-                                     <option value="totalFeesForStudent_a_b">Total Fee Low to High</option>
-                                     <option value="id_b_a">st_id High to Low</option>
-                                     <option value="id_a_b">st_id Low to High</option>
+                                <label>Select Student</label>
+                                <select class="select2" id="select_student" required name="section">
+                                     <option value="current_student">Current Student</option>
+                                     <option value="kick_out_student">Kick Out Student</option>
+                                     <option value="pass_out_student">PassOut Students</option>
+
                                 </select>
                             </div>
                             <div class="col-lg-2 col-12 form-group p-0 pr-1">

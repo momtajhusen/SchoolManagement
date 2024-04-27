@@ -30,7 +30,7 @@
 
     <!-- All Payment Table -->
     <div class="row">
-        <div class="col-4-xxxl col-12">
+        <div class="col-12">
             <div class="card height-auto">
                 <div class="card-body">
                     <div class="heading-layout1">
@@ -40,14 +40,14 @@
                     </div>
     
                         <div class="row">
-                            <div class="col-12-xxxl roll-box col-lg-10 col-12 form-group animate__animated">
+                            <div class="roll-box col-lg-10 col-12 form-group animate__animated">
                                 <label>Select Student *</label>
                                 <select name="period" class="select2 student-select">
                                     <option value="">Passout Student :</option>
                                 </select>
                             </div>
                             <input type="hidden" id="student_id" value="0">
-                            <div class="col-2-xxxl col-xl-2 col-lg-2 col-12 form-group" >
+                            <div class="col-xl-2 col-lg-2 col-12 form-group" >
                                 <br>
                                 <button class="fw-btn-fill btn-gradient-yellow btn search-btn form-group animate__animated" style="height:50px">SEARCH</button>
                             </div>

@@ -8,14 +8,16 @@ $(document).ready(function(){
             var numChecked = checkedBoxes.length;
             var select_class =  $("#class-select").val();
             var select_section =  $(".section-select").val();
+            var select_student = $('#select_student').val();
+
 
             var current_date = current_year+"-"+current_month+"-"+current_day;
 
             $(".studnt-table").html(``);
             $(".print-section").html(``);
 
-            if(numChecked != "0")
-            {
+            // if(numChecked != "0")
+            // {
                 ///////// Start Select Month Set ////////
                 var MonthArry = {
                     "month_0": "Baishakh",
@@ -68,6 +70,7 @@ $(document).ready(function(){
                         select_section:select_section,
                         selectmonth:JSON.stringify(SelectMonth),
                         current_year:current_year,
+                        select_student:select_student,
                         },
                         beforeSend: function() 
                         {
@@ -107,19 +110,19 @@ $(document).ready(function(){
 
 
                                 // Sortable 
-                                var order_by = $("#order_by").val(); 
+                                // var order_by = $("#order_by").val(); 
 
-                                var orderParts = order_by.split('_');
-                                var sortByProperty = orderParts[0]; 
-                                var sortOrder = orderParts[1] === 'a' ? 'asc' : 'desc';  
+                                // var orderParts = order_by.split('_');
+                                // var sortByProperty = orderParts[0]; 
+                                // var sortOrder = orderParts[1] === 'a' ? 'asc' : 'desc';  
  
-                                response.data.sort(function(a, b) {
-                                    if (sortOrder === 'asc') {
-                                        return a[sortByProperty] - b[sortByProperty];
-                                    } else {
-                                        return b[sortByProperty] - a[sortByProperty];
-                                    }
-                                });
+                                // response.data.sort(function(a, b) {
+                                //     if (sortOrder === 'asc') {
+                                //         return a[sortByProperty] - b[sortByProperty];
+                                //     } else {
+                                //         return b[sortByProperty] - a[sortByProperty];
+                                //     }
+                                // });
 
                                 var count = 0;
                                 var index = 1;
@@ -448,14 +451,14 @@ $(document).ready(function(){
                  `);
                     
                 }
-            }
-            else{
-                $(".studnt-table").html(``); 
-                $(".studnt-table").append(`
-                   <th colspan="7" class="border"><center>Please Select Months</center></th>
-                `);
-                $(".total-row").addClass("d-none");
-            }
+            // }
+            // else{
+            //     $(".studnt-table").html(``); 
+            //     $(".studnt-table").append(`
+            //        <th colspan="7" class="border"><center>Please Select Months</center></th>
+            //     `);
+            //     $(".total-row").addClass("d-none");
+            // }
     });
 });
 
@@ -467,7 +470,7 @@ $(document).ready(function(){
        }
    })
 
-   $("#order_by").on("change", function(){
+   $("##select_student").on("change", function(){
         if($("#class-selec").val() != "" && $(".section-select").val() != ""){
             $("#search-btn").click();
         }

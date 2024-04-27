@@ -18,8 +18,9 @@ $(document).ready(function(){
            response.StudentData.forEach(function(student){
 
                var student_name = student.first_name+" "+student.middle_name+" "+student.last_name;
+               var st_id = student.id;
 
-                $(".student-select").append(`<option value="`+student.id+`">`+student_name+`</option>`);
+                $(".student-select").append(`<option value="`+student.id+`">id: ${st_id} name: ${student_name}</option>`);
 
            });
 
