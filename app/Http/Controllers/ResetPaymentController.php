@@ -50,30 +50,40 @@ class ResetPaymentController extends Controller
             // Back Year Payment Reset 
             if ($current_year != $reset_year) 
             { 
-                // LastPaymentStore For ReSet 
-                $last_payment = FeePayment::where(['class_year' => $reset_year, 'st_id' => $student_id])->first();
+                    // Retrieve last payment for reset
+                    $last_payment = FeePayment::where(['class_year' => $reset_year, 'st_id' => $student_id])->first();
 
-                $last_payment_save = LastPaymentForReset::where(['class' => $reset_class, 'class_year' => $reset_year, 'st_id' => $student_id])->first();
+                    // Retrieve last payment for reset save
+                    $last_payment_save = LastPaymentForReset::where(['class' => $reset_class, 'class_year' => $reset_year, 'st_id' => $student_id])->first();
 
-                $feePayment = FeePayment::where('class', $current_class)->where('st_id', $student_id)->where('class_year', $current_year)->first();
-                $feePayment->reset_status = "reset";
+                    // Retrieve current fee payment
+                    $feePayment = FeePayment::where('class', $current_class)
+                        ->where('st_id', $student_id)
+                        ->where('class_year', $current_year)
+                        ->first();
 
-                for ($i = 0; $i <= 11; $i++) {
-                    $last_payment->{"month_$i"} = $last_payment_save->{"month_$i"};
-                }
+                    // Update last payment record
+                    if ($last_payment && $last_payment_save) {
+                        for ($i = 0; $i <= 11; $i++) {
+                            $last_payment->{"month_$i"} = $last_payment_save->{"month_$i"};
+                        }
 
-                $last_payment->total_payment = $last_payment_save->total_payment;
-                $last_payment->total_fee = $last_payment_save->total_fee;
-                $last_payment->total_discount = $last_payment_save->total_discount;
-                
-
-                if ($last_payment->save() && $feePayment->save()) {
-                    if (PaymentHistory::destroy($history_id)) {
-                        echo "Reset Success";
+                        $last_payment->total_payment = $last_payment_save->total_payment;
+                        $last_payment->total_fee = $last_payment_save->total_fee;
+                        $last_payment->total_discount = $last_payment_save->total_discount;
                     }
-                } else {
-                    echo "Reset Failed";
-                }
+
+                    // Save changes
+                    if ($last_payment) {
+                        $last_payment_saved = $last_payment->save();
+
+                        if (PaymentHistory::destroy($history_id)) {
+                            echo "Reset Success";
+                        } else {
+                            echo "Failed to delete payment history";
+                        }
+                    }
+ 
             }
             // Monthly payment and Multi Payment Reset 
             else {

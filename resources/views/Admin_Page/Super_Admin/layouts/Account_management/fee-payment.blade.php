@@ -1790,7 +1790,7 @@
                                 <img  class="school_logo" src="#" style="height:50px; margin: 15px;border:1px solid #f0f1f3;">
                                 </div>
                                 <div style="width:50%; height: 100%; display:flex; justify-content:center; align-items:center; ">
-                                    <h3 style="margin-top: 25px; color:#000;">INVOICE</h3>
+                                    <h3 style="margin-top: 25px; color:#000;">PAYMENT INVOICE</h3>
                                 </div>
                             </div>
                             <!-- End Bill Header  --> 
