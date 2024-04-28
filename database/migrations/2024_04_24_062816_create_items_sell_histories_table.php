@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('st_id')->nullable()->length(10); // Changed to 'length' for defining integer length
             $table->year('fee_year')->nullable();
             $table->integer('month')->nullable();
+            $table->integer('months')->nullable();
             $table->longtext('particulars_data')->nullable();
             $table->decimal('amount', 10, 2)->default(0);
             $table->decimal('paid', 10, 2)->default(0);

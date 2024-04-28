@@ -330,11 +330,11 @@
                                     <span class="menu-name">Salary</span>
                                    </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{route('class-finance')}}" class="nav-link"><i class="fas fa-angle-right"></i>
                                     <span class="menu-name">Financial Class</span>
                                    </a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a href="{{route('expense-reports')}}"  class="nav-link"><i class="fas fa-angle-right"></i>
                                     <span class="menu-name">Expenses</span>

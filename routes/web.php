@@ -33,6 +33,9 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       Route::get('/get-exam-term', 'App\Http\Controllers\ExamManageController@index_exam_term');
       Route::get('/process-exam-term', 'App\Http\Controllers\ExamManageController@process_exam_term');
 
+      Route::get('/current-year-process-exam-term', 'App\Http\Controllers\ExamManageController@current_year_process_exam_term');
+
+
 
       Route::post('/entry-mark', 'App\Http\Controllers\ExamManageController@entry_mark');
       Route::get('/get-studen-mark-entry', 'App\Http\Controllers\ExamManageController@index_studen_mark_entry');
@@ -646,19 +649,7 @@ Route::group(['middleware' => 'StudentAccountLogin'], function () {
 Route::get('/command/storage', function () {
   Artisan::call('storage:link');
 });
-
-Route::get('/command/migrate_fresh', function () {
-  Artisan::call('migrate:fresh');
-});
-
-Route::get('/command/migrate', function () {
-  Artisan::call('migrate');
-});
-
-// Route::get('/command/migrate', function () {
-//   Artisan::call('migrate');
-// });
-
+ 
 
 Route::get('/command/migrate_specific', function () {
    Artisan::call('migrate', [
@@ -674,5 +665,3 @@ Route::get('/command/migrate_specific', function () {
        ]
    ]);
 });
- 
- 

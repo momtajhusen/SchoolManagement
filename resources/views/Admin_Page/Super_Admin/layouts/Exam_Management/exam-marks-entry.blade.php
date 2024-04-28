@@ -59,8 +59,7 @@
                                         <div class="col-lg-3 col-12 form-group">
                                             <label>Exam *</label>
                                             <select name="exam" required class="select2 select-process-term" id="select_exam" style="height:50px;width:100%; padding:10px;background:#f8f8f8; outline: none; border:none;">
-
-    
+                                                
                                             </select>
                                         </div>
                                         <div class="col-lg-2 col-12 form-group">
