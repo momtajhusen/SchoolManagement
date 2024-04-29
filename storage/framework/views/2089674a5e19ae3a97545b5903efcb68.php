@@ -1,0 +1,1 @@
+<?php /**PATH /home/u569470620/domains/mustlearn.in/public_html/Sunrise_School/resources/views/Super_Admin/layouts/Student_Management/registration-list.blade.php ENDPATH**/ ?>

@@ -21,7 +21,6 @@
         <!-- Ajax CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
 
-
          <!-- ajax  -->
         <script src="{{ asset('admin_lang/accountLogin/ajax-login.js')}}?v={{ time() }}"></script> 
 
