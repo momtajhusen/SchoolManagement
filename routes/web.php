@@ -33,6 +33,12 @@ Route::view('/user-login', 'Admin_Page/user_login')->name('user_login');
       Route::get('/get-exam-term', 'App\Http\Controllers\ExamManageController@index_exam_term');
       Route::get('/process-exam-term', 'App\Http\Controllers\ExamManageController@process_exam_term');
 
+<<<<<<< HEAD
+=======
+      Route::get('/current-year-process-exam-term', 'App\Http\Controllers\ExamManageController@current_year_process_exam_term');
+
+
+>>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
 
       Route::post('/entry-mark', 'App\Http\Controllers\ExamManageController@entry_mark');
       Route::get('/get-studen-mark-entry', 'App\Http\Controllers\ExamManageController@index_studen_mark_entry');
@@ -646,6 +652,7 @@ Route::group(['middleware' => 'StudentAccountLogin'], function () {
 Route::get('/command/storage', function () {
   Artisan::call('storage:link');
 });
+<<<<<<< HEAD
 
 Route::get('/command/migrate_fresh', function () {
   Artisan::call('migrate:fresh');
@@ -659,6 +666,9 @@ Route::get('/command/migrate', function () {
 //   Artisan::call('migrate');
 // });
 
+=======
+ 
+>>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
 
 Route::get('/command/migrate_specific', function () {
    Artisan::call('migrate', [
@@ -673,6 +683,10 @@ Route::get('/command/migrate_specific', function () {
            'database/migrations/2024_04_24_062816_create_items_sell_histories_table.php',
        ]
    ]);
+<<<<<<< HEAD
 });
  
  
+=======
+});
+>>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3

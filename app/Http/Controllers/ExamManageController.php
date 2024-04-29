@@ -67,6 +67,32 @@ class ExamManageController extends Controller
         }
     }
 
+<<<<<<< HEAD
+=======
+    public function current_year_process_exam_term(Request $request){
+        try {
+
+            $current_year = $request->current_year;
+
+            $response = ExamTerm::where("result_status", "process")->where('year', $current_year)->get();
+
+            if (count($response) != "0") {
+                foreach ($response as $data) {
+                    array_push($this->Exam_Term_Data, $data);
+                }
+
+                return response(array("CurrentYearprocessTerm" => $this->Exam_Term_Data), 200);
+            } else {
+                return response()->json(['message' => 'current year exam term not found'], 200);
+            }
+        } catch (Exception $e) {
+            // Code to handle the exception
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
+    }
+
+>>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
     /**
      * Show the form for creating a new resource.
      */
@@ -86,6 +112,11 @@ class ExamManageController extends Controller
                 $exam_term->exam_name  = $request->input("exam_name");
                 $exam_term->description  = $request->input("description") ?? '';
                 $exam_term->session  = $request->input("session") ?? '';
+<<<<<<< HEAD
+=======
+                $exam_term->result_status  =  'process';
+
+>>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
     
                 if ($exam_term->save()) {
                     return response()->json(['status' => "Add Successfully"]);

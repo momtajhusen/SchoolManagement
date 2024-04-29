@@ -330,11 +330,19 @@
                                     <span class="menu-name">Salary</span>
                                    </a>
                                 </li>
+<<<<<<< HEAD
                                 <li class="nav-item">
                                     <a href="{{route('class-finance')}}" class="nav-link"><i class="fas fa-angle-right"></i>
                                     <span class="menu-name">Financial Class</span>
                                    </a>
                                 </li>
+=======
+                                {{-- <li class="nav-item">
+                                    <a href="{{route('class-finance')}}" class="nav-link"><i class="fas fa-angle-right"></i>
+                                    <span class="menu-name">Financial Class</span>
+                                   </a>
+                                </li> --}}
+>>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
                                 <li class="nav-item">
                                     <a href="{{route('expense-reports')}}"  class="nav-link"><i class="fas fa-angle-right"></i>
                                     <span class="menu-name">Expenses</span>

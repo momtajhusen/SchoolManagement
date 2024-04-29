@@ -633,21 +633,30 @@ class ComposerStaticInit2d693f5a9ed210c533145e1139be38e4
         'App\\Models\\FeeStructure' => __DIR__ . '/../..' . '/app/Models/FeeStructure.php',
         'App\\Models\\FeestractureMonthly' => __DIR__ . '/../..' . '/app/Models/FeestractureMonthly.php',
         'App\\Models\\FeestractureOnetime' => __DIR__ . '/../..' . '/app/Models/FeestractureOnetime.php',
+<<<<<<< HEAD
         'App\\Models\\FeestractureOthers' => __DIR__ . '/../..' . '/app/Models/FeestractureOthers.php',
+=======
+>>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
         'App\\Models\\FeestractureQuarterly' => __DIR__ . '/../..' . '/app/Models/FeestractureQuarterly.php',
         'App\\Models\\HostelFee' => __DIR__ . '/../..' . '/app/Models/HostelFee.php',
         'App\\Models\\ItemsAddStockHistory' => __DIR__ . '/../..' . '/app/Models/ItemsAddStockHistory.php',
         'App\\Models\\ItemsCategory' => __DIR__ . '/../..' . '/app/Models/ItemsCategory.php',
         'App\\Models\\ItemsInStock' => __DIR__ . '/../..' . '/app/Models/ItemsInStock.php',
         'App\\Models\\ItemsPrice' => __DIR__ . '/../..' . '/app/Models/ItemsPrice.php',
+<<<<<<< HEAD
         'App\\Models\\ItemsSellHistories' => __DIR__ . '/../..' . '/app/Models/ItemsSellHistories.php',
+=======
+>>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
         'App\\Models\\JoinleaveDates' => __DIR__ . '/../..' . '/app/Models/JoinleaveDates.php',
         'App\\Models\\LastDiscountsForReset' => __DIR__ . '/../..' . '/app/Models/LastDiscountsForReset.php',
         'App\\Models\\LastDuesForReset' => __DIR__ . '/../..' . '/app/Models/LastDuesForReset.php',
         'App\\Models\\LastFreeFeeForReset' => __DIR__ . '/../..' . '/app/Models/LastFreeFeeForReset.php',
         'App\\Models\\LastPaymentForReset' => __DIR__ . '/../..' . '/app/Models/LastPaymentForReset.php',
         'App\\Models\\ManageFreeStudents' => __DIR__ . '/../..' . '/app/Models/ManageFreeStudents.php',
+<<<<<<< HEAD
         'App\\Models\\OtherFee' => __DIR__ . '/../..' . '/app/Models/OtherFee.php',
+=======
+>>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
         'App\\Models\\Parents' => __DIR__ . '/../..' . '/app/Models/Parents.php',
         'App\\Models\\PassOutStudent' => __DIR__ . '/../..' . '/app/Models/PassOutStudent.php',
         'App\\Models\\PaymentHistory' => __DIR__ . '/../..' . '/app/Models/PaymentHistory.php',

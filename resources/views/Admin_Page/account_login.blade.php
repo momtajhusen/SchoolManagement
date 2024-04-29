@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ACCOUNT</title>
+    <title>ACCOUNT LOGIN</title>
         <!-- Main CSS -->
         <link rel="stylesheet" href="admin_template_assets/css/main.css">
         <!-- Bootstrap CSS -->
@@ -122,9 +122,7 @@
                                     </div>
                                     <div class="form-group position-relative">
                                         <label class="text-light">Password</label>
-                                        {{-- <input type="password" required name="password" id="super-admin-psd" placeholder="Password" class="form-control w-100"> --}}
-                                        <input type="password" required name="password" id="super-admin-psd" placeholder="Password" class="form-control w-100" autocomplete>
-
+                                        <input type="password" required name="password" id="super-admin-psd" placeholder="Password" class="form-control w-100">
                                         <span class="material-symbols-outlined position-absolute" id="eye-icon" style="cursor:pointer;top:45px;right:10px;font-size:20px;">visibility_off</span>
                                     </div>
                                     <br>

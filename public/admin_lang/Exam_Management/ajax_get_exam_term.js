@@ -151,4 +151,68 @@ $(document).ready(function () {
         },
     });
 
+<<<<<<< HEAD
+=======
+});
+
+
+// Retrive Current Year Terms
+$(document).ready(function () {
+    $(".select-current-year-process-term").html('');
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: "/current-year-process-exam-term",
+        method: "GET",
+        data:{
+            current_year,current_year,
+        },
+        success: function (response) {
+            console.log(response);
+ 
+
+ 
+            if (response.CurrentYearprocessTerm) {
+                var count = 0;
+                $(".select-current-year-process-term").append(`
+                  <option class="exam-option">Select Exam Term</option>
+               `);
+                response.CurrentYearprocessTerm.forEach(function (data) {
+
+                    // alert();
+                    var increase = count++;
+                    var id = data.id;
+                    var exam_name = data.exam_name;
+                    var year = data.year;
+
+                  $(".select-current-year-process-term").append(`
+                   <option class="exam-option" value="`+exam_name+`" exam_id="`+id+`">`+exam_name+' '+year+`</option>
+                `);
+
+                });
+            } else {
+                $(".exam-term-table").append(`
+             <tr>
+             <td>Not Any Exam Created.</td>
+             </tr>
+             `);
+             $('.term-message').html('current year process exam term not found');
+            }
+
+            // if(response.data[0].notice)
+            // {
+            //     alert("no data");
+            // }
+        },
+        error: function (xhr, status, error) 
+        {
+            console.log(xhr.responseText);
+        },
+    });
+
+>>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
 });
