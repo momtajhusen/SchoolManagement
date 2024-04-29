@@ -140,11 +140,7 @@ $(document).ready(function () {
                 } else {
                     $(".submit-btn").addClass("d-none");
                     $(".alert-danger").removeClass("d-none");
-<<<<<<< HEAD
-                    // $(".alert-text").html(response.status);
-=======
                     $(".alert-text").html(response.status);
->>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
 
                     setTimeout(function () {
                         $(".alert-danger").addClass("d-none");

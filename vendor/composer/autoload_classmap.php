@@ -105,30 +105,21 @@ return array(
     'App\\Models\\FeeStructure' => $baseDir . '/app/Models/FeeStructure.php',
     'App\\Models\\FeestractureMonthly' => $baseDir . '/app/Models/FeestractureMonthly.php',
     'App\\Models\\FeestractureOnetime' => $baseDir . '/app/Models/FeestractureOnetime.php',
-<<<<<<< HEAD
     'App\\Models\\FeestractureOthers' => $baseDir . '/app/Models/FeestractureOthers.php',
-=======
->>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
     'App\\Models\\FeestractureQuarterly' => $baseDir . '/app/Models/FeestractureQuarterly.php',
     'App\\Models\\HostelFee' => $baseDir . '/app/Models/HostelFee.php',
     'App\\Models\\ItemsAddStockHistory' => $baseDir . '/app/Models/ItemsAddStockHistory.php',
     'App\\Models\\ItemsCategory' => $baseDir . '/app/Models/ItemsCategory.php',
     'App\\Models\\ItemsInStock' => $baseDir . '/app/Models/ItemsInStock.php',
     'App\\Models\\ItemsPrice' => $baseDir . '/app/Models/ItemsPrice.php',
-<<<<<<< HEAD
     'App\\Models\\ItemsSellHistories' => $baseDir . '/app/Models/ItemsSellHistories.php',
-=======
->>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
     'App\\Models\\JoinleaveDates' => $baseDir . '/app/Models/JoinleaveDates.php',
     'App\\Models\\LastDiscountsForReset' => $baseDir . '/app/Models/LastDiscountsForReset.php',
     'App\\Models\\LastDuesForReset' => $baseDir . '/app/Models/LastDuesForReset.php',
     'App\\Models\\LastFreeFeeForReset' => $baseDir . '/app/Models/LastFreeFeeForReset.php',
     'App\\Models\\LastPaymentForReset' => $baseDir . '/app/Models/LastPaymentForReset.php',
     'App\\Models\\ManageFreeStudents' => $baseDir . '/app/Models/ManageFreeStudents.php',
-<<<<<<< HEAD
     'App\\Models\\OtherFee' => $baseDir . '/app/Models/OtherFee.php',
-=======
->>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
     'App\\Models\\Parents' => $baseDir . '/app/Models/Parents.php',
     'App\\Models\\PassOutStudent' => $baseDir . '/app/Models/PassOutStudent.php',
     'App\\Models\\PaymentHistory' => $baseDir . '/app/Models/PaymentHistory.php',
