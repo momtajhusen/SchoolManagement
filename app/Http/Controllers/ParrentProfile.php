@@ -12,6 +12,10 @@ use App\Models\StudentsFeeMonth;
 use App\Models\Student;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use Carbon\Carbon;
+
+use App\Models\FeestractureOnetime;
+use App\Models\FeestractureQuarterly;
 
 
 class ParrentProfile extends Controller
@@ -132,7 +136,7 @@ class ParrentProfile extends Controller
             // end StudentsFeeMonth add 
 
             //Sum total_fee, total_paid, total_disc, total_dues
-            StudentAccountFee::StudentsFeeMonthsCalculate();
+            StudentAccountFee::StudentsFeeMonthsCalculate($st_id);
         
             // Return success response
             return response()->json(['status' => 'Fee structures saved successfully'], 200);
@@ -180,7 +184,7 @@ class ParrentProfile extends Controller
                     $StudentsFeeMonthdata->save();
 
                     //Sum total_fee, total_paid, total_disc, total_dues
-                    StudentAccountFee::StudentsFeeMonthsCalculate();
+                    StudentAccountFee::StudentsFeeMonthsCalculate($st_id);
                 }
             
                 return response()->json(['status' => 'delete successfully'], 200);
@@ -218,7 +222,7 @@ class ParrentProfile extends Controller
             }
 
             //Sum total_fee, total_paid, total_disc, total_dues
-            StudentAccountFee::StudentsFeeMonthsCalculate();
+            StudentAccountFee::StudentsFeeMonthsCalculate($st_id);
 
             return response()->json(['status' => 'delete successfully'], 200);
 
@@ -260,7 +264,7 @@ class ParrentProfile extends Controller
                     );
 
                     //Sum total_fee, total_paid, total_disc, total_dues
-                    StudentAccountFee::StudentsFeeMonthsCalculate();
+                    StudentAccountFee::StudentsFeeMonthsCalculate($st_id);
 
                     return response()->json(['status' => 'add successfully'], 200);
                 }
@@ -301,6 +305,46 @@ class ParrentProfile extends Controller
             $fee_amount = $request->input('fee_amount');
             $st_id =  $request->st_id;
             $year =  $request->year;
+
+
+            $Student = Student::where('id',  $st_id)->first();
+            $class = $Student->class;
+
+            // Start Admission date
+            $admission_date = Carbon::parse($Student->admission_date);
+            $admission_year = $admission_date->year;
+
+
+            $FeestractureOnetime = FeestractureOnetime::where('class', $class)->first();
+            $admission_fee = $FeestractureOnetime->admission_fee;
+            $annual_charge = $FeestractureOnetime->annual_charge;
+            $saraswati_puja = $FeestractureOnetime->saraswati_puja;
+
+
+            $FeestractureQuarterly = FeestractureQuarterly::where('class', $class)->first();
+            $exam_fee = $FeestractureQuarterly->exam_fee * 4;
+
+            echo $exam_fee;
+
+                        
+            if($year != $admission_year)
+            {
+                $admission_fee = 0;
+                $annual_charge =  $annual_charge;
+
+            }
+            else{
+                $admission_fee = $admission_fee;
+                $annual_charge =  0;
+            } 
+
+            echo $capture_fix_amount = $admission_fee +  $annual_charge + $saraswati_puja + $exam_fee;
+
+       
+
+
+
+
 
             // Delete existing fee structures for the same st_id, year, and month
             StudentsFeeStracture::where('st_id', $st_id)->where('year', $year)->whereIn('month', $checkedMonths)->delete();

@@ -10,6 +10,8 @@ use App\Models\Driver;
 use App\Models\VehicleRoot;
 use App\Models\JoinleaveDates;
 use App\Models\Student;
+use App\Models\Employee;
+
 
 
 use Exception;
@@ -99,7 +101,7 @@ class VehicleController extends Controller
         try {
             if (!Vehicle::where('vehicle_number', $request->input("vehicle_number"))->exists()) {
 
-                $driver = Driver::where("id", $request->input("driver_id"))->first();
+                $driver = Employee::where("id", $request->input("driver_id"))->first();
 
                 $vehicle = new Vehicle;
                 $vehicle->vehicle_type  = $request->input("vehicle_type");
