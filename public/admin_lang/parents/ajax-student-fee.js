@@ -47,6 +47,8 @@ $(document).ready(function(){
 
                 var feeYear = response.student.fee_year;
                 var st_id = response.student.st_id;
+                var annualfee = response.student.annualfee;
+
 
                 $("#month_feestracture").html('');
                 $.each(studentFeeStracture, function(month, feeDetails) {
@@ -109,6 +111,11 @@ $(document).ready(function(){
                         </div>
                     `);
                 });
+
+                $('.total-fee-student').html(removeTrailingZeros(annualfee));
+                $('.fee-year').html(feeYear);
+
+  
  
         },
         error: function (xhr, status, error) {

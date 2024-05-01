@@ -255,16 +255,6 @@ class StockStoreController extends Controller
             $status = 'Dues';
         }
 
-<<<<<<< HEAD
-        $duesAmount = DuesAmount::where("st_id", $st_id)
-        ->where("class_year", $current_year)
-        ->first();
-        
-        if ($duesAmount) {
-            for ($i = 0; $i < 11; $i++){
-                $column = 'month_'.$i;
-                $value = $duesAmount->$column; // Accessing the value of the column dynamically
-=======
         $duesAmountOld = DuesAmount::where("st_id", $st_id)
         ->where("class_year", $current_year)
         ->first();
@@ -279,7 +269,6 @@ class StockStoreController extends Controller
             for ($i = 0; $i < 11; $i++){
                 $column = 'month_'.$i;
                 $value = $duesAmountOld->$column; // Accessing the value of the column dynamically
->>>>>>> 0981ca2f451b75d53f172842175003e92a932ce3
         
                 if ($value === null) {
                     $month = $i;

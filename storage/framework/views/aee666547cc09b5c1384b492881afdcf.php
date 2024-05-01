@@ -1447,7 +1447,7 @@
     </div>
     
     <div class="row">
-    <div class="col-12">
+    <div class="col-4-xxxl col-12">
         <div class="card height-auto">
             <div class="card-body">
                 <div class="heading-layout1 d-flex justify-content-between">
@@ -1463,14 +1463,14 @@
                 </div>
 
                     <div class="row" id="class_student_row">
-                        <div class="col-lg-5 col-12 form-group">
+                        <div class="col-12-xxxl col-lg-5 col-12 form-group">
                             <label>Class *</label>
                             <select name="class" class="select2 class-select" id="class-select" style="height:50px;width:100%; padding:10px;background:#f0f1f3;border:0px;">
 
                             </select>
                         </div>
 
-                        <div class="roll-box col-lg-5 col-12 form-group animate__animated">
+                        <div class="col-12-xxxl roll-box col-lg-5 col-12 form-group animate__animated">
                             <label>Select Student *</label>
                             <select name="period" class="select2 student-select" id="student-select">
                                 <option value="">Please Select Student :</option>
@@ -1478,7 +1478,7 @@
                         </div>
  
                         <input type="hidden" id="student_id" value="0">
-                        <div class="col-lg-2 col-12 form-group" >
+                        <div class="col-2-xxxl col-xl-2 col-lg-2 col-12 form-group" >
                             <br>
                             <button class="fw-btn-fill btn-gradient-yellow btn search-btn form-group animate__animated" style="height:50px">SEARCH</button>
                         </div>
@@ -1500,7 +1500,7 @@
         </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-8-xxxl col-12">
     <div class="card height-auto">
     <div class="card-body px-3 px-md-5">
             <div class="item-title">
@@ -1655,7 +1655,7 @@
             <div>
                 <div class="w-100" style="overflow-x:scroll;">
                   <table class="table table-dark table-bordered text-center table-hover table-sm">
-                    <thead class="sticky">
+                    <thead>
                         <tr style="background-color: #000">
                             <th scope="col">SN:</th>
                             <th scope="col">Month</th>
@@ -1782,7 +1782,7 @@
                                 <img  class="school_logo" src="#" style="height:50px; margin: 15px;border:1px solid #f0f1f3;">
                                 </div>
                                 <div style="width:50%; height: 100%; display:flex; justify-content:center; align-items:center; ">
-                                    <h3 style="margin-top: 25px; color:#000;">PAYMENT INVOICE</h3>
+                                    <h3 style="margin-top: 25px; color:#000;">INVOICE</h3>
                                 </div>
                             </div>
                             <!-- End Bill Header  --> 

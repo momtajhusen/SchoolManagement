@@ -415,7 +415,7 @@
 
               <div class="col-12">
                     <div class="st_header border p-2 d-flex justify-content-between">
-                       <b>Student Fee Stracture</b> 
+                       <b>Student Fee Stracture <span class="fee-year"> </span></b> 
 
                        <div>
                           <button class="btn material-symbols-outlined border deal-icon" data-toggle="modal" data-target="#dealModal" data-toggle="tooltip" data-placement="bottom" title="Add New Fee">toll</button>
@@ -425,6 +425,10 @@
                     </div>
                     <div class="p-2 d-flex flex-column"  id='month_feestracture'>
                           {{-- Retrive Months  --}}
+                    </div>
+                    <div class="d-flex p-3" style="border:1px solid #042954">
+                        <b>Total Fee : </b>
+                        <b class="total-fee-student"> 000</b>
                     </div>
               </div>
          </div>

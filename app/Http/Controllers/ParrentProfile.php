@@ -34,6 +34,7 @@ class ParrentProfile extends Controller
             }
 
             $student_data = Student::where("parents_id", $parent_id)->get();
+            
 
             return response()->json(['parent_data' => $parent_data, 'student_data' => $student_data], 200);
         } 
@@ -306,6 +307,23 @@ class ParrentProfile extends Controller
             $st_id =  $request->st_id;
             $year =  $request->year;
 
+            $start_month =  $checkedMonths[0];
+
+
+
+            // Exam Month Detect 
+            $exam_month = 0;
+            $quarterlyCount = count(array_intersect([3, 6, 9, 12], $checkedMonths));
+            if ($quarterlyCount == 4) {
+                $exam_month = 4;
+            } elseif ($quarterlyCount == 2) {
+                $exam_month = 2;
+            } elseif ($quarterlyCount == 3) {
+                $exam_month = 3;
+            } elseif (in_array(1, $checkedMonths)) {
+                $exam_month = 1;
+            }
+
 
             $Student = Student::where('id',  $st_id)->first();
             $class = $Student->class;
@@ -322,29 +340,27 @@ class ParrentProfile extends Controller
 
 
             $FeestractureQuarterly = FeestractureQuarterly::where('class', $class)->first();
-            $exam_fee = $FeestractureQuarterly->exam_fee * 4;
+            $exam_fee = $FeestractureQuarterly->exam_fee;
 
-            echo $exam_fee;
+            $exam_fee_month = $FeestractureQuarterly->exam_fee * $exam_month;
 
-                        
-            if($year != $admission_year)
-            {
-                $admission_fee = 0;
-                $annual_charge =  $annual_charge;
-
-            }
-            else{
-                $admission_fee = $admission_fee;
-                $annual_charge =  0;
-            } 
-
-            echo $capture_fix_amount = $admission_fee +  $annual_charge + $saraswati_puja + $exam_fee;
-
-       
+                   
+      
+            $admission_fee = in_array('admission_fee', $checkedfeeType) ? $admission_fee : 0;
+            $annual_charge = in_array('annual_charge', $checkedfeeType) ? $annual_charge : 0;
+            $exam_fee = in_array('exam_fee', $checkedfeeType) ? $exam_fee : 0;
+            $exam_fee_month = in_array('exam_fee', $checkedfeeType) ? $exam_fee_month : 0;
+            $saraswati_puja = in_array('saraswati_puja_fee', $checkedfeeType) ? $saraswati_puja : 0;
 
 
 
+            
 
+
+             $capture_fix_amount = $admission_fee +  $annual_charge + $saraswati_puja + $exam_fee_month;
+
+
+             $fee_amount = $fee_amount - $capture_fix_amount;
 
             // Delete existing fee structures for the same st_id, year, and month
             StudentsFeeStracture::where('st_id', $st_id)->where('year', $year)->whereIn('month', $checkedMonths)->delete();
@@ -368,20 +384,35 @@ class ParrentProfile extends Controller
                 }
 
                 // Calculate amount per fee type for this month
-                $amountPerFeeType =  $dividedAmount / count($checkedfeeType);
+                $amountPerFeeType = in_array('admission_fee', $checkedfeeType) ||
+                                    in_array('annual_charge', $checkedfeeType) ||
+                                    in_array('exam_fee', $checkedfeeType) ||
+                                    in_array('saraswati_puja_fee', $checkedfeeType) ?
+                                    $dividedAmount :
+                                    $dividedAmount / count($checkedfeeType);
 
-                // Distribute amount for each fee type
-                foreach ($checkedfeeType as $feeType) {
-                    // Save the data to the database
-                    StudentsFeeStracture::create([
-                        'st_id' => $st_id,
-                        'year' =>  $year, 
-                        'month' => $month,
-                        'fee_type' => $feeType,
-                        'amount' => $amountPerFeeType,
-                        'fee_structure_type' => 'deal', 
-                    ]);
-                }
+                /////////////////////////////////////  Fee Distribute //////////////////////////////////
+
+                    // Distribute amount on Monthly Fee for each fee type   
+                    foreach ($checkedfeeType as $feeType) {
+                        // Check if the current fee type is one of the specified types
+                        if (!in_array($feeType, ['admission_fee', 'annual_charge', 'exam_fee', 'saraswati_puja_fee'])) {
+                            // Save the data to the database for these fee types
+                            StudentsFeeStracture::create([
+                                'st_id' => $st_id,
+                                'year' =>  $year, 
+                                'month' => $month,
+                                'fee_type' => $feeType,
+                                'amount' => $amountPerFeeType,
+                                'fee_structure_type' => 'deal', 
+                            ]);
+                        }
+                    }
+                    
+
+
+                /////////////////////////////////////  Fee Distribute //////////////////////////////////
+                                    
 
                 // Find or create a record in StudentsFeeMonth table
                 $studentsFeeMonth = StudentsFeeMonth::updateOrCreate(
@@ -393,6 +424,60 @@ class ParrentProfile extends Controller
                     ]
                 );
             }
+
+                // Admission Fee  Create 
+                if (in_array('admission_fee', $checkedfeeType)) {
+                    StudentsFeeStracture::create([
+                        'st_id' => $st_id,
+                        'year' =>  $year, 
+                        'month' => 1,
+                        'fee_type' => 'Admission Fee',
+                        'amount' => $admission_fee,
+                        'fee_structure_type' => 'deal', 
+                    ]);
+                } 
+
+                // Annual Charge  Create 
+                if (in_array('annual_charge', $checkedfeeType)) {
+                    StudentsFeeStracture::create([
+                        'st_id' => $st_id,
+                        'year' =>  $year, 
+                        'month' => 1,
+                        'fee_type' =>  'Annual Charge',
+                        'amount' => $annual_charge,
+                        'fee_structure_type' => 'deal', 
+                    ]);
+                } 
+
+                // Saraswati Puja Fee Create
+                if (in_array('saraswati_puja_fee', $checkedfeeType)) {
+                    StudentsFeeStracture::create([
+                        'st_id' => $st_id,
+                        'year' =>  $year, 
+                        'month' => 10,
+                        'fee_type' =>  'Saraswati Puja Fee',
+                        'amount' => $saraswati_puja,
+                        'fee_structure_type' => 'deal', 
+                    ]);
+                } 
+
+                // Exam Fee Create          
+                for ($i = 0; $i < $exam_month; $i++) {
+                    $monthExam  = [12, 9, 6, 3];
+
+                    StudentsFeeStracture::create([
+                        'st_id' => $st_id,
+                        'year' =>  $year, 
+                        'month' => $monthExam[$i],
+                        'fee_type' =>  'Exam Fee',
+                        'amount' => $exam_fee,
+                        'fee_structure_type' => 'deal', 
+                    ]);
+       
+                }
+
+                StudentAccountFee::StudentsFeeMonthsCalculate($st_id);
+
 
             // Return a success response
             return response()->json(['status' => 'Data saved successfully'], 200);

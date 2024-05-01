@@ -79,7 +79,6 @@
        .bill-box{
           background-color: #631a1a;
        }
-
     </style>
 <?php $__env->stopSection(); ?>
 
@@ -115,7 +114,7 @@
 
     <!-- All Subjects Area Start Here -->
     <div class="row">
-        <div class="col-12">
+        <div class="col-8-xxxl col-12">
             <div class="card height-auto">
                 <div class="card-body">
                     <div class="heading-layout1 row d-flex justify-content-between align-items-center">
@@ -203,28 +202,34 @@
                     </div>
             
                         <div class="row">
-                            <div class="col-lg-3 col-12 form-group p-0 pr-1">
+                            <div class="col-lg-4 col-12 form-group p-0 pr-1">
                                 <label>Class *</label>
                                 <select name="class" required class="select2 class-select" id="class-select" style="height:50px;width:100%;">
     
                                 </select>
                             </div>
-                            <div class="col-lg-3 col-12 form-group p-0 pr-1">
+                            <div class="col-xl-4 col-lg-6 col-12 form-group p-0 pr-1">
                                 <label>Section *</label>
                                 <select class="select2 section-select" required name="section">
                                     <option value="">Please Select Section *</option>
                                 </select>
                             </div>
-                            <div class="col-lg-3 col-12 form-group p-0 pr-1">
-                                <label>Select Student</label>
-                                <select class="select2" id="select_student" required name="section">
-                                     <option value="current_student">Current Student</option>
-                                     <option value="kick_out_student">Kick Out Student</option>
-                                     <option value="pass_out_student">PassOut Students</option>
-
+                            <div class="col-xl-3 col-lg-6 col-12 form-group p-0 pr-1">
+                                <label>OrderBy</label>
+                                <select class="select2" id="order_by" required name="section">
+                                     <option value="NetPay_b_a">Net Pay High to Low</option>
+                                     <option value="NetPay_a_b">Net Pay Low to High</option>
+                                     <option value="BackYearFee_b_a">Prev Year High to Low</option>
+                                     <option value="BackYearFee_a_b">Prev Year Low to High</option>
+                                     <option value="PreviusBlance_b_a">Prev Bal High to Low</option>
+                                     <option value="PreviusBlance_a_b">Prev Bal Low to High</option>
+                                     <option value="totalFeesForStudent_b_a">Total Fee High to Low</option>
+                                     <option value="totalFeesForStudent_a_b">Total Fee Low to High</option>
+                                     <option value="id_b_a">st_id High to Low</option>
+                                     <option value="id_a_b">st_id Low to High</option>
                                 </select>
                             </div>
-                            <div class="col-lg-2 col-12 form-group p-0 pr-1">
+                            <div class="col-2-xxxl col-xl-1 col-lg-2 col-12 form-group p-0 pr-1">
                                     <br>
                                     <button class="fw-btn-fill btn-gradient-yellow btn search-btn enter-click" id="search-btn" style="height:50px">Search</button>
                                 </div>
@@ -233,9 +238,9 @@
                         <div class="d-flex">
                             <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="border-radius: 0%; box-shadow:none;">
                         </div>
-                        <div>
+                        <div class="table-responsive">
                             <table class="table data-table text-nowrap table-sm table-bordered sortable-table" id="myTable">
-                            <thead class="sticky">
+                            <thead>
                                 <tr>
                                 <th  data-column="0">SN.</th>
                                 <th  data-column="1">Photo</th>
@@ -317,16 +322,11 @@
 
                 setTimeout(function() {
                     printWindow.print();
-                    // Move the printWindow.close() inside a callback function
-                    // This function will execute after printing or if the user cancels the print dialog
-                    printWindow.onafterprint = function() {
-                        printWindow.close();
-                        $("#bill-modal-cancle").click();
-                    };
+                    printWindow.close();
+                    $("#bill-modal-cancle").click();
                 }, 500);
             });
         });
-
 
         $(document).ready(function() {
             // Function to handle the export

@@ -653,7 +653,12 @@
                                         <span class="menu-name">Sell Items</span>
                                     </a>
                                 </li>  
-                                
+                                <li class="nav-item">
+                                    <a href="<?php echo e(route('sell-items')); ?>" class="nav-link">
+                                        <i class="fas fa-angle-right"></i>
+                                        <span class="menu-name">Sales History</span>
+                                    </a>
+                                </li> 
                                 <li class="nav-item">
                                     <a href="<?php echo e(route('items-in-stock')); ?>" class="nav-link">
                                         <i class="fas fa-angle-right"></i>

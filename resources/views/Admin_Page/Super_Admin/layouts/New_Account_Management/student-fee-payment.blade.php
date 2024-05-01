@@ -394,7 +394,7 @@
             <button class="fw-btn-fill btn-gradient-yellow btn hidden" id="search-btn" style="height:50px">Search</button>
          </div>
 
-         <div class="parent-details-box d-none">
+         <div class="parent-details-box">
             <div class="border p-1 d-flex justify-content-between">
                <span>Partent Details</span>
                <div class="d-flex">
@@ -422,6 +422,10 @@
                      <span class="pr-id">4556</span>
                    </div>
                    <span class="all_student_st" st_id='#'></span>
+    
+                   <div class="border p-2 my-3 text-center parent-profile-btn" style="width:150px;cursor:pointer;"></div>
+        
+
               </div>
             </div>
          </div>

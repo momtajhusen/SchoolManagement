@@ -89,67 +89,52 @@
                             </div>
                         </div>
                         </div>
- 
-                   
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <div class="row gutters-8">
-                                    
-                                    <div class="col-lg-5 col-12 form-group">
-                                        <select class="select2 student-search-select" name="student_blood_group">
-                                            <option value="">Select for search</option>
-                                            <option value="class">Class Name</option>
-                                            <option value="first_name">St First Name</option>
-                                            <option value="village">Village Name</option>
-                                            <option value="phone">Student Mobile</option>
-                                            <option value="email">Student Email</option>
-                                            <option value="id">st_id</option>
-                                            <option value="parents_id">pr_Id</option>
-                                            <option value="hostel_outi">hostel_outi</option>
-                                            <option value="admission_date">Admission Date</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-5 col-12 form-group d-none" id="input-class-col">
-                                        <input type="text" value="" maxlength="30" placeholder="Enter Student First Name ..." class="form-control student-input-search" id="student-input" style="height:100%;background:#f0f1f3;">
-                                    </div>
-        
-                                    <div class="col-lg-5 col-12 form-group" id="select-class-col">
-                                        <select name="class" required class="select2 class-select  student-input-search" id="class-select" style="height:50px;width:100%; padding:10px;">
-            
-                                        </select>
-                                    </div>
-        
-                                    <div class="col-lg-5 col-12 form-group d-none" id="select-hostel-col">
-                                        <select name="hostel" required class="select2 student-input-search" id="hostel-select" style="height:50px;width:100%; padding:10px;">
-                                           <option value="full-hostel">full-hostel</option>
-                                            <option value="half-hostel">half-hostel</option>
-                                            <option value="outi">outi</option>
-                                        </select>
-                                    </div>
 
-                                    <div class="col-lg-2 col-12 form-group admission-class-col d-none">
-                                        <input type="text" value="" maxlength="30" placeholder="Enter Admission From Date" class="form-control currentSatrtDate" id="from-admission-date" style="background:#f0f1f3;">
-                                    </div>
-                                    <div class="col-lg-3 col-12 form-group admission-class-col d-none">
-                                        <input type="text" value="" maxlength="30" placeholder="Enter Admission To Date" class="form-control currentDate" id="to-admission-date" style="background:#f0f1f3;">
-                                    </div>
-                                    
-        
-                                    <div class="col-lg-2 col-12 form-group">
-                                        <div class="fw-btn-fill btn-gradient-yellow text-center w-100 search-student d-flex justify-content-center align-items-center search-btn" style="height:100%;">SEARCH</div>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <div class="pl-1">
-                                        <span>Total Result :</span>
-                                        <span class="result_no"></span>
-        
-                                    </div>
-                                    
-                                </div>
+                        <div class="row gutters-8">
+                            
+                            <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                <select class="select2 student-search-select" name="student_blood_group">
+                                    <option value="">Select for search</option>
+                                    <option value="class">Class Name</option>
+                                    <option value="first_name">St First Name</option>
+                                    <option value="village">Village Name</option>
+                                    <option value="phone">Student Mobile</option>
+                                    <option value="email">Student Email</option>
+                                    <option value="id">st_id</option>
+                                    <option value="parents_id">pr_Id</option>
+                                    <option value="hostel_outi">hostel_outi</option>
+                                </select>
                             </div>
- 
-                 
+                            <div class="col-4-xxxl col-xl-7 col-lg-3 col-12 form-group d-none" id="input-class-col">
+                                <input type="text" value="" maxlength="30" placeholder="Enter Student First Name ..." class="form-control student-input-search" id="student-input" style="height:100%;background:#f0f1f3;">
+                            </div>
 
+                            <div class="col-4-xxxl col-xl-7 col-lg-3 col-12 form-group" id="select-class-col">
+                                <select name="class" required class="select2 class-select  student-input-search" id="class-select" style="height:50px;width:100%; padding:10px;">
+    
+                                </select>
+                            </div>
+
+                            <div class="col-4-xxxl col-xl-7 col-lg-3 col-12 form-group d-none" id="select-hostel-col">
+                                <select name="hostel" required class="select2 student-input-search" id="hostel-select" style="height:50px;width:100%; padding:10px;">
+                                   <option value="full-hostel">full-hostel</option>
+                                    <option value="half-hostel">half-hostel</option>
+                                    <option value="outi">outi</option>
+                                </select>
+                            </div>
+                            
+
+                            <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
+                                <div class="fw-btn-fill btn-gradient-yellow text-center w-100 search-student d-flex justify-content-center align-items-center search-btn" style="height:100%;">SEARCH</div>
+                            </div>
+
+                            <div class="pl-1">
+                                <span>Total Result :</span>
+                                <span class="result_no"></span>
+
+                            </div>
+                            
+                        </div>
 
                         <div class="table-responsive" style="position:relative;">
                             <table class="table display data-table text-nowrap table-sm exportTable">
@@ -162,10 +147,10 @@
                                         <th>Class</th>
                                         <th>Roll</th>
                                         <th>Section</th>
-                                        <th>Admission Date</th>
                                         <th>pr_id.</th>
                                         <th>Father Name</th>
                                         <th>Address</th>
+                                        <th>Date Of Birth</th>
                                         <th>Student Phone</th>
                                         <th>
                                             <div class="d-flex flex-column align-items-center ml-1 export-excell-btn" btntable="month-wize" style="cursor:pointer;font-size: 15px; float: left">

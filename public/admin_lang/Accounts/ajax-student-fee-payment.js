@@ -195,6 +195,10 @@ $(document).ready(function(){
                 $(".paid_btn").attr('pr_id', pr_id);
                 $('.all_student_st').attr('st_id', all_st_id);
 
+                $('.parent-profile-btn').html(`
+                   <a href="/admin/parent-profile/${pr_id}" target="_blank">Parent Profile</a>
+                `);
+ 
 
 
                 var multi_paid_btn = 'd-none';
