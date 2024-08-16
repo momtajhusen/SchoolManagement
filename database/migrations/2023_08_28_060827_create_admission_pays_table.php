@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('admission_pays', function (Blueprint $table) {
+            $table->id();
+            $table->string("st_id",10)->nullable();
+            $table->string("admission_year",10)->nullable();
+            $table->string("admission_fee",10)->nullable();
+            $table->string("admission_pay",10)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('admission_pays');
+    }
+};

@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://unicons.iconscout.com/release/v3.0.6/css/line.css');
+
+
+.custom-wrapper {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    animation: show_custom_toast 1s ease forwards;
+    z-index: 1000;
+}
+
+@keyframes show_custom_toast {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    40% {
+        transform: translateX(10%);
+    }
+
+    80%,
+    100% {
+        transform: translateX(20px);
+    }
+}
+
+.custom-wrapper.hide {
+    animation: hide_custom_toast 1s ease forwards;
+}
+
+@keyframes hide_custom_toast {
+    0% {
+        transform: translateX(20px);
+    }
+
+    40% {
+        transform: translateX(10%);
+    }
+
+    80%,
+    100% {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-100%);
+    }
+}
+
+.custom-wrapper .custom-toast {
+    background: #fff;
+    padding: 20px 15px 20px 20px;
+    border-radius: 10px;
+    border-left: 5px solid #cc2e2e;
+    box-shadow: 1px 7px 14px -5px rgba(0, 0, 0, 0.15);
+    width: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.custom-wrapper .custom-toast.offline {
+    border-color: #ccc;
+}
+
+.custom-toast .custom-content {
+    display: flex;
+    align-items: center;
+}
+
+.custom-content .custom-icon {
+    font-size: 25px;
+    color: #fff;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    background: #cc2e2e;
+}
+
+.custom-toast.offline .custom-content .custom-icon {
+    background: #ccc;
+}
+
+.custom-content .custom-details {
+    margin-left: 15px;
+}
+
+.custom-details span {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.custom-details p {
+    color: #878787;
+}
+
+.custom-toast .custom-close-icon {
+    color: #878787;
+    font-size: 23px;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    background: #f2f2f2;
+    transition: all 0.3s ease;
+}
+
+.custom-close-icon:hover {
+    background: #efefef;
+}
