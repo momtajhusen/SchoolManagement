@@ -183,7 +183,7 @@ $(document).ready(function(){
 
                                 <div class="bill-box" id="my-element" style="background:white; width: 	148mm; height: 210mm;  overflow: hidden; ">
                                 <div style="width: 100%; height: 100%; overflow: hidden;box-sizing: border-box;position: relative;">
-                                    <img src="/storage/invoice-bg.jpg"  style="width:100%; height:100%; position:absolute;top:0px;z-index: -1;">
+                                    <img src="/storage/invoice-bg.jpg"  style="display:none;width:100%; height:100%; position:absolute;top:0px;z-index: -1;">
                                     
                                     <div style="height: 80px;width: 100%; border-bottom:1px solid black;">
                                         <div style="width:50%; height: 90%;border-radius: 0px 200px 200px 0px;float:left;">
