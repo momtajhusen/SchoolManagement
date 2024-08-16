@@ -73,7 +73,9 @@ class AccountLoginController extends Controller
         try {
             $input_username = $request->input("email");
             $input_password = $request->input("password");
-            
+
+     
+
             $user = RoleAndPermissionUsers::where('email', $input_username)->first();
             Log::info('User found in RoleAndPermissionUsers:', ['user' => $user]);
             
@@ -89,6 +91,8 @@ class AccountLoginController extends Controller
             }
             
             Log::info('User found:', ['user' => $user]);
+
+
     
             // Assuming passwords are stored in plain text
             if ($input_password === $user->password) 
@@ -121,10 +125,7 @@ class AccountLoginController extends Controller
                     $request->session()->put('user_name', $user->name);
                     
                     return response()->json(['status' => "user match",  'email_verification' => 'off', 'role_type' => $role_type]);
-                }
-
-     
-                    
+                }   
             } else {
                 return response()->json(['status' => "Incorrect password"]);
             }
@@ -136,7 +137,7 @@ class AccountLoginController extends Controller
     }
     
     
-        public function SuperAdminVerifyCode(Request $request)
+    public function ReactNativeSuperAdminVerify(Request $request)
     {
         // Validate input data
         $validatedData = $request->validate([
@@ -173,6 +174,70 @@ class AccountLoginController extends Controller
     
         // Return failure response if user is not found
         return response()->json(['status' => 'Not Verified']);
+    }
+
+    public function ReactNativeSuperAdminLogin(Request $request) 
+    {
+        try {
+            $input_username = $request->input("email");
+            $input_password = $request->input("password");
+
+     
+
+            $user = RoleAndPermissionUsers::where('email', $input_username)->first();
+            Log::info('User found in RoleAndPermissionUsers:', ['user' => $user]);
+            
+            if (!$user) {
+                Log::info('User not found in RoleAndPermissionUsers, checking DeveloperLogin table');
+                $user = DeveloperLogin::where('email', $input_username)->first();
+    
+                if (!$user) {
+                    // If user is not found in both tables
+                    Log::info('No user found for email:', ['email' => $input_username]);
+                    return response()->json(['status' => "invalid Email"]);
+                }
+            }
+            
+            Log::info('User found:', ['user' => $user]);
+
+
+    
+            // Assuming passwords are stored in plain text
+            if ($input_password === $user->password) 
+            {
+                $role_type = ($user instanceof RoleAndPermissionUsers) ? $user->role_type : 'super_admin';
+
+                if($user->email_verification == 'on')
+                {
+                    // Generate a random number between 0 and 999999
+                    $randomNumber = mt_rand(0, 999999);
+                    // Pad the number with leading zeros to ensure it has 6 digits
+                    $sixDigitRandomNumber = str_pad($randomNumber, 6, '0', STR_PAD_LEFT);
+        
+                    // Update user's record with the generated OTP
+                    $user->otp = $sixDigitRandomNumber;
+                    $user->save();
+        
+                    $details = [
+                        'title' => 'Login Verification code',
+                        'message' => $sixDigitRandomNumber,
+                    ];
+        
+                    // Send OTP to user via email
+                    if(Mail::to($user->email)->send(new OTPMail($details))){
+                        return response()->json(['status' => "user match", 'email_verification' => 'on', 'role_type' => $role_type]);
+                    }
+                } else{
+                    return response()->json(['status' => "user match",  'email_verification' => 'off', 'role_type' => $role_type]);
+                }   
+            } else {
+                return response()->json(['status' => "Incorrect password"]);
+            }
+            
+        } catch (Exception $e) {
+            $message = "An exception occurred on line " . $e->getLine() . ": " . $e->getMessage();
+            return response()->json(['status' => $message], 500);
+        }
     }
     
     public function Manuallogin(Request $request){

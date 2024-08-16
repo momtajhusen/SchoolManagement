@@ -15,28 +15,22 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::post('/register', 'App\Http\Controllers\UserController@register');
+    Route::post('/register', 'App\Http\Controllers\UserController@register');
 
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware(['auth:sanctum'])->group(function () {
-
+ 
     Route::get('/get-all-student', 'App\Http\Controllers\StudentController@index');
     
-});
+ 
 
     Route::get('/get-button-activity', 'App\Http\Controllers\VisitorLogsController@GetButtonActivity');
     Route::get('/get-page-activity', 'App\Http\Controllers\VisitorLogsController@GetPageActivity');
     
 
    //Super Admin Login 
-   Route::post('/super-admin-login', 'App\Http\Controllers\AccountLoginController@SuperAdminLogin');
-   Route::post('/super-admin-code-verify', 'App\Http\Controllers\AccountLoginController@SuperAdminVerifyCode');
+   Route::post('/super-admin-login', 'App\Http\Controllers\AccountLoginController@ReactNativeSuperAdminLogin');
+   Route::post('/super-admin-code-verify', 'App\Http\Controllers\AccountLoginController@ReactNativeSuperAdminVerify');
    Route::post('/check-login-session', 'App\Http\Controllers\AccountLoginController@CheckLoginSession');
-   
+ 
    
   Route::get('/get-all-parents', 'App\Http\Controllers\ParentsController@index');
   

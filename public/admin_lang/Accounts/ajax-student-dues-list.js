@@ -190,7 +190,7 @@ $(document).ready(function(){
                                            <img id="school_logo" src="/storage/upload_assets/school/school_logo.png" style="height:50px; margin: 15px; border:1px solid #f0f1f3;">
                                         </div>
                                         <div style="width:50%; height: 100%; display:flex; justify-content:center; align-items:center; ">
-                                            <h3 style="margin-top: 20px; font-weight: bolder;">INVOICE</h3>
+                                            <h3 style="margin-top: 20px; font-weight: bolder;">DUES INVOICE</h3>
                                         </div>
                                     </div>
                                     
