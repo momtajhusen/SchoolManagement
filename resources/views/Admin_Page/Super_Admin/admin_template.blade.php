@@ -246,7 +246,7 @@
                     <div class="header-logo w-100 d-flex align-items-center justify-content-center" style="height: 65px; background-color: #ffa801; background-image: url('https://i.gifer.com/KLMu.gif'); background-size: cover; background-repeat: no-repeat;">
                     <div class="d-flex flex-column" style="line-height: 18px">
                             <b class="text-light">SCRIPTQUBE</b>
-                            <span style="font-size: 10px;color: #bdbdbd">Momtaj Raza</span>
+                            <span style="font-size: 10px;color: #bdbdbd">Last Update</span>
                     </div>
                     </div>
                 </div>
