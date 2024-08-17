@@ -44,6 +44,7 @@ use App\Http\Controllers\UserController;
 
 // AddEmployee
  Route::post('admin/add_new_employee', 'App\Http\Controllers\EmployeeController@store');
+ Route::get('/get-all-employee', 'App\Http\Controllers\EmployeeController@GetAllemployee');
  
 //  Transport 
     Route::get('/get-all-vehicle', 'App\Http\Controllers\VehicleController@index');
