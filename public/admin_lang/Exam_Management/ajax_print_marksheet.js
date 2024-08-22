@@ -101,10 +101,6 @@ $(document).ready(function(){
                         classes = marks.class;
                         section = marks.section;
 
-
-
-
-
                       //   if (Number(marks.marks_obtained) < Number(marks.minimum_marks))
                       //   {
                       //     var check_pass = "Fail";
@@ -407,5 +403,5 @@ function print_marksheet(){
       printWindow.print();
       printWindow.close();
       $("#bill-modal-cancle").click();
-  }, 1000); // Delay for 1 second (1000 milliseconds)
+  }, 3000); // Delay for 3 second (1000 milliseconds)
 }

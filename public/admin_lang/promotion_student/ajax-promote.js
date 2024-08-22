@@ -40,8 +40,7 @@ $(document).ready(function(){
         beforeSend: function() 
         {
         // setting a timeout
-        $(".submit-btn").addClass('d-none');
-        $(".progress").removeClass('d-none');
+        $("#promotion-btn").prop("disabled", true);
         },
         // Progress 
             xhr: function(){
@@ -59,17 +58,19 @@ $(document).ready(function(){
             },
             // Success 
             success: function(response) {
+
+              console.log(response);
               
-              if (response.Promoted.length !== 0) {
+              if (response.status == 'Promoted Success') {
                 // Display success message for promoted students
                 Swal.fire({
                   title: "Student Promoted Successfully!",
-                  text: response.Promoted.length + " students have been promoted.",
+                  text: response.PromotedStudent.length + " students have been promoted.",
                   icon: "success",
                   confirmButtonText: "Great!",
                 }).then(() => {
                   // Check if there are students who were not promoted
-                  const notPromotedStudents = response.NotPromoted || [];
+                  const notPromotedStudents = response.NotPromotedStudent || [];
                   if (notPromotedStudents.length !== 0) {
                     const notPromotedNames = notPromotedStudents
                       .map(student => student.split(' ')[0]) // Extract first names
@@ -98,12 +99,15 @@ $(document).ready(function(){
                   confirmButtonText: "OK",
                 });
               }
-
             },
             error: function (xhr, status, error) 
             {
                 console.log(xhr.responseText);
             },
+            complete: function() {
+                // Re-enable the button after the request is complete
+                $("#promotion-btn").prop("disabled", false);
+            }
         });
     }
     

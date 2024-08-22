@@ -15,13 +15,6 @@ use App\Models\ExamGrade;
 use App\Models\SchoolDetails;
 use Anuzpandey\LaravelNepaliDate\LaravelNepaliDate;
 
-
-
-
-
-
-
-
 class ExamManageController extends Controller
 {
     /**
