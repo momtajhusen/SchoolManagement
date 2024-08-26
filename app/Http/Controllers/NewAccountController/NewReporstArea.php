@@ -66,8 +66,6 @@ class NewReporstArea extends Controller
                                 // $student_name .= 'st_id : '.$studentData->id.' '.'cls : '.$studentData->class.' '.$studentData->first_name . ' '.$studentData->last_name.'<br>';
                                 $student_name .=  $studentData->first_name . ' '.$studentData->last_name.'<br>';
     
-               
-            
                                 $parentData = Parents::find($studentData->parents_id);
                                 
                                 // Assuming $payment->father_name should only be set once
@@ -90,7 +88,9 @@ class NewReporstArea extends Controller
                     // Handle the case where $payment->st_id is not a string
                     // You can log an error message or handle it according to your application's logic
                 }
-                
+
+                $payment->pay_date = LaravelNepaliDate::from($payment->pay_date)->toNepaliDate();
+
                 return $payment;
             });
             

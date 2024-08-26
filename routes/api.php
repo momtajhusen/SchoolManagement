@@ -40,6 +40,8 @@ use App\Http\Controllers\UserController;
 //   Students 
   Route::get('/get-all-admit-student', 'App\Http\Controllers\SelectOption@AllAdmitStudents');
   Route::get('/get-all-student', 'App\Http\Controllers\StudentController@index');
+  Route::post('/admin/delete-student', 'App\Http\Controllers\StudentController@delete_student');
+
 
 
 // AddEmployee
